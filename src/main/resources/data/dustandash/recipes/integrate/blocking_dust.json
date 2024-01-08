@@ -1,0 +1,23 @@
+{
+  "type": "dustandash:integrate",
+  "level": 1,
+  "ingredients": [
+    {
+      "item": "minecraft:bowl"
+    },
+    {
+      "item": "dustandash:earth_dust"
+    },
+    {
+      "item": "dustandash:earth_dust"
+    },
+    {
+      "item": "dustandash:order_dust"
+    }
+  ],
+  "output" : {
+    "item": "dustandash:blocking_dust",
+    "count": 1
+  }
+
+}

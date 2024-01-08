@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "dustandash:energized_cobblestone_bucket"
+  },
+  "result": "minecraft:lava_bucket",
+  "experience": 1.0,
+  "cookingtime": 6000
+}

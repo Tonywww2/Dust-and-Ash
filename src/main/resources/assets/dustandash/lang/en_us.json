@@ -1,0 +1,40 @@
+{
+  "item.dustandash.hand_vacuum": "Hand Vacuum",
+  "item.dustandash.iron_vacuum": "Iron Vacuum",
+
+  "item.dustandash.metal_dust": "Dust of Metal",
+  "item.dustandash.life_dust": "Dust of Life",
+  "item.dustandash.order_dust": "Dust of Order",
+  "item.dustandash.fire_dust": "Dust of Fire",
+  "item.dustandash.earth_dust": "Dust of Earth",
+
+
+
+  "item.dustandash.dust_with_energy": "Energized Dust",
+
+  "item.dustandash.proton_one": "Proton",
+  "item.dustandash.proton_two": "Proton II",
+  "item.dustandash.proton_three": "Proton III",
+  "item.dustandash.neutron_one": "Neutron",
+  "item.dustandash.neutron_two": "Neutron II",
+  "item.dustandash.neutron_three": "Neutron III",
+  "item.dustandash.electron": "Electron",
+
+  "item.dustandash.energized_cobblestone_bucket": "Energized Cobblestone Bucket",
+
+  "block.dustandash.dust_source": "Dust Source",
+  "block.dustandash.dust": "Dust",
+  "block.dustandash.integrated_block": "Integrated Block",
+  "block.dustandash.energized_cobblestone": "Energized Cobblestone",
+  "block.dustandash.ash_collector": "Ash Collector",
+
+  "container.integrated_block": "Integrated Block",
+  "container.ash_collector": "Ash Collector",
+
+  "screen.dustandash.integrated_block": "Integrated Block",
+  "screen.dustandash.ash_collector": "Ash Collector",
+
+  "itemGroup.dust_tab": "Dust",
+  "itemGroup.ash_tab": "Ash"
+
+}

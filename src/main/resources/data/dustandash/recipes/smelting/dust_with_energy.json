@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "dustandash:metal_dust"
+  },
+  "result": "dustandash:dust_with_energy",
+  "experience": 0.1,
+  "cookingtime": 150
+}

@@ -1,0 +1,35 @@
+{
+  "type": "dustandash:integrate",
+  "level": 3,
+  "ingredients": [
+    {
+      "item": "minecraft:air"
+    },
+    {
+      "item": "minecraft:air"
+    },
+    {
+      "item": "dustandash:metal_dust"
+    },
+    {
+      "item": "dustandash:metal_dust"
+    },
+    {
+      "item": "dustandash:metal_dust"
+    },
+    {
+      "item": "dustandash:fire_dust"
+    },
+    {
+      "item": "dustandash:fire_dust"
+    },
+    {
+      "item": "dustandash:fire_dust"
+    }
+  ],
+  "output" : {
+    "item": "dustandash:dust_with_energy",
+    "count": 48
+  }
+
+}

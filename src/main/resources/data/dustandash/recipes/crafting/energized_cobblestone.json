@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ABA",
+    "BCB",
+    "ABA"
+  ],
+  "key": {
+    "A": {
+      "item": "dustandash:dust_with_energy"
+    },
+    "B": {
+      "tag": "forge:cobblestone"
+    },
+    "C": {
+      "item": "dustandash:metal_dust"
+    }
+  },
+  "result": {
+    "item": "dustandash:energized_cobblestone"
+  }
+}

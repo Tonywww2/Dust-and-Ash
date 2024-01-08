@@ -1,0 +1,26 @@
+{
+  "type": "dustandash:integrate",
+  "level": 0,
+  "ingredients": [
+    {
+      "item": "dustandash:order_dust"
+    },
+    {
+      "item": "dustandash:order_dust"
+    },
+    {
+      "item": "dustandash:metal_dust"
+    },
+    {
+      "item": "dustandash:metal_dust"
+    },
+    {
+      "item": "dustandash:metal_dust"
+    }
+  ],
+  "output" : {
+    "item": "minecraft:iron_nugget",
+    "count": 8
+  }
+
+}

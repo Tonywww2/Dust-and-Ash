@@ -1,0 +1,23 @@
+{
+  "type": "dustandash:integrate",
+  "level": 1,
+  "ingredients": [
+    {
+      "item": "minecraft:bowl"
+    },
+    {
+      "item": "dustandash:fire_dust"
+    },
+    {
+      "item": "dustandash:fire_dust"
+    },
+    {
+      "item": "dustandash:earth_dust"
+    }
+  ],
+  "output" : {
+    "item": "dustandash:metamorphose_dust",
+    "count": 1
+  }
+
+}

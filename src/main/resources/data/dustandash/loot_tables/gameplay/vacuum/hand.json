@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:empty",
+  "pools": [
+    {
+      "rolls": 2,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "dustandash:metal_dust",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "dustandash:order_dust",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "dustandash:earth_dust",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:empty",
+          "weight": 1
+        }
+      ]
+    }
+  ]
+}

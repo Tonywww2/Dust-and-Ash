@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing",
+  "base": {
+    "item": "minecraft:cobblestone"
+  },
+  "addition": {
+    "item": "dustandash:earth_dust"
+  },
+  "result": {
+    "item": "minecraft:gravel"
+  }
+}

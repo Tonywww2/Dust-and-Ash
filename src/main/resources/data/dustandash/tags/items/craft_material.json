@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "dustandash:metal_dust",
+    "dustandash:life_dust",
+    "dustandash:order_dust",
+    "dustandash:fire_dust",
+    "dustandash:earth_dust",
+    "minecraft:bowl"
+  ]
+
+}

@@ -1,0 +1,9 @@
+{
+  "parent": "block/cube_column",
+  "textures": {
+    "end": "dustandash:block/ash_collector_top",
+    "side": "dustandash:block/ash_collector_side"
+
+  }
+
+}

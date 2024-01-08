@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:bowl"
+    },
+    {
+      "tag": "dustandash:element_dust"
+    },
+    {
+      "tag": "dustandash:element_dust"
+    },
+        {
+      "tag": "dustandash:element_dust"
+    },
+        {
+      "tag": "dustandash:element_dust"
+    },
+        {
+      "tag": "dustandash:element_dust"
+    },
+        {
+      "tag": "dustandash:element_dust"
+    },
+        {
+      "tag": "dustandash:element_dust"
+    }
+  ],
+  "result": {
+    "item": "dustandash:bowl_with_dust",
+    "count": 1
+  }
+}

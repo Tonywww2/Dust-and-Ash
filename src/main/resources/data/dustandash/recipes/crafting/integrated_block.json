@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ABA",
+    "CDC",
+    "CEC"
+  ],
+  "key": {
+    "A": {
+      "tag": "forge:ingots/gold"
+    },
+    "B": {
+      "item": "dustandash:bowl_with_dust"
+    },
+    "C": {
+      "item": "minecraft:stone_bricks"
+    },
+    "D": {
+      "item": "minecraft:lava_bucket"
+    },
+    "E": {
+      "tag": "forge:glass"
+    }
+  },
+  "result": {
+    "item": "dustandash:integrated_block"
+  }
+}
