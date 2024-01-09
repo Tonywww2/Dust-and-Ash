@@ -21,12 +21,17 @@
   "item.dustandash.electron": "Electron",
 
   "item.dustandash.energized_cobblestone_bucket": "Energized Cobblestone Bucket",
+  "item.dustandash.ash": "Ash",
+  "item.dustandash.wood_ash": "Wood Ash",
+  "item.dustandash.ash_steel_ingot": "Ash Steel Ingot",
+  "item.dustandash.raw_ash_steel": "Raw Ash Steel",
 
   "block.dustandash.dust_source": "Dust Source",
   "block.dustandash.dust": "Dust",
   "block.dustandash.integrated_block": "Integrated Block",
   "block.dustandash.energized_cobblestone": "Energized Cobblestone",
   "block.dustandash.ash_collector": "Ash Collector",
+  "block.dustandash.log_pile": "Log Pile",
 
   "container.integrated_block": "Integrated Block",
   "container.ash_collector": "Ash Collector",

@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "dustandash:raw_ash_steel"
+  },
+  "result": {
+    "item": "dustandash:ash_steel_ingot",
+    "count": 1
+  },
+  "experience": 0.2,
+  "cookingtime": 400
+}

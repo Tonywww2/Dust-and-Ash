@@ -6,9 +6,13 @@ import com.tonywww.dustandash.item.ModItemGroup;
 import com.tonywww.dustandash.item.ModItems;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
+import net.minecraft.block.RotatedPillarBlock;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.material.MaterialColor;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.minecraft.util.Direction;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.RegistryObject;
@@ -63,6 +67,14 @@ public class ModBlocks {
                     .harvestTool(ToolType.PICKAXE)
                     .strength(2f, 8f)
             ));
+
+    public static final RegistryObject<Block> LOG_PILE = registerBlocks("log_pile",
+            () -> new Block(AbstractBlock.Properties
+                    .of(Material.WOOD)
+                    .strength(2f)
+                    .sound(SoundType.WOOD)
+            ));
+
 
     private static <T extends Block> RegistryObject<T> registerBlocks(String name, Supplier<T> block) {
         RegistryObject<T> tRegistryObject = BLOCKS.register(name, block);

@@ -189,6 +189,24 @@ public class ModItems {
                     .stacksTo(64)
             ));
 
+    public static final RegistryObject<Item> WOOD_ASH = ITEMS.register("wood_ash",
+            () -> new Item(new Item.Properties()
+                    .tab(ModItemGroup.ASH_TAB)
+                    .stacksTo(64)
+            ));
+
+    public static final RegistryObject<Item> ASH_STEEL_INGOT = ITEMS.register("ash_steel_ingot",
+            () -> new Item(new Item.Properties()
+                    .tab(ModItemGroup.ASH_TAB)
+                    .stacksTo(32)
+            ));
+
+    public static final RegistryObject<Item> RAW_ASH_STEEL = ITEMS.register("raw_ash_steel",
+            () -> new Item(new Item.Properties()
+                    .tab(ModItemGroup.ASH_TAB)
+                    .stacksTo(64)
+            ));
+
     public static void register(IEventBus eventBus) {
 
         ITEMS.register(eventBus);
