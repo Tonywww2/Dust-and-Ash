@@ -1,0 +1,9 @@
+{
+  "parent": "block/cube_column",
+  "textures": {
+    "end": "dustandash:block/log_pile_top",
+    "side": "dustandash:block/log_pile_side"
+
+  }
+
+}
