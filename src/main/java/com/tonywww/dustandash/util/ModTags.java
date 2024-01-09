@@ -31,6 +31,7 @@ public class ModTags {
 
         public static final Tags.IOptionalNamedTag<Item> CRAFT_MATERIAL = createTag("craft_material");
         public static final Tags.IOptionalNamedTag<Item> TRIGGER_MATERIAL = createTag("trigger_material");
+        public static final Tags.IOptionalNamedTag<Item> MILLING_INLAY = createTag("milling_inlay");
 
         private static Tags.IOptionalNamedTag<Item> createTag(String name){
 

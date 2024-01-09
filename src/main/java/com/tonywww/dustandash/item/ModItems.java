@@ -207,6 +207,12 @@ public class ModItems {
                     .stacksTo(64)
             ));
 
+    public static final RegistryObject<Item> IRON_SCRAP = ITEMS.register("iron_scrap",
+            () -> new Item(new Item.Properties()
+                    .tab(ModItemGroup.ASH_TAB)
+                    .stacksTo(64)
+            ));
+
     public static void register(IEventBus eventBus) {
 
         ITEMS.register(eventBus);

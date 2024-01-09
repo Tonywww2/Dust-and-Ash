@@ -20,6 +20,10 @@ public class ModTileEntities {
             TILE_ENTITIES.register("ash_collector",
                     () -> TileEntityType.Builder.of(AshCollectorTile::new, ModBlocks.ASH_COLLECTOR.get()).build(null));
 
+    public static RegistryObject<TileEntityType<MillingMachineTile>> MILLING_MACHINE_TILE =
+            TILE_ENTITIES.register("milling_machine",
+                    () -> TileEntityType.Builder.of(MillingMachineTile::new, ModBlocks.MILLING_MACHINE.get()).build(null));
+
     public static void register(IEventBus eventBus) {
         TILE_ENTITIES.register(eventBus);
 

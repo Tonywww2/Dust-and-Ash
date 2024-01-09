@@ -1,0 +1,13 @@
+{
+  "type": "dustandash:milling",
+  "step1": true,
+  "ingredients": [
+    {
+      "item": "minecraft:iron_block"
+    }
+  ],
+  "output" : {
+    "item": "dustandash:iron_scrap"
+  }
+
+}

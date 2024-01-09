@@ -1,6 +1,6 @@
 package com.tonywww.dustandash.block.custom;
 
-import com.tonywww.dustandash.tileentity.IntegratedBlockTile;
+import com.tonywww.dustandash.tileentity.MillingMachineTile;
 import com.tonywww.dustandash.tileentity.ModTileEntities;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -20,11 +20,10 @@ import net.minecraftforge.fml.network.NetworkHooks;
 import javax.annotation.Nullable;
 
 
-public class IntegratedBlock extends Block {
+public class MillingMachine extends Block {
 
-    public IntegratedBlock(Properties properties) {
+    public MillingMachine(Properties properties) {
         super(properties);
-//        this.registerDefaultState(this.defaultBlockState().setValue(LIT, Boolean.valueOf(false)));
 
     }
 
@@ -34,8 +33,8 @@ public class IntegratedBlock extends Block {
         if (!pLevel.isClientSide) {
             TileEntity tileEntity = pLevel.getBlockEntity(pPos);
 
-            if (tileEntity instanceof IntegratedBlockTile) {
-                NetworkHooks.openGui((ServerPlayerEntity) pPlayer, (IntegratedBlockTile) tileEntity, pPos);
+            if (tileEntity instanceof MillingMachineTile) {
+                NetworkHooks.openGui((ServerPlayerEntity) pPlayer, (MillingMachineTile) tileEntity, pPos);
             } else {
                 throw new IllegalStateException("Container provider is missing");
             }
@@ -48,7 +47,7 @@ public class IntegratedBlock extends Block {
     @Nullable
     @Override
     public TileEntity createTileEntity(BlockState state, IBlockReader world) {
-        return ModTileEntities.INTEGRATED_BLOCK_TILE.get().create();
+        return ModTileEntities.MILLING_MACHINE_TILE.get().create();
     }
 
     @Override
@@ -61,12 +60,12 @@ public class IntegratedBlock extends Block {
     public void onRemove(BlockState pState, World pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving) {
         if (!pState.is(pNewState.getBlock())) {
             TileEntity tileentity = pLevel.getBlockEntity(pPos);
-            if (tileentity instanceof IntegratedBlockTile) {
-                IntegratedBlockTile tile = (IntegratedBlockTile) tileentity;
-                Inventory inv = new Inventory(tile.itemStackHandler.getSlots());
+            if (tileentity instanceof MillingMachineTile) {
+                MillingMachineTile tile = (MillingMachineTile) tileentity;
+                Inventory inv = new Inventory(tile.inputItemStackHandler.getSlots());
 
-                for (int i = 0; i < tile.itemStackHandler.getSlots(); i++) {
-                    inv.setItem(i, tile.itemStackHandler.getStackInSlot(i));
+                for (int i = 0; i < tile.inputItemStackHandler.getSlots() - 1; i++) {
+                    inv.setItem(i, tile.inputItemStackHandler.getStackInSlot(i));
 
                 }
                 InventoryHelper.dropContents(pLevel, pPos, inv);

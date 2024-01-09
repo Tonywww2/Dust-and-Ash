@@ -68,6 +68,13 @@ public class ModBlocks {
                     .strength(2f, 8f)
             ));
 
+    public static final RegistryObject<Block> MILLING_MACHINE = registerBlocks("milling_machine",
+            () -> new MillingMachine(AbstractBlock.Properties
+                    .of(Material.STONE)
+                    .harvestTool(ToolType.PICKAXE)
+                    .strength(2f, 8f)
+            ));
+
     public static final RegistryObject<Block> LOG_PILE = registerBlocks("log_pile",
             () -> new Block(AbstractBlock.Properties
                     .of(Material.WOOD)

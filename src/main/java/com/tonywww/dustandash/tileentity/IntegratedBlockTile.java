@@ -178,26 +178,21 @@ public class IntegratedBlockTile extends TileEntity implements INamedContainerPr
                 getArea(getBlockPos());
                 List<ItemEntity> items = getLevel().getEntitiesOfClass(ItemEntity.class, area, VALID_ITEM_ENTITY);
                 for (ItemEntity item : items) {
-                    if (ModTags.Items.TRIGGER_MATERIAL.contains(item.getItem().getItem())) {
-                        // if it's a trigger
+                    for (int i = 0; i < this.itemStackHandler.getSlots(); i++) {
+                        if (this.itemStackHandler.getStackInSlot(i).getCount() == 0) {
+                            this.itemStackHandler.insertItem(i, item.getItem().copy(), false);
+                            item.getItem().setCount(item.getItem().getCount() - 1);
+                            getLevel().playSound(null, getBlockPos(), SoundEvents.CHICKEN_HURT, SoundCategory.BLOCKS, 0.25f, 1f);
 
-                    } else {
-                        for (int i = 0; i < this.itemStackHandler.getSlots(); i++) {
-                            if (this.itemStackHandler.getStackInSlot(i).getCount() == 0) {
-                                this.itemStackHandler.insertItem(i, item.getItem().copy(), false);
-                                item.getItem().setCount(item.getItem().getCount() - 1);
-                                getLevel().playSound(null, getBlockPos(), SoundEvents.CHICKEN_HURT, SoundCategory.BLOCKS, 0.25f, 1f);
-
-                            }
-
-                            if (item.getItem().getCount() == 0) {
-                                break;
-                            }
                         }
 
+                        if (item.getItem().getCount() == 0) {
+                            break;
+                        }
                     }
 
                 }
+
 
             }
         }

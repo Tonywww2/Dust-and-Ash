@@ -16,9 +16,13 @@ public class ModRecipeTypes {
         RECIPE_SERIALIZER.register(eventBus);
 
         Registry.register(Registry.RECIPE_TYPE, IntegratedBlockRecipe.TYPE_ID, INTEGRATE_RECIPE);
+        Registry.register(Registry.RECIPE_TYPE, MillingMachineRecipe.TYPE_ID, MILLING_RECIPE);
     }
 
     public static final RegistryObject<IntegratedBlockRecipe.Serializer> INTEGRATE_SERIALIZER = RECIPE_SERIALIZER.register("integrate", IntegratedBlockRecipe.Serializer::new);
 
     public static IRecipeType<IntegratedBlockRecipe> INTEGRATE_RECIPE = new IntegratedBlockRecipe.IntegrateRecipeType();
+    public static final RegistryObject<MillingMachineRecipe.Serializer> MILLING_SERIALIZER = RECIPE_SERIALIZER.register("milling", MillingMachineRecipe.Serializer::new);
+    public static IRecipeType<MillingMachineRecipe> MILLING_RECIPE = new MillingMachineRecipe.MillingRecipeType();
+
 }
