@@ -4,6 +4,7 @@ import com.tonywww.dustandash.DustAndAsh;
 import com.tonywww.dustandash.block.ModBlocks;
 import com.tonywww.dustandash.container.IntegratedBlockContainer;
 import com.tonywww.dustandash.data.recipes.IntegratedBlockRecipe;
+import com.tonywww.dustandash.data.recipes.MillingMachineRecipe;
 import com.tonywww.dustandash.screen.IntegratedBlockScreen;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
@@ -29,7 +30,9 @@ public class DustAndAshJei implements IModPlugin {
     @Override
     public void registerCategories(IRecipeCategoryRegistration registration) {
         registration.addRecipeCategories(
-                new IntegratedBlockRecipeCategory(registration.getJeiHelpers().getGuiHelper())
+                new IntegratedBlockRecipeCategory(registration.getJeiHelpers().getGuiHelper()),
+                new MillingRecipeCategory(registration.getJeiHelpers().getGuiHelper())
+
         );
     }
 
@@ -40,6 +43,11 @@ public class DustAndAshJei implements IModPlugin {
                 .filter(r -> r instanceof IntegratedBlockRecipe).collect(Collectors.toList()),
                 IntegratedBlockRecipeCategory.UID
         );
+
+        registration.addRecipes(rm.getRecipes().stream()
+                        .filter(r -> r instanceof MillingMachineRecipe).collect(Collectors.toList()),
+                MillingRecipeCategory.UID
+        );
     }
 
     @Override
@@ -48,6 +56,12 @@ public class DustAndAshJei implements IModPlugin {
                 new ItemStack(ModBlocks.INTEGRATED_BLOCK.get()),
                 IntegratedBlockRecipeCategory.UID
         );
+
+        registration.addRecipeCatalyst(
+                new ItemStack(ModBlocks.MILLING_MACHINE.get()),
+                MillingRecipeCategory.UID
+        );
+
     }
 
     @Override

@@ -38,12 +38,16 @@ public class MillingMachineScreen extends ContainerScreen<MillingMachineContaine
 
         this.blit(pMatrixStack, i, j, 0, 0, 175, 173);
 
-        if (true) {
+        if (!this.menu.isWorkSpaceEmpty()) {
             // Render workspace
             this.blit(pMatrixStack, i + 71, j + 3, 0, 173, 97, 82);
 
-
         }
+
+    }
+
+    @Override
+    protected void renderLabels(MatrixStack pMatrixStack, int pX, int pY) {
 
     }
 }

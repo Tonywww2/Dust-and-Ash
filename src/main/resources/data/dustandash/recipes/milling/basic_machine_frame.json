@@ -1,0 +1,45 @@
+{
+  "type": "dustandash:milling",
+  "step1": false,
+  "pattern": [
+    "#####",
+    " AAAE",
+    " BCDE",
+    " AAAE",
+    "#####"
+  ],
+  "key": {
+    "catalyst":
+    {
+      "item": "dustandash:pure_energy"
+    },
+    "#":
+    {
+      "item": "dustandash:iron_scrap"
+    },
+    "A":
+    {
+      "item": "dustandash:ash_steel_ingot"
+    },
+    "B":
+    {
+      "item": "minecraft:redstone_torch"
+    },
+    "C":
+    {
+      "item": "minecraft:repeater"
+    },
+    "D":
+    {
+      "item": "minecraft:comparator"
+    },
+    "E":
+    {
+      "item": "minecraft:glass_pane"
+    }
+  },
+  "output" : {
+    "item": "dustandash:basic_machine_frame"
+  }
+
+}

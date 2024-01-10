@@ -2,16 +2,16 @@
   "type": "dustandash:milling",
   "step1": false,
   "pattern": [
-    "#####",
-    "#####",
-    "#####",
-    "#####",
-    " ### "
+    "# # #",
+    " ### ",
+    "## ##",
+    " ### ",
+    "# # #"
   ],
   "key": {
     "catalyst":
     {
-      "item": "minecraft:iron_ingot"
+      "item": "dustandash:lacerate_dust"
     },
     "#":
     {
@@ -19,7 +19,8 @@
     }
   },
   "output" : {
-    "item": "minecraft:iron_pickaxe"
+    "item": "dustandash:iron_gear",
+    "count": 1
   }
 
 }

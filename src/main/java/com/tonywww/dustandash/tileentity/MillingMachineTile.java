@@ -156,18 +156,6 @@ public class MillingMachineTile extends TileEntity implements INamedContainerPro
         return super.getCapability(cap, side);
     }
 
-//    @Nonnull
-//    public <T> LazyOptional<T> getCapabilityWorkPlace(@Nonnull Capability<T> cap, @Nullable Direction side) {
-//        if (!this.remove && cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-//            if (side == null) {
-//                return this.workPlaceHandler.cast();
-//
-//            }
-//        }
-//        return super.getCapability(cap, side);
-//    }
-
-
     @Override
     public ITextComponent getDisplayName() {
         return new TranslationTextComponent("screen.dustandash.milling_machine");
@@ -230,7 +218,7 @@ public class MillingMachineTile extends TileEntity implements INamedContainerPro
 
     }
 
-    private boolean isWorkPlaceEmpty() {
+    public boolean isWorkPlaceEmpty() {
         for (int i = 3; i <= 27; i++) {
             if (inputItemStackHandler.getStackInSlot(i).getCount() > 0) {
                 return false;

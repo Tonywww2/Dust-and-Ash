@@ -8,10 +8,6 @@
   "item.dustandash.fire_dust": "Dust of Fire",
   "item.dustandash.earth_dust": "Dust of Earth",
 
-
-
-  "item.dustandash.dust_with_energy": "Energized Dust",
-
   "item.dustandash.proton_one": "Proton",
   "item.dustandash.proton_two": "Proton II",
   "item.dustandash.proton_three": "Proton III",
@@ -20,24 +16,35 @@
   "item.dustandash.neutron_three": "Neutron III",
   "item.dustandash.electron": "Electron",
 
+  "item.dustandash.dust_with_energy": "Energized Dust",
+  "item.dustandash.pure_energy": "Pure Energy",
+
   "item.dustandash.energized_cobblestone_bucket": "Energized Cobblestone Bucket",
   "item.dustandash.ash": "Ash",
   "item.dustandash.wood_ash": "Wood Ash",
   "item.dustandash.ash_steel_ingot": "Ash Steel Ingot",
   "item.dustandash.raw_ash_steel": "Raw Ash Steel",
+  "item.dustandash.basic_machine_frame": "Basic Machine Frame",
+  "item.dustandash.bowl_with_dust": "Bowl with Dust",
+  "item.dustandash.iron_gear": "Iron Gear",
+
+  "item.dustandash.iron_scrap": "Scrap",
 
   "block.dustandash.dust_source": "Dust Source",
   "block.dustandash.dust": "Dust",
   "block.dustandash.integrated_block": "Integrated Block",
   "block.dustandash.energized_cobblestone": "Energized Cobblestone",
   "block.dustandash.ash_collector": "Ash Collector",
+  "block.dustandash.milling_machine": "Milling Machine",
   "block.dustandash.log_pile": "Log Pile",
 
   "container.integrated_block": "Integrated Block",
   "container.ash_collector": "Ash Collector",
+  "container.milling_machine": "Milling Machine",
 
   "screen.dustandash.integrated_block": "Integrated Block",
   "screen.dustandash.ash_collector": "Ash Collector",
+  "screen.dustandash.milling_machine": "Milling Machine",
 
   "itemGroup.dust_tab": "Dust",
   "itemGroup.ash_tab": "Ash"

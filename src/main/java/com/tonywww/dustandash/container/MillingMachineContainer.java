@@ -39,12 +39,22 @@ public class MillingMachineContainer extends Container {
                 addSlot(new SlotItemHandler(h, 1, 28, 38));
                 addSlot(new SlotItemHandler(h, 2, 28, 66));
 
-                for (int i = 1; i <= 5; i++) {
-                    for (int j = 1; j <= 5; j++) {
-                        addSlot(new SlotItemHandler(h, (5 * i) + j - 3, 71 + (16 * j), (16 * i) - 12));
+//                if (!tileEntity.isWorkPlaceEmpty()) {
+                    for (int i = 1; i <= 5; i++) {
+                        for (int j = 1; j <= 5; j++) {
+                            addSlot(new SlotItemHandler(h, (5 * i) + j - 3, 71 + (16 * j), (16 * i) - 12));
 
+                        }
                     }
-                }
+
+//                } else {
+//                    for (int i = 3; i <= 27; i++) {
+//                        addSlot(new SlotItemHandler(h, i, -256, 256));
+//
+//                    }
+//
+//                }
+
 
             });
 
@@ -53,13 +63,9 @@ public class MillingMachineContainer extends Container {
 
     }
 
-//    @Override
-//    public void slotsChanged(IInventory pInventory) {
-//        if (!tileEntity.getLevel().isClientSide) {
-//            this.tileEntity.craft();
-//
-//        }
-//    }
+    public boolean isWorkSpaceEmpty() {
+        return tileEntity.isWorkPlaceEmpty();
+    }
 
     private int addSlotRange(IItemHandler handler, int index, int x, int y, int amount, int dx) {
         for (int i = 0; i < amount; i++) {

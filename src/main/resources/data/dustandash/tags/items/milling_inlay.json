@@ -1,7 +1,13 @@
 {
   "replace": false,
   "values": [
-    "minecraft:iron_nugget"
+    "minecraft:iron_nugget",
+    "minecraft:glass_pane",
+    "minecraft:comparator",
+    "minecraft:repeater",
+    "minecraft:redstone_torch",
+    "dustandash:ash_steel_ingot"
+
   ]
 
 }

@@ -213,6 +213,25 @@ public class ModItems {
                     .stacksTo(64)
             ));
 
+    public static final RegistryObject<Item> PURE_ENERGY = ITEMS.register("pure_energy",
+            () -> new Item(new Item.Properties()
+                    .tab(ModItemGroup.ASH_TAB)
+                    .stacksTo(64)
+            ));
+
+    public static final RegistryObject<Item> BASIC_MACHINE_FRAME = ITEMS.register("basic_machine_frame",
+            () -> new Item(new Item.Properties()
+                    .tab(ModItemGroup.ASH_TAB)
+                    .stacksTo(2)
+            ));
+
+    public static final RegistryObject<Item> IRON_GEAR = ITEMS.register("iron_gear",
+            () -> new Item(new Item.Properties()
+                    .tab(ModItemGroup.ASH_TAB)
+                    .stacksTo(32)
+            ));
+
+
     public static void register(IEventBus eventBus) {
 
         ITEMS.register(eventBus);
