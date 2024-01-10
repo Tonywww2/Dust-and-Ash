@@ -1,14 +1,23 @@
 {
   "type": "dustandash:milling",
   "step1": false,
-  "ingredients": [
-    {"item": "minecraft:iron_ingot"},
-    {"item": "dustandash:iron_scrap"}, {"item": "dustandash:iron_scrap"}, {"item": "dustandash:iron_scrap"}, {"item": "dustandash:iron_scrap"}, {"item": "dustandash:iron_scrap"}, 
-    {"item": "dustandash:iron_scrap"}, {"item": "dustandash:iron_scrap"}, {"item": "dustandash:iron_scrap"}, {"item": "dustandash:iron_scrap"}, {"item": "dustandash:iron_scrap"}, 
-    {"item": "minecraft:air"}, {"item": "minecraft:air"}, {"item": "dustandash:iron_scrap"}, {"item": "minecraft:air"}, {"item": "minecraft:air"}, 
-    {"item": "minecraft:air"}, {"item": "minecraft:air"}, {"item": "dustandash:iron_scrap"}, {"item": "minecraft:air"}, {"item": "minecraft:air"}, 
-    {"item": "minecraft:air"}, {"item": "minecraft:air"}, {"item": "dustandash:iron_scrap"}, {"item": "minecraft:air"}, {"item": "minecraft:air"}
+  "pattern": [
+    "#####",
+    "#####",
+    "#####",
+    "#####",
+    " ### "
   ],
+  "key": {
+    "catalyst":
+    {
+      "item": "minecraft:iron_ingot"
+    },
+    "#":
+    {
+      "item": "dustandash:iron_scrap"
+    }
+  },
   "output" : {
     "item": "minecraft:iron_pickaxe"
   }

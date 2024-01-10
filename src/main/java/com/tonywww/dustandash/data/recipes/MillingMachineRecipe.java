@@ -1,12 +1,9 @@
 package com.tonywww.dustandash.data.recipes;
 
-import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
 import com.google.gson.*;
 import com.tonywww.dustandash.block.ModBlocks;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.IRecipeSerializer;
@@ -17,13 +14,11 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import javax.annotation.Nullable;
 import java.util.Map;
-import java.util.Set;
 
 public class MillingMachineRecipe implements IMillingMachineRecipe {
 
@@ -37,6 +32,8 @@ public class MillingMachineRecipe implements IMillingMachineRecipe {
     public static final int MAX_SLOTS = 26;
     public static final int MAX_HEIGHT = 5;
     public static final int MAX_WIDTH = 5;
+
+    public static String CATALYST = "catalyst";
 
     public MillingMachineRecipe(ResourceLocation id, ItemStack output, NonNullList<Ingredient> recipeItems, boolean isStep1) {
         this.id = id;
@@ -57,17 +54,19 @@ public class MillingMachineRecipe implements IMillingMachineRecipe {
 
     @Override
     public boolean matches(IInventory inv, World pLevel) {
-        // step1 only check index 0
+        // step1 only check slot 0
         if (isStep1 && isWorkPlaceEmpty(inv)) {
             ItemStack itemStack = inv.getItem(0);
             return recipeItems.get(0).test(itemStack);
 
         } else {
             // otherwise
+            // check slot 1
             if (!recipeItems.get(0).test(inv.getItem(1))) {
                 return false;
             }
 
+            // check workspace
             for (int i = 1; i < MAX_SLOTS; i++) {
                 ItemStack itemStack = inv.getItem(i + 2);
                 if (!recipeItems.get(i).test(itemStack)) {
@@ -128,160 +127,62 @@ public class MillingMachineRecipe implements IMillingMachineRecipe {
         public MillingMachineRecipe fromJson(ResourceLocation pRecipeId, JsonObject json) {
             ItemStack output = ShapedRecipe.itemFromJson(JSONUtils.getAsJsonObject(json, "output"));
 
-            JsonArray ingredients = JSONUtils.getAsJsonArray(json, "ingredients");
+//            JsonArray ingredients = JSONUtils.getAsJsonArray(json, "ingredients");
             boolean step1 = JSONUtils.getAsBoolean(json, "step1");
-            NonNullList<Ingredient> inputs = NonNullList.withSize(MAX_SLOTS, Ingredient.EMPTY);;
+            NonNullList<Ingredient> inputs = NonNullList.withSize(MAX_SLOTS, Ingredient.EMPTY);
 
             if (step1) {
+                JsonArray ingredients = JSONUtils.getAsJsonArray(json, "ingredients");
                 Ingredient temp = Ingredient.fromJson(ingredients.get(0));
                 inputs.set(0, temp);
 
             } else {
-//                Map<String, Ingredient> map = keyFromJson(JSONUtils.getAsJsonObject(json, "key"));
-//                String[] astring = shrink(patternFromJson(JSONUtils.getAsJsonArray(json, "pattern")));
-//
-//                int i = astring[0].length();
-//                int j = astring.length;
+                Map<String, Ingredient> map = keyFromJson(JSONUtils.getAsJsonObject(json, "key"));
+                JsonArray jArray = JSONUtils.getAsJsonArray(json, "pattern");
 
-//                inputs = dissolvePattern(astring, map, i, j);
+                String[] astring = new String[jArray.size()];
+                for(int i = 0; i < astring.length; ++i) {
+                    astring[i] = JSONUtils.convertToString(jArray.get(i), "pattern[" + i + "]");
 
-                for (int i = 0; i < ingredients.size(); i++) {
-                    Ingredient temp = Ingredient.fromJson(ingredients.get(i));
-                    if (temp.getItems()[0].getItem() != Items.AIR) {
-                        inputs.set(i, temp);
+                }
+
+                inputs.set(0, map.get(CATALYST));
+
+                for (int i = 0; i < 5; i++) {
+                    String temp = astring[i];
+                    for (int j = 0; j < 5; j++) {
+                        // 1 - 25
+                        Ingredient ig = map.get(temp.substring(j, j + 1));
+
+                        if (ig == null) {
+                            throw new JsonSyntaxException("Pattern references symbol '" + temp + "' but it's not defined in the key");
+                        }
+
+                        inputs.set((i * 5) + j + 1, ig);
 
                     }
 
                 }
 
             }
-
-
             return new MillingMachineRecipe(pRecipeId, output, inputs, step1);
-        }
-
-        private static String[] patternFromJson(JsonArray pPatternArray) {
-            String[] astring = new String[pPatternArray.size()];
-            if (astring.length > MAX_HEIGHT) {
-                throw new JsonSyntaxException("Invalid pattern: too many rows, " + MAX_HEIGHT + " is maximum");
-            } else if (astring.length == 0) {
-                throw new JsonSyntaxException("Invalid pattern: empty pattern not allowed");
-            } else {
-                for (int i = 0; i < astring.length; ++i) {
-                    String s = JSONUtils.convertToString(pPatternArray.get(i), "pattern[" + i + "]");
-                    if (s.length() > MAX_WIDTH) {
-                        throw new JsonSyntaxException("Invalid pattern: too many columns, " + MAX_WIDTH + " is maximum");
-                    }
-
-                    if (i > 0 && astring[0].length() != s.length()) {
-                        throw new JsonSyntaxException("Invalid pattern: each row must be the same width");
-                    }
-
-                    astring[i] = s;
-                }
-
-                return astring;
-            }
         }
 
         /**
          * Returns a key json object as a Java HashMap.
          */
-        private static Map<String, Ingredient> keyFromJson(JsonObject pKeyEntry) {
+        private static Map<String, Ingredient> keyFromJson(JsonObject json) {
             Map<String, Ingredient> map = Maps.newHashMap();
 
-            for (Map.Entry<String, JsonElement> entry : pKeyEntry.entrySet()) {
-                if (entry.getKey().length() != 1) {
-                    throw new JsonSyntaxException("Invalid key entry: '" + (String) entry.getKey() + "' is an invalid symbol (must be 1 character only).");
-                }
-
-                if (" ".equals(entry.getKey())) {
-                    throw new JsonSyntaxException("Invalid key entry: ' ' is a reserved symbol.");
-                }
-
+            for (Map.Entry<String, JsonElement> entry : json.entrySet()) {
                 map.put(entry.getKey(), Ingredient.fromJson(entry.getValue()));
+
             }
 
             map.put(" ", Ingredient.EMPTY);
             return map;
         }
 
-        private static NonNullList<Ingredient> dissolvePattern(String[] pPattern, Map<String, Ingredient> pKeys, int pPatternWidth, int pPatternHeight) {
-            NonNullList<Ingredient> nonnulllist = NonNullList.withSize(pPatternWidth * pPatternHeight, Ingredient.EMPTY);
-            Set<String> set = Sets.newHashSet(pKeys.keySet());
-            set.remove(" ");
-
-            for(int i = 0; i < pPattern.length; ++i) {
-                for(int j = 0; j < pPattern[i].length(); ++j) {
-                    String s = pPattern[i].substring(j, j + 1);
-                    Ingredient ingredient = pKeys.get(s);
-                    if (ingredient == null) {
-                        throw new JsonSyntaxException("Pattern references symbol '" + s + "' but it's not defined in the key");
-                    }
-
-                    set.remove(s);
-                    nonnulllist.set(j + pPatternWidth * i, ingredient);
-                }
-            }
-
-            if (!set.isEmpty()) {
-                throw new JsonSyntaxException("Key defines symbols that aren't used in pattern: " + set);
-            } else {
-                return nonnulllist;
-            }
-        }
-
-        @VisibleForTesting
-        static String[] shrink(String... pToShrink) {
-            int i = Integer.MAX_VALUE;
-            int j = 0;
-            int k = 0;
-            int l = 0;
-
-            for(int i1 = 0; i1 < pToShrink.length; ++i1) {
-                String s = pToShrink[i1];
-                i = Math.min(i, firstNonSpace(s));
-                int j1 = lastNonSpace(s);
-                j = Math.max(j, j1);
-                if (j1 < 0) {
-                    if (k == i1) {
-                        ++k;
-                    }
-
-                    ++l;
-                } else {
-                    l = 0;
-                }
-            }
-
-            if (pToShrink.length == l) {
-                return new String[0];
-            } else {
-                String[] astring = new String[pToShrink.length - l - k];
-
-                for(int k1 = 0; k1 < astring.length; ++k1) {
-                    astring[k1] = pToShrink[k1 + k].substring(i, j + 1);
-                }
-
-                return astring;
-            }
-        }
-
-        private static int firstNonSpace(String pEntry) {
-            int i;
-            for(i = 0; i < pEntry.length() && pEntry.charAt(i) == ' '; ++i) {
-            }
-
-            return i;
-        }
-
-        private static int lastNonSpace(String pEntry) {
-            int i;
-            for(i = pEntry.length() - 1; i >= 0 && pEntry.charAt(i) == ' '; --i) {
-            }
-
-            return i;
-        }
 
         @Nullable
         @Override
