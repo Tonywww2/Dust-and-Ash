@@ -1,6 +1,7 @@
 {
   "item.dustandash.hand_vacuum": "Hand Vacuum",
   "item.dustandash.iron_vacuum": "Iron Vacuum",
+  "item.dustandash.sharpen_flint": "Sharpen Flint",
 
   "item.dustandash.metal_dust": "Dust of Metal",
   "item.dustandash.life_dust": "Dust of Life",
@@ -27,8 +28,13 @@
   "item.dustandash.basic_machine_frame": "Basic Machine Frame",
   "item.dustandash.bowl_with_dust": "Bowl with Dust",
   "item.dustandash.iron_gear": "Iron Gear",
+  "item.dustandash.redstone_gear": "Redstone Gear",
+  "item.dustandash.ash_steel_gear": "Ash Steel Gear",
+  "item.dustandash.bloody_flint": "Bloody Flint",
 
   "item.dustandash.iron_scrap": "Scrap",
+  "item.dustandash.redstone_scrap": "Scrap",
+  "item.dustandash.ash_steel_scrap": "Scrap",
 
   "block.dustandash.dust_source": "Dust Source",
   "block.dustandash.dust": "Dust",
@@ -45,6 +51,8 @@
   "screen.dustandash.integrated_block": "Integrated Block",
   "screen.dustandash.ash_collector": "Ash Collector",
   "screen.dustandash.milling_machine": "Milling Machine",
+
+  "death.attack.sharpen_flint" : "%1$s's blood ran dry",
 
   "itemGroup.dust_tab": "Dust",
   "itemGroup.ash_tab": "Ash"

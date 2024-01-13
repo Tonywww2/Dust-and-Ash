@@ -1,0 +1,35 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "#D#",
+        "OPA",
+        "#IW"
+    ],
+    "key": {
+        "#": {
+            "item": "dustandash:order_dust"
+        },
+        "D": {
+            "item": "dustandash:absorb_dust"
+        },
+        "O": {
+            "item": "dustandash:inherit_dust"
+        },
+        "P": {
+            "item": "minecraft:purple_dye"
+        },
+        "A": {
+            "item": "dustandash:metamorphose_dust"
+        },
+        "I": {
+            "item": "dustandash:reproduce_dust"
+        },
+        "W": {
+            "item": "dustandash:life_dust"
+        }
+    },
+    "result": {
+        "item": "minecraft:bubble_coral_block",
+        "count": 1
+    }
+}

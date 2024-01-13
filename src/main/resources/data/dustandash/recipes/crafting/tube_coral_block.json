@@ -1,0 +1,35 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "#D#",
+        "UBG",
+        "#JH"
+    ],
+    "key": {
+        "#": {
+            "item": "dustandash:order_dust"
+        },
+        "D": {
+            "item": "dustandash:absorb_dust"
+        },
+        "U": {
+            "item": "dustandash:inherit_dust"
+        },
+        "B": {
+            "item": "minecraft:blue_dye"
+        },
+        "G": {
+            "item": "dustandash:metamorphose_dust"
+        },
+        "J": {
+            "item": "dustandash:reproduce_dust"
+        },
+        "H": {
+            "item": "dustandash:life_dust"
+        }
+    },
+    "result": {
+        "item": "minecraft:tube_coral_block",
+        "count": 1
+    }
+}

@@ -1,0 +1,20 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        " # ",
+        "#B#",
+        " # "
+    ],
+    "key": {
+        "#": {
+            "item": "dustandash:metamorphose_dust"
+        },
+        "B": {
+            "item": "minecraft:birch_sapling"
+        }
+    },
+    "result": {
+        "item": "minecraft:jungle_sapling",
+        "count": 1
+    }
+}

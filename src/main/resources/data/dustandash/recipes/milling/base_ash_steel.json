@@ -1,0 +1,13 @@
+{
+  "type": "dustandash:milling",
+  "step1": true,
+  "ingredients": [
+    {
+      "item": "dustandash:ash_steel_ingot"
+    }
+  ],
+  "output" : {
+    "item": "dustandash:ash_steel_scrap"
+  }
+
+}

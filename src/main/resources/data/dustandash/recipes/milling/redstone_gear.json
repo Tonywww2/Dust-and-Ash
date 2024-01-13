@@ -1,0 +1,26 @@
+{
+  "type": "dustandash:milling",
+  "step1": false,
+  "pattern": [
+    "# # #",
+    " ### ",
+    "## ##",
+    " ### ",
+    "# # #"
+  ],
+  "key": {
+    "catalyst":
+    {
+      "item": "dustandash:lacerate_dust"
+    },
+    "#":
+    {
+      "item": "dustandash:redstone_scrap"
+    }
+  },
+  "output" : {
+    "item": "dustandash:redstone_gear",
+    "count": 1
+  }
+
+}

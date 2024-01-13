@@ -1,0 +1,29 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "#DM",
+        "D/D",
+        "VDV"
+    ],
+    "key": {
+        "#": {
+            "item": "dustandash:reproduce_dust"
+        },
+        "D": {
+            "item": "dustandash:life_dust"
+        },
+        "M": {
+            "item": "dustandash:absorb_dust"
+        },
+        "/": {
+            "item": "minecraft:stick"
+        },
+        "V": {
+            "item": "dustandash:order_dust"
+        }
+    },
+    "result": {
+        "item": "minecraft:sugar_cane",
+        "count": 1
+    }
+}

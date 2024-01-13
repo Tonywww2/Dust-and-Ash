@@ -1,0 +1,35 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "#D#",
+        "OYC",
+        "#NQ"
+    ],
+    "key": {
+        "#": {
+            "item": "dustandash:order_dust"
+        },
+        "D": {
+            "item": "dustandash:absorb_dust"
+        },
+        "O": {
+            "item": "dustandash:inherit_dust"
+        },
+        "Y": {
+            "item": "minecraft:yellow_dye"
+        },
+        "C": {
+            "item": "dustandash:metamorphose_dust"
+        },
+        "N": {
+            "item": "dustandash:reproduce_dust"
+        },
+        "Q": {
+            "item": "dustandash:life_dust"
+        }
+    },
+    "result": {
+        "item": "minecraft:horn_coral_block",
+        "count": 1
+    }
+}

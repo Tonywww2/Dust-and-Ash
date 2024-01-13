@@ -1,0 +1,29 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "#DG",
+        "X/X",
+        "XDX"
+    ],
+    "key": {
+        "#": {
+            "item": "dustandash:reproduce_dust"
+        },
+        "D": {
+            "item": "dustandash:life_dust"
+        },
+        "G": {
+            "item": "dustandash:absorb_dust"
+        },
+        "X": {
+            "item": "dustandash:order_dust"
+        },
+        "/": {
+            "item": "minecraft:stick"
+        }
+    },
+    "result": {
+        "item": "minecraft:bamboo",
+        "count": 1
+    }
+}

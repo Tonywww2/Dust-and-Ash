@@ -19,7 +19,7 @@
       "item": "minecraft:stick"
     },
     "F": {
-      "tag": "minecraft:logs"
+      "item": "dustandash:bloody_flint"
     }
   },
   "result": {

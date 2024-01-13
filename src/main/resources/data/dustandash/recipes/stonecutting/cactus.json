@@ -1,0 +1,35 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "#D#",
+        "CSC",
+        "JAU"
+    ],
+    "key": {
+        "#": {
+            "item": "dustandash:life_dust"
+        },
+        "D": {
+            "item": "dustandash:fire_dust"
+        },
+        "C": {
+            "item": "dustandash:lacerate_dust"
+        },
+        "S": {
+            "item": "minecraft:sugar_cane"
+        },
+        "J": {
+            "item": "dustandash:reproduce_dust"
+        },
+        "A": {
+            "item": "dustandash:absorb_dust"
+        },
+        "U": {
+            "item": "dustandash:seep_dust"
+        }
+    },
+    "result": {
+        "item": "minecraft:cactus",
+        "count": 1
+    }
+}
