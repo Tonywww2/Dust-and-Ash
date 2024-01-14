@@ -7,7 +7,7 @@
   ],
   "key": {
     "A": {
-      "item": "minecraft:stick"
+      "tag": "forge:rods/wooden"
     },
     "B": {
       "tag": "minecraft:logs_that_burn"

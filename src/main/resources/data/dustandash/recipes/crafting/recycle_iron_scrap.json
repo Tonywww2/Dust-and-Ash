@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "dustandash:iron_scrap"
+    },
+    {
+      "item": "dustandash:iron_scrap"
+    },
+    {
+      "item": "dustandash:iron_scrap"
+    },
+    {
+      "item": "dustandash:crystallize_dust"
+    }
+  ],
+  "result": {
+    "item": "minecraft:iron_ingot",
+    "count": 1
+  }
+}

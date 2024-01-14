@@ -64,8 +64,11 @@ public class MillingMachine extends Block {
                 MillingMachineTile tile = (MillingMachineTile) tileentity;
                 Inventory inv = new Inventory(tile.inputItemStackHandler.getSlots());
 
-                for (int i = 0; i < tile.inputItemStackHandler.getSlots() - 1; i++) {
-                    inv.setItem(i, tile.inputItemStackHandler.getStackInSlot(i));
+                inv.setItem(0, tile.inputItemStackHandler.getStackInSlot(0));
+                inv.setItem(1, tile.inputItemStackHandler.getStackInSlot(1));
+
+                for (int i = 3; i < tile.inputItemStackHandler.getSlots(); i++) {
+                    inv.setItem(i - 1, tile.inputItemStackHandler.getStackInSlot(i));
 
                 }
                 InventoryHelper.dropContents(pLevel, pPos, inv);

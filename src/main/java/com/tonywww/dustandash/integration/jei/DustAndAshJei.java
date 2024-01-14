@@ -6,6 +6,7 @@ import com.tonywww.dustandash.container.IntegratedBlockContainer;
 import com.tonywww.dustandash.data.recipes.IntegratedBlockRecipe;
 import com.tonywww.dustandash.data.recipes.MillingMachineRecipe;
 import com.tonywww.dustandash.screen.IntegratedBlockScreen;
+import com.tonywww.dustandash.screen.MillingMachineScreen;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.registration.*;
@@ -67,6 +68,7 @@ public class DustAndAshJei implements IModPlugin {
     @Override
     public void registerGuiHandlers(IGuiHandlerRegistration registration) {
         registration.addRecipeClickArea(IntegratedBlockScreen.class, 80, 9, 16, 16, IntegratedBlockRecipeCategory.UID);
+        registration.addRecipeClickArea(MillingMachineScreen.class, 50, 12, 15, 11, MillingRecipeCategory.UID);
     }
     @Override
     public void registerRecipeTransferHandlers(IRecipeTransferRegistration registration) {

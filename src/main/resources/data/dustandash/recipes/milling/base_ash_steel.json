@@ -3,7 +3,7 @@
   "step1": true,
   "ingredients": [
     {
-      "item": "dustandash:ash_steel_ingot"
+      "item": "dustandash:block_of_ash_steel"
     }
   ],
   "output" : {

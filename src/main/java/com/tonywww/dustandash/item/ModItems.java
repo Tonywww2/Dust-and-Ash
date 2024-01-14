@@ -5,7 +5,8 @@ import com.tonywww.dustandash.item.custom.EnergizedCobblestoneBucket;
 import com.tonywww.dustandash.item.custom.HandVacuum;
 import com.tonywww.dustandash.item.custom.IronVacuum;
 import com.tonywww.dustandash.item.custom.SharpenFlint;
-import net.minecraft.item.Item;
+import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.item.*;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
@@ -36,6 +37,67 @@ public class ModItems {
                     .tab(ModItemGroup.DUST_TAB)
                     .stacksTo(64)
             ));
+
+    public static final RegistryObject<Item> FLINT_PICKAXE = ITEMS.register("flint_pickaxe",
+            () -> new PickaxeItem(ModItemTier.FLINT, 4, -2.4F,
+                    (new Item.Properties())
+                            .tab(ModItemGroup.DUST_TAB)
+            ));
+
+    public static final RegistryObject<Item> ASH_STEEL_BOOTS = ITEMS.register("ash_steel_boots",
+            () -> new ArmorItem(ModArmorMaterial.ASH_STEEL, EquipmentSlotType.FEET,
+                    new Item.Properties()
+                            .tab(ModItemGroup.DUST_TAB)
+            ));
+
+    public static final RegistryObject<Item> ASH_STEEL_CHESTPLATE = ITEMS.register("ash_steel_chestplate",
+            () -> new ArmorItem(ModArmorMaterial.ASH_STEEL, EquipmentSlotType.CHEST,
+                    new Item.Properties()
+                            .tab(ModItemGroup.DUST_TAB)
+            ));
+
+    public static final RegistryObject<Item> ASH_STEEL_LEGGING = ITEMS.register("ash_steel_leggings",
+            () -> new ArmorItem(ModArmorMaterial.ASH_STEEL, EquipmentSlotType.LEGS,
+                    new Item.Properties()
+                            .tab(ModItemGroup.DUST_TAB)
+            ));
+
+    public static final RegistryObject<Item> ASH_STEEL_HELMET = ITEMS.register("ash_steel_helmet",
+            () -> new ArmorItem(ModArmorMaterial.ASH_STEEL, EquipmentSlotType.HEAD,
+                    new Item.Properties()
+                            .tab(ModItemGroup.DUST_TAB)
+            ));
+
+    public static final RegistryObject<Item> ASH_STEEL_SWORD = ITEMS.register("ash_steel_sword",
+            () -> new SwordItem(ModItemTier.ASH_STEEL, 3, -2.2F,
+                    (new Item.Properties())
+                            .tab(ModItemGroup.DUST_TAB)
+            ));
+
+    public static final RegistryObject<Item> ASH_STEEL_SHOVEL = ITEMS.register("ash_steel_shovel",
+            () -> new ShovelItem(ModItemTier.ASH_STEEL, 1.5F, -2.8F,
+                    (new Item.Properties())
+                            .tab(ModItemGroup.DUST_TAB)
+            ));
+
+    public static final RegistryObject<Item> ASH_STEEL_PICKAXE = ITEMS.register("ash_steel_pickaxe",
+            () -> new PickaxeItem(ModItemTier.ASH_STEEL, 1, -2.8F,
+                    (new Item.Properties())
+                            .tab(ModItemGroup.DUST_TAB)
+            ));
+
+    public static final RegistryObject<Item> ASH_STEEL_AXE = ITEMS.register("ash_steel_axe",
+            () -> new AxeItem(ModItemTier.ASH_STEEL, 5.5F, -2.9F,
+                    (new Item.Properties())
+                            .tab(ModItemGroup.DUST_TAB)
+            ));
+
+    public static final RegistryObject<Item> ASH_STEEL_HOE = ITEMS.register("ash_steel_hoe",
+            () -> new HoeItem(ModItemTier.ASH_STEEL, -2, -0.8F,
+                    (new Item.Properties())
+                            .tab(ModItemGroup.DUST_TAB)
+            ));
+
 
     //materials
     public static final RegistryObject<Item> BLOODY_FLINT = ITEMS.register("bloody_flint",
@@ -232,6 +294,23 @@ public class ModItems {
             () -> new Item(new Item.Properties()
                     .tab(ModItemGroup.ASH_TAB)
                     .stacksTo(64)
+            ));
+    public static final RegistryObject<Item> BLOODY_FLINT_STICK = ITEMS.register("bloody_flint_stick",
+            () -> new Item(new Item.Properties()
+                    .tab(ModItemGroup.DUST_TAB)
+                    .stacksTo(64)
+            ));
+
+    public static final RegistryObject<Item> TITANIUM_INGOT = ITEMS.register("titanium_ingot",
+            () -> new Item(new Item.Properties()
+                    .tab(ModItemGroup.DUST_TAB)
+                    .stacksTo(64)
+            ));
+
+    public static final RegistryObject<Item> WOODEN_TOOL_HANDLE = ITEMS.register("wooden_tool_handle",
+            () -> new Item(new Item.Properties()
+                    .tab(ModItemGroup.DUST_TAB)
+                    .stacksTo(4)
             ));
 
 

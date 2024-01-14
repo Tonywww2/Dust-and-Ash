@@ -13,7 +13,7 @@
             "item": "dustandash:reproduce_dust"
         },
         "/": {
-            "item": "minecraft:stick"
+            "tag": "forge:rods/wooden"
         },
         "J": {
             "item": "dustandash:absorb_dust"

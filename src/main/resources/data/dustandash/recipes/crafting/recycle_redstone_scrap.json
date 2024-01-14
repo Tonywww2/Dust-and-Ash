@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "dustandash:redstone_scrap"
+    },
+    {
+      "item": "dustandash:redstone_scrap"
+    },
+    {
+      "item": "dustandash:redstone_scrap"
+    },
+    {
+      "item": "dustandash:redstone_scrap"
+    },
+    {
+      "item": "dustandash:redstone_scrap"
+    },
+    {
+      "item": "dustandash:redstone_scrap"
+    },
+    {
+      "item": "dustandash:crystallize_dust"
+    }
+  ],
+  "result": {
+    "item": "minecraft:redstone",
+    "count": 2
+  }
+}

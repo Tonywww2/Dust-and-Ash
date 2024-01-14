@@ -24,7 +24,6 @@ public class IntegratedBlock extends Block {
 
     public IntegratedBlock(Properties properties) {
         super(properties);
-//        this.registerDefaultState(this.defaultBlockState().setValue(LIT, Boolean.valueOf(false)));
 
     }
 
