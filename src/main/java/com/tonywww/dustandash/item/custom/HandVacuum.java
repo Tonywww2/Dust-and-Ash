@@ -1,7 +1,6 @@
 package com.tonywww.dustandash.item.custom;
 
 import com.tonywww.dustandash.block.ModBlocks;
-import com.tonywww.dustandash.item.ModItems;
 import com.tonywww.dustandash.loottables.ModLootTables;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;

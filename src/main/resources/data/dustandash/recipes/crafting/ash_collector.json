@@ -1,0 +1,26 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "###",
+        "SHS",
+        "S_S"
+    ],
+    "key": {
+        "#": {
+            "item": "minecraft:iron_bars"
+        },
+        "S": {
+            "item": "minecraft:stone_bricks"
+        },
+        "H": {
+            "item": "minecraft:hopper"
+        },
+        "_": {
+            "item": "minecraft:smooth_stone_slab"
+        }
+    },
+    "result": {
+        "item": "dustandash:ash_collector",
+        "count": 1
+    }
+}

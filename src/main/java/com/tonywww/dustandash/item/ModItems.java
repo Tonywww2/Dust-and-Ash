@@ -6,6 +6,9 @@ import com.tonywww.dustandash.item.custom.HandVacuum;
 import com.tonywww.dustandash.item.custom.IronVacuum;
 import com.tonywww.dustandash.item.custom.SharpenFlint;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemTier;
+import net.minecraft.item.PickaxeItem;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
@@ -35,6 +38,13 @@ public class ModItems {
             () -> new SharpenFlint(new Item.Properties()
                     .tab(ModItemGroup.DUST_TAB)
                     .stacksTo(64)
+            ));
+
+    public static final RegistryObject<Item> FLINT_PICKAXE = ITEMS.register("flint_pickaxe",
+            () -> new PickaxeItem(ItemTier.WOOD, 4, -2.4F,
+                    (new Item.Properties())
+                            .tab(ModItemGroup.DUST_TAB)
+                            .durability(24)
             ));
 
     //materials
@@ -231,6 +241,11 @@ public class ModItems {
     public static final RegistryObject<Item> ASH_STEEL_SCRAP = ITEMS.register("ash_steel_scrap",
             () -> new Item(new Item.Properties()
                     .tab(ModItemGroup.ASH_TAB)
+                    .stacksTo(64)
+            ));
+    public static final RegistryObject<Item> BLOODY_FLINT_STICK = ITEMS.register("bloody_flint_stick",
+            () -> new Item(new Item.Properties()
+                    .tab(ModItemGroup.DUST_TAB)
                     .stacksTo(64)
             ));
 

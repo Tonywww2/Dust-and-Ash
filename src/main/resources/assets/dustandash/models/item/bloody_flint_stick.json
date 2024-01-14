@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "dustandash:item/bloody_flint_stick"
+  }
+}

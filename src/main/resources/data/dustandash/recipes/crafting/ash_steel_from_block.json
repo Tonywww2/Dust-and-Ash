@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "dustandash:block_of_ash_steel"
+    }
+  ],
+  "result": {
+    "item": "dustandash:ash_steel_ingot",
+    "count": 9
+  }
+}

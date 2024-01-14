@@ -82,6 +82,13 @@ public class ModBlocks {
                     .sound(SoundType.WOOD)
             ));
 
+    public static final RegistryObject<Block> BLOCK_OF_ASH_STEEL = registerBlocks("block_of_ash_steel",
+            () -> new Block(AbstractBlock.Properties
+                    .of(Material.WOOD)
+                    .strength(2f)
+                    .sound(SoundType.WOOD)
+            ));
+
 
     private static <T extends Block> RegistryObject<T> registerBlocks(String name, Supplier<T> block) {
         RegistryObject<T> tRegistryObject = BLOCKS.register(name, block);

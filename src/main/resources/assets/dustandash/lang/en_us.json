@@ -2,6 +2,7 @@
   "item.dustandash.hand_vacuum": "Hand Vacuum",
   "item.dustandash.iron_vacuum": "Iron Vacuum",
   "item.dustandash.sharpen_flint": "Sharpen Flint",
+  "item.dustandash.flint_pickaxe": "Flint Pickaxe",
 
   "item.dustandash.metal_dust": "Dust of Metal",
   "item.dustandash.life_dust": "Dust of Life",
@@ -31,6 +32,7 @@
   "item.dustandash.redstone_gear": "Redstone Gear",
   "item.dustandash.ash_steel_gear": "Ash Steel Gear",
   "item.dustandash.bloody_flint": "Bloody Flint",
+  "item.dustandash.bloody_flint_stick": "Bloody Flint Stick",
 
   "item.dustandash.iron_scrap": "Scrap",
   "item.dustandash.redstone_scrap": "Scrap",
@@ -43,6 +45,7 @@
   "block.dustandash.ash_collector": "Ash Collector",
   "block.dustandash.milling_machine": "Milling Machine",
   "block.dustandash.log_pile": "Log Pile",
+  "block.dustandash.block_of_ash_steel": "Block of Ash Steel",
 
   "container.integrated_block": "Integrated Block",
   "container.ash_collector": "Ash Collector",

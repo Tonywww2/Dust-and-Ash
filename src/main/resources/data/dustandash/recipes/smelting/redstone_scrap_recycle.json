@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "dustandash:redstone_scrap",
+    "count" : 3
+  },
+  "result": "minecraft:redstone",
+  "experience": 0.1,
+  "cookingtime": 200
+}
