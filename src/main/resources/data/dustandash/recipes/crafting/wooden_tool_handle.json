@@ -1,0 +1,29 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "#/D",
+        "/H/",
+        "F/#"
+    ],
+    "key": {
+        "#": {
+            "item": "minecraft:string"
+        },
+        "/": {
+            "tag": "forge:rods/wooden"
+        },
+        "D": {
+            "item": "dustandash:absorb_dust"
+        },
+        "H": {
+            "item": "dustandash:ash_steel_ingot"
+        },
+        "F": {
+            "item": "dustandash:pure_energy"
+        }
+    },
+    "result": {
+        "item": "dustandash:wooden_tool_handle",
+        "count": 2
+    }
+}

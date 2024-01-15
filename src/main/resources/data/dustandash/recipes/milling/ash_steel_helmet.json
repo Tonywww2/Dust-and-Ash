@@ -1,0 +1,38 @@
+{
+  "type": "dustandash:milling",
+  "step1": false,
+  "pattern": [
+    "#####",
+    "#####",
+    "##B##",
+    "##A##",
+    "CCACC "
+  ],
+  "key": {
+    "catalyst":
+    {
+      "item": "dustandash:lacerate_dust"
+    },
+    "#":
+    {
+      "item": "dustandash:ash_steel_scrap"
+    },
+    "A":
+    {
+      "item": "minecraft:string"
+    },
+    "B":
+    {
+      "item": "dustandash:crystallize_dust"
+    },
+    "C":
+    {
+      "item": "dustandash:blocking_dust"
+    }
+  },
+  "output" : {
+    "item": "dustandash:ash_steel_helmet",
+    "count": 1
+  }
+
+}

@@ -1,0 +1,46 @@
+{
+  "type": "dustandash:milling",
+  "step1": false,
+  "pattern": [
+    "CEC##",
+    "EA###",
+    "C###B",
+    "###AE",
+    "D#BEB"
+  ],
+  "key": {
+    "catalyst":
+    {
+      "item": "dustandash:wooden_tool_handle"
+    },
+    "#":
+    {
+      "item": "dustandash:ash_steel_scrap"
+    },
+    "A":
+    {
+      "item": "dustandash:lacerate_dust"
+    },
+    "B":
+    {
+      "item": "dustandash:crystallize_dust"
+    },
+    "C":
+    {
+      "item": "dustandash:smelt_dust"
+    },
+    "D":
+    {
+      "item": "dustandash:absorb_dust"
+    },
+    "E":
+    {
+      "item": "dustandash:order_dust"
+    }
+  },
+  "output" : {
+    "item": "dustandash:ash_steel_sword",
+    "count": 1
+  }
+
+}
