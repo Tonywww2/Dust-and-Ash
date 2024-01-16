@@ -1,0 +1,32 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "#R#",
+        "DGD",
+        "IPI"
+    ],
+    "key": {
+        "#": {
+            "item": "dustandash:metamorphose_dust"
+        },
+        "R": {
+            "item": "minecraft:red_dye"
+        },
+        "D": {
+            "item": "dustandash:reproduce_dust"
+        },
+        "G": {
+            "item": "minecraft:grass"
+        },
+        "I": {
+            "item": "dustandash:earth_dust"
+        },
+        "P": {
+            "item": "dustandash:absorb_dust"
+        }
+    },
+    "result": {
+        "item": "minecraft:red_mushroom",
+        "count": 1
+    }
+}

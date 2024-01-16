@@ -122,7 +122,7 @@ public class AshCollectorTile extends TileEntity implements INamedContainerProvi
 
     @Override
     public void tick() {
-        float chance = 0.002f;
+        float chance = 0.001f;
         if (this.level != null && !this.level.isClientSide) {
             suckInItem();
 

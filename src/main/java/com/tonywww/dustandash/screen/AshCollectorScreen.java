@@ -36,5 +36,11 @@ public class AshCollectorScreen extends ContainerScreen<AshCollectorContainer> {
         int j = this.topPos;
         this.blit(pMatrixStack, i, j, 0, 0, this.imageWidth, this.imageHeight + 2);
 
+        if (menu.shouldWork()) {
+            this.blit(pMatrixStack, i + 75, j + 5, 176, 0, 26, 21);
+
+
+        }
+
     }
 }

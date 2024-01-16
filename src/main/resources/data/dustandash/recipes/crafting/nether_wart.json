@@ -1,0 +1,32 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "#D#",
+        "XRX",
+        "ISI"
+    ],
+    "key": {
+        "#": {
+            "item": "dustandash:reproduce_dust"
+        },
+        "D": {
+            "item": "dustandash:smelt_dust"
+        },
+        "X": {
+            "item": "dustandash:absorb_dust"
+        },
+        "R": {
+            "item": "minecraft:red_mushroom"
+        },
+        "I": {
+            "item": "dustandash:metamorphose_dust"
+        },
+        "S": {
+            "item": "minecraft:soul_sand"
+        }
+    },
+    "result": {
+        "item": "minecraft:nether_wart",
+        "count": 1
+    }
+}

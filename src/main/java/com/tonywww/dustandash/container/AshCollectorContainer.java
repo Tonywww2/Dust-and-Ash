@@ -2,6 +2,7 @@ package com.tonywww.dustandash.container;
 
 import com.tonywww.dustandash.block.ModBlocks;
 import com.tonywww.dustandash.tileentity.AshCollectorTile;
+import com.tonywww.dustandash.tileentity.IntegratedBlockTile;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
@@ -74,6 +75,10 @@ public class AshCollectorContainer extends Container {
                                  final PacketBuffer data) {
         this(id, playerInventory, getTileEntity(playerInventory, data));
 
+    }
+
+    public boolean shouldWork() {
+        return ((AshCollectorTile) tileEntity).shouldWork();
     }
 
     private static AshCollectorTile getTileEntity(final PlayerInventory playerInventory, final PacketBuffer data) {

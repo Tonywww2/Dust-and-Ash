@@ -2,7 +2,10 @@
   "replace": false,
   "values": [
     "#dustandash:element_dust",
-    "minecraft:bowl"
+    "minecraft:bowl",
+    "dustandash:bowl_with_dust",
+    "dustandash:dust_with_energy",
+    "dustandash:ash"
   ]
 
 }

@@ -1,0 +1,35 @@
+{
+  "type": "dustandash:integrate",
+  "level": 0,
+  "ingredients": [
+    {
+      "item": "dustandash:bowl_with_dust"
+    },
+    {
+      "item": "dustandash:dust_with_energy"
+    },
+    {
+      "item": "dustandash:ash"
+    },
+    {
+      "item": "dustandash:ash"
+    },
+    {
+      "item": "dustandash:ash"
+    },
+    {
+      "item": "dustandash:ash"
+    },
+    {
+      "item": "dustandash:ash"
+    },
+    {
+      "item": "dustandash:ash"
+    }
+  ],
+  "output" : {
+    "item": "dustandash:dust",
+    "count": 5
+  }
+
+}
