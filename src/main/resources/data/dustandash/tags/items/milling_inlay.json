@@ -2,14 +2,15 @@
   "replace": false,
   "values": [
     "#dustandash:element_dust",
+    "#forge:gears",
     "minecraft:iron_nugget",
     "minecraft:glass_pane",
     "minecraft:comparator",
     "minecraft:repeater",
     "minecraft:string",
     "minecraft:redstone_torch",
-    "dustandash:ash_steel_ingot"
-
+    "dustandash:ash_steel_ingot",
+    "dustandash:basic_machine_frame"
   ]
 
 }

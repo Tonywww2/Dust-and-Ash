@@ -39,7 +39,6 @@ public class AshCollectorScreen extends ContainerScreen<AshCollectorContainer> {
         if (menu.shouldWork()) {
             this.blit(pMatrixStack, i + 75, j + 5, 176, 0, 26, 21);
 
-
         }
 
     }

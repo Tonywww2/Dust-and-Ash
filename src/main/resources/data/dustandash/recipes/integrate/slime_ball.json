@@ -1,0 +1,26 @@
+{
+  "type": "dustandash:integrate",
+  "level": 2,
+  "ingredients": [
+    {
+      "item": "minecraft:honey_bottle"
+    },
+    {
+      "item": "dustandash:ash"
+    },
+    {
+      "item": "dustandash:ash"
+    },
+    {
+      "item": "minecraft:lime_dye"
+    },
+    {
+      "item": "dustandash:absorb_dust"
+    }
+  ],
+  "output" : {
+    "item": "minecraft:slime_ball",
+    "count": 2
+  }
+
+}

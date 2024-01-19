@@ -1,14 +1,11 @@
 package com.tonywww.dustandash.tileentity;
 
-import com.tonywww.dustandash.container.IntegratedBlockContainer;
 import com.tonywww.dustandash.container.MillingMachineContainer;
-import com.tonywww.dustandash.data.recipes.IntegratedBlockRecipe;
 import com.tonywww.dustandash.data.recipes.MillingMachineRecipe;
 import com.tonywww.dustandash.data.recipes.ModRecipeTypes;
+import com.tonywww.dustandash.util.IItemStackHandler;
 import com.tonywww.dustandash.util.ModTags;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
@@ -16,37 +13,25 @@ import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.tileentity.BeaconTileEntity;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.items.ItemStackHandler;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.List;
 import java.util.Optional;
-import java.util.function.Predicate;
 
 public class MillingMachineTile extends TileEntity implements INamedContainerProvider, ITickableTileEntity {
 
-    protected AxisAlignedBB area;
-    public int radius = 1;
-
-    public final ItemStackHandler inputItemStackHandler = createInputsHandler();
-    //    public final ItemStackHandler workPlaceItemStackHandler = createWorkPlaceHandler();
-    private final LazyOptional<ItemStackHandler> inputHandler = LazyOptional.of(() -> inputItemStackHandler);
-//    private final LazyOptional<ItemStackHandler> workPlaceHandler = LazyOptional.of(() -> workPlaceItemStackHandler);
+    public IItemStackHandler inputItemStackHandler = createInputsHandler();
+    private final LazyOptional<IItemStackHandler> handler = LazyOptional.of(() -> inputItemStackHandler);
 
     public MillingMachineTile(TileEntityType<?> tileEntityType) {
         super(tileEntityType);
@@ -54,10 +39,10 @@ public class MillingMachineTile extends TileEntity implements INamedContainerPro
 
     // 0: input 1
     // 1: input 2
-    // 2: result
+    // 2: output
     // 3-27: workplace
-    private ItemStackHandler createInputsHandler() {
-        return new ItemStackHandler(28) {
+    private IItemStackHandler createInputsHandler() {
+        return new IItemStackHandler(28) {
             @Override
             protected void onContentsChanged(int slot) {
                 setChanged();
@@ -96,36 +81,6 @@ public class MillingMachineTile extends TileEntity implements INamedContainerPro
         };
     }
 
-    private ItemStackHandler createWorkPlaceHandler() {
-        return new ItemStackHandler(25) {
-            @Override
-            protected void onContentsChanged(int slot) {
-                setChanged();
-            }
-
-            @Override
-            public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
-                return ModTags.Items.MILLING_INLAY.contains(stack.getItem());
-            }
-
-            @Override
-            public int getSlotLimit(int slot) {
-                return 1;
-            }
-
-            @Nonnull
-            @Override
-            public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {
-
-                if (!isItemValid(slot, stack)) {
-                    return stack;
-                }
-
-                return super.insertItem(slot, stack, simulate);
-            }
-        };
-    }
-
     public MillingMachineTile() {
         this(ModTileEntities.MILLING_MACHINE_TILE.get());
     }
@@ -149,9 +104,10 @@ public class MillingMachineTile extends TileEntity implements INamedContainerPro
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
         if (!this.remove && cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
             if (side == null) {
-                return this.inputHandler.cast();
+                return this.handler.cast();
 
             }
+
         }
         return super.getCapability(cap, side);
     }
@@ -171,10 +127,13 @@ public class MillingMachineTile extends TileEntity implements INamedContainerPro
     public void tick() {
         if (!this.getLevel().isClientSide) {
             craft();
+
         }
 
 
     }
+
+
 
     public void craft() {
         Inventory inv = new Inventory(inputItemStackHandler.getSlots());
@@ -190,13 +149,13 @@ public class MillingMachineTile extends TileEntity implements INamedContainerPro
 
             if (iRecipe.isStep1()) {
 //                if (isWorkPlaceEmpty()) {
-                    // Step1 option
-                    inputItemStackHandler.extractItem(0, 1, false);
-                    ItemStack temp = new ItemStack(output.getItem(), 1);
-                    for (int i = 3; i <= 27; i++) {
-                        inputItemStackHandler.setStackInSlot(i, temp.copy());
+                // Step1 option
+                inputItemStackHandler.extractItem(0, 1, false);
+                ItemStack temp = new ItemStack(output.getItem(), 1);
+                for (int i = 3; i <= 27; i++) {
+                    inputItemStackHandler.setStackInSlot(i, temp.copy());
 
-                    }
+                }
 
 //                }
 

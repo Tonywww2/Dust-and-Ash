@@ -313,6 +313,12 @@ public class ModItems {
                     .stacksTo(4)
             ));
 
+    public static final RegistryObject<Item> GEAR_BOX = ITEMS.register("gear_box",
+            () -> new Item(new Item.Properties()
+                    .tab(ModItemGroup.ASH_TAB)
+                    .stacksTo(2)
+            ));
+
 
     public static void register(IEventBus eventBus) {
 

@@ -1,6 +1,6 @@
 {
   "type": "dustandash:integrate",
-  "level": 0,
+  "level": 2,
   "ingredients": [
     {
       "item": "dustandash:bowl_with_dust"

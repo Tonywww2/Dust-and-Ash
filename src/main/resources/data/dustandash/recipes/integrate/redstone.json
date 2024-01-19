@@ -1,0 +1,26 @@
+{
+  "type": "dustandash:integrate",
+  "level": 1,
+  "ingredients": [
+    {
+      "item": "dustandash:fire_dust"
+    },
+    {
+      "item": "dustandash:order_dust"
+    },
+    {
+      "item": "dustandash:ash"
+    },
+    {
+      "item": "dustandash:dust_with_energy"
+    },
+    {
+      "item": "dustandash:ash"
+    }
+  ],
+  "output" : {
+    "item": "minecraft:redstone",
+    "count": 3
+  }
+
+}

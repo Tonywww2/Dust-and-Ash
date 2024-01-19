@@ -1,0 +1,50 @@
+{
+  "type": "dustandash:milling",
+  "step1": false,
+  "pattern": [
+    "#C#A#",
+    "BEDB#",
+    "#DFD#",
+    "ACDAC",
+    "###B#"
+  ],
+  "key": {
+    "catalyst":
+    {
+      "item": "minecraft:ender_pearl"
+    },
+    "#":
+    {
+      "item": "dustandash:ash_steel_scrap"
+    },
+    "A":
+    {
+      "item": "dustandash:iron_gear"
+    },
+    "B":
+    {
+      "item": "dustandash:redstone_gear"
+    },
+    "C":
+    {
+      "item": "dustandash:ash_steel_gear"
+    },
+    "D":
+    {
+      "item": "dustandash:ash_steel_ingot"
+    },
+    "E":
+    {
+      "item": "minecraft:redstone_torch"
+    },
+    "F":
+    {
+      "item": "dustandash:basic_machine_frame"
+    }
+  },
+  "output" : {
+    "item": "dustandash:gear_box",
+    "count": 1
+  }
+
+}

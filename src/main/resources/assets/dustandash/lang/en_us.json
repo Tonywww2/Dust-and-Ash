@@ -20,6 +20,17 @@
   "item.dustandash.fire_dust": "Dust of Fire",
   "item.dustandash.earth_dust": "Dust of Earth",
 
+  "item.dustandash.reproduce_dust": "Dust of Reproduce",
+  "item.dustandash.inherit_dust": "Dust of Inherit",
+  "item.dustandash.metamorphose_dust": "Dust of Metamorphose",
+  "item.dustandash.crystallize_dust": "Dust of Crystallize",
+  "item.dustandash.seep_dust": "Dust of Seep",
+  "item.dustandash.extinguish_dust": "Dust of Extinguish",
+  "item.dustandash.absorb_dust": "Dust of Absorb",
+  "item.dustandash.smelt_dust": "Dust of Smelt",
+  "item.dustandash.blocking_dust": "Dust of Blocking",
+  "item.dustandash.lacerate_dust": "Dust of Lacerate",
+
   "item.dustandash.proton_one": "Proton",
   "item.dustandash.proton_two": "Proton II",
   "item.dustandash.proton_three": "Proton III",
@@ -44,6 +55,7 @@
   "item.dustandash.bloody_flint": "Bloody Flint",
   "item.dustandash.bloody_flint_stick": "Bloody Flint Stick",
   "item.dustandash.wooden_tool_handle": "Wooden Tool Handle",
+  "item.dustandash.gear_box": "Gear Box",
 
   "item.dustandash.iron_scrap": "Scrap",
   "item.dustandash.redstone_scrap": "Scrap",

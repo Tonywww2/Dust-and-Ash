@@ -1,0 +1,32 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "#SD",
+        "JEB",
+        "#SD"
+    ],
+    "key": {
+        "#": {
+            "item": "dustandash:absorb_dust"
+        },
+        "S": {
+            "item": "minecraft:sugar"
+        },
+        "D": {
+            "item": "dustandash:reproduce_dust"
+        },
+        "J": {
+            "item": "minecraft:jungle_leaves"
+        },
+        "E": {
+            "item": "dustandash:metamorphose_dust"
+        },
+        "B": {
+            "item": "minecraft:black_dye"
+        }
+    },
+    "result": {
+        "item": "minecraft:cocoa_beans",
+        "count": 1
+    }
+}

@@ -1,0 +1,18 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+        {
+            "item": "minecraft:grass_block"
+        },
+        {
+            "tag": "forge:mushrooms"
+        },
+        {
+            "item": "dustandash:metamorphose_dust"
+        }
+    ],
+    "result": {
+        "item": "minecraft:mycelium",
+        "count": 1
+    }
+}

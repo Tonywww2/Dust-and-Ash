@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing",
+  "base": {
+    "item": "minecraft:netherrack"
+  },
+  "addition": {
+    "item": "dustandash:extinguish_dust"
+  },
+  "result": {
+    "item": "minecraft:end_stone"
+  }
+}

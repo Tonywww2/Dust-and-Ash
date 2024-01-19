@@ -3,6 +3,9 @@
   "values": [
     "#dustandash:element_dust",
     "minecraft:bowl",
+    "minecraft:honey_bottle",
+    "minecraft:charcoal",
+    "minecraft:redstone",
     "dustandash:bowl_with_dust",
     "dustandash:dust_with_energy",
     "dustandash:ash"

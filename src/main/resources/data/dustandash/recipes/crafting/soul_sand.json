@@ -1,0 +1,18 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+        {
+            "tag": "forge:sand"
+        },
+        {
+            "item": "dustandash:metamorphose_dust"
+        },
+        {
+            "item": "dustandash:smelt_dust"
+        }
+    ],
+    "result": {
+        "item": "minecraft:soul_sand",
+        "count": 1
+    }
+}

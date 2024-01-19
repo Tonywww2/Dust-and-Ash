@@ -1,0 +1,20 @@
+{
+  "type": "dustandash:integrate",
+  "level": 2,
+  "ingredients": [
+    {
+      "item": "minecraft:redstone"
+    },
+    {
+      "item": "minecraft:redstone"
+    },
+    {
+      "item": "dustandash:metamorphose_dust"
+    }
+  ],
+  "output" : {
+    "item": "minecraft:glowstone_dust",
+    "count": 1
+  }
+
+}
