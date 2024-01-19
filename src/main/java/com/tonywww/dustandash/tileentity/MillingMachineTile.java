@@ -1,9 +1,9 @@
 package com.tonywww.dustandash.tileentity;
 
 import com.tonywww.dustandash.container.MillingMachineContainer;
+import com.tonywww.dustandash.container.MillingMachineItemHandler;
 import com.tonywww.dustandash.data.recipes.MillingMachineRecipe;
 import com.tonywww.dustandash.data.recipes.ModRecipeTypes;
-import com.tonywww.dustandash.util.IItemStackHandler;
 import com.tonywww.dustandash.util.ModTags;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
@@ -17,12 +17,12 @@ import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
-import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.ItemStackHandler;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -30,19 +30,28 @@ import java.util.Optional;
 
 public class MillingMachineTile extends TileEntity implements INamedContainerProvider, ITickableTileEntity {
 
-    public IItemStackHandler inputItemStackHandler = createInputsHandler();
-    private final LazyOptional<IItemStackHandler> handler = LazyOptional.of(() -> inputItemStackHandler);
+    public ItemStackHandler inputItemStackHandler;
+    private final LazyOptional<ItemStackHandler> handler;
+    private final LazyOptional<MillingMachineItemHandler> inputHandler;
+    private final LazyOptional<MillingMachineItemHandler> outputHandler;
 
     public MillingMachineTile(TileEntityType<?> tileEntityType) {
         super(tileEntityType);
+
+        this.inputItemStackHandler = createInputsHandler();
+
+        this.handler = LazyOptional.of(() -> inputItemStackHandler);
+        this.inputHandler = LazyOptional.of(() -> new MillingMachineItemHandler(inputItemStackHandler, Direction.UP));
+        this.outputHandler = LazyOptional.of(() -> new MillingMachineItemHandler(inputItemStackHandler, Direction.DOWN));
+
     }
 
     // 0: input 1
     // 1: input 2
     // 2: output
     // 3-27: workplace
-    private IItemStackHandler createInputsHandler() {
-        return new IItemStackHandler(28) {
+    private ItemStackHandler createInputsHandler() {
+        return new ItemStackHandler(28) {
             @Override
             protected void onContentsChanged(int slot) {
                 setChanged();
@@ -53,7 +62,6 @@ public class MillingMachineTile extends TileEntity implements INamedContainerPro
                 if (slot == 2) {
                     return false;
                 } else if (slot > 2) {
-//                    return false;
                     return ModTags.Items.MILLING_INLAY.contains(stack.getItem());
 
                 }
@@ -68,16 +76,7 @@ public class MillingMachineTile extends TileEntity implements INamedContainerPro
                 return 64;
             }
 
-            @Nonnull
-            @Override
-            public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {
 
-                if (!isItemValid(slot, stack)) {
-                    return stack;
-                }
-
-                return super.insertItem(slot, stack, simulate);
-            }
         };
     }
 
@@ -105,7 +104,12 @@ public class MillingMachineTile extends TileEntity implements INamedContainerPro
         if (!this.remove && cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
             if (side == null) {
                 return this.handler.cast();
-
+            }
+            if (side == Direction.UP) {
+                return this.inputHandler.cast();
+            }
+            if (side == Direction.DOWN) {
+                return this.outputHandler.cast();
             }
 
         }
@@ -132,7 +136,6 @@ public class MillingMachineTile extends TileEntity implements INamedContainerPro
 
 
     }
-
 
 
     public void craft() {

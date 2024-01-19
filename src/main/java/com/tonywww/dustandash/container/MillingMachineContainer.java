@@ -10,6 +10,7 @@ import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.Direction;
 import net.minecraft.util.IWorldPosCallable;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
@@ -39,23 +40,12 @@ public class MillingMachineContainer extends Container {
                 addSlot(new SlotItemHandler(h, 1, 28, 38));
                 addSlot(new SlotItemHandler(h, 2, 28, 66));
 
-//                if (!tileEntity.isWorkPlaceEmpty()) {
                     for (int i = 1; i <= 5; i++) {
                         for (int j = 1; j <= 5; j++) {
                             addSlot(new SlotItemHandler(h, (5 * i) + j - 3, 71 + (16 * j), (16 * i) - 12));
 
                         }
                     }
-
-//                } else {
-//                    for (int i = 3; i <= 27; i++) {
-//                        addSlot(new SlotItemHandler(h, i, -256, 256));
-//
-//                    }
-//
-//                }
-
-
             });
 
         }
