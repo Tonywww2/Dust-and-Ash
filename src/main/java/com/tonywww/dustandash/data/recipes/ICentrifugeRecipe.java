@@ -8,9 +8,9 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 
 
-public interface IIntegratedBlockRecipe extends IRecipe<IInventory> {
+public interface ICentrifugeRecipe extends IRecipe<IInventory> {
 
-    ResourceLocation TYPE_ID = new ResourceLocation(DustAndAsh.MOD_ID, "integrate");
+    ResourceLocation TYPE_ID = new ResourceLocation(DustAndAsh.MOD_ID, "centrifuge");
 
     @Override
     default IRecipeType<?> getType(){

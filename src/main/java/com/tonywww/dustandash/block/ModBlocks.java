@@ -75,6 +75,13 @@ public class ModBlocks {
                     .strength(2f, 8f)
             ));
 
+    public static final RegistryObject<Block> CENTRIFUGE = registerBlocks("centrifuge",
+            () -> new Centrifuge(AbstractBlock.Properties
+                    .of(Material.HEAVY_METAL)
+                    .harvestTool(ToolType.PICKAXE)
+                    .strength(2f, 8f)
+            ));
+
     public static final RegistryObject<Block> LOG_PILE = registerBlocks("log_pile",
             () -> new Block(AbstractBlock.Properties
                     .of(Material.WOOD)

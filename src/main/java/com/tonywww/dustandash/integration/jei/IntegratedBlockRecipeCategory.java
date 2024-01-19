@@ -17,7 +17,7 @@ import net.minecraftforge.items.SlotItemHandler;
 
 public class IntegratedBlockRecipeCategory implements IRecipeCategory<IntegratedBlockRecipe> {
 
-    public final static ResourceLocation UID = new ResourceLocation(DustAndAsh.MOD_ID, "integrated");
+    public final static ResourceLocation UID = new ResourceLocation(DustAndAsh.MOD_ID, "integrate");
     public final static ResourceLocation TEXTURE = new ResourceLocation(DustAndAsh.MOD_ID, "textures/gui/integrated_block_gui.png");
 
     private final IDrawable bg;

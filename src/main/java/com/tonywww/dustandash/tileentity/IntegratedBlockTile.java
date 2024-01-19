@@ -174,7 +174,7 @@ public class IntegratedBlockTile extends TileEntity implements INamedContainerPr
         if (!this.getLevel().isClientSide) {
             craft();
             float chance = 0.2f;
-            if (getLevel().random.nextFloat() < chance) {
+            if (this.getLevel().random.nextFloat() < chance) {
                 getArea(getBlockPos());
                 List<ItemEntity> items = getLevel().getEntitiesOfClass(ItemEntity.class, area, VALID_ITEM_ENTITY);
                 for (ItemEntity item : items) {
@@ -241,6 +241,7 @@ public class IntegratedBlockTile extends TileEntity implements INamedContainerPr
                         getBlockPos().getY() + 1,
                         getBlockPos().getZ(),
                         output);
+
                 this.getLevel().addFreshEntity(itemEntity);
                 if (isBeaconOn()) {
                     this.getLevel().addFreshEntity(itemEntity.copy());
@@ -254,26 +255,24 @@ public class IntegratedBlockTile extends TileEntity implements INamedContainerPr
     }
 
     public void playParticles(int lv) {
-        if (!this.getLevel().isClientSide) {
-            switch (lv) {
-                case 1:
-                    this.getLevel().playSound(null, this.getBlockPos(), SoundEvents.ANVIL_USE, SoundCategory.BLOCKS, 1f, 1f);
-                    break;
+        switch (lv) {
+            case 1:
+                this.getLevel().playSound(null, this.getBlockPos(), SoundEvents.ANVIL_USE, SoundCategory.BLOCKS, 1f, 1f);
+                break;
 
-                case 2:
-                    this.getLevel().playSound(null, this.getBlockPos(), SoundEvents.ANVIL_LAND, SoundCategory.BLOCKS, 1f, 1f);
-                    break;
+            case 2:
+                this.getLevel().playSound(null, this.getBlockPos(), SoundEvents.ANVIL_LAND, SoundCategory.BLOCKS, 1f, 1f);
+                break;
 
-                case 3:
-                    this.getLevel().playSound(null, this.getBlockPos(), SoundEvents.IRON_DOOR_OPEN, SoundCategory.BLOCKS, 1f, 1f);
-                    break;
+            case 3:
+                this.getLevel().playSound(null, this.getBlockPos(), SoundEvents.IRON_DOOR_OPEN, SoundCategory.BLOCKS, 1f, 1f);
+                break;
 
-                default:
-                    this.getLevel().playSound(null, this.getBlockPos(), SoundEvents.CHICKEN_EGG, SoundCategory.BLOCKS, 1f, 1f);
-                    break;
-            }
-
+            default:
+                this.getLevel().playSound(null, this.getBlockPos(), SoundEvents.CHICKEN_EGG, SoundCategory.BLOCKS, 1f, 1f);
+                break;
         }
+
     }
 
 }

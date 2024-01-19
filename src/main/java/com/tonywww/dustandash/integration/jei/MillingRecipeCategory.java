@@ -3,7 +3,6 @@ package com.tonywww.dustandash.integration.jei;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.tonywww.dustandash.DustAndAsh;
 import com.tonywww.dustandash.block.ModBlocks;
-import com.tonywww.dustandash.data.recipes.IntegratedBlockRecipe;
 import com.tonywww.dustandash.data.recipes.MillingMachineRecipe;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
@@ -14,7 +13,6 @@ import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.items.SlotItemHandler;
 
 public class MillingRecipeCategory implements IRecipeCategory<MillingMachineRecipe> {
 
@@ -78,7 +76,7 @@ public class MillingRecipeCategory implements IRecipeCategory<MillingMachineReci
 
         if (recipe.isStep1()) {
             itemStacks.init(0, true, 27, 9);
-            itemStacks.set(0, recipe.getIngredients().get(0).getItems()[0]);
+            itemStacks.set(0, recipe.getIngredients().get(0).getItems()[0].copy());
 
             for (int i = 3; i <= 27; i++) {
                 itemStacks.set(i, recipe.getResultItem());
@@ -86,11 +84,6 @@ public class MillingRecipeCategory implements IRecipeCategory<MillingMachineReci
             }
 
         } else {
-//            itemStacks.set(1, recipe.getIngredients().get(0).getItems()[0]);
-//            for (int i = 3; i <= 27; i++) {
-//                itemStacks.set(i, recipe.getIngredients().get(i - 2).getItems()[0]);
-//
-//            }
             itemStacks.init(1, true, 27, 37);
             itemStacks.set(ingredients);
 

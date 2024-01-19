@@ -86,7 +86,7 @@ public class IronVacuum extends Item {
     private void retrieve(BlockPos blockPos, World world) {
         LootContext.Builder builder = new LootContext.Builder((ServerWorld) world).withRandom(Item.random);
         //Different
-        LootTable lootTable = world.getServer().getLootTables().get(ModLootTables.IRON);
+        LootTable lootTable = world.getServer().getLootTables().get(ModLootTables.IRON_VACUUM);
         List<ItemStack> list = lootTable.getRandomItems(builder.create(LootParameterSets.EMPTY));
 
         for (ItemStack i : list) {

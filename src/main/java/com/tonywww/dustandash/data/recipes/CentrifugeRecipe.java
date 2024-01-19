@@ -9,7 +9,6 @@ import net.minecraft.item.Items;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.item.crafting.ShapedRecipe;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.NonNullList;
@@ -18,21 +17,37 @@ import net.minecraft.world.World;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import javax.annotation.Nullable;
-public class IntegratedBlockRecipe implements IIntegratedBlockRecipe {
+
+public class CentrifugeRecipe implements ICentrifugeRecipe {
 
 
     private final ResourceLocation id;
-    private final ItemStack output;
+    private final NonNullList<Ingredient> output;
+    private final NonNullList<ItemStack> outputItemStacks;
+
     private final NonNullList<Ingredient> recipeItems;
-    private final int level;
+    private final int tick;
 
-    public static final int MAX_SLOTS = 8;
+    public static final int MAX_SLOTS = 2;
+    public static final int OUTPUT_SLOTS = 8;
 
-    public IntegratedBlockRecipe(ResourceLocation id, ItemStack output, NonNullList<Ingredient> recipeItems, int level) {
+    public CentrifugeRecipe(ResourceLocation id, NonNullList<Ingredient> output, NonNullList<Ingredient> recipeItems, int tick) {
         this.id = id;
         this.output = output;
         this.recipeItems = recipeItems;
-        this.level = level;
+        this.tick = tick;
+
+        outputItemStacks = NonNullList.withSize(8, ItemStack.EMPTY);
+        for (int i = 0; i < 8; i++) {
+            if (!this.getResultIngredient().get(i).isEmpty()) {
+                ItemStack temp = output.get(i).getItems()[0].copy();
+                temp.setCount(1);
+                outputItemStacks.set(i, temp);
+
+            }
+
+        }
+
     }
 
 
@@ -57,7 +72,14 @@ public class IntegratedBlockRecipe implements IIntegratedBlockRecipe {
 
     @Override
     public ItemStack getResultItem() {
-        return output.copy();
+        return ItemStack.EMPTY;
+    }
+
+    public NonNullList<Ingredient> getResultIngredient() {
+        return output;
+    }
+    public NonNullList<ItemStack> getResultItemStacks() {
+        return outputItemStacks;
     }
 
     @Override
@@ -67,7 +89,7 @@ public class IntegratedBlockRecipe implements IIntegratedBlockRecipe {
 
     @Override
     public IRecipeSerializer<?> getSerializer() {
-        return ModRecipeTypes.INTEGRATE_SERIALIZER.get();
+        return ModRecipeTypes.CENTRIFUGE_SERIALIZER.get();
     }
 
     @Override
@@ -76,29 +98,30 @@ public class IntegratedBlockRecipe implements IIntegratedBlockRecipe {
     }
 
     public ItemStack getIcon() {
-        return new ItemStack(ModBlocks.INTEGRATED_BLOCK.get());
+        return new ItemStack(ModBlocks.CENTRIFUGE.get());
     }
 
-    public int getLevel() {
-        return level;
+    public int getTick() {
+        return tick;
     }
 
-    public static class IntegrateRecipeType implements IRecipeType<IntegratedBlockRecipe> {
+    public static class CentrifugeRecipeType implements IRecipeType<CentrifugeRecipe> {
         @Override
         public String toString() {
-            return IntegratedBlockRecipe.TYPE_ID.toString();
+            return CentrifugeRecipe.TYPE_ID.toString();
         }
     }
 
-    public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<IntegratedBlockRecipe> {
+    public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<CentrifugeRecipe> {
 
         @Override
-        public IntegratedBlockRecipe fromJson(ResourceLocation pRecipeId, JsonObject json) {
-            ItemStack output = ShapedRecipe.itemFromJson(JSONUtils.getAsJsonObject(json, "output"));
-
+        public CentrifugeRecipe fromJson(ResourceLocation pRecipeId, JsonObject json) {
             JsonArray ingredients = JSONUtils.getAsJsonArray(json, "ingredients");
+            int tick = JSONUtils.getAsInt(json, "tick");
+            JsonArray outputArr = JSONUtils.getAsJsonArray(json, "output");
+
+            NonNullList<Ingredient> outputs = NonNullList.withSize(OUTPUT_SLOTS, Ingredient.EMPTY);
             NonNullList<Ingredient> inputs = NonNullList.withSize(MAX_SLOTS, Ingredient.EMPTY);
-            int lv = JSONUtils.getAsInt(json, "level");
 
             for (int i = 0; i < ingredients.size(); i++) {
                 Ingredient temp = Ingredient.fromJson(ingredients.get(i));
@@ -109,13 +132,25 @@ public class IntegratedBlockRecipe implements IIntegratedBlockRecipe {
 
             }
 
-            return new IntegratedBlockRecipe(pRecipeId, output, inputs, lv);
+            for (int i = 0; i < outputs.size(); i++) {
+                Ingredient temp = Ingredient.fromJson(outputArr.get(i));
+
+                if (temp.getItems()[0].getItem() != Items.AIR) {
+                    outputs.set(i, temp);
+
+                }
+
+            }
+
+            return new CentrifugeRecipe(pRecipeId, outputs, inputs, tick);
         }
 
         @Nullable
         @Override
-        public IntegratedBlockRecipe fromNetwork(ResourceLocation pRecipeId, PacketBuffer pBuffer) {
+        public CentrifugeRecipe fromNetwork(ResourceLocation pRecipeId, PacketBuffer pBuffer) {
             NonNullList<Ingredient> inputs = NonNullList.withSize(MAX_SLOTS, Ingredient.EMPTY);
+
+            NonNullList<Ingredient> output = NonNullList.withSize(OUTPUT_SLOTS, Ingredient.EMPTY);
 
             for (int i = 0; i < inputs.size(); i++) {
                 ItemStack temp = pBuffer.readItem();
@@ -126,14 +161,22 @@ public class IntegratedBlockRecipe implements IIntegratedBlockRecipe {
 
             }
 
-            ItemStack output = pBuffer.readItem();
-            int lv = pBuffer.readInt();
+            for (int i = 0; i < output.size(); i++) {
+                ItemStack temp = pBuffer.readItem();
+                if (temp.getItem() != Items.AIR) {
+                    output.set(i, Ingredient.of(temp));
 
-            return new IntegratedBlockRecipe(pRecipeId, output, inputs, lv);
+                }
+
+            }
+
+            int tick = pBuffer.readInt();
+
+            return new CentrifugeRecipe(pRecipeId, output, inputs, tick);
         }
 
         @Override
-        public void toNetwork(PacketBuffer pBuffer, IntegratedBlockRecipe pRecipe) {
+        public void toNetwork(PacketBuffer pBuffer, CentrifugeRecipe pRecipe) {
             pBuffer.writeInt(pRecipe.getIngredients().size());
             for (Ingredient i : pRecipe.getIngredients()) {
                 i.toNetwork(pBuffer);

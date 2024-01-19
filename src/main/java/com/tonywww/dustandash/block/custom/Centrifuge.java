@@ -1,6 +1,7 @@
 package com.tonywww.dustandash.block.custom;
 
-import com.tonywww.dustandash.tileentity.MillingMachineTile;
+import com.tonywww.dustandash.tileentity.AshCollectorTile;
+import com.tonywww.dustandash.tileentity.CentrifugeTile;
 import com.tonywww.dustandash.tileentity.ModTileEntities;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -20,9 +21,9 @@ import net.minecraftforge.fml.network.NetworkHooks;
 import javax.annotation.Nullable;
 
 
-public class MillingMachine extends Block {
+public class Centrifuge extends Block {
 
-    public MillingMachine(Properties properties) {
+    public Centrifuge(Properties properties) {
         super(properties);
 
     }
@@ -33,8 +34,8 @@ public class MillingMachine extends Block {
         if (!pLevel.isClientSide) {
             TileEntity tileEntity = pLevel.getBlockEntity(pPos);
 
-            if (tileEntity instanceof MillingMachineTile) {
-                NetworkHooks.openGui((ServerPlayerEntity) pPlayer, (MillingMachineTile) tileEntity, pPos);
+            if (tileEntity instanceof CentrifugeTile) {
+                NetworkHooks.openGui((ServerPlayerEntity) pPlayer, (CentrifugeTile) tileEntity, pPos);
             } else {
                 throw new IllegalStateException("Container provider is missing");
             }
@@ -47,7 +48,7 @@ public class MillingMachine extends Block {
     @Nullable
     @Override
     public TileEntity createTileEntity(BlockState state, IBlockReader world) {
-        return ModTileEntities.MILLING_MACHINE_TILE.get().create();
+        return ModTileEntities.CENTRIFUGE_TILE.get().create();
     }
 
     @Override
@@ -60,15 +61,12 @@ public class MillingMachine extends Block {
     public void onRemove(BlockState pState, World pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving) {
         if (!pState.is(pNewState.getBlock())) {
             TileEntity tileentity = pLevel.getBlockEntity(pPos);
-            if (tileentity instanceof MillingMachineTile) {
-                MillingMachineTile tile = (MillingMachineTile) tileentity;
+            if (tileentity instanceof CentrifugeTile) {
+                CentrifugeTile tile = (CentrifugeTile) tileentity;
                 Inventory inv = new Inventory(tile.invItemStackHandler.getSlots());
 
-                inv.setItem(0, tile.invItemStackHandler.getStackInSlot(0));
-                inv.setItem(1, tile.invItemStackHandler.getStackInSlot(1));
-
-                for (int i = 3; i < tile.invItemStackHandler.getSlots(); i++) {
-                    inv.setItem(i - 1, tile.invItemStackHandler.getStackInSlot(i));
+                for (int i = 0; i < tile.invItemStackHandler.getSlots(); i++) {
+                    inv.setItem(i, tile.invItemStackHandler.getStackInSlot(i));
 
                 }
                 InventoryHelper.dropContents(pLevel, pPos, inv);

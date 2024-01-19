@@ -24,6 +24,10 @@ public class ModTileEntities {
             TILE_ENTITIES.register("milling_machine",
                     () -> TileEntityType.Builder.of(MillingMachineTile::new, ModBlocks.MILLING_MACHINE.get()).build(null));
 
+    public static RegistryObject<TileEntityType<CentrifugeTile>> CENTRIFUGE_TILE =
+            TILE_ENTITIES.register("centrifuge",
+                    () -> TileEntityType.Builder.of(CentrifugeTile::new, ModBlocks.CENTRIFUGE.get()).build(null));
+
     public static void register(IEventBus eventBus) {
         TILE_ENTITIES.register(eventBus);
 

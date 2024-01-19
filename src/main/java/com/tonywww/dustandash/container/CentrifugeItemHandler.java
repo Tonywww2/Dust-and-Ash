@@ -7,12 +7,12 @@ import net.minecraftforge.items.IItemHandler;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class MillingMachineItemHandler implements IItemHandler {
+public class CentrifugeItemHandler implements IItemHandler {
 
     private final IItemHandler itemHandler;
     private final Direction side;
 
-    public MillingMachineItemHandler(IItemHandler itemHandler, @Nullable Direction side) {
+    public CentrifugeItemHandler(IItemHandler itemHandler, @Nullable Direction side) {
         this.itemHandler = itemHandler;
         this.side = side;
 
@@ -48,7 +48,7 @@ public class MillingMachineItemHandler implements IItemHandler {
     @Override
     public ItemStack extractItem(int slot, int amount, boolean simulate) {
         if (side == null ||
-                (side == Direction.DOWN && slot == 2)) {
+                (side == Direction.DOWN && slot >= 2)) {
             return itemHandler.extractItem(slot, amount, simulate);
 
         }

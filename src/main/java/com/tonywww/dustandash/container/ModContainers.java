@@ -21,6 +21,9 @@ public class ModContainers {
     public static final RegistryObject<ContainerType<MillingMachineContainer>> MILLING_MACHINE_CONTAINER = CONTAINERS.register("milling_machine_container",
             () -> IForgeContainerType.create(MillingMachineContainer::new));
 
+    public static final RegistryObject<ContainerType<CentrifugeContainer>> CENTRIFUGE_CONTAINER = CONTAINERS.register("centrifuge_container",
+            () -> IForgeContainerType.create(CentrifugeContainer::new));
+
     public static void register(IEventBus eventBus) {
         CONTAINERS.register(eventBus);
 

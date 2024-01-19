@@ -1,7 +1,7 @@
 package com.tonywww.dustandash.container;
 
 import com.tonywww.dustandash.block.ModBlocks;
-import com.tonywww.dustandash.tileentity.IntegratedBlockTile;
+import com.tonywww.dustandash.tileentity.CentrifugeTile;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
@@ -9,7 +9,9 @@ import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.IIntArray;
 import net.minecraft.util.IWorldPosCallable;
+import net.minecraft.util.IntArray;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
@@ -17,37 +19,54 @@ import net.minecraftforge.items.wrapper.InvWrapper;
 
 import java.util.Objects;
 
-public class IntegratedBlockContainer extends Container {
+public class CentrifugeContainer extends Container {
 
-    private final TileEntity tileEntity;
+    private final CentrifugeTile tileEntity;
     private final IWorldPosCallable canInteractWithCallable;
     private final IItemHandler playerInventory;
+    private final IIntArray data;
 
-    public IntegratedBlockContainer(int id, PlayerInventory playerInventory, IntegratedBlockTile tileEntity) {
-        super(ModContainers.INTEGRATED_BLOCK_CONTAINER.get(), id);
+    public CentrifugeContainer(int id, PlayerInventory playerInventory, CentrifugeTile tileEntity, IIntArray data) {
+        super(ModContainers.CENTRIFUGE_CONTAINER.get(), id);
 
         this.tileEntity = tileEntity;
         this.canInteractWithCallable = IWorldPosCallable.create(tileEntity.getLevel(), tileEntity.getBlockPos());
         this.playerInventory = new InvWrapper(playerInventory);
 
-        layoutPlayerInventorySlots(8, 86);
+        this.data = data;
+
+        layoutPlayerInventorySlots(8, 92);
 
         if (tileEntity != null) {
             tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(h -> {
-                addSlot(new SlotItemHandler(h, 0, 36, 42));
-                addSlot(new SlotItemHandler(h, 1, 124, 42));
+                addSlot(new SlotItemHandler(h, 0, 80, 6));
+                addSlot(new SlotItemHandler(h, 1, 80, 27));
 
-                addSlot(new SlotItemHandler(h, 2, 58, 31));
-                addSlot(new SlotItemHandler(h, 3, 80, 31));
-                addSlot(new SlotItemHandler(h, 4, 102, 31));
-                addSlot(new SlotItemHandler(h, 5, 58, 53));
-                addSlot(new SlotItemHandler(h, 6, 80, 53));
-                addSlot(new SlotItemHandler(h, 7, 102, 53));
+                addSlot(new SlotItemHandler(h, 2, 22, 12));
+                addSlot(new SlotItemHandler(h, 3, 42, 30));
+                addSlot(new SlotItemHandler(h, 4, 22, 48));
+                addSlot(new SlotItemHandler(h, 5, 42, 66));
+
+                addSlot(new SlotItemHandler(h, 6, 138, 12));
+                addSlot(new SlotItemHandler(h, 7, 118, 30));
+                addSlot(new SlotItemHandler(h, 8, 138, 48));
+                addSlot(new SlotItemHandler(h, 9, 118, 66));
+
+                addDataSlots(data);
 
             });
+
         }
 
 
+    }
+
+    public float getProgressionRatio() {
+        if (this.data.get(0) > 0) {
+            return this.data.get(0) / (float) this.data.get(1);
+
+        }
+        return 0;
     }
 
     private int addSlotRange(IItemHandler handler, int index, int x, int y, int amount, int dx) {
@@ -76,46 +95,26 @@ public class IntegratedBlockContainer extends Container {
         addSlotRange(playerInventory, 0, leftCol, topRow, 9, 18);
     }
 
-    public IntegratedBlockContainer(final int id,
-                                    final PlayerInventory playerInventory,
-                                    final PacketBuffer data) {
-        this(id, playerInventory, getTileEntity(playerInventory, data));
+    public CentrifugeContainer(final int id,
+                               final PlayerInventory playerInventory,
+                               final PacketBuffer data) {
+        this(id, playerInventory, getTileEntity(playerInventory, data), new IntArray(4));
 
     }
 
-    private static IntegratedBlockTile getTileEntity(final PlayerInventory playerInventory, final PacketBuffer data) {
+    private static CentrifugeTile getTileEntity(final PlayerInventory playerInventory, final PacketBuffer data) {
         Objects.requireNonNull(playerInventory, "playerInventory cannot be null");
         Objects.requireNonNull(data, "data cannot be null");
         final TileEntity tileAtPos = playerInventory.player.level.getBlockEntity(data.readBlockPos());
-        if (tileAtPos instanceof IntegratedBlockTile) {
-            return (IntegratedBlockTile) tileAtPos;
+        if (tileAtPos instanceof CentrifugeTile) {
+            return (CentrifugeTile) tileAtPos;
         }
         throw new IllegalStateException("Tile entity is not correct! " + tileAtPos);
     }
 
-    public int getStructureLevel() {
-//        if (tileEntity instanceof IntegratedBlockTile) {
-//            return ((IntegratedBlockTile) tileEntity).getStructureLevel();
-//        } else {
-//            throw new IllegalStateException("Container provider is missing");
-//        }
-        return ((IntegratedBlockTile) tileEntity).getStructureLevel();
-
-    }
-
-    public boolean isBeaconOn() {
-//        if (tileEntity instanceof IntegratedBlockTile) {
-//            return ((IntegratedBlockTile) tileEntity).getStructureLevel();
-//        } else {
-//            throw new IllegalStateException("Container provider is missing");
-//        }
-        return ((IntegratedBlockTile) tileEntity).isBeaconOn();
-
-    }
-
     @Override
     public boolean stillValid(PlayerEntity pPlayer) {
-        return stillValid(canInteractWithCallable, pPlayer, ModBlocks.INTEGRATED_BLOCK.get());
+        return stillValid(canInteractWithCallable, pPlayer, ModBlocks.CENTRIFUGE.get());
     }
 
     // CREDIT GOES TO: diesieben07 | https://github.com/diesieben07/SevenCommons
@@ -134,7 +133,7 @@ public class IntegratedBlockContainer extends Container {
     private static final int TE_INVENTORY_FIRST_SLOT_INDEX = VANILLA_FIRST_SLOT_INDEX + VANILLA_SLOT_COUNT;
 
     // THIS YOU HAVE TO DEFINE!
-    private static final int TE_INVENTORY_SLOT_COUNT = 8;  // must match TileEntityInventoryBasic.NUMBER_OF_SLOTS
+    private static final int TE_INVENTORY_SLOT_COUNT = 10;  // must match TileEntityInventoryBasic.NUMBER_OF_SLOTS
 
     @Override
     public ItemStack quickMoveStack(PlayerEntity playerIn, int index) {

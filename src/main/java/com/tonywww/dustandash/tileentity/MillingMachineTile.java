@@ -30,7 +30,7 @@ import java.util.Optional;
 
 public class MillingMachineTile extends TileEntity implements INamedContainerProvider, ITickableTileEntity {
 
-    public ItemStackHandler inputItemStackHandler;
+    public ItemStackHandler invItemStackHandler;
     private final LazyOptional<ItemStackHandler> handler;
     private final LazyOptional<MillingMachineItemHandler> inputHandler;
     private final LazyOptional<MillingMachineItemHandler> outputHandler;
@@ -38,11 +38,11 @@ public class MillingMachineTile extends TileEntity implements INamedContainerPro
     public MillingMachineTile(TileEntityType<?> tileEntityType) {
         super(tileEntityType);
 
-        this.inputItemStackHandler = createInputsHandler();
+        this.invItemStackHandler = createInputsHandler();
 
-        this.handler = LazyOptional.of(() -> inputItemStackHandler);
-        this.inputHandler = LazyOptional.of(() -> new MillingMachineItemHandler(inputItemStackHandler, Direction.UP));
-        this.outputHandler = LazyOptional.of(() -> new MillingMachineItemHandler(inputItemStackHandler, Direction.DOWN));
+        this.handler = LazyOptional.of(() -> invItemStackHandler);
+        this.inputHandler = LazyOptional.of(() -> new MillingMachineItemHandler(invItemStackHandler, Direction.UP));
+        this.outputHandler = LazyOptional.of(() -> new MillingMachineItemHandler(invItemStackHandler, Direction.DOWN));
 
     }
 
@@ -86,15 +86,13 @@ public class MillingMachineTile extends TileEntity implements INamedContainerPro
 
     @Override
     public void load(BlockState blockState, CompoundNBT compoundNBT) {
-        inputItemStackHandler.deserializeNBT(compoundNBT.getCompound("inv_inp"));
-//        workPlaceItemStackHandler.deserializeNBT(compoundNBT.getCompound("inv_wp"));
+        invItemStackHandler.deserializeNBT(compoundNBT.getCompound("inv"));
         super.load(blockState, compoundNBT);
     }
 
     @Override
     public CompoundNBT save(CompoundNBT compound) {
-        compound.put("inv_inp", inputItemStackHandler.serializeNBT());
-//        compound.put("inv_wp", workPlaceItemStackHandler.serializeNBT());
+        compound.put("inv", invItemStackHandler.serializeNBT());
         return super.save(compound);
     }
 
@@ -139,9 +137,9 @@ public class MillingMachineTile extends TileEntity implements INamedContainerPro
 
 
     public void craft() {
-        Inventory inv = new Inventory(inputItemStackHandler.getSlots());
-        for (int i = 0; i < inputItemStackHandler.getSlots(); i++) {
-            inv.setItem(i, inputItemStackHandler.getStackInSlot(i));
+        Inventory inv = new Inventory(invItemStackHandler.getSlots());
+        for (int i = 0; i < invItemStackHandler.getSlots(); i++) {
+            inv.setItem(i, invItemStackHandler.getStackInSlot(i));
 
         }
 
@@ -153,24 +151,24 @@ public class MillingMachineTile extends TileEntity implements INamedContainerPro
             if (iRecipe.isStep1()) {
 //                if (isWorkPlaceEmpty()) {
                 // Step1 option
-                inputItemStackHandler.extractItem(0, 1, false);
+                invItemStackHandler.extractItem(0, 1, false);
                 ItemStack temp = new ItemStack(output.getItem(), 1);
                 for (int i = 3; i <= 27; i++) {
-                    inputItemStackHandler.setStackInSlot(i, temp.copy());
+                    invItemStackHandler.setStackInSlot(i, temp.copy());
 
                 }
 
 //                }
 
 
-            } else if (inputItemStackHandler.getStackInSlot(2).getCount() == 0) {
-                inputItemStackHandler.extractItem(1, 1, false);
+            } else if (invItemStackHandler.getStackInSlot(2).getCount() == 0) {
+                invItemStackHandler.extractItem(1, 1, false);
                 for (int i = 3; i <= 27; i++) {
-                    inputItemStackHandler.extractItem(i, 1, false);
+                    invItemStackHandler.extractItem(i, 1, false);
 
                 }
 
-                inputItemStackHandler.setStackInSlot(2, output.copy());
+                invItemStackHandler.setStackInSlot(2, output.copy());
 
 
             }
@@ -182,7 +180,7 @@ public class MillingMachineTile extends TileEntity implements INamedContainerPro
 
     public boolean isWorkPlaceEmpty() {
         for (int i = 3; i <= 27; i++) {
-            if (inputItemStackHandler.getStackInSlot(i).getCount() > 0) {
+            if (invItemStackHandler.getStackInSlot(i).getCount() > 0) {
                 return false;
             }
 
