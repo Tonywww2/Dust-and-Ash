@@ -1,0 +1,40 @@
+{
+  "type": "dustandash:centrifuge",
+  "tick": 200,
+  "ingredients": [
+    {
+      "item": "dustandash:dust"
+    },
+    {
+      "item": "dustandash:ash"
+    }
+  ],
+  "output" : [
+    {
+      "item": "dustandash:life_dust"
+    },
+    {
+      "item": "dustandash:life_dust"
+    },
+    {
+      "item": "dustandash:metal_dust"
+    },
+    {
+      "item": "dustandash:metal_dust"
+    },
+
+    {
+      "item": "minecraft:air"
+    },
+    {
+      "item": "dustandash:order_dust"
+    },
+    {
+      "item": "dustandash:earth_dust"
+    },
+    {
+      "item": "dustandash:fire_dust"
+    }
+
+  ]
+}

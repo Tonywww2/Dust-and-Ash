@@ -42,7 +42,7 @@ public class CentrifugeTile extends TileEntity implements INamedContainerProvide
 
     protected final IIntArray dataAccess;
 
-    private NonNullList<Ingredient> nextOutput;
+    private NonNullList<ItemStack> nextOutput;
 
 
     public CentrifugeTile(TileEntityType<?> tileEntityType) {
@@ -220,7 +220,7 @@ public class CentrifugeTile extends TileEntity implements INamedContainerProvide
         recipe.ifPresent(iRecipe -> {
             invItemStackHandler.extractItem(0, 1, false);
             invItemStackHandler.extractItem(1, 1, false);
-            nextOutput = iRecipe.getResultIngredient();
+            nextOutput = iRecipe.getResultItemStacks();
 
             currentProgression = 1;
             targetProgression = recipe.get().getTick();
@@ -232,11 +232,9 @@ public class CentrifugeTile extends TileEntity implements INamedContainerProvide
 
     public void setOutput() {
         for (int i = 2; i <= 9; i++) {
-            Ingredient temp = nextOutput.get(i - 2);
-            if (!temp.isEmpty()) {
-                ItemStack itemStack = temp.getItems()[0].copy();
-                itemStack.setCount(1);
-                invItemStackHandler.setStackInSlot(i, itemStack);
+            ItemStack temp = nextOutput.get(i - 2);
+            if (temp != ItemStack.EMPTY) {
+                invItemStackHandler.setStackInSlot(i, temp.copy());
 
             }
 

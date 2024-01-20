@@ -9,6 +9,7 @@ import net.minecraft.item.Items;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.item.crafting.ShapedRecipe;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.NonNullList;
@@ -22,7 +23,6 @@ public class CentrifugeRecipe implements ICentrifugeRecipe {
 
 
     private final ResourceLocation id;
-    private final NonNullList<Ingredient> output;
     private final NonNullList<ItemStack> outputItemStacks;
     private final NonNullList<Ingredient> recipeItems;
     private final int tick;
@@ -30,22 +30,11 @@ public class CentrifugeRecipe implements ICentrifugeRecipe {
     public static final int MAX_SLOTS = 2;
     public static final int OUTPUT_SLOTS = 8;
 
-    public CentrifugeRecipe(ResourceLocation id, NonNullList<Ingredient> output, NonNullList<Ingredient> recipeItems, int tick) {
+    public CentrifugeRecipe(ResourceLocation id, NonNullList<ItemStack> output, NonNullList<Ingredient> recipeItems, int tick) {
         this.id = id;
-        this.output = output;
+        this.outputItemStacks = output;
         this.recipeItems = recipeItems;
         this.tick = tick;
-
-        outputItemStacks = NonNullList.withSize(8, ItemStack.EMPTY);
-        for (int i = 0; i < 8; i++) {
-            if (this.getResultIngredient().get(i) != Ingredient.EMPTY) {
-                ItemStack temp = output.get(i).getItems()[0].copy();
-                temp.setCount(1);
-                outputItemStacks.set(i, temp);
-
-            }
-
-        }
 
     }
 
@@ -74,9 +63,6 @@ public class CentrifugeRecipe implements ICentrifugeRecipe {
         return ItemStack.EMPTY;
     }
 
-    public NonNullList<Ingredient> getResultIngredient() {
-        return output;
-    }
     public NonNullList<ItemStack> getResultItemStacks() {
         return outputItemStacks;
     }
@@ -119,8 +105,9 @@ public class CentrifugeRecipe implements ICentrifugeRecipe {
             int tick = JSONUtils.getAsInt(json, "tick");
             JsonArray outputArr = JSONUtils.getAsJsonArray(json, "output");
 
-            NonNullList<Ingredient> outputs = NonNullList.withSize(OUTPUT_SLOTS, Ingredient.EMPTY);
             NonNullList<Ingredient> inputs = NonNullList.withSize(MAX_SLOTS, Ingredient.EMPTY);
+            NonNullList<ItemStack> outputs = NonNullList.withSize(OUTPUT_SLOTS, ItemStack.EMPTY.EMPTY);
+
 
             for (int i = 0; i < ingredients.size(); i++) {
                 Ingredient temp = Ingredient.fromJson(ingredients.get(i));
@@ -132,9 +119,9 @@ public class CentrifugeRecipe implements ICentrifugeRecipe {
             }
 
             for (int i = 0; i < outputs.size(); i++) {
-                Ingredient temp = Ingredient.fromJson(outputArr.get(i));
+                ItemStack temp = Ingredient.fromJson(outputArr.get(i)).getItems()[0];
 
-                if (temp.getItems()[0].getItem() != Items.AIR) {
+                if (temp.getItem() != Items.AIR) {
                     outputs.set(i, temp);
 
                 }
@@ -149,7 +136,7 @@ public class CentrifugeRecipe implements ICentrifugeRecipe {
         public CentrifugeRecipe fromNetwork(ResourceLocation pRecipeId, PacketBuffer pBuffer) {
             NonNullList<Ingredient> inputs = NonNullList.withSize(MAX_SLOTS, Ingredient.EMPTY);
 
-            NonNullList<Ingredient> output = NonNullList.withSize(OUTPUT_SLOTS, Ingredient.EMPTY);
+            NonNullList<ItemStack> output = NonNullList.withSize(OUTPUT_SLOTS, ItemStack.EMPTY);
 
             for (int i = 0; i < inputs.size(); i++) {
                 ItemStack temp = pBuffer.readItem();
@@ -163,7 +150,7 @@ public class CentrifugeRecipe implements ICentrifugeRecipe {
             for (int i = 0; i < output.size(); i++) {
                 ItemStack temp = pBuffer.readItem();
                 if (temp.getItem() != Items.AIR) {
-                    output.set(i, Ingredient.of(temp));
+                    output.set(i, temp);
 
                 }
 

@@ -66,6 +66,7 @@ public class ModBlocks {
                     .of(Material.STONE)
                     .harvestTool(ToolType.PICKAXE)
                     .strength(2f, 8f)
+                    .noOcclusion()
             ));
 
     public static final RegistryObject<Block> MILLING_MACHINE = registerBlocks("milling_machine",
@@ -73,6 +74,7 @@ public class ModBlocks {
                     .of(Material.STONE)
                     .harvestTool(ToolType.PICKAXE)
                     .strength(2f, 8f)
+                    .noOcclusion()
             ));
 
     public static final RegistryObject<Block> CENTRIFUGE = registerBlocks("centrifuge",
@@ -80,6 +82,7 @@ public class ModBlocks {
                     .of(Material.HEAVY_METAL)
                     .harvestTool(ToolType.PICKAXE)
                     .strength(2f, 8f)
+                    .noOcclusion()
             ));
 
     public static final RegistryObject<Block> LOG_PILE = registerBlocks("log_pile",

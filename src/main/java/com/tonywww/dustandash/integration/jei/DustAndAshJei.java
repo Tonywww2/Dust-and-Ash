@@ -44,7 +44,7 @@ public class DustAndAshJei implements IModPlugin {
     public void registerRecipes(IRecipeRegistration registration) {
         RecipeManager rm = Objects.requireNonNull(Minecraft.getInstance().level).getRecipeManager();
         registration.addRecipes(rm.getRecipes().stream()
-                .filter(r -> r instanceof IntegratedBlockRecipe).collect(Collectors.toList()),
+                        .filter(r -> r instanceof IntegratedBlockRecipe).collect(Collectors.toList()),
                 IntegratedBlockRecipeCategory.UID
         );
 
@@ -52,6 +52,7 @@ public class DustAndAshJei implements IModPlugin {
                         .filter(r -> r instanceof MillingMachineRecipe).collect(Collectors.toList()),
                 MillingRecipeCategory.UID
         );
+
         registration.addRecipes(rm.getRecipes().stream()
                         .filter(r -> r instanceof CentrifugeRecipe).collect(Collectors.toList()),
                 CentrifugeRecipeCategory.UID
