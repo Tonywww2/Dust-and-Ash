@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": {
+    "item": "dustandash:titanium_sand"
+  },
+  "result": {
+    "item": "dustandash:titanium_scrap",
+    "count": 1
+  },
+  "experience": 0.4,
+  "cookingtime": 6000
+}

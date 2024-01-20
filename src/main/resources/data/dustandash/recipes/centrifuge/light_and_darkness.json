@@ -1,0 +1,42 @@
+{
+  "type": "dustandash:centrifuge",
+  "tick": 6000,
+  "ingredients": [
+    {
+      "item": "dustandash:pure_energy"
+    },
+    {
+      "type": "forge:nbt",
+      "item": "minecraft:potion",
+      "nbt": "{Potion:'minecraft:water'}"
+    }
+  ],
+  "output" : [
+    {
+      "item": "dustandash:soul_of_light"
+    },
+    {
+      "item": "minecraft:air"
+    },
+    {
+      "item": "minecraft:air"
+    },
+    {
+      "item": "minecraft:air"
+    },
+
+    {
+      "item": "minecraft:air"
+    },
+    {
+      "item": "minecraft:air"
+    },
+    {
+      "item": "minecraft:air"
+    },
+    {
+      "item": "dustandash:pure_darkness"
+    }
+
+  ]
+}

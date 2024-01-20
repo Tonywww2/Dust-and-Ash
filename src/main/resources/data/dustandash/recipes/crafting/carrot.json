@@ -2,20 +2,20 @@
     "type": "minecraft:crafting_shapeless",
     "ingredients": [
         {
-            "tag": "forge:sand"
+            "item": "minecraft:beetroot"
         },
         {
             "item": "dustandash:metamorphose_dust"
         },
         {
-            "item": "dustandash:smelt_dust"
+            "item": "minecraft:orange_dye"
         },
         {
-            "tag": "forge:sand"
+            "item": "dustandash:reproduce_dust"
         }
     ],
     "result": {
-        "item": "minecraft:soul_sand",
-        "count": 2
+        "item": "minecraft:carrot",
+        "count": 1
     }
 }

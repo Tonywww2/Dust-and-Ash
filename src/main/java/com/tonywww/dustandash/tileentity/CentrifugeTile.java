@@ -4,6 +4,7 @@ import com.tonywww.dustandash.container.CentrifugeContainer;
 import com.tonywww.dustandash.container.CentrifugeItemHandler;
 import com.tonywww.dustandash.data.recipes.CentrifugeRecipe;
 import com.tonywww.dustandash.data.recipes.ModRecipeTypes;
+import com.tonywww.dustandash.util.ModTags;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -100,7 +101,14 @@ public class CentrifugeTile extends TileEntity implements INamedContainerProvide
 
             @Override
             public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
-                return slot < 2;
+                if (slot == 0) {
+                    return !ModTags.Items.CENTRIFUGE_CATALYST.contains(stack.getItem());
+                }
+                if (slot == 1) {
+                    return ModTags.Items.CENTRIFUGE_CATALYST.contains(stack.getItem());
+                }
+                return false;
+
             }
 
             @Override
@@ -195,7 +203,7 @@ public class CentrifugeTile extends TileEntity implements INamedContainerProvide
             return false;
         } else {
             // is output empty
-            for (int i = 2; i <= 7; i++) {
+            for (int i = 2; i <= 9; i++) {
                 if (invItemStackHandler.getStackInSlot(i).getCount() > 0) {
                     return false;
 

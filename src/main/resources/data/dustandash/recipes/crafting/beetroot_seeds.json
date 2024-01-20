@@ -1,0 +1,29 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "#R#",
+        "SWS",
+        " D "
+    ],
+    "key": {
+        "#": {
+            "item": "dustandash:reproduce_dust"
+        },
+        "R": {
+            "item": "minecraft:red_dye"
+        },
+        "S": {
+            "item": "minecraft:sugar"
+        },
+        "W": {
+            "item": "minecraft:wheat_seeds"
+        },
+        "D": {
+            "item": "dustandash:absorb_dust"
+        }
+    },
+    "result": {
+        "item": "minecraft:beetroot_seeds",
+        "count": 1
+    }
+}

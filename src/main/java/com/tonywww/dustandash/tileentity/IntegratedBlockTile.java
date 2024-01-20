@@ -1,10 +1,10 @@
 package com.tonywww.dustandash.tileentity;
 
+import com.tonywww.dustandash.block.ModBlocks;
 import com.tonywww.dustandash.container.IntegratedBlockContainer;
 import com.tonywww.dustandash.data.recipes.IntegratedBlockRecipe;
 import com.tonywww.dustandash.data.recipes.ModRecipeTypes;
 import com.tonywww.dustandash.util.ModTags;
-import net.minecraft.block.BeaconBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.item.ItemEntity;
@@ -115,26 +115,26 @@ public class IntegratedBlockTile extends TileEntity implements INamedContainerPr
     public int getStructureLevel() {
         int out = 0;
         if (
-                this.getLevel().getBlockState(this.worldPosition.north()).getBlock() == Blocks.OBSIDIAN &&
-                        this.getLevel().getBlockState(this.worldPosition.east()).getBlock() == Blocks.OBSIDIAN &&
-                        this.getLevel().getBlockState(this.worldPosition.south()).getBlock() == Blocks.OBSIDIAN &&
-                        this.getLevel().getBlockState(this.worldPosition.west()).getBlock() == Blocks.OBSIDIAN
+                this.getLevel().getBlockState(this.worldPosition.north()).getBlock() == ModBlocks.INTEGRATED_FRAME_1.get() &&
+                        this.getLevel().getBlockState(this.worldPosition.east()).getBlock() == ModBlocks.INTEGRATED_FRAME_1.get() &&
+                        this.getLevel().getBlockState(this.worldPosition.south()).getBlock() == ModBlocks.INTEGRATED_FRAME_1.get() &&
+                        this.getLevel().getBlockState(this.worldPosition.west()).getBlock() == ModBlocks.INTEGRATED_FRAME_1.get()
         ) {
             out++;
 
             if (
-                    this.getLevel().getBlockState(this.worldPosition.north().east()).getBlock() == Blocks.CRYING_OBSIDIAN &&
-                            this.getLevel().getBlockState(this.worldPosition.north().west()).getBlock() == Blocks.CRYING_OBSIDIAN &&
-                            this.getLevel().getBlockState(this.worldPosition.south().east()).getBlock() == Blocks.CRYING_OBSIDIAN &&
-                            this.getLevel().getBlockState(this.worldPosition.south().west()).getBlock() == Blocks.CRYING_OBSIDIAN
+                    this.getLevel().getBlockState(this.worldPosition.north().east()).getBlock() == ModBlocks.INTEGRATED_FRAME_2.get() &&
+                            this.getLevel().getBlockState(this.worldPosition.north().west()).getBlock() == ModBlocks.INTEGRATED_FRAME_2.get() &&
+                            this.getLevel().getBlockState(this.worldPosition.south().east()).getBlock() == ModBlocks.INTEGRATED_FRAME_2.get() &&
+                            this.getLevel().getBlockState(this.worldPosition.south().west()).getBlock() == ModBlocks.INTEGRATED_FRAME_2.get()
             ) {
                 out++;
 
                 if (
-                        this.getLevel().getBlockState(this.worldPosition.north(2)).getBlock() == Blocks.NETHERITE_BLOCK &&
-                                this.getLevel().getBlockState(this.worldPosition.east(2)).getBlock() == Blocks.NETHERITE_BLOCK &&
-                                this.getLevel().getBlockState(this.worldPosition.south(2)).getBlock() == Blocks.NETHERITE_BLOCK &&
-                                this.getLevel().getBlockState(this.worldPosition.west(2)).getBlock() == Blocks.NETHERITE_BLOCK
+                        this.getLevel().getBlockState(this.worldPosition.north(2)).getBlock() == ModBlocks.INTEGRATED_FRAME_3.get() &&
+                                this.getLevel().getBlockState(this.worldPosition.east(2)).getBlock() == ModBlocks.INTEGRATED_FRAME_3.get() &&
+                                this.getLevel().getBlockState(this.worldPosition.south(2)).getBlock() == ModBlocks.INTEGRATED_FRAME_3.get() &&
+                                this.getLevel().getBlockState(this.worldPosition.west(2)).getBlock() == ModBlocks.INTEGRATED_FRAME_3.get()
                 ) {
                     out++;
                 }

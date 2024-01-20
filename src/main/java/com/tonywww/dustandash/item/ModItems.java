@@ -1,7 +1,6 @@
 package com.tonywww.dustandash.item;
 
 import com.tonywww.dustandash.DustAndAsh;
-import com.tonywww.dustandash.item.custom.EnergizedCobblestoneBucket;
 import com.tonywww.dustandash.item.custom.HandVacuum;
 import com.tonywww.dustandash.item.custom.IronVacuum;
 import com.tonywww.dustandash.item.custom.SharpenFlint;
@@ -216,7 +215,7 @@ public class ModItems {
             ));
 
     public static final RegistryObject<Item> ENERGIZED_COBBLESTONE_BUCKET = ITEMS.register("energized_cobblestone_bucket",
-            () -> new EnergizedCobblestoneBucket(new Item.Properties()
+            () -> new Item(new Item.Properties()
                     .tab(ModItemGroup.DUST_TAB)
                     .stacksTo(1)
             ));
@@ -304,8 +303,32 @@ public class ModItems {
     public static final RegistryObject<Item> TITANIUM_INGOT = ITEMS.register("titanium_ingot",
             () -> new Item(new Item.Properties()
                     .tab(ModItemGroup.DUST_TAB)
+                    .stacksTo(32)
+            ));
+
+    public static final RegistryObject<Item> RAW_TITANIUM_SAND = ITEMS.register("raw_titanium_sand",
+            () -> new Item(new Item.Properties()
+                    .tab(ModItemGroup.DUST_TAB)
                     .stacksTo(64)
             ));
+
+    public static final RegistryObject<Item> TITANIUM_SAND = ITEMS.register("titanium_sand",
+            () -> new Item(new Item.Properties()
+                    .tab(ModItemGroup.DUST_TAB)
+                    .stacksTo(32)
+            ));
+
+    public static final RegistryObject<Item> TITANIUM_SCRAP = ITEMS.register("titanium_scrap",
+            () -> new Item(new Item.Properties()
+                    .tab(ModItemGroup.DUST_TAB)
+                    .stacksTo(32)
+            ));
+    public static final RegistryObject<Item> TITANIUM_CHUNK = ITEMS.register("titanium_chunk",
+            () -> new Item(new Item.Properties()
+                    .tab(ModItemGroup.DUST_TAB)
+                    .stacksTo(16)
+            ));
+
 
     public static final RegistryObject<Item> WOODEN_TOOL_HANDLE = ITEMS.register("wooden_tool_handle",
             () -> new Item(new Item.Properties()
@@ -317,6 +340,54 @@ public class ModItems {
             () -> new Item(new Item.Properties()
                     .tab(ModItemGroup.ASH_TAB)
                     .stacksTo(2)
+            ));
+
+    public static final RegistryObject<Item> GLASS_CONTAINER = ITEMS.register("glass_container",
+            () -> new Item(new Item.Properties()
+                    .tab(ModItemGroup.ASH_TAB)
+                    .stacksTo(64)
+            ));
+
+    public static final RegistryObject<Item> WATER_MISCIBLE_SOLVENTS = ITEMS.register("water_miscible_solvents",
+            () -> new Item(new Item.Properties()
+                    .tab(ModItemGroup.ASH_TAB)
+                    .stacksTo(64)
+            ));
+
+    public static final RegistryObject<Item> GRIND_SOLVENTS = ITEMS.register("grind_solvents",
+            () -> new Item(new Item.Properties()
+                    .tab(ModItemGroup.ASH_TAB)
+                    .stacksTo(64)
+            ));
+
+    public static final RegistryObject<Item> BASE_OIL = ITEMS.register("base_oil",
+            () -> new Item(new Item.Properties()
+                    .tab(ModItemGroup.ASH_TAB)
+                    .stacksTo(64)
+            ));
+
+    public static final RegistryObject<Item> CHLORINE = ITEMS.register("chlorine",
+            () -> new Item(new Item.Properties()
+                    .tab(ModItemGroup.ASH_TAB)
+                    .stacksTo(64)
+            ));
+
+    public static final RegistryObject<Item> REDUCTANT = ITEMS.register("reductant",
+            () -> new Item(new Item.Properties()
+                    .tab(ModItemGroup.ASH_TAB)
+                    .stacksTo(64)
+            ));
+
+    public static final RegistryObject<Item> SOUL_OF_LIGHT = ITEMS.register("soul_of_light",
+            () -> new Item(new Item.Properties()
+                    .tab(ModItemGroup.ASH_TAB)
+                    .stacksTo(64)
+            ));
+
+    public static final RegistryObject<Item> PURE_DARKNESS = ITEMS.register("pure_darkness",
+            () -> new Item(new Item.Properties()
+                    .tab(ModItemGroup.ASH_TAB)
+                    .stacksTo(64)
             ));
 
 

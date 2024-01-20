@@ -51,7 +51,7 @@ public class ModBlocks {
             ));
 
     public static final RegistryObject<Block> ENERGIZED_COBBLESTONE = registerBlocks("energized_cobblestone",
-            () -> new EnergizedCobblestone(AbstractBlock.Properties
+            () -> new Block(AbstractBlock.Properties
                     .of(Material.STONE)
                     .harvestTool(ToolType.PICKAXE)
                     .requiresCorrectToolForDrops()
@@ -97,6 +97,46 @@ public class ModBlocks {
                     .of(Material.WOOD)
                     .strength(2f)
                     .sound(SoundType.WOOD)
+            ));
+
+    public static final RegistryObject<Block> TITANIUM_SAND_BLOCK = registerBlocks("titanium_sand_block",
+            () -> new Block(AbstractBlock.Properties
+                    .of(Material.STONE)
+                    .harvestTool(ToolType.SHOVEL)
+                    .strength(1f, 6f)
+                    .sound(SoundType.STONE)
+            ));
+
+    public static final RegistryObject<Block> INTEGRATED_FRAME_1 = registerBlocks("integrated_frame_1",
+            () -> new Block(AbstractBlock.Properties
+                    .of(Material.STONE, MaterialColor.COLOR_BLACK)
+                    .harvestTool(ToolType.PICKAXE)
+                    .strength(15f, 1200f)
+                    .sound(SoundType.STONE)
+            ));
+
+    public static final RegistryObject<Block> INTEGRATED_FRAME_2 = registerBlocks("integrated_frame_2",
+            () -> new Block(AbstractBlock.Properties
+                    .of(Material.STONE, MaterialColor.COLOR_BLACK)
+                    .harvestTool(ToolType.PICKAXE)
+                    .strength(30f, 1200f)
+                    .sound(SoundType.STONE)
+            ));
+
+    public static final RegistryObject<Block> INTEGRATED_FRAME_3 = registerBlocks("integrated_frame_3",
+            () -> new Block(AbstractBlock.Properties
+                    .of(Material.STONE, MaterialColor.COLOR_BLACK)
+                    .harvestTool(ToolType.PICKAXE)
+                    .strength(45f, 1200f)
+                    .sound(SoundType.STONE)
+            ));
+
+    public static final RegistryObject<Block> COOLED_MAGMA_BLOCK = registerBlocks("cooled_magma_block",
+            () -> new Block(AbstractBlock.Properties
+                    .of(Material.STONE, MaterialColor.NETHER)
+                    .requiresCorrectToolForDrops()
+                    .harvestTool(ToolType.PICKAXE)
+                    .sound(SoundType.STONE)
             ));
 
 

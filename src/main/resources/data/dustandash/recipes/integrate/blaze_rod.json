@@ -1,0 +1,23 @@
+{
+  "type": "dustandash:integrate",
+  "level": 2,
+  "ingredients": [
+    {
+      "item": "minecraft:blaze_powder"
+    },
+    {
+      "item": "minecraft:blaze_powder"
+    },
+    {
+      "item": "minecraft:blaze_powder"
+    },
+    {
+      "item": "minecraft:blaze_powder"
+    }
+  ],
+  "output" : {
+    "item": "minecraft:blaze_rod",
+    "count": 1
+  }
+
+}

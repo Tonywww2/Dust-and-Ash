@@ -106,7 +106,7 @@ public class CentrifugeRecipe implements ICentrifugeRecipe {
             JsonArray outputArr = JSONUtils.getAsJsonArray(json, "output");
 
             NonNullList<Ingredient> inputs = NonNullList.withSize(MAX_SLOTS, Ingredient.EMPTY);
-            NonNullList<ItemStack> outputs = NonNullList.withSize(OUTPUT_SLOTS, ItemStack.EMPTY.EMPTY);
+            NonNullList<ItemStack> outputs = NonNullList.withSize(OUTPUT_SLOTS, ItemStack.EMPTY);
 
 
             for (int i = 0; i < ingredients.size(); i++) {

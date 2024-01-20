@@ -1,0 +1,17 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+        {
+            "item": "minecraft:prismarine_shard"
+        },
+        {
+            "item": "dustandash:absorb_dust"
+        },
+        {
+            "item": "minecraft:glowstone_dust"
+        }
+    ],
+    "result": {
+        "item": "minecraft:prismarine_crystals"
+    }
+}

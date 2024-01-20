@@ -1,0 +1,40 @@
+{
+  "type": "dustandash:centrifuge",
+  "tick": 600,
+  "ingredients": [
+    {
+      "item": "dustandash:titanium_sand_block"
+    },
+    {
+      "item": "dustandash:grind_solvents"
+    }
+  ],
+  "output" : [
+    {
+      "item": "dustandash:earth_dust"
+    },
+    {
+      "item": "minecraft:air"
+    },
+    {
+      "item": "minecraft:air"
+    },
+    {
+      "item": "minecraft:air"
+    },
+
+    {
+      "item": "minecraft:sand"
+    },
+    {
+      "item": "minecraft:air"
+    },
+    {
+      "item": "minecraft:air"
+    },
+    {
+      "item": "dustandash:raw_titanium_sand"
+    }
+
+  ]
+}

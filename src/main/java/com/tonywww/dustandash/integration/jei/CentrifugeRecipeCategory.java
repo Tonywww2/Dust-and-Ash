@@ -1,5 +1,6 @@
 package com.tonywww.dustandash.integration.jei;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.tonywww.dustandash.DustAndAsh;
 import com.tonywww.dustandash.block.ModBlocks;
 import com.tonywww.dustandash.data.recipes.CentrifugeRecipe;
@@ -10,6 +11,8 @@ import mezz.jei.api.gui.ingredient.IGuiItemStackGroup;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
@@ -58,7 +61,7 @@ public class CentrifugeRecipeCategory implements IRecipeCategory<CentrifugeRecip
         iIngredients.setInputIngredients(centrifugeRecipe.getIngredients());
 //        iIngredients.setOutputs(VanillaTypes.ITEM, centrifugeRecipe.getResultItemStacks());
 
-        iIngredients.setOutputLists(VanillaTypes.ITEM, Collections.singletonList(centrifugeRecipe.getResultItemStacks()));
+//        iIngredients.setOutputLists(VanillaTypes.ITEM, Collections.singletonList(centrifugeRecipe.getResultItemStacks()));
 
     }
 
@@ -82,7 +85,6 @@ public class CentrifugeRecipeCategory implements IRecipeCategory<CentrifugeRecip
         itemStacks.init(9, false, 117, 65);
 
 
-
         for (int i = 0; i < 8; i++) {
             if (recipe.getResultItemStacks().get(i) != ItemStack.EMPTY) {
                 itemStacks.set(i + 2, recipe.getResultItemStacks().get(i));
@@ -91,6 +93,11 @@ public class CentrifugeRecipeCategory implements IRecipeCategory<CentrifugeRecip
 
         }
 
+    }
 
+    @Override
+    public void draw(CentrifugeRecipe recipe, MatrixStack matrixStack, double mouseX, double mouseY) {
+        FontRenderer font = Minecraft.getInstance().font;
+        font.draw(matrixStack, recipe.getTick() + " ticks", 65, 70, 0x555555);
     }
 }

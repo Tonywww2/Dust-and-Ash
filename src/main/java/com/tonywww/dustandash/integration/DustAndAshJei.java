@@ -1,4 +1,4 @@
-package com.tonywww.dustandash.integration.jei;
+package com.tonywww.dustandash.integration;
 
 import com.tonywww.dustandash.DustAndAsh;
 import com.tonywww.dustandash.block.ModBlocks;
@@ -6,6 +6,9 @@ import com.tonywww.dustandash.container.IntegratedBlockContainer;
 import com.tonywww.dustandash.data.recipes.CentrifugeRecipe;
 import com.tonywww.dustandash.data.recipes.IntegratedBlockRecipe;
 import com.tonywww.dustandash.data.recipes.MillingMachineRecipe;
+import com.tonywww.dustandash.integration.jei.CentrifugeRecipeCategory;
+import com.tonywww.dustandash.integration.jei.IntegratedBlockRecipeCategory;
+import com.tonywww.dustandash.integration.jei.MillingRecipeCategory;
 import com.tonywww.dustandash.screen.CentrifugeScreen;
 import com.tonywww.dustandash.screen.IntegratedBlockScreen;
 import com.tonywww.dustandash.screen.MillingMachineScreen;
@@ -87,8 +90,13 @@ public class DustAndAshJei implements IModPlugin {
         registration.addRecipeClickArea(CentrifugeScreen.class, 80, 51, 16, 16, CentrifugeRecipeCategory.UID);
 
     }
+
+
+
     @Override
     public void registerRecipeTransferHandlers(IRecipeTransferRegistration registration) {
         registration.addRecipeTransferHandler(IntegratedBlockContainer.class, IntegratedBlockRecipeCategory.UID, 36, 8, 0, 36);
     }
+
+
 }

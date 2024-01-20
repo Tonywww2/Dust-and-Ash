@@ -41,6 +41,8 @@
 
   "item.dustandash.dust_with_energy": "Energized Dust",
   "item.dustandash.pure_energy": "Pure Energy",
+  "item.dustandash.soul_of_light": "Soul of Light",
+  "item.dustandash.pure_darkness": "Pure Darkness",
 
   "item.dustandash.energized_cobblestone_bucket": "Energized Cobblestone Bucket",
   "item.dustandash.ash": "Ash",
@@ -56,6 +58,17 @@
   "item.dustandash.bloody_flint_stick": "Bloody Flint Stick",
   "item.dustandash.wooden_tool_handle": "Wooden Tool Handle",
   "item.dustandash.gear_box": "Gear Box",
+  "item.dustandash.titanium_ingot": "Titanium Ingot",
+  "item.dustandash.raw_titanium_sand": "Raw Titanium Sand (With Chlorine)",
+  "item.dustandash.titanium_sand": "Titanium Sand (With Reductant)",
+  "item.dustandash.titanium_scrap": "Titanium Scrap",
+  "item.dustandash.titanium_chunk": "Titanium Chunk",
+  "item.dustandash.glass_container": "Glass Container",
+  "item.dustandash.water_miscible_solvents": "Water-Miscible Solvents",
+  "item.dustandash.grind_solvents": "Grind Solvents",
+  "item.dustandash.base_oil": "Base Oil",
+  "item.dustandash.chlorine": "Chlorine",
+  "item.dustandash.reductant": "Reductant",
 
   "item.dustandash.iron_scrap": "Scrap",
   "item.dustandash.redstone_scrap": "Scrap",
@@ -70,6 +83,11 @@
   "block.dustandash.centrifuge": "Centrifuge",
   "block.dustandash.log_pile": "Log Pile",
   "block.dustandash.block_of_ash_steel": "Block of Ash Steel",
+  "block.dustandash.titanium_sand_block": "Titanium Sand Block",
+  "block.dustandash.integrated_frame_1": "Integrated Frame Tier 1",
+  "block.dustandash.integrated_frame_2": "Integrated Frame Tier 2",
+  "block.dustandash.integrated_frame_3": "Integrated Frame Tier 3",
+  "block.dustandash.cooled_magma_block": "Cooled Magma Block",
 
   "container.integrated_block": "Integrated Block",
   "container.ash_collector": "Ash Collector",
@@ -81,7 +99,8 @@
 
   "death.attack.sharpen_flint" : "%1$s's blood ran dry",
 
-  "itemGroup.dust_tab": "Dust",
-  "itemGroup.ash_tab": "Ash"
+  "itemGroup.dust_tab": "Dust and Ash: Dust",
+  "itemGroup.ash_tab": "Dust and Ash: Ash",
+  "itemGroup.blocks_tab": "Dust and Ash: Blocks"
 
 }

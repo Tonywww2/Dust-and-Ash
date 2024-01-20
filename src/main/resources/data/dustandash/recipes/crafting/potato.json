@@ -1,0 +1,27 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+        {
+            "item": "minecraft:beetroot"
+        },
+        {
+            "item": "dustandash:metamorphose_dust"
+        },
+        {
+            "item": "minecraft:brown_dye"
+        },
+        {
+            "item": "dustandash:reproduce_dust"
+        },
+        {
+            "item": "dustandash:reproduce_dust"
+        },
+        {
+            "item": "minecraft:yellow_dye"
+        }
+    ],
+    "result": {
+        "item": "minecraft:potato",
+        "count": 1
+    }
+}

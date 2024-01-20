@@ -1,10 +1,10 @@
 {
   "type": "minecraft:blasting",
   "ingredient": {
-    "item": "dustandash:raw_ash_steel"
+    "item": "dustandash:cooled_magma_block"
   },
   "result": {
-    "item": "dustandash:ash_steel_ingot",
+    "item": "minecraft:magma_block",
     "count": 1
   },
   "experience": 0.2,
