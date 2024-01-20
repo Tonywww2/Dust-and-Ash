@@ -1,0 +1,26 @@
+{
+  "type": "dustandash:integrate",
+  "level": 1,
+  "ingredients": [
+    {
+      "item": "dustandash:reductant"
+    },
+    {
+      "item": "dustandash:reductant"
+    },
+    {
+      "item": "dustandash:raw_titanium_sand"
+    },
+    {
+      "item": "dustandash:crystallize_dust"
+    },
+    {
+      "item": "dustandash:raw_titanium_sand"
+    }
+  ],
+  "output" : {
+    "item": "dustandash:titanium_sand",
+    "count": 1
+  }
+
+}

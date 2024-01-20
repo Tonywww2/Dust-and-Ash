@@ -58,7 +58,7 @@ public class CentrifugeRecipeCategory implements IRecipeCategory<CentrifugeRecip
         iIngredients.setInputIngredients(centrifugeRecipe.getIngredients());
 //        iIngredients.setOutputs(VanillaTypes.ITEM, centrifugeRecipe.getResultItemStacks());
 
-        iIngredients.setOutputLists(VanillaTypes.ITEM, Collections.singletonList(centrifugeRecipe.getResultItemStacks()));
+//        iIngredients.setOutputLists(VanillaTypes.ITEM, Collections.singletonList(centrifugeRecipe.getResultItemStacks()));
 
     }
 
