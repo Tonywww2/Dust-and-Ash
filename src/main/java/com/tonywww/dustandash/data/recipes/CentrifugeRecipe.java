@@ -24,7 +24,6 @@ public class CentrifugeRecipe implements ICentrifugeRecipe {
     private final ResourceLocation id;
     private final NonNullList<Ingredient> output;
     private final NonNullList<ItemStack> outputItemStacks;
-
     private final NonNullList<Ingredient> recipeItems;
     private final int tick;
 
@@ -39,7 +38,7 @@ public class CentrifugeRecipe implements ICentrifugeRecipe {
 
         outputItemStacks = NonNullList.withSize(8, ItemStack.EMPTY);
         for (int i = 0; i < 8; i++) {
-            if (!this.getResultIngredient().get(i).isEmpty()) {
+            if (this.getResultIngredient().get(i) != Ingredient.EMPTY) {
                 ItemStack temp = output.get(i).getItems()[0].copy();
                 temp.setCount(1);
                 outputItemStacks.set(i, temp);

@@ -34,8 +34,8 @@ public class DustAndAshJei implements IModPlugin {
     public void registerCategories(IRecipeCategoryRegistration registration) {
         registration.addRecipeCategories(
                 new IntegratedBlockRecipeCategory(registration.getJeiHelpers().getGuiHelper()),
-                new MillingRecipeCategory(registration.getJeiHelpers().getGuiHelper())
-//                new CentrifugeRecipeCategory(registration.getJeiHelpers().getGuiHelper())
+                new MillingRecipeCategory(registration.getJeiHelpers().getGuiHelper()),
+                new CentrifugeRecipeCategory(registration.getJeiHelpers().getGuiHelper())
 
         );
     }
@@ -52,10 +52,10 @@ public class DustAndAshJei implements IModPlugin {
                         .filter(r -> r instanceof MillingMachineRecipe).collect(Collectors.toList()),
                 MillingRecipeCategory.UID
         );
-//        registration.addRecipes(rm.getRecipes().stream()
-//                        .filter(r -> r instanceof CentrifugeRecipe).collect(Collectors.toList()),
-//                CentrifugeRecipeCategory.UID
-//        );
+        registration.addRecipes(rm.getRecipes().stream()
+                        .filter(r -> r instanceof CentrifugeRecipe).collect(Collectors.toList()),
+                CentrifugeRecipeCategory.UID
+        );
     }
 
     @Override
@@ -70,10 +70,10 @@ public class DustAndAshJei implements IModPlugin {
                 MillingRecipeCategory.UID
         );
 
-//        registration.addRecipeCatalyst(
-//                new ItemStack(ModBlocks.CENTRIFUGE.get()),
-//                CentrifugeRecipeCategory.UID
-//        );
+        registration.addRecipeCatalyst(
+                new ItemStack(ModBlocks.CENTRIFUGE.get()),
+                CentrifugeRecipeCategory.UID
+        );
 
     }
 
@@ -83,7 +83,7 @@ public class DustAndAshJei implements IModPlugin {
 
         registration.addRecipeClickArea(MillingMachineScreen.class, 50, 12, 15, 11, MillingRecipeCategory.UID);
 
-//        registration.addRecipeClickArea(CentrifugeScreen.class, 80, 51, 16, 16, CentrifugeRecipeCategory.UID);
+        registration.addRecipeClickArea(CentrifugeScreen.class, 80, 51, 16, 16, CentrifugeRecipeCategory.UID);
 
     }
     @Override

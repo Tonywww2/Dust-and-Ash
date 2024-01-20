@@ -13,6 +13,8 @@ import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
+import java.util.List;
+
 public class CentrifugeRecipeCategory implements IRecipeCategory<CentrifugeRecipe> {
 
     public final static ResourceLocation UID = new ResourceLocation(DustAndAsh.MOD_ID, "centrifuge");
@@ -55,6 +57,7 @@ public class CentrifugeRecipeCategory implements IRecipeCategory<CentrifugeRecip
     public void setIngredients(CentrifugeRecipe centrifugeRecipe, IIngredients iIngredients) {
         iIngredients.setInputIngredients(centrifugeRecipe.getIngredients());
         iIngredients.setOutputs(VanillaTypes.ITEM, centrifugeRecipe.getResultItemStacks());
+//        iIngredients.setOutputLists();
 
     }
 
@@ -63,22 +66,30 @@ public class CentrifugeRecipeCategory implements IRecipeCategory<CentrifugeRecip
 
         IGuiItemStackGroup itemStacks = iRecipeLayout.getItemStacks();
 
-        itemStacks.init(0, true, 80, 6);
-        itemStacks.init(1, true, 80, 27);
-
-        itemStacks.init(2, false, 22, 12);
-        itemStacks.init(3, false, 42, 30);
-        itemStacks.init(4, false, 22, 48);
-        itemStacks.init(5, false, 42, 66);
-
-        itemStacks.init(6, false, 138, 12);
-        itemStacks.init(7, false, 118, 30);
-        itemStacks.init(8, false, 138, 48);
-        itemStacks.init(9, false, 118, 66);
-
-
+        itemStacks.init(0, true, 79, 5);
+        itemStacks.init(1, true, 79, 26);
         itemStacks.set(ingredients);
-        itemStacks.set(8, recipe.getResultItemStacks());
+
+        itemStacks.init(2, false, 21, 11);
+        itemStacks.init(3, false, 41, 29);
+        itemStacks.init(4, false, 21, 47);
+        itemStacks.init(5, false, 41, 65);
+
+        itemStacks.init(6, false, 137, 11);
+        itemStacks.init(7, false, 117, 29);
+        itemStacks.init(8, false, 137, 47);
+        itemStacks.init(9, false, 117, 65);
+
+
+
+        for (int i = 0; i < 8; i++) {
+            if (recipe.getResultItemStacks().get(i) != ItemStack.EMPTY) {
+                itemStacks.set(i + 2, recipe.getResultItemStacks().get(i));
+
+            }
+
+        }
+
 
     }
 }
