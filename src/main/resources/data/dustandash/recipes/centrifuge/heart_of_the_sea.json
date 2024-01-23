@@ -1,0 +1,40 @@
+{
+  "type": "dustandash:centrifuge",
+  "tick": 600,
+  "ingredients": [
+    {
+      "item": "minecraft:beacon"
+    },
+    {
+      "item": "dustandash:grind_solvents"
+    }
+  ],
+  "output" : [
+    {
+      "item": "minecraft:air"
+    },
+    {
+      "item": "minecraft:sand"
+    },
+    {
+      "item": "minecraft:heart_of_the_sea"
+    },
+    {
+      "item": "minecraft:obsidian"
+    },
+
+    {
+      "item": "minecraft:air"
+    },
+    {
+      "item": "dustandash:dust_with_energy"
+    },
+    {
+      "item": "minecraft:air"
+    },
+    {
+      "item": "minecraft:sand"
+    }
+
+  ]
+}

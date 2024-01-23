@@ -68,31 +68,31 @@ public class ModItems {
             ));
 
     public static final RegistryObject<Item> ASH_STEEL_SWORD = ITEMS.register("ash_steel_sword",
-            () -> new SwordItem(ModItemTier.ASH_STEEL, 3, -2.2F,
+            () -> new SwordItem(ModItemTier.ASH_STEEL, 3, -2.3F,
                     (new Item.Properties())
                             .tab(ModItemGroup.DUST_TAB)
             ));
 
     public static final RegistryObject<Item> ASH_STEEL_SHOVEL = ITEMS.register("ash_steel_shovel",
-            () -> new ShovelItem(ModItemTier.ASH_STEEL, 1.5F, -2.8F,
+            () -> new ShovelItem(ModItemTier.ASH_STEEL, 1.5F, -2.9F,
                     (new Item.Properties())
                             .tab(ModItemGroup.DUST_TAB)
             ));
 
     public static final RegistryObject<Item> ASH_STEEL_PICKAXE = ITEMS.register("ash_steel_pickaxe",
-            () -> new PickaxeItem(ModItemTier.ASH_STEEL, 1, -2.8F,
+            () -> new PickaxeItem(ModItemTier.ASH_STEEL, 1, -2.7F,
                     (new Item.Properties())
                             .tab(ModItemGroup.DUST_TAB)
             ));
 
     public static final RegistryObject<Item> ASH_STEEL_AXE = ITEMS.register("ash_steel_axe",
-            () -> new AxeItem(ModItemTier.ASH_STEEL, 5.5F, -2.9F,
+            () -> new AxeItem(ModItemTier.ASH_STEEL, 6.5F, -3.05F,
                     (new Item.Properties())
                             .tab(ModItemGroup.DUST_TAB)
             ));
 
     public static final RegistryObject<Item> ASH_STEEL_HOE = ITEMS.register("ash_steel_hoe",
-            () -> new HoeItem(ModItemTier.ASH_STEEL, -2, -0.8F,
+            () -> new HoeItem(ModItemTier.ASH_STEEL, -2, -0.9F,
                     (new Item.Properties())
                             .tab(ModItemGroup.DUST_TAB)
             ));
@@ -377,6 +377,13 @@ public class ModItems {
                     .tab(ModItemGroup.ASH_TAB)
                     .stacksTo(64)
             ));
+
+    public static final RegistryObject<Item> CRUSHED_SEEDS = ITEMS.register("crushed_seeds",
+            () -> new Item(new Item.Properties()
+                    .tab(ModItemGroup.ASH_TAB)
+                    .stacksTo(64)
+            ));
+
 
     public static final RegistryObject<Item> SOUL_OF_LIGHT = ITEMS.register("soul_of_light",
             () -> new Item(new Item.Properties()

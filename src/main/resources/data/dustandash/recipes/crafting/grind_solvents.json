@@ -1,0 +1,23 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+        {
+            "item": "dustandash:glass_container"
+        },
+        {
+            "item": "dustandash:wood_ash"
+        },
+        {
+            "item": "dustandash:sharpen_flint"
+        },
+        {
+          "type": "forge:nbt",
+          "item": "minecraft:potion",
+          "nbt": "{Potion:'minecraft:strength'}"
+        }
+    ],
+    "result": {
+        "item": "dustandash:grind_solvents",
+        "count": 2
+    }
+}

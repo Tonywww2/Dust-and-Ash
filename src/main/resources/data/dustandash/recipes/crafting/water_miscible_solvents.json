@@ -1,0 +1,23 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+        {
+            "item": "dustandash:glass_container"
+        },
+        {
+            "item": "dustandash:wood_ash"
+        },
+        {
+            "item": "minecraft:gunpowder"
+        },
+        {
+          "type": "forge:nbt",
+          "item": "minecraft:potion",
+          "nbt": "{Potion:'minecraft:weakness'}"
+        }
+    ],
+    "result": {
+        "item": "dustandash:water_miscible_solvents",
+        "count": 2
+    }
+}

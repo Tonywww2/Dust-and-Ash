@@ -1,0 +1,40 @@
+{
+  "type": "dustandash:centrifuge",
+  "tick": 200,
+  "ingredients": [
+    {
+      "item": "dustandash:crushed_seeds"
+    },
+    {
+      "item": "dustandash:glass_container"
+    }
+  ],
+  "output" : [
+    {
+      "item": "minecraft:air"
+    },
+    {
+      "item": "minecraft:air"
+    },
+    {
+      "item": "minecraft:air"
+    },
+    {
+      "item": "minecraft:air"
+    },
+
+    {
+      "item": "dustandash:base_oil"
+    },
+    {
+      "item": "minecraft:air"
+    },
+    {
+      "item": "minecraft:air"
+    },
+    {
+      "item": "minecraft:air"
+    }
+
+  ]
+}

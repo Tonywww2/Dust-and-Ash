@@ -139,6 +139,14 @@ public class ModBlocks {
                     .sound(SoundType.STONE)
             ));
 
+    public static final RegistryObject<Block> NETHERITE_MUD = registerBlocks("netherite_mud",
+            () -> new Block(AbstractBlock.Properties
+                    .of(Material.DIRT, MaterialColor.NETHER)
+                    .requiresCorrectToolForDrops()
+                    .harvestTool(ToolType.SHOVEL)
+                    .strength(50f, 1200f)
+            ));
+
 
     private static <T extends Block> RegistryObject<T> registerBlocks(String name, Supplier<T> block) {
         RegistryObject<T> tRegistryObject = BLOCKS.register(name, block);

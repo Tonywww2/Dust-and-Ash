@@ -69,6 +69,7 @@
   "item.dustandash.base_oil": "Base Oil",
   "item.dustandash.chlorine": "Chlorine",
   "item.dustandash.reductant": "Reductant",
+  "item.dustandash.crushed_seeds": "Crushed Seeds",
 
   "item.dustandash.iron_scrap": "Scrap",
   "item.dustandash.redstone_scrap": "Scrap",
@@ -88,6 +89,7 @@
   "block.dustandash.integrated_frame_2": "Integrated Frame Tier 2",
   "block.dustandash.integrated_frame_3": "Integrated Frame Tier 3",
   "block.dustandash.cooled_magma_block": "Cooled Magma Block",
+  "block.dustandash.netherite_mud": "Netherite Mud",
 
   "container.integrated_block": "Integrated Block",
   "container.ash_collector": "Ash Collector",

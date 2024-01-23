@@ -1,0 +1,36 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+        {
+            "item": "minecraft:diamond"
+        },
+        {
+            "item": "minecraft:brown_dye"
+        },
+        {
+            "item": "dustandash:lacerate_dust"
+        },
+        {
+            "item": "dustandash:crystallize_dust"
+        },
+        {
+            "item": "dustandash:titanium_scrap"
+        },
+        {
+            "item": "dustandash:metamorphose_dust"
+        },
+        {
+            "item": "minecraft:obsidian"
+        },
+        {
+            "item": "minecraft:fermented_spider_eye"
+        },
+        {
+            "item": "minecraft:phantom_membrane"
+        }
+    ],
+    "result": {
+        "item": "dustandash:netherite_mud",
+        "count": 2
+    }
+}

@@ -1,0 +1,35 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        " #S",
+        "BAP",
+        "iCi"
+    ],
+    "key": {
+        "#": {
+            "item": "minecraft:chain"
+        },
+        "S": {
+            "item": "minecraft:stonecutter"
+        },
+        "B": {
+            "item": "minecraft:blast_furnace"
+        },
+        "A": {
+            "item": "minecraft:anvil"
+        },
+        "P": {
+            "item": "minecraft:smithing_table"
+        },
+        "i": {
+            "item": "minecraft:iron_ingot"
+        },
+        "C": {
+            "item": "minecraft:crafting_table"
+        }
+    },
+    "result": {
+        "item": "dustandash:milling_machine",
+        "count": 1
+    }
+}

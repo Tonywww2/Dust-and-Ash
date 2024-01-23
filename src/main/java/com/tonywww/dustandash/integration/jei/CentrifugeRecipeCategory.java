@@ -13,7 +13,10 @@ import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 
 import java.util.Collections;
@@ -59,9 +62,17 @@ public class CentrifugeRecipeCategory implements IRecipeCategory<CentrifugeRecip
     @Override
     public void setIngredients(CentrifugeRecipe centrifugeRecipe, IIngredients iIngredients) {
         iIngredients.setInputIngredients(centrifugeRecipe.getIngredients());
-//        iIngredients.setOutputs(VanillaTypes.ITEM, centrifugeRecipe.getResultItemStacks());
 
-//        iIngredients.setOutputLists(VanillaTypes.ITEM, Collections.singletonList(centrifugeRecipe.getResultItemStacks()));
+        NonNullList<ItemStack> l = NonNullList.create();
+
+        for (ItemStack i : centrifugeRecipe.getResultItemStacks()) {
+            if (!i.isEmpty()) {
+                l.add(i);
+            }
+
+        }
+
+        iIngredients.setOutputs(VanillaTypes.ITEM, l);
 
     }
 

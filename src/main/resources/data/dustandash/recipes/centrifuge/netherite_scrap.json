@@ -1,0 +1,40 @@
+{
+  "type": "dustandash:centrifuge",
+  "tick": 1200,
+  "ingredients": [
+    {
+      "item": "dustandash:netherite_mud"
+    },
+    {
+      "item": "dustandash:water_miscible_solvents"
+    }
+  ],
+  "output" : [
+    {
+      "item": "minecraft:air"
+    },
+    {
+      "item": "minecraft:gold_nugget"
+    },
+    {
+      "item": "minecraft:air"
+    },
+    {
+      "item": "minecraft:netherite_scrap"
+    },
+
+    {
+      "item": "minecraft:bone_meal"
+    },
+    {
+      "item": "minecraft:air"
+    },
+    {
+      "item": "minecraft:coal"
+    },
+    {
+      "item": "minecraft:air"
+    }
+
+  ]
+}
