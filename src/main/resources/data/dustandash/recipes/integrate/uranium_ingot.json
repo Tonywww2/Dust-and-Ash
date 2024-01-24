@@ -1,0 +1,35 @@
+{
+  "type": "dustandash:integrate",
+  "level": 3,
+  "ingredients": [
+    {
+      "item": "dustandash:order_dust"
+    },
+    {
+      "item": "dustandash:order_dust"
+    },
+    {
+      "item": "dustandash:metal_dust"
+    },
+    {
+      "item": "dustandash:metal_dust"
+    },
+    {
+      "item": "dustandash:metal_dust"
+    },
+    {
+      "item": "dustandash:metamorphose_dust"
+    },
+    {
+      "item": "dustandash:extinguish_dust"
+    },
+    {
+      "item": "dustandash:smelt_dust"
+    }
+  ],
+  "output" : {
+    "item": "dustandash:uranium_ingot",
+    "count": 1
+  }
+
+}

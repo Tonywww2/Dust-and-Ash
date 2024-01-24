@@ -1,0 +1,32 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "EBE",
+        "#C#",
+        "ADA"
+    ],
+    "key": {
+        "#": {
+            "item": "dustandash:integrated_frame_1"
+        },
+        "A": {
+            "item": "minecraft:magma_block"
+        },
+        "B": {
+            "item": "minecraft:book"
+        },
+        "C": {
+            "item": "dustandash:basic_machine_frame"
+        },
+        "D": {
+            "item": "minecraft:crying_obsidian"
+        },
+        "E": {
+            "item": "dustandash:inherit_dust"
+        }
+    },
+    "result": {
+        "item": "dustandash:integrated_frame_2",
+        "count": 1
+    }
+}

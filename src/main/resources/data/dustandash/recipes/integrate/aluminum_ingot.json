@@ -1,0 +1,35 @@
+{
+  "type": "dustandash:integrate",
+  "level": 3,
+  "ingredients": [
+    {
+      "item": "dustandash:order_dust"
+    },
+    {
+      "item": "dustandash:order_dust"
+    },
+    {
+      "item": "dustandash:metal_dust"
+    },
+    {
+      "item": "dustandash:metal_dust"
+    },
+    {
+      "item": "dustandash:metal_dust"
+    },
+    {
+      "item": "dustandash:crystallize_dust"
+    },
+    {
+      "item": "dustandash:lacerate_dust"
+    },
+    {
+      "item": "dustandash:inherit_dust"
+    }
+  ],
+  "output" : {
+    "item": "dustandash:aluminum_ingot",
+    "count": 1
+  }
+
+}

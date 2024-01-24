@@ -1,0 +1,26 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "#B#",
+        "#C#",
+        "A#A"
+    ],
+    "key": {
+        "#": {
+            "item": "minecraft:iron_bars"
+        },
+        "A": {
+            "item": "minecraft:bricks"
+        },
+        "B": {
+            "item": "minecraft:water_bucket"
+        },
+        "C": {
+            "item": "minecraft:lava_bucket"
+        }
+    },
+    "result": {
+        "item": "dustandash:integrated_frame_1",
+        "count": 1
+    }
+}

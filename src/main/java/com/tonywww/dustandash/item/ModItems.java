@@ -15,8 +15,8 @@ public class ModItems {
 
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, DustAndAsh.MOD_ID);
 
-    //Items
-    //tools
+    // Items
+    // tools
     public static final RegistryObject<Item> HAND_VACUUM = ITEMS.register("hand_vacuum",
             () -> new HandVacuum(new Item.Properties()
                     .tab(ModItemGroup.DUST_TAB)
@@ -97,14 +97,74 @@ public class ModItems {
                             .tab(ModItemGroup.DUST_TAB)
             ));
 
+    // metals
+    public static final RegistryObject<Item> ASH_STEEL_INGOT = ITEMS.register("ash_steel_ingot",
+            () -> new Item(new Item.Properties()
+                    .tab(ModItemGroup.ASH_TAB)
+                    .stacksTo(32)
+            ));
 
-    //materials
-    public static final RegistryObject<Item> BLOODY_FLINT = ITEMS.register("bloody_flint",
+    public static final RegistryObject<Item> TITANIUM_INGOT = ITEMS.register("titanium_ingot",
+            () -> new Item(new Item.Properties()
+                    .tab(ModItemGroup.DUST_TAB)
+                    .stacksTo(32)
+            ));
+
+    public static final RegistryObject<Item> COPPER_INGOT = ITEMS.register("copper_ingot",
             () -> new Item(new Item.Properties()
                     .tab(ModItemGroup.DUST_TAB)
                     .stacksTo(64)
             ));
 
+    public static final RegistryObject<Item> TIN_INGOT = ITEMS.register("tin_ingot",
+            () -> new Item(new Item.Properties()
+                    .tab(ModItemGroup.DUST_TAB)
+                    .stacksTo(64)
+            ));
+
+    public static final RegistryObject<Item> SLIVER_INGOT = ITEMS.register("sliver_ingot",
+            () -> new Item(new Item.Properties()
+                    .tab(ModItemGroup.DUST_TAB)
+                    .stacksTo(64)
+            ));
+
+    public static final RegistryObject<Item> LEAD_INGOT = ITEMS.register("lead_ingot",
+            () -> new Item(new Item.Properties()
+                    .tab(ModItemGroup.DUST_TAB)
+                    .stacksTo(64)
+            ));
+
+    public static final RegistryObject<Item> NICKEL_INGOT = ITEMS.register("nickel_ingot",
+            () -> new Item(new Item.Properties()
+                    .tab(ModItemGroup.DUST_TAB)
+                    .stacksTo(64)
+            ));
+
+    public static final RegistryObject<Item> ALUMINUM_INGOT = ITEMS.register("aluminum_ingot",
+            () -> new Item(new Item.Properties()
+                    .tab(ModItemGroup.DUST_TAB)
+                    .stacksTo(64)
+            ));
+
+    public static final RegistryObject<Item> OSMIUM_INGOT = ITEMS.register("osmium_ingot",
+            () -> new Item(new Item.Properties()
+                    .tab(ModItemGroup.DUST_TAB)
+                    .stacksTo(64)
+            ));
+
+    public static final RegistryObject<Item> URANIUM_INGOT = ITEMS.register("uranium_ingot",
+            () -> new Item(new Item.Properties()
+                    .tab(ModItemGroup.DUST_TAB)
+                    .stacksTo(64)
+            ));
+
+    public static final RegistryObject<Item> TUNGSTEN_INGOT = ITEMS.register("tungsten_ingot",
+            () -> new Item(new Item.Properties()
+                    .tab(ModItemGroup.DUST_TAB)
+                    .stacksTo(64)
+            ));
+
+    // dusts
     public static final RegistryObject<Item> METAL_DUST = ITEMS.register("metal_dust",
             () -> new Item(new Item.Properties()
                     .tab(ModItemGroup.DUST_TAB)
@@ -133,12 +193,6 @@ public class ModItems {
             () -> new Item(new Item.Properties()
                     .tab(ModItemGroup.DUST_TAB)
                     .stacksTo(48)
-            ));
-
-    public static final RegistryObject<Item> ELECTRON = ITEMS.register("electron",
-            () -> new Item(new Item.Properties()
-                    .tab(ModItemGroup.DUST_TAB)
-                    .stacksTo(64)
             ));
 
     public static final RegistryObject<Item> REPRODUCE_DUST = ITEMS.register("reproduce_dust",
@@ -220,31 +274,6 @@ public class ModItems {
                     .stacksTo(1)
             ));
 
-    // ash
-    public static final RegistryObject<Item> ASH = ITEMS.register("ash",
-            () -> new Item(new Item.Properties()
-                    .tab(ModItemGroup.ASH_TAB)
-                    .stacksTo(64)
-            ));
-
-    public static final RegistryObject<Item> WOOD_ASH = ITEMS.register("wood_ash",
-            () -> new Item(new Item.Properties()
-                    .tab(ModItemGroup.ASH_TAB)
-                    .stacksTo(64)
-            ));
-
-    public static final RegistryObject<Item> ASH_STEEL_INGOT = ITEMS.register("ash_steel_ingot",
-            () -> new Item(new Item.Properties()
-                    .tab(ModItemGroup.ASH_TAB)
-                    .stacksTo(32)
-            ));
-
-    public static final RegistryObject<Item> RAW_ASH_STEEL = ITEMS.register("raw_ash_steel",
-            () -> new Item(new Item.Properties()
-                    .tab(ModItemGroup.ASH_TAB)
-                    .stacksTo(64)
-            ));
-
     public static final RegistryObject<Item> PURE_ENERGY = ITEMS.register("pure_energy",
             () -> new Item(new Item.Properties()
                     .tab(ModItemGroup.ASH_TAB)
@@ -257,53 +286,58 @@ public class ModItems {
                     .stacksTo(2)
             ));
 
-    // gears
-    public static final RegistryObject<Item> IRON_GEAR = ITEMS.register("iron_gear",
-            () -> new Item(new Item.Properties()
-                    .tab(ModItemGroup.ASH_TAB)
-                    .stacksTo(32)
-            ));
-
-    public static final RegistryObject<Item> REDSTONE_GEAR = ITEMS.register("redstone_gear",
-            () -> new Item(new Item.Properties()
-                    .tab(ModItemGroup.ASH_TAB)
-                    .stacksTo(32)
-            ));
-
-    public static final RegistryObject<Item> ASH_STEEL_GEAR = ITEMS.register("ash_steel_gear",
-            () -> new Item(new Item.Properties()
-                    .tab(ModItemGroup.ASH_TAB)
-                    .stacksTo(32)
-            ));
-
-    // scraps
-    public static final RegistryObject<Item> IRON_SCRAP = ITEMS.register("iron_scrap",
+    public static final RegistryObject<Item> SOUL_OF_LIGHT = ITEMS.register("soul_of_light",
             () -> new Item(new Item.Properties()
                     .tab(ModItemGroup.ASH_TAB)
                     .stacksTo(64)
             ));
 
-    public static final RegistryObject<Item> REDSTONE_SCRAP = ITEMS.register("redstone_scrap",
+    public static final RegistryObject<Item> PURE_DARKNESS = ITEMS.register("pure_darkness",
             () -> new Item(new Item.Properties()
                     .tab(ModItemGroup.ASH_TAB)
                     .stacksTo(64)
             ));
 
-    public static final RegistryObject<Item> ASH_STEEL_SCRAP = ITEMS.register("ash_steel_scrap",
+    // normal materials
+    public static final RegistryObject<Item> BLOODY_FLINT = ITEMS.register("bloody_flint",
+            () -> new Item(new Item.Properties()
+                    .tab(ModItemGroup.DUST_TAB)
+                    .stacksTo(64)
+            ));
+
+    public static final RegistryObject<Item> ELECTRON = ITEMS.register("electron",
+            () -> new Item(new Item.Properties()
+                    .tab(ModItemGroup.DUST_TAB)
+                    .stacksTo(64)
+            ));
+
+    public static final RegistryObject<Item> CRUSHED_SEEDS = ITEMS.register("crushed_seeds",
             () -> new Item(new Item.Properties()
                     .tab(ModItemGroup.ASH_TAB)
                     .stacksTo(64)
             ));
+    public static final RegistryObject<Item> ASH = ITEMS.register("ash",
+            () -> new Item(new Item.Properties()
+                    .tab(ModItemGroup.ASH_TAB)
+                    .stacksTo(64)
+            ));
+
+    public static final RegistryObject<Item> WOOD_ASH = ITEMS.register("wood_ash",
+            () -> new Item(new Item.Properties()
+                    .tab(ModItemGroup.ASH_TAB)
+                    .stacksTo(64)
+            ));
+
+    public static final RegistryObject<Item> RAW_ASH_STEEL = ITEMS.register("raw_ash_steel",
+            () -> new Item(new Item.Properties()
+                    .tab(ModItemGroup.ASH_TAB)
+                    .stacksTo(64)
+            ));
+
     public static final RegistryObject<Item> BLOODY_FLINT_STICK = ITEMS.register("bloody_flint_stick",
             () -> new Item(new Item.Properties()
                     .tab(ModItemGroup.DUST_TAB)
                     .stacksTo(64)
-            ));
-
-    public static final RegistryObject<Item> TITANIUM_INGOT = ITEMS.register("titanium_ingot",
-            () -> new Item(new Item.Properties()
-                    .tab(ModItemGroup.DUST_TAB)
-                    .stacksTo(32)
             ));
 
     public static final RegistryObject<Item> RAW_TITANIUM_SAND = ITEMS.register("raw_titanium_sand",
@@ -329,19 +363,13 @@ public class ModItems {
                     .stacksTo(16)
             ));
 
-
     public static final RegistryObject<Item> WOODEN_TOOL_HANDLE = ITEMS.register("wooden_tool_handle",
             () -> new Item(new Item.Properties()
                     .tab(ModItemGroup.DUST_TAB)
                     .stacksTo(4)
             ));
 
-    public static final RegistryObject<Item> GEAR_BOX = ITEMS.register("gear_box",
-            () -> new Item(new Item.Properties()
-                    .tab(ModItemGroup.ASH_TAB)
-                    .stacksTo(2)
-            ));
-
+    // container stuff
     public static final RegistryObject<Item> GLASS_CONTAINER = ITEMS.register("glass_container",
             () -> new Item(new Item.Properties()
                     .tab(ModItemGroup.ASH_TAB)
@@ -378,20 +406,45 @@ public class ModItems {
                     .stacksTo(64)
             ));
 
-    public static final RegistryObject<Item> CRUSHED_SEEDS = ITEMS.register("crushed_seeds",
+    // gears
+    public static final RegistryObject<Item> GEAR_BOX = ITEMS.register("gear_box",
+            () -> new Item(new Item.Properties()
+                    .tab(ModItemGroup.ASH_TAB)
+                    .stacksTo(2)
+            ));
+
+    public static final RegistryObject<Item> IRON_GEAR = ITEMS.register("iron_gear",
+            () -> new Item(new Item.Properties()
+                    .tab(ModItemGroup.ASH_TAB)
+                    .stacksTo(32)
+            ));
+
+    public static final RegistryObject<Item> REDSTONE_GEAR = ITEMS.register("redstone_gear",
+            () -> new Item(new Item.Properties()
+                    .tab(ModItemGroup.ASH_TAB)
+                    .stacksTo(32)
+            ));
+
+    public static final RegistryObject<Item> ASH_STEEL_GEAR = ITEMS.register("ash_steel_gear",
+            () -> new Item(new Item.Properties()
+                    .tab(ModItemGroup.ASH_TAB)
+                    .stacksTo(32)
+            ));
+
+    // scraps
+    public static final RegistryObject<Item> IRON_SCRAP = ITEMS.register("iron_scrap",
             () -> new Item(new Item.Properties()
                     .tab(ModItemGroup.ASH_TAB)
                     .stacksTo(64)
             ));
 
-
-    public static final RegistryObject<Item> SOUL_OF_LIGHT = ITEMS.register("soul_of_light",
+    public static final RegistryObject<Item> REDSTONE_SCRAP = ITEMS.register("redstone_scrap",
             () -> new Item(new Item.Properties()
                     .tab(ModItemGroup.ASH_TAB)
                     .stacksTo(64)
             ));
 
-    public static final RegistryObject<Item> PURE_DARKNESS = ITEMS.register("pure_darkness",
+    public static final RegistryObject<Item> ASH_STEEL_SCRAP = ITEMS.register("ash_steel_scrap",
             () -> new Item(new Item.Properties()
                     .tab(ModItemGroup.ASH_TAB)
                     .stacksTo(64)

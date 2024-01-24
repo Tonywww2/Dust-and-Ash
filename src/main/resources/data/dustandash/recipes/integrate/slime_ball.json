@@ -1,6 +1,6 @@
 {
   "type": "dustandash:integrate",
-  "level": 2,
+  "level": 1,
   "ingredients": [
     {
       "item": "minecraft:honey_bottle"
