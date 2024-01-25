@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": {
+    "item": "dustandash:raw_carbon_fiber"
+  },
+  "result": {
+    "item": "dustandash:carbon_fiber",
+    "count": 1
+  },
+  "experience": 0.4,
+  "cookingtime": 600
+}

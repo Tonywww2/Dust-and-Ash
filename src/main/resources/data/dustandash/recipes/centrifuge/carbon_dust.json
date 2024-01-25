@@ -1,0 +1,40 @@
+{
+  "type": "dustandash:centrifuge",
+  "tick": 400,
+  "ingredients": [
+    {
+      "tag": "forge:storage_blocks/coal"
+    },
+    {
+      "item": "minecraft:air"
+    }
+  ],
+  "output" : [
+    {
+      "item": "dustandash:earth_dust"
+    },
+    {
+      "item": "minecraft:air"
+    },
+    {
+      "item": "dustandash:carbon_dust"
+    },
+    {
+      "item": "dustandash:carbon_dust"
+    },
+
+    {
+      "item": "dustandash:carbon_dust"
+    },
+    {
+      "item": "dustandash:carbon_dust"
+    },
+    {
+      "item": "minecraft:air"
+    },
+    {
+      "item": "dustandash:carbon_dust"
+    }
+
+  ]
+}

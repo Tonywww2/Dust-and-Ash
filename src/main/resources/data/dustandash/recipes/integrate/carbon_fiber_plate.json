@@ -1,0 +1,35 @@
+{
+  "type": "dustandash:integrate",
+  "level": 3,
+  "ingredients": [
+    {
+      "item": "minecraft:paper"
+    },
+    {
+      "item": "minecraft:slime_ball"
+    },
+    {
+      "item": "dustandash:carbon_fiber"
+    },
+    {
+      "item": "dustandash:carbon_fiber"
+    },
+    {
+      "item": "dustandash:carbon_fiber"
+    },
+    {
+      "item": "dustandash:carbon_fiber"
+    },
+    {
+      "item": "dustandash:carbon_fiber"
+    },
+    {
+      "item": "dustandash:carbon_fiber"
+    }
+  ],
+  "output" : {
+    "item": "dustandash:carbon_fiber_plate",
+    "count": 1
+  }
+
+}

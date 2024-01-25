@@ -14,6 +14,9 @@
   "item.dustandash.ash_steel_leggings": "Ash Steel leggings",
   "item.dustandash.ash_steel_helmet": "Ash Steel Helmet",
 
+  "item.dustandash.rain_crystal": "Rain Crystal",
+  "item.dustandash.sun_crystal": "Sun Crystal",
+
   "item.dustandash.metal_dust": "Dust of Metal",
   "item.dustandash.life_dust": "Dust of Life",
   "item.dustandash.order_dust": "Dust of Order",
@@ -79,10 +82,16 @@
   "item.dustandash.osmium_ingot": "Osmium Ingot",
   "item.dustandash.uranium_ingot": "Uranium Ingot",
   "item.dustandash.tungsten_ingot": "Tungsten Ingot",
+  "item.dustandash.carbon_dust": "Carbon Dust",
+  "item.dustandash.raw_carbon_fiber": "Raw Carbon Fiber",
+  "item.dustandash.carbon_fiber": "Carbon Fiber",
+  "item.dustandash.carbon_fiber_plate": "Carbon Fiber Plate",
+  "item.dustandash.tungsten_dust": "Tungsten Dust",
 
   "item.dustandash.iron_scrap": "Scrap",
   "item.dustandash.redstone_scrap": "Scrap",
   "item.dustandash.ash_steel_scrap": "Scrap",
+  "item.dustandash.carbon_fiber_scrap": "Scrap",
 
   "block.dustandash.dust_source": "Dust Source",
   "block.dustandash.dust": "Dust",

@@ -6,9 +6,12 @@
     "minecraft:honey_bottle",
     "minecraft:charcoal",
     "minecraft:redstone",
+    "minecraft:slime_ball",
+    "minecraft:paper",
     "dustandash:bowl_with_dust",
     "dustandash:dust_with_energy",
-    "dustandash:ash"
+    "dustandash:ash",
+    "dustandash:carbon_fiber"
   ]
 
 }

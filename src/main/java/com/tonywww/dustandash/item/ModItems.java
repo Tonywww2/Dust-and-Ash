@@ -1,9 +1,7 @@
 package com.tonywww.dustandash.item;
 
 import com.tonywww.dustandash.DustAndAsh;
-import com.tonywww.dustandash.item.custom.HandVacuum;
-import com.tonywww.dustandash.item.custom.IronVacuum;
-import com.tonywww.dustandash.item.custom.SharpenFlint;
+import com.tonywww.dustandash.item.custom.*;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -95,6 +93,18 @@ public class ModItems {
             () -> new HoeItem(ModItemTier.ASH_STEEL, -2, -0.9F,
                     (new Item.Properties())
                             .tab(ModItemGroup.DUST_TAB)
+            ));
+
+    public static final RegistryObject<Item> RAIN_CRYSTAL = ITEMS.register("rain_crystal",
+            () -> new RainCrystal(new Item.Properties()
+                    .tab(ModItemGroup.ASH_TAB)
+                    .stacksTo(1)
+            ));
+
+    public static final RegistryObject<Item> SUN_CRYSTAL = ITEMS.register("sun_crystal",
+            () -> new SunCrystal(new Item.Properties()
+                    .tab(ModItemGroup.ASH_TAB)
+                    .stacksTo(1)
             ));
 
     // metals
@@ -369,6 +379,37 @@ public class ModItems {
                     .stacksTo(4)
             ));
 
+    public static final RegistryObject<Item> CARBON_DUST = ITEMS.register("carbon_dust",
+            () -> new Item(new Item.Properties()
+                    .tab(ModItemGroup.DUST_TAB)
+                    .stacksTo(64)
+            ));
+
+    public static final RegistryObject<Item> RAW_CARBON_FIBER = ITEMS.register("raw_carbon_fiber",
+            () -> new Item(new Item.Properties()
+                    .tab(ModItemGroup.DUST_TAB)
+                    .stacksTo(64)
+            ));
+
+
+    public static final RegistryObject<Item> CARBON_FIBER = ITEMS.register("carbon_fiber",
+            () -> new Item(new Item.Properties()
+                    .tab(ModItemGroup.DUST_TAB)
+                    .stacksTo(64)
+            ));
+
+    public static final RegistryObject<Item> CARBON_FIBER_PLATE = ITEMS.register("carbon_fiber_plate",
+            () -> new Item(new Item.Properties()
+                    .tab(ModItemGroup.DUST_TAB)
+                    .stacksTo(64)
+            ));
+
+    public static final RegistryObject<Item> TUNGSTEN_DUST = ITEMS.register("tungsten_dust",
+            () -> new Item(new Item.Properties()
+                    .tab(ModItemGroup.DUST_TAB)
+                    .stacksTo(64)
+            ));
+
     // container stuff
     public static final RegistryObject<Item> GLASS_CONTAINER = ITEMS.register("glass_container",
             () -> new Item(new Item.Properties()
@@ -449,6 +490,13 @@ public class ModItems {
                     .tab(ModItemGroup.ASH_TAB)
                     .stacksTo(64)
             ));
+
+    public static final RegistryObject<Item> CARBON_FIBER_SCRAP = ITEMS.register("carbon_fiber_scrap",
+            () -> new Item(new Item.Properties()
+                    .tab(ModItemGroup.ASH_TAB)
+                    .stacksTo(64)
+            ));
+
 
 
     public static void register(IEventBus eventBus) {

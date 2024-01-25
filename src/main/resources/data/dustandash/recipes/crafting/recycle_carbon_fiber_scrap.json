@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "dustandash:carbon_fiber_scrap"
+    },
+    {
+      "item": "dustandash:carbon_fiber_scrap"
+    },
+    {
+      "item": "dustandash:carbon_fiber_scrap"
+    },
+    {
+      "item": "dustandash:carbon_fiber_scrap"
+    }
+  ],
+  "result": {
+    "item": "minecraft:coal",
+    "count": 1
+  }
+}

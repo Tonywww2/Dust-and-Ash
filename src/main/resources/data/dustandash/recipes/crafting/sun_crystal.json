@@ -1,0 +1,20 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        " A ",
+        "ABA",
+        " A "
+    ],
+    "key": {
+        "A": {
+            "item": "dustandash:order_dust"
+        },
+        "B": {
+            "item": "minecraft:coal"
+        }
+    },
+    "result": {
+        "item": "dustandash:sun_crystal",
+        "count": 1
+    }
+}

@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": {
+    "item": "dustandash:tungsten_dust"
+  },
+  "result": {
+    "item": "dustandash:tungsten_ingot",
+    "count": 1
+  },
+  "experience": 0.2,
+  "cookingtime": 1200
+}

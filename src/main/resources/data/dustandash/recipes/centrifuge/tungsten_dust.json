@@ -1,0 +1,40 @@
+{
+  "type": "dustandash:centrifuge",
+  "tick": 6000,
+  "ingredients": [
+    {
+      "item": "minecraft:netherite_ingot"
+    },
+    {
+      "item": "dustandash:grind_solvents"
+    }
+  ],
+  "output" : [
+    {
+      "item": "dustandash:fire_dust"
+    },
+    {
+      "item": "minecraft:gold_nugget"
+    },
+    {
+      "item": "dustandash:metal_dust"
+    },
+    {
+      "item": "dustandash:tungsten_dust"
+    },
+
+    {
+      "item": "minecraft:gold_nugget"
+    },
+        {
+      "item": "dustandash:fire_dust"
+    },
+    {
+      "item": "dustandash:earth_dust"
+    },
+    {
+      "item": "dustandash:metal_dust"
+    }
+
+  ]
+}

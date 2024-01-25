@@ -62,6 +62,7 @@ public class HandVacuum extends Item {
                 //succeed
                 world.setBlock(blockPos, blockState1, 2);
                 retrieve(blockPos, world);
+
                 world.playSound(null, blockPos, SoundEvents.IRON_GOLEM_HURT, SoundCategory.BLOCKS, 1f, 1f);
                 return true;
 
