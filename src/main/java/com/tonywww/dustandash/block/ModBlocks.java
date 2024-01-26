@@ -40,6 +40,8 @@ public class ModBlocks {
                     .of(Material.TOP_SNOW)
                     .harvestTool(ToolType.SHOVEL)
                     .strength(1f, 1f)
+                    .noOcclusion()
+                    .noCollission()
             ));
 
     public static final RegistryObject<Block> INTEGRATED_BLOCK = registerBlocks("integrated_block",

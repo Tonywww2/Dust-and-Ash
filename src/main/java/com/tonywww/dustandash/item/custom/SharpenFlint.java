@@ -8,7 +8,9 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 
 import java.util.Objects;
@@ -23,11 +25,15 @@ public class SharpenFlint extends Item {
 
         World world = context.getLevel();
 
-        if (!world.isClientSide) {
-            PlayerEntity player = Objects.requireNonNull(context.getPlayer());
 
+        return super.onItemUseFirst(stack, context);
+    }
+
+    @Override
+    public ActionResult<ItemStack> use(World world, PlayerEntity player, Hand pHand) {
+        if (!world.isClientSide) {
             ItemStack item = player.getMainHandItem();
-            if (item.getItem() == ModItems.SHARPEN_FLINT.get() && player.invulnerableTime <= 0 && item.getCount() > 0) {
+            if (item.getItem() == this && player.invulnerableTime <= 0 && item.getCount() > 0) {
                 player.hurt(ModDamageSource.SHARPEN_FLINT, 2.0f);
                 world.addFreshEntity(new ItemEntity(
                         world,
@@ -43,6 +49,7 @@ public class SharpenFlint extends Item {
 
 
         }
-        return super.onItemUseFirst(stack, context);
+
+        return super.use(world, player, pHand);
     }
 }

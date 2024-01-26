@@ -4,7 +4,9 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.IWorldInfo;
 import net.minecraft.world.storage.ServerWorldInfo;
@@ -17,26 +19,30 @@ public class SunCrystal extends Item {
     }
 
     @Override
-    public ActionResultType onItemUseFirst(ItemStack stack, ItemUseContext context) {
-
-        World world = context.getLevel();
-
+    public ActionResult<ItemStack> use(World world, PlayerEntity player, Hand pHand) {
         if (!world.isClientSide) {
-            PlayerEntity playerEntity = Objects.requireNonNull(context.getPlayer());
-            IWorldInfo data = world.getLevelData();
+            ItemStack stack = null;
+            if (player.getMainHandItem().getItem() == this) {
+                stack = player.getMainHandItem();
 
-            data.setRaining(false);
-            int time = world.random.nextInt(world.getLevelData().isRaining() ? 12000 : 168000) + 12000;
+            } else if (player.getOffhandItem().getItem() == this) {
+                stack = player.getOffhandItem();
 
-            if (data instanceof ServerWorldInfo) {
-                ((ServerWorldInfo) data).setRainTime(time);
             }
+            if (stack != null) {
+                IWorldInfo data = world.getLevelData();
+                data.setRaining(false);
+                int time = world.random.nextInt(world.getLevelData().isRaining() ? 12000 : 168000) + 12000;
+                if (data instanceof ServerWorldInfo) {
+                    ((ServerWorldInfo) data).setRainTime(time);
+                }
+                player.getCooldowns().addCooldown(getItem(), 200);
+                stack.setCount(stack.getCount() - 1);
 
-            playerEntity.getCooldowns().addCooldown(getItem(), 200);
-            stack.setCount(stack.getCount() - 1);
+            }
 
         }
 
-        return super.onItemUseFirst(stack, context);
+        return super.use(world, player, pHand);
     }
 }

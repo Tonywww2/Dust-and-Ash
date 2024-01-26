@@ -1,0 +1,40 @@
+{
+  "type": "dustandash:centrifuge",
+  "tick": 400,
+  "ingredients": [
+    {
+      "item": "dustandash:magnet"
+    },
+    {
+      "item": "minecraft:air"
+    }
+  ],
+  "output" : [
+    {
+      "item": "dustandash:electron"
+    },
+    {
+      "item": "minecraft:air"
+    },
+    {
+      "item": "dustandash:electron"
+    },
+    {
+      "item": "minecraft:iron_nugget"
+    },
+
+    {
+      "item": "minecraft:iron_nugget"
+    },
+    {
+      "item": "dustandash:electron"
+    },
+    {
+      "item": "minecraft:iron_nugget"
+    },
+    {
+      "item": "dustandash:electron"
+    }
+
+  ]
+}

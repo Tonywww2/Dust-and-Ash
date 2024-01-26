@@ -2,8 +2,14 @@ package com.tonywww.dustandash.item;
 
 import com.tonywww.dustandash.DustAndAsh;
 import com.tonywww.dustandash.item.custom.*;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.Effects;
+import net.minecraft.util.DamageSource;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
@@ -99,6 +105,23 @@ public class ModItems {
             () -> new RainCrystal(new Item.Properties()
                     .tab(ModItemGroup.ASH_TAB)
                     .stacksTo(1)
+            ));
+
+    public static final RegistryObject<Item> TITANIUM_ALLOY_SWORD = ITEMS.register("titanium_alloy_sword",
+            () -> new TitaniumAlloySword(ModItemTier.TITANIUM_ALLOY, 2, -2.0F,
+                    (new Item.Properties())
+                            .tab(ModItemGroup.DUST_TAB)
+            ));
+    public static final RegistryObject<Item> TITANIUM_ALLOY_GREAT_SWORD = ITEMS.register("titanium_alloy_great_sword",
+            () -> new TitaniumAlloyGreatSword(ModItemTier.TITANIUM_ALLOY, 7, -2.9F,
+                    (new Item.Properties())
+                            .tab(ModItemGroup.DUST_TAB)
+            ));
+
+    public static final RegistryObject<Item> TITANIUM_ALLOY_PICKAXE = ITEMS.register("titanium_alloy_pickaxe",
+            () -> new PickaxeItem(ModItemTier.TITANIUM_ALLOY, 1, -2.7F,
+                    (new Item.Properties())
+                            .tab(ModItemGroup.DUST_TAB)
             ));
 
     public static final RegistryObject<Item> SUN_CRYSTAL = ITEMS.register("sun_crystal",
@@ -294,6 +317,12 @@ public class ModItems {
             () -> new Item(new Item.Properties()
                     .tab(ModItemGroup.ASH_TAB)
                     .stacksTo(2)
+            ));
+
+    public static final RegistryObject<Item> MAGNET = ITEMS.register("magnet",
+            () -> new Item(new Item.Properties()
+                    .tab(ModItemGroup.ASH_TAB)
+                    .stacksTo(1)
             ));
 
     public static final RegistryObject<Item> SOUL_OF_LIGHT = ITEMS.register("soul_of_light",

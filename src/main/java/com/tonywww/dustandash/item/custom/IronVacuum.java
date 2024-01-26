@@ -5,6 +5,7 @@ import com.tonywww.dustandash.item.ModItems;
 import com.tonywww.dustandash.loottables.ModLootTables;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -17,9 +18,12 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
+import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Objects;
 
@@ -49,28 +53,20 @@ public class IronVacuum extends Item {
     private boolean changeBlock(ItemUseContext context, PlayerEntity playerEntity, World world) {
 
         BlockPos blockPos = context.getClickedPos();
-        BlockState blockState1 = Blocks.AIR.defaultBlockState();
-        BlockState blockState2 = world.getBlockState(blockPos);
+        BlockState blockState = world.getBlockState(blockPos);
 
-        if (blockState2.getBlock().equals(ModBlocks.DUST.get()) && !playerEntity.getCooldowns().isOnCooldown(getItem())) {
+        if (blockState.getBlock().equals(ModBlocks.DUST.get()) && !playerEntity.getCooldowns().isOnCooldown(getItem())) {
             if (playerEntity.inventory.contains(new ItemStack(ModItems.DUST_WITH_ENERGY.get()))) {
-
+                //succeed
                 playerEntity.getCooldowns().addCooldown(getItem(), 10);
-                //successful rate
+                world.setBlock(blockPos, Blocks.AIR.defaultBlockState(), 2);
                 if (random.nextFloat() > 0.65f) {
-                    //failed
-                    world.playSound(null, blockPos, SoundEvents.CHICKEN_HURT, SoundCategory.BLOCKS, 1f, 1f);
-                    return false;
-
-                } else {
-                    //succeed
-                    world.setBlock(blockPos, blockState1, 2);
-                    retrieve(blockPos, world);
                     playerEntity.inventory.removeItem(playerEntity.inventory.findSlotMatchingItem(new ItemStack(ModItems.DUST_WITH_ENERGY.get())), 1);
-                    world.playSound(null, blockPos, SoundEvents.ZOMBIE_VILLAGER_HURT, SoundCategory.BLOCKS, 1f, 1f);
-                    return true;
 
                 }
+                retrieve(blockPos, world);
+                world.playSound(null, blockPos, SoundEvents.ZOMBIE_VILLAGER_HURT, SoundCategory.BLOCKS, 1f, 1f);
+                return true;
 
             } else {
                 world.playSound(null, blockPos, SoundEvents.SKELETON_HURT, SoundCategory.BLOCKS, 1f, 1f);
@@ -101,6 +97,14 @@ public class IronVacuum extends Item {
 
         }
 
+    }
+
+    @Override
+    public void appendHoverText(ItemStack pStack, @Nullable World pLevel, List<ITextComponent> pTooltip, ITooltipFlag pFlag) {
+
+        pTooltip.add(new TranslationTextComponent("tooltip.dustandash.iron_vacuum"));
+
+        super.appendHoverText(pStack, pLevel, pTooltip, pFlag);
     }
 
 

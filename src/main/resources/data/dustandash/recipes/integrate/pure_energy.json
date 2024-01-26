@@ -1,0 +1,35 @@
+{
+  "type": "dustandash:integrate",
+  "level": 1,
+  "ingredients": [
+    {
+      "item": "dustandash:dust_with_energy"
+    },
+    {
+      "item": "dustandash:electron"
+    },
+    {
+      "item": "dustandash:electron"
+    },
+    {
+      "item": "dustandash:electron"
+    },
+    {
+      "item": "dustandash:electron"
+    },
+    {
+      "item": "dustandash:electron"
+    },
+    {
+      "item": "dustandash:electron"
+    },
+    {
+      "item": "dustandash:electron"
+    }
+  ],
+  "output" : {
+    "item": "dustandash:pure_energy",
+    "count": 1
+  }
+
+}

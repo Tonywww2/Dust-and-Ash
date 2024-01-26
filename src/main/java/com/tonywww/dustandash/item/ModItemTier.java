@@ -12,6 +12,9 @@ public enum ModItemTier implements IItemTier {
     }),
     ASH_STEEL(3, 880, 7.5F, 2.5F, 16, () -> {
         return Ingredient.of(ModItems.ASH_STEEL_INGOT.get());
+    }),
+    TITANIUM_ALLOY(5, 3280, 12.5F, 6.0F, 28, () -> {
+        return Ingredient.of(ModItems.TITANIUM_INGOT.get());
     })
     ;
 

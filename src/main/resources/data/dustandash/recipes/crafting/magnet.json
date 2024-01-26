@@ -1,0 +1,29 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "AEA",
+        "BDB",
+        "CAC"
+    ],
+    "key": {
+        "A": {
+            "tag": "forge:ingots/nickel"
+        },
+        "B": {
+            "item": "minecraft:iron_ingot"
+        },
+        "C": {
+            "item": "dustandash:crystallize_dust"
+        },
+        "D": {
+            "item": "dustandash:smelt_dust"
+        },
+        "E": {
+            "item": "dustandash:dust_with_energy"
+        }
+    },
+    "result": {
+        "item": "dustandash:magnet",
+        "count": 1
+    }
+}

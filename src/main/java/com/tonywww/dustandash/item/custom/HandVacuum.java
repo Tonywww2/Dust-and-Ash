@@ -4,6 +4,7 @@ import com.tonywww.dustandash.block.ModBlocks;
 import com.tonywww.dustandash.loottables.ModLootTables;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -14,9 +15,12 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
+import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Objects;
 
@@ -46,10 +50,9 @@ public class HandVacuum extends Item {
     private boolean changeBlock(ItemUseContext context, PlayerEntity playerEntity, World world) {
 
         BlockPos blockPos = context.getClickedPos();
-        BlockState blockState1 = Blocks.AIR.defaultBlockState();
-        BlockState blockState2 = world.getBlockState(blockPos);
+        BlockState blockState = world.getBlockState(blockPos);
 
-        if (blockState2.getBlock().equals(ModBlocks.DUST.get()) && !playerEntity.getCooldowns().isOnCooldown(getItem())) {
+        if (blockState.getBlock().equals(ModBlocks.DUST.get()) && !playerEntity.getCooldowns().isOnCooldown(getItem())) {
 
             playerEntity.getCooldowns().addCooldown(getItem(), 15);
             //successful rate
@@ -60,7 +63,7 @@ public class HandVacuum extends Item {
 
             } else {
                 //succeed
-                world.setBlock(blockPos, blockState1, 2);
+                world.setBlock(blockPos, Blocks.AIR.defaultBlockState(), 2);
                 retrieve(blockPos, world);
 
                 world.playSound(null, blockPos, SoundEvents.IRON_GOLEM_HURT, SoundCategory.BLOCKS, 1f, 1f);
@@ -73,6 +76,7 @@ public class HandVacuum extends Item {
         return false;
 
     }
+
 
     private void retrieve(BlockPos blockPos, World world){
         LootContext.Builder builder = new LootContext.Builder((ServerWorld) world).withRandom(Item.random);
@@ -92,6 +96,14 @@ public class HandVacuum extends Item {
 
         }
 
+    }
+
+    @Override
+    public void appendHoverText(ItemStack pStack, @Nullable World pLevel, List<ITextComponent> pTooltip, ITooltipFlag pFlag) {
+
+        pTooltip.add(new TranslationTextComponent("tooltip.dustandash.hand_vacuum"));
+
+        super.appendHoverText(pStack, pLevel, pTooltip, pFlag);
     }
 
 
