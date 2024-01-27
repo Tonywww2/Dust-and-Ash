@@ -2,12 +2,15 @@
   "type": "minecraft:crafting_shaped",
   "pattern": [
     "###",
-    "###",
+    "#A#",
     "###"
   ],
   "key": {
     "#": {
       "item": "minecraft:gravel"
+    },
+    "A": {
+      "item": "dustandash:bloody_flint"
     }
   },
   "result": {

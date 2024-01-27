@@ -85,6 +85,7 @@
   "item.dustandash.carbon_fiber_plate": "Carbon Fiber Plate",
   "item.dustandash.tungsten_dust": "Tungsten Dust",
   "item.dustandash.magnet": "Magnet",
+  "item.dustandash.mantle_mixture": "Mantle Mixture",
 
   "item.dustandash.iron_scrap": "Scrap",
   "item.dustandash.redstone_scrap": "Scrap",
@@ -106,6 +107,7 @@
   "block.dustandash.integrated_frame_3": "Integrated Frame Tier 3",
   "block.dustandash.cooled_magma_block": "Cooled Magma Block",
   "block.dustandash.netherite_mud": "Netherite Mud",
+  "block.dustandash.bloody_sapling": "Bloody Sapling",
 
   "container.integrated_block": "Integrated Block",
   "container.ash_collector": "Ash Collector",
@@ -121,9 +123,9 @@
   "itemGroup.ash_tab": "Dust and Ash: Ash",
   "itemGroup.blocks_tab": "Dust and Ash: Blocks",
 
-  "tooltip.dustandash.hand_vacuum": "\u00A77Use on a Dust to gain products",
-  "tooltip.dustandash.iron_vacuum": "\u00A77Use on a Dust to gain products, requires Energized Dust in inventory",
   "tooltip.dustandash.titanium_alloy_sword": "\u00A77Apply \n Speed, \n Luck, \n Dolphin's Grace\nto the player, \n Slowness\nto the target after attack.",
-  "tooltip.dustandash.titanium_alloy_great_sword": "\u00A77Apply \n Damage Resistance\nto the player, \n Weakness \nto the target after attack."
+  "tooltip.dustandash.titanium_alloy_great_sword": "\u00A77Apply \n Damage Resistance\nto the player, \n Weakness \nto the target after attack.",
+  "tooltip.dustandash.hand_vacuum": "\u00A77Use on a Dust to gain products",
+  "tooltip.dustandash.iron_vacuum": "\u00A77Use on a Dust to gain products, requires Energized Dust in inventory"
 
 }

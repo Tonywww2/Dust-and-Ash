@@ -8,10 +8,14 @@
     "minecraft:redstone",
     "minecraft:slime_ball",
     "minecraft:paper",
+    "minecraft:sand",
+    "minecraft:gunpowder",
+    "minecraft:quartz",
     "dustandash:bowl_with_dust",
     "dustandash:dust_with_energy",
     "dustandash:ash",
-    "dustandash:carbon_fiber"
+    "dustandash:carbon_fiber",
+    "dustandash:mantle_mixture"
   ]
 
 }

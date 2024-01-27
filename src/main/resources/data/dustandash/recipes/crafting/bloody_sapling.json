@@ -1,0 +1,18 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+        {
+            "item": "dustandash:bloody_flint"
+        },
+        {
+            "item": "minecraft:flint"
+        },
+        {
+            "item": "dustandash:sharpen_flint"
+        }
+    ],
+    "result": {
+        "item": "dustandash:bloody_sapling",
+        "count": 1
+    }
+}

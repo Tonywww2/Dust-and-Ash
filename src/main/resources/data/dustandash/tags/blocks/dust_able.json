@@ -1,9 +1,12 @@
 {
   "replace": false,
   "values": [
-    "#logs",
-    "#planks",
-    "#stone_bricks"
+    "#minecraft:logs",
+    "#minecraft:planks",
+    "#minecraft:wool",
+    "#minecraft:stone_bricks",
+    "#forge:cobblestone",
+    "minecraft:stone"
   ]
 
 }

@@ -2,14 +2,13 @@ package com.tonywww.dustandash.block;
 
 import com.tonywww.dustandash.DustAndAsh;
 import com.tonywww.dustandash.block.custom.*;
+import com.tonywww.dustandash.block.custom.trees.BloodyTree;
 import com.tonywww.dustandash.item.ModItemGroup;
 import com.tonywww.dustandash.item.ModItems;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.RotatedPillarBlock;
-import net.minecraft.block.SoundType;
+import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
+import net.minecraft.block.trees.OakTree;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.util.Direction;
@@ -33,6 +32,7 @@ public class ModBlocks {
                     .requiresCorrectToolForDrops()
                     .strength(2f, 2f)
                     .randomTicks()
+                    .noOcclusion()
             ));
 
     public static final RegistryObject<Block> DUST = registerBlocks("dust",
@@ -88,7 +88,7 @@ public class ModBlocks {
             ));
 
     public static final RegistryObject<Block> LOG_PILE = registerBlocks("log_pile",
-            () -> new Block(AbstractBlock.Properties
+            () -> new RotatedPillarBlock(AbstractBlock.Properties
                     .of(Material.WOOD)
                     .strength(2f)
                     .sound(SoundType.WOOD)
@@ -147,6 +147,10 @@ public class ModBlocks {
                     .requiresCorrectToolForDrops()
                     .harvestTool(ToolType.SHOVEL)
                     .strength(50f, 1200f)
+            ));
+
+    public static final RegistryObject<Block> BLOODY_SAPLING = registerBlocks("bloody_sapling",
+            () -> new SaplingBlock(new BloodyTree(), AbstractBlock.Properties.copy(Blocks.OAK_SAPLING)
             ));
 
 

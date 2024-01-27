@@ -30,11 +30,6 @@
           "weight": 2
         },
         {
-          "type": "minecraft:item",
-          "name": "dustandash:electron",
-          "weight": 1
-        },
-        {
           "type": "minecraft:empty",
           "weight": 1
         }

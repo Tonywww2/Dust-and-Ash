@@ -2,14 +2,8 @@ package com.tonywww.dustandash.item;
 
 import com.tonywww.dustandash.DustAndAsh;
 import com.tonywww.dustandash.item.custom.*;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.Effects;
-import net.minecraft.util.DamageSource;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
@@ -319,12 +313,6 @@ public class ModItems {
                     .stacksTo(2)
             ));
 
-    public static final RegistryObject<Item> MAGNET = ITEMS.register("magnet",
-            () -> new Item(new Item.Properties()
-                    .tab(ModItemGroup.ASH_TAB)
-                    .stacksTo(1)
-            ));
-
     public static final RegistryObject<Item> SOUL_OF_LIGHT = ITEMS.register("soul_of_light",
             () -> new Item(new Item.Properties()
                     .tab(ModItemGroup.ASH_TAB)
@@ -438,6 +426,19 @@ public class ModItems {
                     .tab(ModItemGroup.DUST_TAB)
                     .stacksTo(64)
             ));
+
+    public static final RegistryObject<Item> MAGNET = ITEMS.register("magnet",
+            () -> new Item(new Item.Properties()
+                    .tab(ModItemGroup.ASH_TAB)
+                    .stacksTo(1)
+            ));
+
+    public static final RegistryObject<Item> MANTLE_MIXTURE = ITEMS.register("mantle_mixture",
+            () -> new Item(new Item.Properties()
+                    .tab(ModItemGroup.ASH_TAB)
+                    .stacksTo(32)
+            ));
+
 
     // container stuff
     public static final RegistryObject<Item> GLASS_CONTAINER = ITEMS.register("glass_container",

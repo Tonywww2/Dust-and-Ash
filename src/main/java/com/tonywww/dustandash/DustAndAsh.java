@@ -12,6 +12,8 @@ import com.tonywww.dustandash.item.ModItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.gui.ScreenManager;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -79,10 +81,13 @@ public class DustAndAsh
         LOGGER.info("Got game settings {}", event.getMinecraftSupplier().get().options);
 
         event.enqueueWork(() -> {
+            RenderTypeLookup.setRenderLayer(ModBlocks.BLOODY_SAPLING.get(), RenderType.cutout());
+
             ScreenManager.register(ModContainers.INTEGRATED_BLOCK_CONTAINER.get(), IntegratedBlockScreen::new);
             ScreenManager.register(ModContainers.ASH_COLLECTOR_CONTAINER.get(), AshCollectorScreen::new);
             ScreenManager.register(ModContainers.MILLING_MACHINE_CONTAINER.get(), MillingMachineScreen::new);
             ScreenManager.register(ModContainers.CENTRIFUGE_CONTAINER.get(), CentrifugeScreen::new);
+
 
         });
     }

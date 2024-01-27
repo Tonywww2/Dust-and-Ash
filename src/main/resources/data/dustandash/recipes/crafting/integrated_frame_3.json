@@ -1,0 +1,26 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "#B#",
+        "ACA",
+        "#B#"
+    ],
+    "key": {
+        "#": {
+            "item": "dustandash:carbon_fiber"
+        },
+        "A": {
+            "item": "dustandash:integrated_frame_2"
+        },
+        "B": {
+            "item": "minecraft:netherite_ingot"
+        },
+        "C": {
+            "item": "dustandash:gear_box"
+        }
+    },
+    "result": {
+        "item": "dustandash:integrated_frame_3",
+        "count": 1
+    }
+}

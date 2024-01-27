@@ -22,10 +22,9 @@ public class DustSource extends Block {
     @Override
     public void animateTick(BlockState blockState, World world, BlockPos blockPos, Random random) {
 
-        float chance = 0.2f;
+        float chance = 0.3f;
 
         if (random.nextFloat() < chance) {
-//            spawnParticle(world, random, blockPos);
             world.addParticle(
                     ParticleTypes.SMOKE,
                     blockPos.getX() + random.nextDouble(),

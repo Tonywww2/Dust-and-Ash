@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "dustandash:block/bloody_sapling"
+
+  }
+
+}

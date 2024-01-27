@@ -7,7 +7,7 @@
   ],
   "key": {
     "A": {
-      "tag": "forge:ingots/gold"
+      "tag": "forge:ingots/iron"
     },
     "B": {
       "item": "dustandash:bowl_with_dust"

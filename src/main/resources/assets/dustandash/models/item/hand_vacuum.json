@@ -97,7 +97,7 @@
 			"translation": [-1.5, 3.5, 1]
 		},
 		"gui": {
-			"rotation": [39, 180, 24]
+			"rotation": [-150, 45, -180]
 		},
 		"fixed": {
 			"rotation": [-13.75, 0, 24]
