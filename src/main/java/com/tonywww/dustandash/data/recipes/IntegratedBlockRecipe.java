@@ -126,18 +126,19 @@ public class IntegratedBlockRecipe implements IIntegratedBlockRecipe {
 
             }
 
-            ItemStack output = pBuffer.readItem();
             int lv = pBuffer.readInt();
+            ItemStack output = pBuffer.readItem();
 
             return new IntegratedBlockRecipe(pRecipeId, output, inputs, lv);
         }
 
         @Override
         public void toNetwork(PacketBuffer pBuffer, IntegratedBlockRecipe pRecipe) {
-            pBuffer.writeInt(pRecipe.getIngredients().size());
+//            pBuffer.writeInt(pRecipe.getIngredients().size());
             for (Ingredient i : pRecipe.getIngredients()) {
                 i.toNetwork(pBuffer);
             }
+            pBuffer.writeInt(pRecipe.getLevel());
             pBuffer.writeItemStack(pRecipe.getResultItem(), false);
 
         }

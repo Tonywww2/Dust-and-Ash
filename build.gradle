@@ -16,7 +16,7 @@ apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
 
-version = '0.0.1'
+version = '0.0.2-a'
 group = 'com.tonywww.dustandash' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'dustandash'
 
@@ -162,11 +162,11 @@ jar {
     manifest {
         attributes([
             "Specification-Title": "dustandash",
-            "Specification-Vendor": "examplemodsareus",
+            "Specification-Vendor": "",
             "Specification-Version": "1", // We are version 1 of ourselves
             "Implementation-Title": project.name,
             "Implementation-Version": "${version}",
-            "Implementation-Vendor" :"examplemodsareus",
+            "Implementation-Vendor" :"",
             "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ])
     }

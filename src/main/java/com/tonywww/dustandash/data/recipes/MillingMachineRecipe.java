@@ -213,7 +213,9 @@ public class MillingMachineRecipe implements IMillingMachineRecipe {
 
         @Override
         public void toNetwork(PacketBuffer pBuffer, MillingMachineRecipe pRecipe) {
-            pBuffer.writeInt(pRecipe.getIngredients().size());
+//            pBuffer.writeInt(pRecipe.getIngredients().size());
+            pBuffer.writeBoolean(pRecipe.isStep1());
+
             for (Ingredient i : pRecipe.getIngredients()) {
                 i.toNetwork(pBuffer);
             }

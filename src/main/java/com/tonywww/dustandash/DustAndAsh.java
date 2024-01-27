@@ -1,6 +1,7 @@
 package com.tonywww.dustandash;
 
 import com.tonywww.dustandash.block.ModBlocks;
+import com.tonywww.dustandash.config.DustAndAshConfig;
 import com.tonywww.dustandash.container.ModContainers;
 import com.tonywww.dustandash.screen.AshCollectorScreen;
 import com.tonywww.dustandash.screen.CentrifugeScreen;
@@ -20,13 +21,17 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.ModContainer;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fml.loading.FMLPaths;
+import net.minecraftforge.fml.loading.FileUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -45,6 +50,10 @@ public class DustAndAsh
 
     public DustAndAsh() {
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
+
+        FileUtils.getOrCreateDirectory(FMLPaths.CONFIGDIR.get().resolve(MOD_ID), MOD_ID);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, DustAndAshConfig.SPEC, MOD_ID + "/dustandash-common.toml");
+
 
         ModItems.register(eventBus);
 

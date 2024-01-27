@@ -26,7 +26,7 @@ public class ModItems {
             () -> new IronVacuum(new Item.Properties()
                     .tab(ModItemGroup.DUST_TAB)
                     .stacksTo(1)
-                    .durability(271)
+                    .durability(320)
             ));
 
     public static final RegistryObject<Item> SHARPEN_FLINT = ITEMS.register("sharpen_flint",

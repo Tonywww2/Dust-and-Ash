@@ -31,6 +31,8 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Optional;
 
+import static com.tonywww.dustandash.config.DustAndAshConfig.centrifugeProgressPerTick;
+
 public class CentrifugeTile extends TileEntity implements INamedContainerProvider, ITickableTileEntity {
 
     public ItemStackHandler invItemStackHandler;
@@ -38,12 +40,14 @@ public class CentrifugeTile extends TileEntity implements INamedContainerProvide
     private final LazyOptional<CentrifugeItemHandler> inputHandler;
     private final LazyOptional<CentrifugeItemHandler> outputHandler;
 
-    private int currentProgression;
+    private float currentProgression;
     private int targetProgression;
 
     protected final IIntArray dataAccess;
 
     private NonNullList<ItemStack> nextOutput;
+
+    private double progressPerTick = centrifugeProgressPerTick.get();
 
 
     public CentrifugeTile(TileEntityType<?> tileEntityType) {
@@ -55,14 +59,14 @@ public class CentrifugeTile extends TileEntity implements INamedContainerProvide
         this.inputHandler = LazyOptional.of(() -> new CentrifugeItemHandler(invItemStackHandler, Direction.UP));
         this.outputHandler = LazyOptional.of(() -> new CentrifugeItemHandler(invItemStackHandler, Direction.DOWN));
 
-        currentProgression = -1;
+        currentProgression = -1f;
         targetProgression = 0;
 
         this.dataAccess = new IIntArray() {
             public int get(int pIndex) {
                 switch(pIndex) {
                     case 0:
-                        return CentrifugeTile.this.currentProgression;
+                        return (int) CentrifugeTile.this.currentProgression;
                     case 1:
                         return CentrifugeTile.this.targetProgression;
                     default:
@@ -180,11 +184,11 @@ public class CentrifugeTile extends TileEntity implements INamedContainerProvide
 
     private void tickProgression() {
         if (currentProgression >= 1) {
-            currentProgression++;
+            currentProgression += progressPerTick;
 
         }
         if (currentProgression > targetProgression) {
-            currentProgression = -1;
+            currentProgression = -1f;
             targetProgression = 0;
             setOutput();
 

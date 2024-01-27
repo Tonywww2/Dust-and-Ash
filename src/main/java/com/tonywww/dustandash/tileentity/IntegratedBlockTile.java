@@ -174,7 +174,7 @@ public class IntegratedBlockTile extends TileEntity implements INamedContainerPr
         if (!this.getLevel().isClientSide) {
             craft();
             float chance = 0.2f;
-            if (this.getLevel().random.nextFloat() < chance) {
+            if (this.getLevel().random.nextDouble() < chance) {
                 getArea(getBlockPos());
                 List<ItemEntity> items = getLevel().getEntitiesOfClass(ItemEntity.class, area, VALID_ITEM_ENTITY);
                 for (ItemEntity item : items) {

@@ -1,6 +1,7 @@
 package com.tonywww.dustandash.item.custom;
 
 import com.tonywww.dustandash.block.ModBlocks;
+import com.tonywww.dustandash.config.DustAndAshConfig;
 import com.tonywww.dustandash.item.ModItems;
 import com.tonywww.dustandash.loottables.ModLootTables;
 import net.minecraft.block.BlockState;
@@ -10,6 +11,7 @@ import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemTier;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.loot.LootContext;
 import net.minecraft.loot.LootParameterSets;
@@ -28,6 +30,9 @@ import java.util.List;
 import java.util.Objects;
 
 public class IronVacuum extends Item {
+
+    private double consumeRate = DustAndAshConfig.ironVacuumConsumeRate.get();
+
     public IronVacuum(Properties properties) {
         super(properties);
     }
@@ -60,7 +65,8 @@ public class IronVacuum extends Item {
                 //succeed
                 playerEntity.getCooldowns().addCooldown(getItem(), 10);
                 world.setBlock(blockPos, Blocks.AIR.defaultBlockState(), 2);
-                if (random.nextFloat() > 0.65f) {
+
+                if (random.nextDouble() < consumeRate) {
                     playerEntity.inventory.removeItem(playerEntity.inventory.findSlotMatchingItem(new ItemStack(ModItems.DUST_WITH_ENERGY.get())), 1);
 
                 }
@@ -97,6 +103,11 @@ public class IronVacuum extends Item {
 
         }
 
+    }
+
+    @Override
+    public boolean isValidRepairItem(ItemStack pToRepair, ItemStack pRepair) {
+        return super.isValidRepairItem(pToRepair, pRepair) || ItemTier.IRON.getRepairIngredient().test(pRepair);
     }
 
     @Override

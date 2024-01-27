@@ -126,7 +126,7 @@ public class AshCollectorTile extends TileEntity implements INamedContainerProvi
         if (this.level != null && !this.level.isClientSide) {
             suckInItem();
 
-            if (getLevel().random.nextFloat() < chance) {
+            if (getLevel().random.nextDouble() < chance) {
                 if (shouldWork()) {
                     ItemStack itemStack = new ItemStack(ModItems.ASH.get());
                     this.itemStackHandler.insertItem(0, itemStack.copy(), false);

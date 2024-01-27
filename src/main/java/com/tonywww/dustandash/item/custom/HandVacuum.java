@@ -1,6 +1,7 @@
 package com.tonywww.dustandash.item.custom;
 
 import com.tonywww.dustandash.block.ModBlocks;
+import com.tonywww.dustandash.config.DustAndAshConfig;
 import com.tonywww.dustandash.loottables.ModLootTables;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -25,6 +26,9 @@ import java.util.List;
 import java.util.Objects;
 
 public class HandVacuum extends Item {
+
+    private double successRate = DustAndAshConfig.handVacuumSuccessRate.get();
+
     public HandVacuum(Properties properties) {
         super(properties);
     }
@@ -56,12 +60,7 @@ public class HandVacuum extends Item {
 
             playerEntity.getCooldowns().addCooldown(getItem(), 15);
             //successful rate
-            if (random.nextFloat() > 0.45f) {
-                //failed
-                world.playSound(null, blockPos, SoundEvents.CHICKEN_HURT, SoundCategory.BLOCKS, 1f, 1f);
-                return false;
-
-            } else {
+            if (random.nextDouble() < successRate) {
                 //succeed
                 world.setBlock(blockPos, Blocks.AIR.defaultBlockState(), 2);
                 retrieve(blockPos, world);
@@ -69,6 +68,11 @@ public class HandVacuum extends Item {
                 world.playSound(null, blockPos, SoundEvents.IRON_GOLEM_HURT, SoundCategory.BLOCKS, 1f, 1f);
                 return true;
 
+
+            } else {
+                //failed
+                world.playSound(null, blockPos, SoundEvents.CHICKEN_HURT, SoundCategory.BLOCKS, 1f, 1f);
+                return false;
             }
 
         }
@@ -78,13 +82,13 @@ public class HandVacuum extends Item {
     }
 
 
-    private void retrieve(BlockPos blockPos, World world){
+    private void retrieve(BlockPos blockPos, World world) {
         LootContext.Builder builder = new LootContext.Builder((ServerWorld) world).withRandom(Item.random);
         //Different
         LootTable lootTable = world.getServer().getLootTables().get(ModLootTables.HAND_VACUUM);
         List<ItemStack> list = lootTable.getRandomItems(builder.create(LootParameterSets.EMPTY));
 
-        for (ItemStack i : list){
+        for (ItemStack i : list) {
             ItemEntity itemEntity = new ItemEntity(
                     world,
                     blockPos.getX() + 0.5f,

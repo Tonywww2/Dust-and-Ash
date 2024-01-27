@@ -12,7 +12,14 @@ import net.minecraft.world.server.ServerWorld;
 
 import java.util.Random;
 
+import static com.tonywww.dustandash.config.DustAndAshConfig.*;
+
 public class DustSource extends Block {
+
+    private double chancePerTick = dustSourceChancePerTick.get();
+    private double chancePerBlock = dustSourceChancePerBlock.get();
+    private int height = dustSourceHeight.get();
+    private int radius = dustSourceRadius.get();
 
     public DustSource(Properties properties) {
         super(properties);
@@ -24,7 +31,7 @@ public class DustSource extends Block {
 
         float chance = 0.3f;
 
-        if (random.nextFloat() < chance) {
+        if (random.nextDouble() < chance) {
             world.addParticle(
                     ParticleTypes.SMOKE,
                     blockPos.getX() + random.nextDouble(),
@@ -42,56 +49,55 @@ public class DustSource extends Block {
 
     @Override
     public void randomTick(BlockState blockState, ServerWorld world, BlockPos blockPos, Random random) {
+        if (random.nextDouble() < chancePerTick) {
+            dustCycle(world, blockPos, random, chancePerBlock, height, radius);
 
-//        float chance = 0.5f;
-        int radius = 3;
-        int height = 5;
+        }
 
-        if (random.nextInt(2) == 0) {
+        super.randomTick(blockState, world, blockPos, random);
 
-            //1.18+ Need to check below 0
-            int startX = blockPos.getX() - radius;
-            int startZ = blockPos.getZ() - radius;
-            int startY = blockPos.getY() - height;
+    }
 
-            int endX = blockPos.getX() + radius;
-            int endZ = blockPos.getZ() + radius;
-            int endY = blockPos.getY();
+    private static void dustCycle(ServerWorld world, BlockPos blockPos, Random random, double chancePerBlock, int height, int radius) {
+        //1.18+ Need to check below 0
+        int startX = blockPos.getX() - radius;
+        int startZ = blockPos.getZ() - radius;
+        int startY = blockPos.getY() - height;
 
-            if (startY < 1) startY = 1;
+        int endX = blockPos.getX() + radius;
+        int endZ = blockPos.getZ() + radius;
+        int endY = blockPos.getY();
 
-            //y
-            for (int y = startY; y < endY; y++) {
-                //x
-                for (int x = startX; x <= endX; x++) {
-                    //z
-                    for (int z = startZ; z <= endZ; z++) {
-                        BlockPos currentPos = new BlockPos(x, y, z);
-                        BlockPos currentUpperPos = new BlockPos(x, y + 1, z);
+        if (startY < 1) startY = 1;
 
-                        Block currentBlock = world.getBlockState(currentPos).getBlock();
-                        Block currentUpperBlock = world.getBlockState(currentUpperPos).getBlock();
+        //y
+        for (int y = startY; y < endY; y++) {
+            //x
+            for (int x = startX; x <= endX; x++) {
+                //z
+                for (int z = startZ; z <= endZ; z++) {
+                    BlockPos currentPos = new BlockPos(x, y, z);
+                    BlockPos currentUpperPos = new BlockPos(x, y + 1, z);
 
-                        if (currentUpperBlock.equals(Blocks.AIR) && currentBlock.is(ModTags.Blocks.DUST_ABLE) && !currentBlock.is(ModTags.Blocks.NOT_DUST_ABLE)) {
-                            if (random.nextInt(19) == 0) {
-                                world.setBlock(currentUpperPos, ModBlocks.DUST.get().defaultBlockState(), 2);
+                    Block currentBlock = world.getBlockState(currentPos).getBlock();
+                    Block currentUpperBlock = world.getBlockState(currentUpperPos).getBlock();
+
+                    if (currentUpperBlock.equals(Blocks.AIR) && currentBlock.is(ModTags.Blocks.DUST_ABLE) && !currentBlock.is(ModTags.Blocks.NOT_DUST_ABLE)) {
+                        if (random.nextDouble() < chancePerBlock) {
+                            world.setBlock(currentUpperPos, ModBlocks.DUST.get().defaultBlockState(), 2);
 //                                spawnParticle(world, random, currentUpperPos);
-
-                            }
 
                         }
 
-
                     }
+
 
                 }
 
             }
+
+
         }
-
-
-        super.randomTick(blockState, world, blockPos, random);
-
     }
 
 }
