@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing",
+  "base": {
+    "tag": "forge:gems/quartz"
+  },
+  "addition": {
+    "item": "dustandash:pure_energy"
+  },
+  "result": {
+    "item": "appliedenergistics2:certus_quartz_crystal"
+  }
+}

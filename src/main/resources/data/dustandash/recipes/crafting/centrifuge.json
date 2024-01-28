@@ -10,7 +10,7 @@
             "item": "minecraft:chain"
         },
         "B": {
-            "item": "minecraft:brewing_stand"
+            "item": "minecraft:piston"
         },
         "G": {
             "item": "minecraft:glass"
@@ -22,7 +22,7 @@
             "item": "dustandash:ash_steel_gear"
         },
         "T": {
-            "item": "dustandash:gear_box"
+            "item": "dustandash:basic_machine_frame"
         },
         "S": {
             "item": "dustandash:redstone_gear"

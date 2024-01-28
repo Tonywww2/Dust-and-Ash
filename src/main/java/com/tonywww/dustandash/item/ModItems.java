@@ -19,14 +19,14 @@ public class ModItems {
             () -> new HandVacuum(new Item.Properties()
                     .tab(ModItemGroup.DUST_TAB)
                     .stacksTo(1)
-                    .durability(24)
+                    .durability(38)
             ));
 
     public static final RegistryObject<Item> IRON_VACUUM = ITEMS.register("iron_vacuum",
             () -> new IronVacuum(new Item.Properties()
                     .tab(ModItemGroup.DUST_TAB)
                     .stacksTo(1)
-                    .durability(320)
+                    .durability(540)
             ));
 
     public static final RegistryObject<Item> SHARPEN_FLINT = ITEMS.register("sharpen_flint",
@@ -149,7 +149,7 @@ public class ModItems {
                     .stacksTo(64)
             ));
 
-    public static final RegistryObject<Item> SLIVER_INGOT = ITEMS.register("sliver_ingot",
+    public static final RegistryObject<Item> SILVER_INGOT = ITEMS.register("silver_ingot",
             () -> new Item(new Item.Properties()
                     .tab(ModItemGroup.DUST_TAB)
                     .stacksTo(64)

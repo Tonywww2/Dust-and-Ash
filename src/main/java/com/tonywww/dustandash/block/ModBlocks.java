@@ -12,6 +12,8 @@ import net.minecraft.block.trees.OakTree;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.util.Direction;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockReader;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.RegistryObject;
@@ -150,7 +152,12 @@ public class ModBlocks {
             ));
 
     public static final RegistryObject<Block> BLOODY_SAPLING = registerBlocks("bloody_sapling",
-            () -> new SaplingBlock(new BloodyTree(), AbstractBlock.Properties.copy(Blocks.OAK_SAPLING)
+            () -> new SaplingBlock(new BloodyTree(), AbstractBlock
+                    .Properties.of(Material.PLANT)
+                    .noCollission()
+                    .randomTicks()
+                    .instabreak()
+                    .sound(SoundType.GRASS)
             ));
 
 

@@ -187,18 +187,24 @@ public class MillingMachineRecipe implements IMillingMachineRecipe {
         @Nullable
         @Override
         public MillingMachineRecipe fromNetwork(ResourceLocation pRecipeId, PacketBuffer pBuffer) {
+            System.out.println(pRecipeId + " start");
             NonNullList<Ingredient> inputs = NonNullList.withSize(MAX_SLOTS, Ingredient.EMPTY);
-
+            // 1 readBoolean
             boolean step1 = pBuffer.readBoolean();
             if (step1) {
-                ItemStack temp = pBuffer.readItem();
-                inputs.set(0, Ingredient.of(temp));
+                // 2 1 fromNetwork
+                Ingredient temp = Ingredient.fromNetwork(pBuffer);
+                inputs.set(0, temp);
 
             } else {
-                for (int i = 0; i < inputs.size(); i++) {
-                    ItemStack temp = pBuffer.readItem();
-                    if (temp.getItem() != Items.AIR) {
-                        inputs.set(i, Ingredient.of(temp));
+
+                // 01 readVarInt
+                int inputSize = pBuffer.readVarInt();
+                for (int i = 0; i < inputSize; i++) {
+                    // 2 2 fromNetwork
+                    Ingredient temp = Ingredient.fromNetwork(pBuffer);
+                    if (!temp.getItems()[0].isEmpty() && temp.getItems()[0].getItem() != Items.AIR) {
+                        inputs.set(i, temp);
 
                     }
 
@@ -206,6 +212,7 @@ public class MillingMachineRecipe implements IMillingMachineRecipe {
 
             }
 
+            // 3 readItem
             ItemStack output = pBuffer.readItem();
 
             return new MillingMachineRecipe(pRecipeId, output, inputs, step1);
@@ -213,13 +220,26 @@ public class MillingMachineRecipe implements IMillingMachineRecipe {
 
         @Override
         public void toNetwork(PacketBuffer pBuffer, MillingMachineRecipe pRecipe) {
-//            pBuffer.writeInt(pRecipe.getIngredients().size());
+            // 1 writeBoolean
             pBuffer.writeBoolean(pRecipe.isStep1());
 
-            for (Ingredient i : pRecipe.getIngredients()) {
-                i.toNetwork(pBuffer);
+            if (pRecipe.isStep1()) {
+                // 2 1 toNetwork
+                pRecipe.getIngredients().get(0).toNetwork(pBuffer);
+
+            } else {
+                // 01 writeVarInt
+                pBuffer.writeVarInt(pRecipe.getIngredients().size());
+                for (Ingredient i : pRecipe.getIngredients()) {
+                    // 2 2 toNetwork
+                    i.toNetwork(pBuffer);
+
+                }
+
             }
-            pBuffer.writeItemStack(pRecipe.getResultItem(), false);
+
+            // 3 writeItem
+            pBuffer.writeItem(pRecipe.getResultItem());
 
         }
     }

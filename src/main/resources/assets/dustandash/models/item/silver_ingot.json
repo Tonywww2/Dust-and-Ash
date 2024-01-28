@@ -2,7 +2,7 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "dustandash:item/sliver_ingot"
+    "layer0": "dustandash:item/silver_ingot"
 
   }
 

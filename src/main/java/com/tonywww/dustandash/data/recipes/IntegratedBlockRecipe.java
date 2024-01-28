@@ -115,18 +115,24 @@ public class IntegratedBlockRecipe implements IIntegratedBlockRecipe {
         @Nullable
         @Override
         public IntegratedBlockRecipe fromNetwork(ResourceLocation pRecipeId, PacketBuffer pBuffer) {
+            System.out.println(pRecipeId + " start");
+            // 01 readVarInt
+            int inputSize = pBuffer.readVarInt();
             NonNullList<Ingredient> inputs = NonNullList.withSize(MAX_SLOTS, Ingredient.EMPTY);
-
-            for (int i = 0; i < inputs.size(); i++) {
-                ItemStack temp = pBuffer.readItem();
-                if (temp.getItem() != Items.AIR) {
-                    inputs.set(i, Ingredient.of(temp));
+            for (int i = 0; i < inputSize; i++) {
+                // 1 fromNetwork
+                Ingredient temp = Ingredient.fromNetwork(pBuffer);
+                if (!temp.getItems()[0].isEmpty() && temp.getItems()[0].getItem() != Items.AIR) {
+                    inputs.set(i, temp);
 
                 }
 
             }
 
+            // 2 readInt
             int lv = pBuffer.readInt();
+
+            // 3 readItem
             ItemStack output = pBuffer.readItem();
 
             return new IntegratedBlockRecipe(pRecipeId, output, inputs, lv);
@@ -134,12 +140,16 @@ public class IntegratedBlockRecipe implements IIntegratedBlockRecipe {
 
         @Override
         public void toNetwork(PacketBuffer pBuffer, IntegratedBlockRecipe pRecipe) {
-//            pBuffer.writeInt(pRecipe.getIngredients().size());
+            // 01 writeVarInt
+            pBuffer.writeVarInt(pRecipe.getIngredients().size());
             for (Ingredient i : pRecipe.getIngredients()) {
+                // 1 toNetwork
                 i.toNetwork(pBuffer);
             }
+            // 2 writeInt
             pBuffer.writeInt(pRecipe.getLevel());
-            pBuffer.writeItemStack(pRecipe.getResultItem(), false);
+            // 3 writeItem
+            pBuffer.writeItem(pRecipe.getResultItem());
 
         }
     }

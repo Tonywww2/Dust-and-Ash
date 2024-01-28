@@ -2,12 +2,12 @@
   "type": "minecraft:empty",
   "pools": [
     {
-      "rolls": 3,
+      "rolls": 4,
       "entries": [
         {
           "type": "minecraft:item",
           "name": "dustandash:metal_dust",
-          "weight": 2
+          "weight": 3
         },
         {
           "type": "minecraft:item",

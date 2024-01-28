@@ -4,6 +4,11 @@
     {
       "rolls": 1,
       "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "dustandash:bloody_sapling"
+        }
+
       ]
     }
 

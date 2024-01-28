@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing",
+  "base": {
+    "tag": "forge:gems/lapis"
+  },
+  "addition": {
+    "item": "dustandash:pure_energy"
+  },
+  "result": {
+    "item": "ars_nouveau:mana_gem"
+  }
+}

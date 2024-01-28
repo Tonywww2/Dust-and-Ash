@@ -134,28 +134,34 @@ public class CentrifugeRecipe implements ICentrifugeRecipe {
         @Nullable
         @Override
         public CentrifugeRecipe fromNetwork(ResourceLocation pRecipeId, PacketBuffer pBuffer) {
+            System.out.println(pRecipeId + " start");
+            // 01 readVarInt
+            int inputSize = pBuffer.readVarInt();
             NonNullList<Ingredient> inputs = NonNullList.withSize(MAX_SLOTS, Ingredient.EMPTY);
-
-            NonNullList<ItemStack> output = NonNullList.withSize(OUTPUT_SLOTS, ItemStack.EMPTY);
-
-            for (int i = 0; i < inputs.size(); i++) {
-                ItemStack temp = pBuffer.readItem();
-                if (temp.getItem() != Items.AIR) {
-                    inputs.set(i, Ingredient.of(temp));
+            for (int i = 0; i < inputSize; i++) {
+                // 1 fromNetwork
+                Ingredient temp = Ingredient.fromNetwork(pBuffer);
+                if (!temp.getItems()[0].isEmpty() && temp.getItems()[0].getItem() != Items.AIR) {
+                    inputs.set(i, temp);
 
                 }
 
             }
 
-            for (int i = 0; i < output.size(); i++) {
+            // 02 readVarInt
+            int outputSize = pBuffer.readVarInt();
+            NonNullList<ItemStack> output = NonNullList.withSize(OUTPUT_SLOTS, ItemStack.EMPTY);
+            for (int i = 0; i < outputSize; i++) {
+                // 2 readItem
                 ItemStack temp = pBuffer.readItem();
-                if (temp.getItem() != Items.AIR) {
+                if (!temp.isEmpty() && temp.getItem() != Items.AIR) {
                     output.set(i, temp);
 
                 }
 
             }
 
+            // 3 readInt
             int tick = pBuffer.readInt();
 
             return new CentrifugeRecipe(pRecipeId, output, inputs, tick);
@@ -163,11 +169,24 @@ public class CentrifugeRecipe implements ICentrifugeRecipe {
 
         @Override
         public void toNetwork(PacketBuffer pBuffer, CentrifugeRecipe pRecipe) {
-            pBuffer.writeInt(pRecipe.getIngredients().size());
+            // 01 writeVarInt
+            pBuffer.writeVarInt(pRecipe.getIngredients().size());
             for (Ingredient i : pRecipe.getIngredients()) {
+                // 1 toNetwork
                 i.toNetwork(pBuffer);
             }
-            pBuffer.writeItemStack(pRecipe.getResultItem(), false);
+
+            // 02 writeVarInt
+            pBuffer.writeVarInt(pRecipe.getResultItemStacks().size());
+
+            for (ItemStack i : pRecipe.getResultItemStacks()) {
+                // 2 writeItem
+                pBuffer.writeItem(i);
+
+            }
+
+            // 3 writeInt
+            pBuffer.writeInt(pRecipe.getTick());
 
         }
     }

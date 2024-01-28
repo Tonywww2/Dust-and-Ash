@@ -63,7 +63,7 @@ public class IronVacuum extends Item {
         if (blockState.getBlock().equals(ModBlocks.DUST.get()) && !playerEntity.getCooldowns().isOnCooldown(getItem())) {
             if (playerEntity.inventory.contains(new ItemStack(ModItems.DUST_WITH_ENERGY.get()))) {
                 //succeed
-                playerEntity.getCooldowns().addCooldown(getItem(), 10);
+                playerEntity.getCooldowns().addCooldown(getItem(), 5);
                 world.setBlock(blockPos, Blocks.AIR.defaultBlockState(), 2);
 
                 if (random.nextDouble() < consumeRate) {

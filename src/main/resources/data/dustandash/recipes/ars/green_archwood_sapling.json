@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing",
+  "base": {
+    "tag": "forge:sapling"
+  },
+  "addition": {
+    "item": "dustandash:reproduce_dust"
+  },
+  "result": {
+    "item": "ars_nouveau:green_archwood_sapling"
+  }
+}

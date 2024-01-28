@@ -3,6 +3,7 @@
   "values": [
     "#minecraft:logs",
     "#minecraft:planks",
+    "#minecraft:slabs",
     "#minecraft:wool",
     "#minecraft:stone_bricks",
     "#forge:cobblestone",

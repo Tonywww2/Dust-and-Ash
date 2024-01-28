@@ -26,7 +26,7 @@ public final class DustAndAshConfig {
 
         centrifugeProgressPerTick = BUILDER.comment("\nThe progress added per random tick. Range[0, 100] Default: 1").defineInRange("centrifugeProgressPerTick", 1d, 0d, 100d);
 
-        handVacuumSuccessRate = BUILDER.comment("\nThe chance of success per use. Range[0, 1] Default: 0.35").defineInRange("handVacuumSuccessRate", 0.35d, 0, 1);
+        handVacuumSuccessRate = BUILDER.comment("\nThe chance of success per use. Range[0, 1] Default: 0.55").defineInRange("handVacuumSuccessRate", 0.55d, 0, 1);
         ironVacuumConsumeRate = BUILDER.comment("\nThe chance of consume a fuel per use. Range[0, 1] Default: 0.35").defineInRange("ironVacuumConsumeRate", 0.35d, 0, 1);
 
         BUILDER.pop();

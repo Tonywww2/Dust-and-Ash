@@ -58,10 +58,10 @@ public class HandVacuum extends Item {
 
         if (blockState.getBlock().equals(ModBlocks.DUST.get()) && !playerEntity.getCooldowns().isOnCooldown(getItem())) {
 
-            playerEntity.getCooldowns().addCooldown(getItem(), 15);
             //successful rate
             if (random.nextDouble() < successRate) {
                 //succeed
+                playerEntity.getCooldowns().addCooldown(getItem(), 15);
                 world.setBlock(blockPos, Blocks.AIR.defaultBlockState(), 2);
                 retrieve(blockPos, world);
 
@@ -71,6 +71,7 @@ public class HandVacuum extends Item {
 
             } else {
                 //failed
+                playerEntity.getCooldowns().addCooldown(getItem(), 10);
                 world.playSound(null, blockPos, SoundEvents.CHICKEN_HURT, SoundCategory.BLOCKS, 1f, 1f);
                 return false;
             }

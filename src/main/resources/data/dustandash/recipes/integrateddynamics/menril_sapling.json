@@ -1,0 +1,26 @@
+{
+  "type": "dustandash:integrate",
+  "level": 1,
+  "ingredients": [
+    {
+      "tag": "forge:sapling"
+    },
+    {
+      "item": "minecraft:spider_eye"
+    },
+    {
+      "item": "dustandash:order_dust"
+    },
+    {
+      "item": "dustandash:crystallize_dust"
+    },
+    {
+      "item": "dustandash:order_dust"
+    }
+  ],
+  "output" : {
+    "item": "integrateddynamics:menril_sapling",
+    "count": 1
+  }
+
+}
