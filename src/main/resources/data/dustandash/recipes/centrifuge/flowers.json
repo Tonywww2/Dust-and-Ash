@@ -6,21 +6,21 @@
       "tag": "minecraft:flowers"
     },
     {
-      "item": "minecraft:air"
+      "item": "dustandash:empty"
     }
   ],
   "output" : [
     {
-      "item": "minecraft:air"
+      "item": "dustandash:empty"
     },
     {
       "item": "dustandash:life_dust"
     },
     {
-      "item": "minecraft:air"
+      "item": "dustandash:empty"
     },
     {
-      "item": "minecraft:air"
+      "item": "dustandash:empty"
     },
 
     {
@@ -30,10 +30,10 @@
       "item": "dustandash:order_dust"
     },
     {
-      "item": "minecraft:air"
+      "item": "dustandash:empty"
     },
     {
-      "item": "minecraft:air"
+      "item": "dustandash:empty"
     }
 
   ]

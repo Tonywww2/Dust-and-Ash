@@ -11,10 +11,10 @@
   ],
   "output" : [
     {
-      "item": "minecraft:air"
+      "item": "dustandash:empty"
     },
     {
-      "item": "minecraft:air"
+      "item": "dustandash:empty"
     },
     {
       "item": "minecraft:light_gray_dye"
@@ -24,16 +24,16 @@
     },
 
     {
-      "item": "minecraft:air"
+      "item": "dustandash:empty"
     },
     {
-      "item": "minecraft:air"
+      "item": "dustandash:empty"
     },
     {
-      "item": "minecraft:air"
+      "item": "dustandash:empty"
     },
     {
-      "item": "minecraft:air"
+      "item": "dustandash:empty"
     }
 
   ]

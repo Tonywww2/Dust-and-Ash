@@ -6,7 +6,7 @@
       "tag": "forge:storage_blocks/coal"
     },
     {
-      "item": "minecraft:air"
+      "item": "dustandash:empty"
     }
   ],
   "output" : [
@@ -14,7 +14,7 @@
       "item": "dustandash:earth_dust"
     },
     {
-      "item": "minecraft:air"
+      "item": "dustandash:empty"
     },
     {
       "item": "dustandash:carbon_dust"
@@ -30,7 +30,7 @@
       "item": "dustandash:carbon_dust"
     },
     {
-      "item": "minecraft:air"
+      "item": "dustandash:empty"
     },
     {
       "item": "dustandash:carbon_dust"

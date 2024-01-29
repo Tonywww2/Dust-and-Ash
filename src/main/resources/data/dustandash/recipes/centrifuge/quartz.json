@@ -14,23 +14,23 @@
       "item": "dustandash:earth_dust"
     },
     {
-      "item": "minecraft:air"
+      "item": "dustandash:empty"
     },
     {
-      "item": "minecraft:air"
+      "item": "dustandash:empty"
     },
     {
       "item": "minecraft:sand"
     },
 
     {
-      "item": "minecraft:air"
+      "item": "dustandash:empty"
     },
     {
       "item": "dustandash:fire_dust"
     },
     {
-      "item": "minecraft:air"
+      "item": "dustandash:empty"
     },
     {
       "item": "minecraft:quartz"

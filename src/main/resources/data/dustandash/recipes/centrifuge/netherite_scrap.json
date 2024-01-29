@@ -11,13 +11,13 @@
   ],
   "output" : [
     {
-      "item": "minecraft:air"
+      "item": "dustandash:empty"
     },
     {
       "item": "minecraft:gold_nugget"
     },
     {
-      "item": "minecraft:air"
+      "item": "dustandash:empty"
     },
     {
       "item": "minecraft:netherite_scrap"
@@ -27,13 +27,13 @@
       "item": "minecraft:bone_meal"
     },
     {
-      "item": "minecraft:air"
+      "item": "dustandash:empty"
     },
     {
       "item": "minecraft:coal"
     },
     {
-      "item": "minecraft:air"
+      "item": "dustandash:empty"
     }
 
   ]

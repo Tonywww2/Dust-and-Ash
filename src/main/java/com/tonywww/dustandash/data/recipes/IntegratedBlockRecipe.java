@@ -3,6 +3,7 @@ package com.tonywww.dustandash.data.recipes;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.tonywww.dustandash.block.ModBlocks;
+import com.tonywww.dustandash.item.ModItems;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -18,6 +19,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import javax.annotation.Nullable;
+
 public class IntegratedBlockRecipe implements IIntegratedBlockRecipe {
 
 
@@ -40,7 +42,8 @@ public class IntegratedBlockRecipe implements IIntegratedBlockRecipe {
     public boolean matches(IInventory inv, World pLevel) {
         for (int i = 0; i < MAX_SLOTS; i++) {
             ItemStack itemStack = inv.getItem(i);
-            if (!recipeItems.get(i).test(itemStack)) {
+            if ((recipeItems.get(i).test(ModItems.EMPTY.get().getDefaultInstance()) && itemStack.isEmpty()) ||
+                    !recipeItems.get(i).test(itemStack)) {
                 return false;
             }
 
@@ -94,6 +97,7 @@ public class IntegratedBlockRecipe implements IIntegratedBlockRecipe {
 
         @Override
         public IntegratedBlockRecipe fromJson(ResourceLocation pRecipeId, JsonObject json) {
+            System.out.println(pRecipeId + " start from json");
             ItemStack output = ShapedRecipe.itemFromJson(JSONUtils.getAsJsonObject(json, "output"));
 
             JsonArray ingredients = JSONUtils.getAsJsonArray(json, "ingredients");
@@ -102,7 +106,7 @@ public class IntegratedBlockRecipe implements IIntegratedBlockRecipe {
 
             for (int i = 0; i < ingredients.size(); i++) {
                 Ingredient temp = Ingredient.fromJson(ingredients.get(i));
-                if (temp.getItems()[0].getItem() != Items.AIR) {
+                if (temp.getItems()[0].getItem() != ModItems.EMPTY.get()) {
                     inputs.set(i, temp);
 
                 }
@@ -115,23 +119,20 @@ public class IntegratedBlockRecipe implements IIntegratedBlockRecipe {
         @Nullable
         @Override
         public IntegratedBlockRecipe fromNetwork(ResourceLocation pRecipeId, PacketBuffer pBuffer) {
-            System.out.println(pRecipeId + " start");
+            System.out.println(pRecipeId + " start from network");
+            // 2 readInt
+            int lv = pBuffer.readInt();
+
             // 01 readVarInt
             int inputSize = pBuffer.readVarInt();
+
             NonNullList<Ingredient> inputs = NonNullList.withSize(MAX_SLOTS, Ingredient.EMPTY);
             for (int i = 0; i < inputSize; i++) {
                 // 1 fromNetwork
                 Ingredient temp = Ingredient.fromNetwork(pBuffer);
-                if (!temp.getItems()[0].isEmpty() && temp.getItems()[0].getItem() != Items.AIR) {
-                    inputs.set(i, temp);
-
-                }
+                inputs.set(i, temp);
 
             }
-
-            // 2 readInt
-            int lv = pBuffer.readInt();
-
             // 3 readItem
             ItemStack output = pBuffer.readItem();
 
@@ -140,14 +141,18 @@ public class IntegratedBlockRecipe implements IIntegratedBlockRecipe {
 
         @Override
         public void toNetwork(PacketBuffer pBuffer, IntegratedBlockRecipe pRecipe) {
+//            System.out.println(pRecipe.id + " start to network");
+            // 2 writeInt
+            pBuffer.writeInt(pRecipe.getLevel());
+
             // 01 writeVarInt
             pBuffer.writeVarInt(pRecipe.getIngredients().size());
+
             for (Ingredient i : pRecipe.getIngredients()) {
                 // 1 toNetwork
                 i.toNetwork(pBuffer);
+
             }
-            // 2 writeInt
-            pBuffer.writeInt(pRecipe.getLevel());
             // 3 writeItem
             pBuffer.writeItem(pRecipe.getResultItem());
 

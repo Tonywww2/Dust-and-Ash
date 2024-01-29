@@ -6,21 +6,21 @@
       "item": "minecraft:magma_block"
     },
     {
-      "item": "minecraft:air"
+      "item": "dustandash:empty"
     }
   ],
   "output" : [
     {
-      "item": "minecraft:air"
+      "item": "dustandash:empty"
     },
     {
-      "item": "minecraft:air"
+      "item": "dustandash:empty"
     },
     {
       "item": "minecraft:magma_cream"
     },
     {
-      "item": "minecraft:air"
+      "item": "dustandash:empty"
     },
 
     {
@@ -30,10 +30,10 @@
       "item": "minecraft:magma_cream"
     },
     {
-      "item": "minecraft:air"
+      "item": "dustandash:empty"
     },
     {
-      "item": "minecraft:air"
+      "item": "dustandash:empty"
     }
 
   ]

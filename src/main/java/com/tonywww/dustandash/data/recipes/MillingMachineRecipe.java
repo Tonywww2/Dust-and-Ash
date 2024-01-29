@@ -3,6 +3,7 @@ package com.tonywww.dustandash.data.recipes;
 import com.google.common.collect.Maps;
 import com.google.gson.*;
 import com.tonywww.dustandash.block.ModBlocks;
+import com.tonywww.dustandash.item.ModItems;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -62,14 +63,16 @@ public class MillingMachineRecipe implements IMillingMachineRecipe {
         } else {
             // otherwise
             // check slot 1
-            if (!recipeItems.get(0).test(inv.getItem(1))) {
+            if ((recipeItems.get(0).test(ModItems.EMPTY.get().getDefaultInstance()) && inv.getItem(1).isEmpty()) ||
+                    !recipeItems.get(0).test(inv.getItem(1))) {
                 return false;
             }
 
             // check workspace
             for (int i = 1; i < MAX_SLOTS; i++) {
                 ItemStack itemStack = inv.getItem(i + 2);
-                if (!recipeItems.get(i).test(itemStack)) {
+                if ((recipeItems.get(i).test(ModItems.EMPTY.get().getDefaultInstance()) && itemStack.isEmpty()) ||
+                        !recipeItems.get(i).test(itemStack)) {
                     return false;
                 }
 
@@ -125,6 +128,7 @@ public class MillingMachineRecipe implements IMillingMachineRecipe {
 
         @Override
         public MillingMachineRecipe fromJson(ResourceLocation pRecipeId, JsonObject json) {
+            System.out.println(pRecipeId + " start from json");
             ItemStack output = ShapedRecipe.itemFromJson(JSONUtils.getAsJsonObject(json, "output"));
 
 //            JsonArray ingredients = JSONUtils.getAsJsonArray(json, "ingredients");
@@ -141,7 +145,7 @@ public class MillingMachineRecipe implements IMillingMachineRecipe {
                 JsonArray jArray = JSONUtils.getAsJsonArray(json, "pattern");
 
                 String[] astring = new String[jArray.size()];
-                for(int i = 0; i < astring.length; ++i) {
+                for (int i = 0; i < astring.length; ++i) {
                     astring[i] = JSONUtils.convertToString(jArray.get(i), "pattern[" + i + "]");
 
                 }
@@ -187,8 +191,8 @@ public class MillingMachineRecipe implements IMillingMachineRecipe {
         @Nullable
         @Override
         public MillingMachineRecipe fromNetwork(ResourceLocation pRecipeId, PacketBuffer pBuffer) {
-            System.out.println(pRecipeId + " start");
-            NonNullList<Ingredient> inputs = NonNullList.withSize(MAX_SLOTS, Ingredient.EMPTY);
+            System.out.println(pRecipeId + " start from network");
+            NonNullList<Ingredient> inputs = NonNullList.withSize(MAX_SLOTS, Ingredient.of(ModItems.EMPTY.get()));
             // 1 readBoolean
             boolean step1 = pBuffer.readBoolean();
             if (step1) {
@@ -197,16 +201,14 @@ public class MillingMachineRecipe implements IMillingMachineRecipe {
                 inputs.set(0, temp);
 
             } else {
-
                 // 01 readVarInt
                 int inputSize = pBuffer.readVarInt();
                 for (int i = 0; i < inputSize; i++) {
                     // 2 2 fromNetwork
                     Ingredient temp = Ingredient.fromNetwork(pBuffer);
-                    if (!temp.getItems()[0].isEmpty() && temp.getItems()[0].getItem() != Items.AIR) {
-                        inputs.set(i, temp);
+                    inputs.set(i, temp);
 
-                    }
+
 
                 }
 
@@ -220,6 +222,7 @@ public class MillingMachineRecipe implements IMillingMachineRecipe {
 
         @Override
         public void toNetwork(PacketBuffer pBuffer, MillingMachineRecipe pRecipe) {
+//            System.out.println(pRecipe.id + " start to network");
             // 1 writeBoolean
             pBuffer.writeBoolean(pRecipe.isStep1());
 

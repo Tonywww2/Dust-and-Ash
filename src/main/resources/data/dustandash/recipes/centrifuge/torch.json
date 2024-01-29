@@ -6,7 +6,7 @@
       "item": "minecraft:torch"
     },
     {
-      "item": "minecraft:air"
+      "item": "dustandash:empty"
     }
   ],
   "output" : [
@@ -14,26 +14,26 @@
       "item": "dustandash:fire_dust"
     },
     {
-      "item": "minecraft:air"
+      "item": "dustandash:empty"
     },
     {
-      "item": "minecraft:air"
+      "item": "dustandash:empty"
     },
     {
-      "item": "minecraft:air"
+      "item": "dustandash:empty"
     },
 
     {
-      "item": "minecraft:air"
+      "item": "dustandash:empty"
     },
         {
-      "item": "minecraft:air"
+      "item": "dustandash:empty"
     },
     {
-      "item": "minecraft:air"
+      "item": "dustandash:empty"
     },
     {
-      "item": "minecraft:air"
+      "item": "dustandash:empty"
     }
 
   ]

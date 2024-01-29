@@ -11,7 +11,7 @@
   ],
   "output" : [
     {
-      "item": "minecraft:air"
+      "item": "dustandash:empty"
     },
     {
       "item": "minecraft:sand"
@@ -24,13 +24,13 @@
     },
 
     {
-      "item": "minecraft:air"
+      "item": "dustandash:empty"
     },
     {
       "item": "dustandash:dust_with_energy"
     },
     {
-      "item": "minecraft:air"
+      "item": "dustandash:empty"
     },
     {
       "item": "minecraft:sand"

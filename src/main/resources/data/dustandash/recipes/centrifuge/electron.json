@@ -6,7 +6,7 @@
       "item": "dustandash:magnet"
     },
     {
-      "item": "minecraft:air"
+      "item": "dustandash:empty"
     }
   ],
   "output" : [
@@ -14,7 +14,7 @@
       "item": "dustandash:electron"
     },
     {
-      "item": "minecraft:air"
+      "item": "dustandash:empty"
     },
     {
       "item": "dustandash:electron"

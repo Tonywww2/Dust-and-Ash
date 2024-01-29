@@ -3,6 +3,7 @@ package com.tonywww.dustandash.data.recipes;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.tonywww.dustandash.block.ModBlocks;
+import com.tonywww.dustandash.item.ModItems;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -43,7 +44,8 @@ public class CentrifugeRecipe implements ICentrifugeRecipe {
     public boolean matches(IInventory inv, World pLevel) {
         for (int i = 0; i < MAX_SLOTS; i++) {
             ItemStack itemStack = inv.getItem(i);
-            if (!recipeItems.get(i).test(itemStack)) {
+            if ((recipeItems.get(i).test(ModItems.EMPTY.get().getDefaultInstance()) && itemStack.isEmpty())
+                    || !recipeItems.get(i).test(itemStack)) {
                 return false;
             }
 
@@ -101,6 +103,7 @@ public class CentrifugeRecipe implements ICentrifugeRecipe {
 
         @Override
         public CentrifugeRecipe fromJson(ResourceLocation pRecipeId, JsonObject json) {
+            System.out.println(pRecipeId + " start from json");
             JsonArray ingredients = JSONUtils.getAsJsonArray(json, "ingredients");
             int tick = JSONUtils.getAsInt(json, "tick");
             JsonArray outputArr = JSONUtils.getAsJsonArray(json, "output");
@@ -111,7 +114,7 @@ public class CentrifugeRecipe implements ICentrifugeRecipe {
 
             for (int i = 0; i < ingredients.size(); i++) {
                 Ingredient temp = Ingredient.fromJson(ingredients.get(i));
-                if (temp.getItems()[0].getItem() != Items.AIR) {
+                if (temp.getItems()[0].getItem() != ModItems.EMPTY.get()) {
                     inputs.set(i, temp);
 
                 }
@@ -121,7 +124,7 @@ public class CentrifugeRecipe implements ICentrifugeRecipe {
             for (int i = 0; i < outputs.size(); i++) {
                 ItemStack temp = Ingredient.fromJson(outputArr.get(i)).getItems()[0];
 
-                if (temp.getItem() != Items.AIR) {
+                if (temp.getItem() != ModItems.EMPTY.get()) {
                     outputs.set(i, temp);
 
                 }
@@ -134,17 +137,16 @@ public class CentrifugeRecipe implements ICentrifugeRecipe {
         @Nullable
         @Override
         public CentrifugeRecipe fromNetwork(ResourceLocation pRecipeId, PacketBuffer pBuffer) {
-            System.out.println(pRecipeId + " start");
+            System.out.println(pRecipeId + " start from network");
+            // 3 readInt
+            int tick = pBuffer.readInt();
             // 01 readVarInt
             int inputSize = pBuffer.readVarInt();
             NonNullList<Ingredient> inputs = NonNullList.withSize(MAX_SLOTS, Ingredient.EMPTY);
             for (int i = 0; i < inputSize; i++) {
                 // 1 fromNetwork
                 Ingredient temp = Ingredient.fromNetwork(pBuffer);
-                if (!temp.getItems()[0].isEmpty() && temp.getItems()[0].getItem() != Items.AIR) {
-                    inputs.set(i, temp);
-
-                }
+                inputs.set(i, temp);
 
             }
 
@@ -154,26 +156,26 @@ public class CentrifugeRecipe implements ICentrifugeRecipe {
             for (int i = 0; i < outputSize; i++) {
                 // 2 readItem
                 ItemStack temp = pBuffer.readItem();
-                if (!temp.isEmpty() && temp.getItem() != Items.AIR) {
-                    output.set(i, temp);
-
-                }
+                output.set(i, temp);
 
             }
-
-            // 3 readInt
-            int tick = pBuffer.readInt();
 
             return new CentrifugeRecipe(pRecipeId, output, inputs, tick);
         }
 
         @Override
         public void toNetwork(PacketBuffer pBuffer, CentrifugeRecipe pRecipe) {
+//            System.out.println(pRecipe.id + " start to network");
+            // 3 writeInt
+            pBuffer.writeInt(pRecipe.getTick());
+
             // 01 writeVarInt
             pBuffer.writeVarInt(pRecipe.getIngredients().size());
+
             for (Ingredient i : pRecipe.getIngredients()) {
                 // 1 toNetwork
                 i.toNetwork(pBuffer);
+
             }
 
             // 02 writeVarInt
@@ -184,9 +186,6 @@ public class CentrifugeRecipe implements ICentrifugeRecipe {
                 pBuffer.writeItem(i);
 
             }
-
-            // 3 writeInt
-            pBuffer.writeInt(pRecipe.getTick());
 
         }
     }

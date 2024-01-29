@@ -13,6 +13,11 @@ public class ModItems {
 
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, DustAndAsh.MOD_ID);
 
+    public static final RegistryObject<Item> EMPTY = ITEMS.register("empty",
+            () -> new Item(new Item.Properties()
+                    .stacksTo(64)
+            ));
+
     // Items
     // tools
     public static final RegistryObject<Item> HAND_VACUUM = ITEMS.register("hand_vacuum",

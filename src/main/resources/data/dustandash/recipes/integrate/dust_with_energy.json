@@ -3,10 +3,10 @@
   "level": 3,
   "ingredients": [
     {
-      "item": "minecraft:air"
+      "item": "dustandash:empty"
     },
     {
-      "item": "minecraft:air"
+      "item": "dustandash:empty"
     },
     {
       "item": "dustandash:metal_dust"

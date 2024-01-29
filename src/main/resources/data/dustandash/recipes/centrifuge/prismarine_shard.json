@@ -14,17 +14,17 @@
       "item": "minecraft:stick"
     },
     {
-      "item": "minecraft:air"
+      "item": "dustandash:empty"
     },
     {
-      "item": "minecraft:air"
+      "item": "dustandash:empty"
     },
     {
       "item": "minecraft:prismarine_shard"
     },
 
     {
-      "item": "minecraft:air"
+      "item": "dustandash:empty"
     },
     {
       "item": "dustandash:order_dust"
@@ -33,7 +33,7 @@
       "item": "minecraft:prismarine_shard"
     },
     {
-      "item": "minecraft:air"
+      "item": "dustandash:empty"
     }
 
   ]
