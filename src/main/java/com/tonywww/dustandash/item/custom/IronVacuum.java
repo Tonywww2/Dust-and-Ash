@@ -44,8 +44,15 @@ public class IronVacuum extends Item {
         if (!world.isClientSide) {
             PlayerEntity playerEntity = Objects.requireNonNull(context.getPlayer());
 
-            if (changeBlock(context, playerEntity, context.getLevel())) {
-                stack.hurtAndBreak(1, playerEntity, player -> player.broadcastBreakEvent(player.getUsedItemHand()));
+            if (!playerEntity.getCooldowns().isOnCooldown(getItem())) {
+                if (changeBlock(context, playerEntity, context.getLevel())) {
+                    stack.hurtAndBreak(1, playerEntity, player -> player.broadcastBreakEvent(player.getUsedItemHand()));
+                    world.playSound(null, context.getClickedPos(), SoundEvents.ZOMBIE_VILLAGER_HURT, SoundCategory.BLOCKS, 1f, 1f);
+
+                } else {
+                    world.playSound(null, context.getClickedPos(), SoundEvents.SKELETON_HURT, SoundCategory.BLOCKS, 1f, 1f);
+
+                }
 
             }
 
@@ -56,29 +63,28 @@ public class IronVacuum extends Item {
     }
 
     private boolean changeBlock(ItemUseContext context, PlayerEntity playerEntity, World world) {
-
         BlockPos blockPos = context.getClickedPos();
         BlockState blockState = world.getBlockState(blockPos);
 
-        if (blockState.getBlock().equals(ModBlocks.DUST.get()) && !playerEntity.getCooldowns().isOnCooldown(getItem())) {
-            if (playerEntity.inventory.contains(new ItemStack(ModItems.DUST_WITH_ENERGY.get()))) {
-                //succeed
-                playerEntity.getCooldowns().addCooldown(getItem(), 5);
-                world.setBlock(blockPos, Blocks.AIR.defaultBlockState(), 2);
+        if (blockState.getBlock().equals(ModBlocks.DUST.get())) {
+            for (ItemStack i : playerEntity.inventory.items) {
+                if (i.getItem() == ModItems.DUST_WITH_ENERGY.get() && i.getCount() > 0) {
+                    // going to cost
+                    if (random.nextDouble() < consumeRate) {
+                        i.setCount(i.getCount() - 1);
 
-                if (random.nextDouble() < consumeRate) {
-                    playerEntity.inventory.removeItem(playerEntity.inventory.findSlotMatchingItem(new ItemStack(ModItems.DUST_WITH_ENERGY.get())), 1);
+                    }
+                    playerEntity.getCooldowns().addCooldown(getItem(), 5);
+                    world.setBlock(blockPos, Blocks.AIR.defaultBlockState(), 2);
+                    retrieve(blockPos, world);
+                    return true;
 
                 }
-                retrieve(blockPos, world);
-                world.playSound(null, blockPos, SoundEvents.ZOMBIE_VILLAGER_HURT, SoundCategory.BLOCKS, 1f, 1f);
-                return true;
-
-            } else {
-                world.playSound(null, blockPos, SoundEvents.SKELETON_HURT, SoundCategory.BLOCKS, 1f, 1f);
-                return false;
 
             }
+            playerEntity.getCooldowns().addCooldown(getItem(), 5);
+            return false;
+
         }
 
         return false;

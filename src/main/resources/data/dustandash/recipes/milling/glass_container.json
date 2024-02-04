@@ -2,7 +2,7 @@
   "type": "dustandash:milling",
   "step1": false,
   "pattern": [
-    "##A##",
+    "## ##",
     " # # ",
     " # # ",
     " # # ",
@@ -16,10 +16,6 @@
     "#":
     {
       "item": "minecraft:glass_pane"
-    },
-    "A":
-    {
-      "tag": "minecraft:planks"
     }
   },
   "output" : {

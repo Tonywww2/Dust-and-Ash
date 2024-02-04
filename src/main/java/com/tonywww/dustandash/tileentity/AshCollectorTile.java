@@ -16,6 +16,7 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.state.Property;
@@ -155,9 +156,13 @@ public class AshCollectorTile extends TileEntity implements INamedContainerProvi
         if (!isOnCoolDown() && this.itemStackHandler.getStackInSlot(1).getCount() < this.itemStackHandler.getSlotLimit(1)) {
             if (getLevel().getBlockEntity(this.worldPosition.above()) instanceof AbstractFurnaceTileEntity) {
                 AbstractFurnaceTileEntity tile = (AbstractFurnaceTileEntity) getLevel().getBlockEntity(this.worldPosition.above());
-                this.itemStackHandler.insertItem(1, tile.removeItem(2, 1), false);
-                setCoolDown(4);
+                ItemStack target = tile.getItem(2);
 
+                if (this.itemStackHandler.getStackInSlot(1).isEmpty() || target.getItem() == this.itemStackHandler.getStackInSlot(1).getItem()) {
+                    this.itemStackHandler.insertItem(1, tile.removeItem(2, 1), false);
+                    setCoolDown(4);
+
+                }
 
             }
         }

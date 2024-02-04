@@ -1,7 +1,7 @@
 {
   "item.dustandash.hand_vacuum": "Hand Vacuum",
   "item.dustandash.iron_vacuum": "Iron Vacuum",
-  "item.dustandash.sharpen_flint": "Sharpen Flint",
+  "item.dustandash.sharpen_flint": "Bloody Sharpen Flint",
   "item.dustandash.flint_pickaxe": "Flint Pickaxe",
   "item.dustandash.ash_steel_sword": "Ash Steel Straight Sword",
   "item.dustandash.ash_steel_shovel": "Ash Steel Shovel",
@@ -41,8 +41,8 @@
 
   "item.dustandash.dust_with_energy": "Energized Dust",
   "item.dustandash.pure_energy": "Pure Energy",
-  "item.dustandash.soul_of_light": "Soul of Light",
-  "item.dustandash.pure_darkness": "Pure Darkness",
+  "item.dustandash.soul_of_light": "\u00A7eSoul of Light",
+  "item.dustandash.pure_darkness": "\u00A7cPure Darkness",
 
   "item.dustandash.energized_cobblestone_bucket": "Energized Cobblestone Bucket",
   "item.dustandash.ash": "Ash",
@@ -125,7 +125,7 @@
 
   "tooltip.dustandash.titanium_alloy_sword": "\u00A77Apply \n Speed, \n Luck, \n Dolphin's Grace\nto the player, \n Slowness\nto the target after attack.",
   "tooltip.dustandash.titanium_alloy_great_sword": "\u00A77Apply \n Damage Resistance\nto the player, \n Weakness \nto the target after attack.",
-  "tooltip.dustandash.hand_vacuum": "\u00A77Use on a Dust to gain products",
-  "tooltip.dustandash.iron_vacuum": "\u00A77Use on a Dust to gain products, requires Energized Dust in inventory"
+  "tooltip.dustandash.hand_vacuum": "\u00A77Use on a Dust to gain products.",
+  "tooltip.dustandash.iron_vacuum": "\u00A77Use on a Dust to gain products, requires Energized Dust in inventory."
 
 }
