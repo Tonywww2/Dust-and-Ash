@@ -16,7 +16,7 @@ apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
 
-version = '0.0.3-a'
+version = '0.0.3-b'
 group = 'com.tonywww.dustandash' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'dustandash'
 
