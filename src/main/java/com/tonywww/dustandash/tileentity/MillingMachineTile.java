@@ -34,6 +34,7 @@ public class MillingMachineTile extends TileEntity implements INamedContainerPro
     private final LazyOptional<ItemStackHandler> handler;
     private final LazyOptional<MillingMachineItemHandler> inputHandler;
     private final LazyOptional<MillingMachineItemHandler> outputHandler;
+    private final LazyOptional<MillingMachineItemHandler> workspaceHandler;
 
     public MillingMachineTile(TileEntityType<?> tileEntityType) {
         super(tileEntityType);
@@ -43,6 +44,7 @@ public class MillingMachineTile extends TileEntity implements INamedContainerPro
         this.handler = LazyOptional.of(() -> invItemStackHandler);
         this.inputHandler = LazyOptional.of(() -> new MillingMachineItemHandler(invItemStackHandler, Direction.UP));
         this.outputHandler = LazyOptional.of(() -> new MillingMachineItemHandler(invItemStackHandler, Direction.DOWN));
+        this.workspaceHandler = LazyOptional.of(() -> new MillingMachineItemHandler(invItemStackHandler, Direction.NORTH));
 
     }
 
@@ -108,6 +110,8 @@ public class MillingMachineTile extends TileEntity implements INamedContainerPro
             }
             if (side == Direction.DOWN) {
                 return this.outputHandler.cast();
+            } else {
+                return this.workspaceHandler.cast();
             }
 
         }

@@ -34,7 +34,8 @@ public class MillingMachineItemHandler implements IItemHandler {
     public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {
 
         if (side == null ||
-                (side == Direction.UP && slot < 2)) {
+                (side == Direction.UP && slot < 2) ||
+                (side == Direction.NORTH && slot > 2)) {
             if (isItemValid(slot, stack)) {
                 return itemHandler.insertItem(slot, stack, simulate);
             }
@@ -48,7 +49,8 @@ public class MillingMachineItemHandler implements IItemHandler {
     @Override
     public ItemStack extractItem(int slot, int amount, boolean simulate) {
         if (side == null ||
-                (side == Direction.DOWN && slot == 2)) {
+                (side == Direction.DOWN && slot == 2) ||
+                (side == Direction.NORTH && slot > 2)) {
             return itemHandler.extractItem(slot, amount, simulate);
 
         }
