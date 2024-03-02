@@ -85,7 +85,7 @@ public class DustSource extends Block {
                     if (currentUpperBlock.equals(Blocks.AIR) && currentBlock.is(ModTags.Blocks.DUST_ABLE) && !currentBlock.is(ModTags.Blocks.NOT_DUST_ABLE)) {
                         if (random.nextDouble() < chancePerBlock) {
                             world.setBlock(currentUpperPos, ModBlocks.DUST.get().defaultBlockState(), 2);
-//                                spawnParticle(world, random, currentUpperPos);
+                            world.updateNeighborsAt(blockPos, ModBlocks.DUST.get());
 
                         }
 

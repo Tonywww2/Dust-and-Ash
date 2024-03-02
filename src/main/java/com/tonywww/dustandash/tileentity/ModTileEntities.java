@@ -28,6 +28,10 @@ public class ModTileEntities {
             TILE_ENTITIES.register("centrifuge",
                     () -> TileEntityType.Builder.of(CentrifugeTile::new, ModBlocks.CENTRIFUGE.get()).build(null));
 
+    public static RegistryObject<TileEntityType<IonizerTile>> IONIZER_TILE =
+            TILE_ENTITIES.register("ionizer",
+                    () -> TileEntityType.Builder.of(IonizerTile::new, ModBlocks.IONIZER.get()).build(null));
+
     public static void register(IEventBus eventBus) {
         TILE_ENTITIES.register(eventBus);
 

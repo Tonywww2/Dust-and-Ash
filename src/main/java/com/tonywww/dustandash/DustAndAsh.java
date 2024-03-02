@@ -3,10 +3,7 @@ package com.tonywww.dustandash;
 import com.tonywww.dustandash.block.ModBlocks;
 import com.tonywww.dustandash.config.DustAndAshConfig;
 import com.tonywww.dustandash.container.ModContainers;
-import com.tonywww.dustandash.screen.AshCollectorScreen;
-import com.tonywww.dustandash.screen.CentrifugeScreen;
-import com.tonywww.dustandash.screen.IntegratedBlockScreen;
-import com.tonywww.dustandash.screen.MillingMachineScreen;
+import com.tonywww.dustandash.screen.*;
 import com.tonywww.dustandash.tileentity.ModTileEntities;
 import com.tonywww.dustandash.data.recipes.ModRecipeTypes;
 import com.tonywww.dustandash.item.ModItems;
@@ -96,6 +93,7 @@ public class DustAndAsh
             ScreenManager.register(ModContainers.ASH_COLLECTOR_CONTAINER.get(), AshCollectorScreen::new);
             ScreenManager.register(ModContainers.MILLING_MACHINE_CONTAINER.get(), MillingMachineScreen::new);
             ScreenManager.register(ModContainers.CENTRIFUGE_CONTAINER.get(), CentrifugeScreen::new);
+            ScreenManager.register(ModContainers.IONIZER_CONTAINER.get(), IonizerScreen::new);
 
 
         });

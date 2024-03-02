@@ -24,6 +24,9 @@ public class ModContainers {
     public static final RegistryObject<ContainerType<CentrifugeContainer>> CENTRIFUGE_CONTAINER = CONTAINERS.register("centrifuge_container",
             () -> IForgeContainerType.create(CentrifugeContainer::new));
 
+    public static final RegistryObject<ContainerType<IonizerContainer>> IONIZER_CONTAINER = CONTAINERS.register("ionizer_container",
+            () -> IForgeContainerType.create(IonizerContainer::new));
+
     public static void register(IEventBus eventBus) {
         CONTAINERS.register(eventBus);
 

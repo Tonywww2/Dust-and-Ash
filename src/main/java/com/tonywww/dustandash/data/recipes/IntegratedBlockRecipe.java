@@ -97,7 +97,7 @@ public class IntegratedBlockRecipe implements IIntegratedBlockRecipe {
 
         @Override
         public IntegratedBlockRecipe fromJson(ResourceLocation pRecipeId, JsonObject json) {
-            System.out.println(pRecipeId + " start from json");
+//            System.out.println(pRecipeId + " start from json");
             ItemStack output = ShapedRecipe.itemFromJson(JSONUtils.getAsJsonObject(json, "output"));
 
             JsonArray ingredients = JSONUtils.getAsJsonArray(json, "ingredients");
@@ -119,7 +119,7 @@ public class IntegratedBlockRecipe implements IIntegratedBlockRecipe {
         @Nullable
         @Override
         public IntegratedBlockRecipe fromNetwork(ResourceLocation pRecipeId, PacketBuffer pBuffer) {
-            System.out.println(pRecipeId + " start from network");
+//            System.out.println(pRecipeId + " start from network");
             // 2 readInt
             int lv = pBuffer.readInt();
 

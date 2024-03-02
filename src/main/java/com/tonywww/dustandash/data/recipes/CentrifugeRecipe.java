@@ -103,7 +103,7 @@ public class CentrifugeRecipe implements ICentrifugeRecipe {
 
         @Override
         public CentrifugeRecipe fromJson(ResourceLocation pRecipeId, JsonObject json) {
-            System.out.println(pRecipeId + " start from json");
+//            System.out.println(pRecipeId + " start from json");
             JsonArray ingredients = JSONUtils.getAsJsonArray(json, "ingredients");
             int tick = JSONUtils.getAsInt(json, "tick");
             JsonArray outputArr = JSONUtils.getAsJsonArray(json, "output");
@@ -134,10 +134,11 @@ public class CentrifugeRecipe implements ICentrifugeRecipe {
             return new CentrifugeRecipe(pRecipeId, outputs, inputs, tick);
         }
 
+
         @Nullable
         @Override
         public CentrifugeRecipe fromNetwork(ResourceLocation pRecipeId, PacketBuffer pBuffer) {
-            System.out.println(pRecipeId + " start from network");
+//            System.out.println(pRecipeId + " start from network");
             // 3 readInt
             int tick = pBuffer.readInt();
             // 01 readVarInt

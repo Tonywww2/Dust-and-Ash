@@ -89,6 +89,14 @@ public class ModBlocks {
                     .noOcclusion()
             ));
 
+    public static final RegistryObject<Block> IONIZER = registerBlocks("ionizer",
+            () -> new Ionizer(AbstractBlock.Properties
+                    .of(Material.HEAVY_METAL)
+                    .harvestTool(ToolType.PICKAXE)
+                    .strength(2f, 8f)
+                    .noOcclusion()
+            ));
+
     public static final RegistryObject<Block> LOG_PILE = registerBlocks("log_pile",
             () -> new RotatedPillarBlock(AbstractBlock.Properties
                     .of(Material.WOOD)

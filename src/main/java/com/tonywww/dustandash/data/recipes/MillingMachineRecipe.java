@@ -128,7 +128,7 @@ public class MillingMachineRecipe implements IMillingMachineRecipe {
 
         @Override
         public MillingMachineRecipe fromJson(ResourceLocation pRecipeId, JsonObject json) {
-            System.out.println(pRecipeId + " start from json");
+//            System.out.println(pRecipeId + " start from json");
             ItemStack output = ShapedRecipe.itemFromJson(JSONUtils.getAsJsonObject(json, "output"));
 
 //            JsonArray ingredients = JSONUtils.getAsJsonArray(json, "ingredients");
@@ -191,7 +191,7 @@ public class MillingMachineRecipe implements IMillingMachineRecipe {
         @Nullable
         @Override
         public MillingMachineRecipe fromNetwork(ResourceLocation pRecipeId, PacketBuffer pBuffer) {
-            System.out.println(pRecipeId + " start from network");
+//            System.out.println(pRecipeId + " start from network");
             NonNullList<Ingredient> inputs = NonNullList.withSize(MAX_SLOTS, Ingredient.of(ModItems.EMPTY.get()));
             // 1 readBoolean
             boolean step1 = pBuffer.readBoolean();
