@@ -17,9 +17,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.Direction;
-import net.minecraft.util.IIntArray;
-import net.minecraft.util.NonNullList;
+import net.minecraft.util.*;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.common.capabilities.Capability;
@@ -251,6 +249,7 @@ public class CentrifugeTile extends TileEntity implements INamedContainerProvide
             }
 
         }
+        this.level.playSound(null, this.getBlockPos(), SoundEvents.WITCH_DRINK, SoundCategory.BLOCKS, 0.5f, 1f);
         setChanged();
 
     }

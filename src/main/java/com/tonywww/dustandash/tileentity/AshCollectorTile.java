@@ -131,6 +131,7 @@ public class AshCollectorTile extends TileEntity implements INamedContainerProvi
                 if (shouldWork()) {
                     ItemStack itemStack = new ItemStack(ModItems.ASH.get());
                     this.itemStackHandler.insertItem(0, itemStack.copy(), false);
+                    this.level.playSound(null, this.getBlockPos(), SoundEvents.BEE_HURT, SoundCategory.BLOCKS, 0.5f, 1f);
                     setChanged();
 
                 }

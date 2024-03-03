@@ -5,8 +5,10 @@ import com.tonywww.dustandash.container.IonizerItemHandler;
 import com.tonywww.dustandash.data.recipes.IonizerRecipe;
 import com.tonywww.dustandash.data.recipes.ModRecipeTypes;
 import com.tonywww.dustandash.item.ModItems;
+import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.FlowingFluidBlock;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -22,7 +24,6 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.IIntArray;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.common.capabilities.Capability;
@@ -48,6 +49,7 @@ public class IonizerTile extends TileEntity implements INamedContainerProvider, 
     private float currentProgression;
     private int targetProgression;
     private BlockState below;
+    private int isBelowAvailable;
 
     protected final IIntArray dataAccess;
 
@@ -68,6 +70,8 @@ public class IonizerTile extends TileEntity implements INamedContainerProvider, 
         currentProgression = -1f;
         targetProgression = 0;
 
+        isBelowAvailable = 1;
+
         this.dataAccess = new IIntArray() {
             public int get(int pIndex) {
                 switch (pIndex) {
@@ -75,6 +79,8 @@ public class IonizerTile extends TileEntity implements INamedContainerProvider, 
                         return (int) IonizerTile.this.currentProgression;
                     case 1:
                         return IonizerTile.this.targetProgression;
+                    case 2:
+                        return IonizerTile.this.isBelowAvailable;
                     default:
                         return 0;
                 }
@@ -88,12 +94,15 @@ public class IonizerTile extends TileEntity implements INamedContainerProvider, 
                     case 1:
                         IonizerTile.this.targetProgression = pValue;
                         break;
+                    case 2:
+                        IonizerTile.this.isBelowAvailable = pValue;
+                        break;
                 }
 
             }
 
             public int getCount() {
-                return 2;
+                return 3;
             }
         };
 
@@ -181,18 +190,22 @@ public class IonizerTile extends TileEntity implements INamedContainerProvider, 
     @Override
     public void tick() {
         if (!this.getLevel().isClientSide) {
-            getBelow();
+            updateBelow();
             craft();
 
         }
 
     }
 
-    private void getBelow() {
+    private void updateBelow() {
         this.below = this.getLevel().getBlockState(this.getBlockPos().below());
+        if (this.below != null && this.below.getBlock() != Blocks.AIR) {
+            this.isBelowAvailable = 1;
+        } else {
+            this.isBelowAvailable = 0;
+        }
 
     }
-
 
     public void craft() {
         // 0 power 1-3 items 4-5 electrode
@@ -206,7 +219,18 @@ public class IonizerTile extends TileEntity implements INamedContainerProvider, 
 
         AtomicBoolean present = new AtomicBoolean(false);
         recipe.ifPresent(iRecipe -> {
-            if (below.getBlock() == iRecipe.getInputBlock()) {
+
+            boolean isFullFluid = true;
+
+            if (below.getBlock() instanceof FlowingFluidBlock) {
+                FlowingFluidBlock fluidBlock = (FlowingFluidBlock) below.getBlock();
+                if (below.getValue(fluidBlock.LEVEL) > 0) {
+                    isFullFluid = false;
+
+                }
+
+            }
+            if (isFullFluid && below.getBlock() == iRecipe.getInputBlock()) {
                 present.set(true);
 
                 if (currRecipe == null || currRecipe.getId() != iRecipe.getId()) {
@@ -237,7 +261,7 @@ public class IonizerTile extends TileEntity implements INamedContainerProvider, 
                             ItemEntity itemEntity = new ItemEntity(
                                     this.level,
                                     this.getBlockPos().getX(),
-                                    this.getBlockPos().getY() - 1,
+                                    this.getBlockPos().getY() - 0.5f,
                                     this.getBlockPos().getZ(),
                                     i
                             );
@@ -247,11 +271,11 @@ public class IonizerTile extends TileEntity implements INamedContainerProvider, 
 
                         currentProgression = -1;
                         currRecipe = null;
+                        this.level.playSound(null, this.getBlockPos(), SoundEvents.EXPERIENCE_ORB_PICKUP, SoundCategory.BLOCKS, 0.5f, 1f);
 
                     } else {
                         // ticking
-                        currentProgression += 1;
-//                        this.level.playSound(null, this.getBlockPos(), SoundEvents.SKELETON_HURT, SoundCategory.BLOCKS, 0.5f, 1f);
+                        currentProgression += progressPerTick;
 
                     }
 

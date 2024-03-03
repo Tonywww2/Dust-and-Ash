@@ -58,11 +58,21 @@ public class IonizerContainer extends Container {
     }
 
     public float getProgressionRatio() {
-//        if (this.data.get(0) > 0) {
-//            return this.data.get(0) / (float) this.data.get(1);
-//
-//        }
+        if (this.data.get(0) > 0) {
+            return this.data.get(0) / (float) this.data.get(1);
+
+        }
         return 0;
+    }
+
+    public IonizerTile getTileEntity() {
+        return tileEntity;
+
+    }
+
+    public boolean getBelowAvailable() {
+        return this.data.get(2) > 0;
+
     }
 
     private int addSlotRange(IItemHandler handler, int index, int x, int y, int amount, int dx) {

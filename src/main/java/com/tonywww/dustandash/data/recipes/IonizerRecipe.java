@@ -20,7 +20,6 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import javax.annotation.Nullable;
@@ -56,8 +55,6 @@ public class IonizerRecipe implements IIonizerRecipe {
     // 0 power 1-3 items 4-5 electrode
     @Override
     public boolean matches(IInventory inv, World pLevel) {
-//        System.out.println("TESTTEST" + inv);
-//        if (inputBlock == Blocks.AIR || inputBlock.getBlock().asItem() == below.getItem()) {
         if (inv.getItem(0).getCount() >= powerCost) {
             for (int i = 1; i <= 5; i++) {
                 if (!recipeItems.get(i - 1).test(inv.getItem(i))) {
@@ -67,8 +64,6 @@ public class IonizerRecipe implements IIonizerRecipe {
             }
             return true;
         }
-
-//        }
 
         return false;
 

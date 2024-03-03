@@ -2,10 +2,10 @@
   "type": "dustandash:ionizer",
   "ingredients": [
     {
-      "item": "dustandash:crushed_seeds"
+      "item": "minecraft:wheat_seeds"
     },
     {
-      "item": "dustandash:glass_container"
+      "item": "dustandash:empty"
     },
     {
       "item": "dustandash:empty"
@@ -14,13 +14,13 @@
       "item": "minecraft:iron_ingot"
     },
     {
-      "item": "dustandash:copper_ingot"
+      "item": "dustandash:empty"
     }
   ],
-  "inputBlock": "minecraft:water",
+  "inputBlock": "minecraft:air",
   "outputs": [
     {
-      "item": "dustandash:sharpen_flint"
+      "item": "dustandash:crushed_seeds"
     },
     {
       "item": "dustandash:empty"
@@ -32,8 +32,8 @@
       "item": "dustandash:empty"
     }
   ],
-  "cost": 3,
-  "tick": 200,
+  "cost": 0,
+  "tick": 50,
   "costElectrodes": false,
-  "outputBlock": "minecraft:air"
+  "outputBlock": "minecraft:water"
 }
