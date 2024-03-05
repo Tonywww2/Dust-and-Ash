@@ -99,6 +99,8 @@
   "block.dustandash.ash_collector": "余烬收集器",
   "block.dustandash.milling_machine": "铣床和装配台",
   "block.dustandash.centrifuge": "离心机",
+  "block.dustandash.ionizer": "万用电解机",
+
   "block.dustandash.log_pile": "原木捆",
   "block.dustandash.block_of_ash_steel": "烬钢锭",
   "block.dustandash.titanium_sand_block": "钛沙",
@@ -112,10 +114,14 @@
   "container.integrated_block": "聚合方块",
   "container.ash_collector": "余烬收集器",
   "container.milling_machine": "铣床和装配台",
+  "container.centrifuge": "离心机",
+  "container.ionizer": "万用电解机",
 
   "screen.dustandash.integrated_block": "聚合方块",
   "screen.dustandash.ash_collector": "余烬收集器",
   "screen.dustandash.milling_machine": "铣床和装配台",
+  "screen.dustandash.centrifuge": "离心机",
+  "screen.dustandash.ionizer": "万用电解机",
 
   "death.attack.sharpen_flint" : "%1$s 的血流干了......",
 
