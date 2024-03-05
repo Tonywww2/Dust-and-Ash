@@ -17,7 +17,7 @@
       "item": "dustandash:empty"
     }
   ],
-  "inputBlock": "minecraft:air",
+  "inputBlock": "minecraft:dirt",
   "outputs": [
     {
       "item": "dustandash:crushed_seeds"

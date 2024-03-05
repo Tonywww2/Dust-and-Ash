@@ -99,6 +99,8 @@
   "block.dustandash.ash_collector": "Ash Collector",
   "block.dustandash.milling_machine": "Milling & Assembly Machine",
   "block.dustandash.centrifuge": "Centrifuge",
+  "block.dustandash.ionizer": "Ionizer",
+
   "block.dustandash.log_pile": "Log Pile",
   "block.dustandash.block_of_ash_steel": "Block of Ash Steel",
   "block.dustandash.titanium_sand_block": "Titanium Sand Block",
@@ -112,10 +114,14 @@
   "container.integrated_block": "Integrated Block",
   "container.ash_collector": "Ash Collector",
   "container.milling_machine": "Milling Machine",
+  "container.centrifuge": "Centrifuge",
+  "container.ionizer": "Ionizer",
 
   "screen.dustandash.integrated_block": "Integrated Block",
   "screen.dustandash.ash_collector": "Ash Collector",
   "screen.dustandash.milling_machine": "Milling Machine",
+  "screen.dustandash.centrifuge": "Centrifuge",
+  "screen.dustandash.ionizer": "Ionizer",
 
   "death.attack.sharpen_flint" : "%1$s's blood ran dry",
 

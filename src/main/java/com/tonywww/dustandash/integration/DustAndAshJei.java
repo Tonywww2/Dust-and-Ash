@@ -5,12 +5,15 @@ import com.tonywww.dustandash.block.ModBlocks;
 import com.tonywww.dustandash.container.IntegratedBlockContainer;
 import com.tonywww.dustandash.data.recipes.CentrifugeRecipe;
 import com.tonywww.dustandash.data.recipes.IntegratedBlockRecipe;
+import com.tonywww.dustandash.data.recipes.IonizerRecipe;
 import com.tonywww.dustandash.data.recipes.MillingMachineRecipe;
 import com.tonywww.dustandash.integration.jei.CentrifugeRecipeCategory;
 import com.tonywww.dustandash.integration.jei.IntegratedBlockRecipeCategory;
+import com.tonywww.dustandash.integration.jei.IonizerCategory;
 import com.tonywww.dustandash.integration.jei.MillingRecipeCategory;
 import com.tonywww.dustandash.screen.CentrifugeScreen;
 import com.tonywww.dustandash.screen.IntegratedBlockScreen;
+import com.tonywww.dustandash.screen.IonizerScreen;
 import com.tonywww.dustandash.screen.MillingMachineScreen;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
@@ -38,7 +41,8 @@ public class DustAndAshJei implements IModPlugin {
         registration.addRecipeCategories(
                 new IntegratedBlockRecipeCategory(registration.getJeiHelpers().getGuiHelper()),
                 new MillingRecipeCategory(registration.getJeiHelpers().getGuiHelper()),
-                new CentrifugeRecipeCategory(registration.getJeiHelpers().getGuiHelper())
+                new CentrifugeRecipeCategory(registration.getJeiHelpers().getGuiHelper()),
+                new IonizerCategory(registration.getJeiHelpers().getGuiHelper())
 
         );
     }
@@ -60,6 +64,11 @@ public class DustAndAshJei implements IModPlugin {
                         .filter(r -> r instanceof CentrifugeRecipe).collect(Collectors.toList()),
                 CentrifugeRecipeCategory.UID
         );
+
+        registration.addRecipes(rm.getRecipes().stream()
+                        .filter(r -> r instanceof IonizerRecipe).collect(Collectors.toList()),
+                IonizerCategory.UID
+        );
     }
 
     @Override
@@ -79,6 +88,11 @@ public class DustAndAshJei implements IModPlugin {
                 CentrifugeRecipeCategory.UID
         );
 
+        registration.addRecipeCatalyst(
+                new ItemStack(ModBlocks.IONIZER.get()),
+                IonizerCategory.UID
+        );
+
     }
 
     @Override
@@ -89,6 +103,8 @@ public class DustAndAshJei implements IModPlugin {
 
         registration.addRecipeClickArea(CentrifugeScreen.class, 80, 51, 16, 16, CentrifugeRecipeCategory.UID);
 
+        registration.addRecipeClickArea(IonizerScreen.class, 73, 28, 32, 11, IonizerCategory.UID);
+
     }
 
 
@@ -96,6 +112,7 @@ public class DustAndAshJei implements IModPlugin {
     @Override
     public void registerRecipeTransferHandlers(IRecipeTransferRegistration registration) {
         registration.addRecipeTransferHandler(IntegratedBlockContainer.class, IntegratedBlockRecipeCategory.UID, 36, 8, 0, 36);
+
     }
 
 

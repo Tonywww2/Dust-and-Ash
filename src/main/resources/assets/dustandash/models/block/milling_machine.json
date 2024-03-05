@@ -247,5 +247,19 @@
 				"down": {"uv": [1.75, 7.25, 1.5, 7.75], "texture": "#0"}
 			}
 		}
-	]
+	],
+	"display": {
+		"firstperson_righthand": {
+			"rotation": [0, 45, 0],
+			"scale": [0.5, 0.5, 0.5]
+		},
+		"gui": {
+			"rotation": [30, 45, 0],
+			"scale": [0.625, 0.625, 0.625]
+		},
+		"fixed": {
+			"rotation": [-30, 45, 0],
+			"scale": [0.75, 0.75, 0.75]
+		}
+	}
 }

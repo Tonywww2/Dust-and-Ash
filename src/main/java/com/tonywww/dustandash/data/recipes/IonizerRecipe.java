@@ -57,7 +57,9 @@ public class IonizerRecipe implements IIonizerRecipe {
     public boolean matches(IInventory inv, World pLevel) {
         if (inv.getItem(0).getCount() >= powerCost) {
             for (int i = 1; i <= 5; i++) {
-                if (!recipeItems.get(i - 1).test(inv.getItem(i))) {
+                ItemStack itemStack = inv.getItem(i);
+                if (recipeItems.get(i - 1).test(ModItems.EMPTY.get().getDefaultInstance()) && itemStack.isEmpty()
+                        || !recipeItems.get(i - 1).test(itemStack)) {
                     return false;
                 }
 

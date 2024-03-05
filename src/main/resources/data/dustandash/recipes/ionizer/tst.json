@@ -34,6 +34,6 @@
   ],
   "cost": 3,
   "tick": 200,
-  "costElectrodes": false,
-  "outputBlock": "minecraft:air"
+  "costElectrodes": true,
+  "outputBlock": "minecraft:dirt"
 }
