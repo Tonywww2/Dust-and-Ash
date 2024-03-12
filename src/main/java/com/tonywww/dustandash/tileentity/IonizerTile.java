@@ -133,7 +133,7 @@ public class IonizerTile extends TileEntity implements INamedContainerProvider, 
             @Override
             public int getSlotLimit(int slot) {
                 if (slot >= 4) {
-                    return 1;
+                    return 3;
                 }
                 return 64;
             }
@@ -260,9 +260,9 @@ public class IonizerTile extends TileEntity implements INamedContainerProvider, 
                         for (ItemStack i : currRecipe.getResultItemStacks()) {
                             ItemEntity itemEntity = new ItemEntity(
                                     this.level,
-                                    this.getBlockPos().getX(),
+                                    this.getBlockPos().getX() + 0.5f,
                                     this.getBlockPos().getY() - 0.5f,
-                                    this.getBlockPos().getZ(),
+                                    this.getBlockPos().getZ() + 0.5f,
                                     i
                             );
                             this.level.addFreshEntity(itemEntity);

@@ -109,6 +109,7 @@ public class IonizerCategory implements IRecipeCategory<IonizerRecipe> {
             out.add(instance2);
 
         }
+        iIngredients.setOutputs(VanillaTypes.ITEM, out);
 
     }
 

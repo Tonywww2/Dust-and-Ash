@@ -1,0 +1,39 @@
+{
+  "type": "dustandash:ionizer",
+  "ingredients": [
+    {
+      "item": "minecraft:kelp"
+    },
+    {
+      "item": "dustandash:glass_container"
+    },
+    {
+      "item": "dustandash:glass_container"
+    },
+    {
+      "item": "dustandash:lead_ingot"
+    },
+    {
+      "item": "dustandash:graphite_electrode"
+    }
+  ],
+  "inputBlock": "minecraft:water",
+  "outputs": [
+    {
+      "item": "dustandash:hydrogen"
+    },
+    {
+      "item": "dustandash:oxygen"
+    },
+    {
+      "item": "dustandash:sodium_dust"
+    },
+    {
+      "item": "dustandash:chlorine"
+    }
+  ],
+  "cost": 1,
+  "tick": 200,
+  "costElectrodes": false,
+  "outputBlock": "minecraft:air"
+}

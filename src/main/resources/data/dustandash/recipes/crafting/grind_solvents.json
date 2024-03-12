@@ -2,7 +2,7 @@
     "type": "minecraft:crafting_shapeless",
     "ingredients": [
         {
-            "item": "dustandash:glass_container"
+            "item": "dustandash:chlorine"
         },
         {
             "item": "dustandash:wood_ash"

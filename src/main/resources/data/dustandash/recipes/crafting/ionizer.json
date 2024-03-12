@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " CA",
+    "ADA",
+    "BEB"
+  ],
+  "key": {
+    "A": {
+      "item": "dustandash:glass_container"
+    },
+    "B": {
+      "item": "minecraft:chain"
+    },
+    "C": {
+      "item": "minecraft:comparator"
+    },
+    "D": {
+      "item": "dustandash:gear_box"
+    },
+    "E": {
+      "item": "minecraft:smooth_stone_slab"
+    }
+  },
+  "result": {
+    "item": "dustandash:ionizer"
+  }
+}

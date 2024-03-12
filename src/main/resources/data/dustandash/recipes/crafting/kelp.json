@@ -1,0 +1,18 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+        {
+            "item": "minecraft:seagrass"
+        },
+        {
+            "item": "dustandash:metamorphose_dust"
+        },
+        {
+            "item": "dustandash:reproduce_dust"
+        }
+    ],
+    "result": {
+        "item": "minecraft:kelp",
+        "count": 1
+    }
+}

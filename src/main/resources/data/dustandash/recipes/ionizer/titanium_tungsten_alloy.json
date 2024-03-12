@@ -1,0 +1,39 @@
+{
+  "type": "dustandash:ionizer",
+  "ingredients": [
+    {
+      "item": "dustandash:smelt_dust"
+    },
+    {
+      "item": "dustandash:hydrogen"
+    },
+    {
+      "item": "dustandash:metamorphose_dust"
+    },
+    {
+      "item": "dustandash:tungsten_ingot"
+    },
+    {
+      "item": "dustandash:titanium_ingot"
+    }
+  ],
+  "inputBlock": "minecraft:lava",
+  "outputs": [
+    {
+      "item": "dustandash:titanium_tungsten_alloy"
+    },
+    {
+      "item": "dustandash:ash"
+    },
+    {
+      "item": "minecraft:obsidian"
+    },
+    {
+      "item": "dustandash:ash"
+    }
+  ],
+  "cost": 4,
+  "tick": 800,
+  "costElectrodes": true,
+  "outputBlock": "minecraft:air"
+}

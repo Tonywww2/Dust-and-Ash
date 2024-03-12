@@ -196,6 +196,18 @@ public class ModItems {
                     .stacksTo(64)
             ));
 
+    public static final RegistryObject<Item> TITANIUM_TUNGSTEN_ALLOY = ITEMS.register("titanium_tungsten_alloy",
+            () -> new Item(new Item.Properties()
+                    .tab(ModItemGroup.DUST_TAB)
+                    .stacksTo(64)
+            ));
+
+    public static final RegistryObject<Item> TITANIUM_ALUMINUM_ALLOY = ITEMS.register("titanium_aluminum_alloy",
+            () -> new Item(new Item.Properties()
+                    .tab(ModItemGroup.DUST_TAB)
+                    .stacksTo(64)
+            ));
+
     // dusts
     public static final RegistryObject<Item> METAL_DUST = ITEMS.register("metal_dust",
             () -> new Item(new Item.Properties()
@@ -432,6 +444,12 @@ public class ModItems {
                     .stacksTo(64)
             ));
 
+    public static final RegistryObject<Item> SODIUM_DUST = ITEMS.register("sodium_dust",
+            () -> new Item(new Item.Properties()
+                    .tab(ModItemGroup.DUST_TAB)
+                    .stacksTo(64)
+            ));
+
     public static final RegistryObject<Item> MAGNET = ITEMS.register("magnet",
             () -> new Item(new Item.Properties()
                     .tab(ModItemGroup.ASH_TAB)
@@ -476,10 +494,28 @@ public class ModItems {
                     .stacksTo(64)
             ));
 
+    public static final RegistryObject<Item> HYDROGEN = ITEMS.register("hydrogen",
+            () -> new Item(new Item.Properties()
+                    .tab(ModItemGroup.ASH_TAB)
+                    .stacksTo(64)
+            ));
+
+    public static final RegistryObject<Item> OXYGEN = ITEMS.register("oxygen",
+            () -> new Item(new Item.Properties()
+                    .tab(ModItemGroup.ASH_TAB)
+                    .stacksTo(64)
+            ));
+
     public static final RegistryObject<Item> REDUCTANT = ITEMS.register("reductant",
             () -> new Item(new Item.Properties()
                     .tab(ModItemGroup.ASH_TAB)
                     .stacksTo(64)
+            ));
+
+    public static final RegistryObject<Item> GRAPHITE_ELECTRODE = ITEMS.register("graphite_electrode",
+            () -> new Item(new Item.Properties()
+                    .tab(ModItemGroup.ASH_TAB)
+                    .stacksTo(4)
             ));
 
     // gears

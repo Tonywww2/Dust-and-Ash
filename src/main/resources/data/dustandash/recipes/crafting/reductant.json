@@ -1,0 +1,21 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+        {
+            "item": "dustandash:wood_ash"
+        },
+        {
+            "item": "dustandash:sodium_dust"
+        },
+        {
+            "item": "dustandash:sodium_dust"
+        },
+        {
+            "item": "minecraft:fermented_spider_eye"
+        }
+    ],
+    "result": {
+        "item": "dustandash:reductant",
+        "count": 2
+    }
+}
