@@ -1,0 +1,33 @@
+{
+	"display": {
+		"icon": {
+			"item": "dustandash:integrated_frame_3"
+		},
+		"title": {
+			"translate": "dustandash.advancements.integrated_frame_3.title"
+		},
+		"description": {
+			"translate": "dustandash.advancements.integrated_frame_3.description"
+		},
+		"frame": "challenge",
+		"show_toast": true,
+		"announce_to_chat": true,
+		"hidden": false
+	},
+	"parent": "dustandash:gear_box",
+	"criteria": {
+		"requirement": {
+			"trigger": "minecraft:inventory_changed",
+			"conditions": {
+				"items": [
+					{
+						"item": "dustandash:integrated_frame_3"
+					}
+				]
+			}
+		}
+	},
+	"rewards": {
+		"experience": 10
+	}
+}

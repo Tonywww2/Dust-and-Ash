@@ -2,7 +2,7 @@
   "type": "dustandash:ionizer",
   "ingredients": [
     {
-      "item": "minecraft:kelp"
+      "item": "dustandash:ash"
     },
     {
       "item": "dustandash:glass_container"
@@ -23,17 +23,17 @@
       "item": "dustandash:hydrogen"
     },
     {
+      "item": "dustandash:hydrogen"
+    },
+    {
       "item": "dustandash:oxygen"
     },
     {
-      "item": "dustandash:sodium_dust"
-    },
-    {
-      "item": "dustandash:chlorine"
+      "item": "dustandash:ash"
     }
   ],
   "cost": 1,
-  "tick": 200,
+  "tick": 100,
   "costElectrodes": false,
   "outputBlock": "minecraft:air"
 }

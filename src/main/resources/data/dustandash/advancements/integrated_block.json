@@ -1,0 +1,33 @@
+{
+	"display": {
+		"icon": {
+			"item": "dustandash:integrated_block"
+		},
+		"title": {
+			"translate": "dustandash.advancements.integrated_block.title"
+		},
+		"description": {
+			"translate": "dustandash.advancements.integrated_block.description"
+		},
+		"frame": "goal",
+		"show_toast": true,
+		"announce_to_chat": true,
+		"hidden": false
+	},
+	"parent": "dustandash:energized_cobblestone",
+	"criteria": {
+		"requirement": {
+			"trigger": "minecraft:inventory_changed",
+			"conditions": {
+				"items": [
+					{
+						"item": "dustandash:integrated_block"
+					}
+				]
+			}
+		}
+	},
+	"rewards": {
+		"experience": 10
+	}
+}

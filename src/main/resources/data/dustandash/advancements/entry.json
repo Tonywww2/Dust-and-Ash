@@ -1,0 +1,24 @@
+{
+	"display": {
+		"icon": {
+			"item": "dustandash:ash"
+		},
+		"title": {
+			"translate": "dustandash.advancements.entry.title"
+		},
+		"description": {
+			"translate": "dustandash.advancements.entry.description"
+		},
+		"frame": "goal",
+		"show_toast": true,
+		"announce_to_chat": true,
+		"hidden": false,
+		"background": "dustandash:textures/gui/advancements/backgrounds/dust_and_ash.png"
+	},
+	"criteria": {
+		"requirement": {
+			"trigger": "minecraft:tick",
+			"conditions": {}
+		}
+	}
+}

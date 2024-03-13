@@ -19,8 +19,8 @@
     }
   ],
   "output" : {
-    "item": "minecraft:iron_nugget",
-    "count": 8
+    "item": "minecraft:iron_ingot",
+    "count": 1
   }
 
 }

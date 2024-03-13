@@ -2,13 +2,13 @@
   "type": "dustandash:ionizer",
   "ingredients": [
     {
-      "item": "minecraft:kelp"
+      "item": "dustandash:mantle_mixture"
     },
     {
-      "item": "dustandash:glass_container"
+      "item": "dustandash:oxygen"
     },
     {
-      "item": "dustandash:glass_container"
+      "item": "dustandash:earth_dust"
     },
     {
       "tag": "forge:ingots/lead"
@@ -20,16 +20,16 @@
   "inputBlock": "minecraft:water",
   "outputs": [
     {
-      "item": "dustandash:hydrogen"
+      "item": "dustandash:lead_ingot"
     },
     {
-      "item": "dustandash:oxygen"
+      "item": "dustandash:lead_ingot"
     },
     {
-      "item": "dustandash:sodium_dust"
+      "item": "dustandash:empty"
     },
     {
-      "item": "dustandash:chlorine"
+      "item": "dustandash:ash"
     }
   ],
   "cost": 1,

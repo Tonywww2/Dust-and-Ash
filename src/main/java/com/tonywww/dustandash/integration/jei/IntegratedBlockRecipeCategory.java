@@ -12,6 +12,8 @@ import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.items.SlotItemHandler;
 
@@ -70,7 +72,26 @@ public class IntegratedBlockRecipeCategory implements IRecipeCategory<Integrated
 
     @Override
     public void setIngredients(IntegratedBlockRecipe integratedBlockRecipe, IIngredients iIngredients) {
-        iIngredients.setInputIngredients(integratedBlockRecipe.getIngredients());
+        NonNullList<Ingredient> inputs = NonNullList.create();
+        for (Ingredient i : integratedBlockRecipe.getIngredients()) {
+            inputs.add(i);
+
+        }
+        switch (integratedBlockRecipe.getLevel()) {
+            case 1:
+                inputs.add(Ingredient.of(ModBlocks.INTEGRATED_FRAME_1.get()));
+                break;
+
+            case 2:
+                inputs.add(Ingredient.of(ModBlocks.INTEGRATED_FRAME_2.get()));
+                break;
+
+            case 3:
+                inputs.add(Ingredient.of(ModBlocks.INTEGRATED_FRAME_3.get()));
+                break;
+        }
+
+        iIngredients.setInputIngredients(inputs);
         iIngredients.setOutput(VanillaTypes.ITEM, integratedBlockRecipe.getResultItem());
 
     }
@@ -88,11 +109,11 @@ public class IntegratedBlockRecipeCategory implements IRecipeCategory<Integrated
         itemStacks.init(5, true, 57, 52);
         itemStacks.init(6, true, 79, 52);
         itemStacks.init(7, true, 101, 52);
-
-        itemStacks.init(8, false, 79, 9);
-
+        itemStacks.init(8, true, 3, 3);
         itemStacks.set(ingredients);
-        itemStacks.set(8, recipe.getResultItem());
+
+        itemStacks.init(9, false, 79, 9);
+        itemStacks.set(9, recipe.getResultItem());
 
     }
 

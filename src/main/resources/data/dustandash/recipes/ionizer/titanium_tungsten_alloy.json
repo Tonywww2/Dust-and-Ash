@@ -11,10 +11,10 @@
       "item": "dustandash:metamorphose_dust"
     },
     {
-      "item": "dustandash:tungsten_ingot"
+      "tag": "forge:ingots/tungsten"
     },
     {
-      "item": "dustandash:titanium_ingot"
+      "tag": "forge:ingots/titanium"
     }
   ],
   "inputBlock": "minecraft:lava",

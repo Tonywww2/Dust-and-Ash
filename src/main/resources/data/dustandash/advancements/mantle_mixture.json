@@ -1,0 +1,33 @@
+{
+	"display": {
+		"icon": {
+			"item": "dustandash:mantle_mixture"
+		},
+		"title": {
+			"translate": "dustandash.advancements.mantle_mixture.title"
+		},
+		"description": {
+			"translate": "dustandash.advancements.mantle_mixture.description"
+		},
+		"frame": "task",
+		"show_toast": true,
+		"announce_to_chat": true,
+		"hidden": false
+	},
+	"parent": "dustandash:dust_source",
+	"criteria": {
+		"requirement": {
+			"trigger": "minecraft:inventory_changed",
+			"conditions": {
+				"items": [
+					{
+						"item": "dustandash:mantle_mixture"
+					}
+				]
+			}
+		}
+	},
+	"rewards": {
+		"experience": 10
+	}
+}

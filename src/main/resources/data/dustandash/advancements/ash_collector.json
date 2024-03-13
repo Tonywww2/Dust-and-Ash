@@ -1,0 +1,33 @@
+{
+	"display": {
+		"icon": {
+			"item": "dustandash:ash_collector"
+		},
+		"title": {
+			"translate": "dustandash.advancements.ash_collector.title"
+		},
+		"description": {
+			"translate": "dustandash.advancements.ash_collector.description"
+		},
+		"frame": "goal",
+		"show_toast": true,
+		"announce_to_chat": true,
+		"hidden": false
+	},
+	"parent": "dustandash:integrated_block",
+	"criteria": {
+		"requirement": {
+			"trigger": "minecraft:inventory_changed",
+			"conditions": {
+				"items": [
+					{
+						"item": "dustandash:ash_collector"
+					}
+				]
+			}
+		}
+	},
+	"rewards": {
+		"experience": 10
+	}
+}

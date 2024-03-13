@@ -1,0 +1,33 @@
+{
+	"display": {
+		"icon": {
+			"item": "dustandash:netherite_mud"
+		},
+		"title": {
+			"translate": "dustandash.advancements.netherite_mud.title"
+		},
+		"description": {
+			"translate": "dustandash.advancements.netherite_mud.description"
+		},
+		"frame": "task",
+		"show_toast": true,
+		"announce_to_chat": true,
+		"hidden": false
+	},
+	"parent": "dustandash:titanium_scrap",
+	"criteria": {
+		"requirement": {
+			"trigger": "minecraft:inventory_changed",
+			"conditions": {
+				"items": [
+					{
+						"item": "dustandash:netherite_mud"
+					}
+				]
+			}
+		}
+	},
+	"rewards": {
+		"experience": 10
+	}
+}

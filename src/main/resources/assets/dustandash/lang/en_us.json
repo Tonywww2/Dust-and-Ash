@@ -140,6 +140,81 @@
   "tooltip.dustandash.titanium_alloy_sword": "\u00A77Apply \n Speed, \n Luck, \n Dolphin's Grace\nto the player, \n Slowness\nto the target after attack.",
   "tooltip.dustandash.titanium_alloy_great_sword": "\u00A77Apply \n Damage Resistance\nto the player, \n Weakness \nto the target after attack.",
   "tooltip.dustandash.hand_vacuum": "\u00A77Use on a Dust to gain products.",
-  "tooltip.dustandash.iron_vacuum": "\u00A77Use on a Dust to gain products, requires Energized Dust in inventory."
+  "tooltip.dustandash.iron_vacuum": "\u00A77Use on a Dust to gain products, requires Energized Dust in inventory.",
+
+  "dustandash.advancements.entry.title": "Dust and Ash",
+  "dustandash.advancements.entry.description": "To the time to life, rather than to life in time.",
+
+  "dustandash.advancements.sharpen_flint.title": "Hitting the Stone",
+  "dustandash.advancements.sharpen_flint.description": "Craft a Sharpen Flint. What is next?",
+
+  "dustandash.advancements.mantle_mixture.title": "Made in the Core",
+  "dustandash.advancements.mantle_mixture.description": "Craft a Mantle Mixture.",
+
+  "dustandash.advancements.dust_source.title": "Wave Collapse",
+  "dustandash.advancements.dust_source.description": "Get a Dust Source. Place it above the ground to produce dust.",
+
+  "dustandash.advancements.bloody_flint.title": "Evil Sacrifice",
+  "dustandash.advancements.bloody_flint.description": "Give Thy Blood to the...",
+
+  "dustandash.advancements.flint_pickaxe.title": "It's a Pickaxe!",
+  "dustandash.advancements.flint_pickaxe.description": "Craft a Flint Pickaxe. Ewww, sticky",
+
+  "dustandash.advancements.bloody_sapling.title": "Evil \"Life\"",
+  "dustandash.advancements.bloody_sapling.description": "Craft a Bloody Sapling.",
+
+  "dustandash.advancements.hand_vacuum.title": "Power of Isolation",
+  "dustandash.advancements.hand_vacuum.description": "Craft a Hand Vacuum",
+
+  "dustandash.advancements.iron_vacuum.title": "More Power!",
+  "dustandash.advancements.iron_vacuum.description": "Craft a Iron Vacuum",
+
+  "dustandash.advancements.energized_cobblestone.title": "Mantle Convection",
+  "dustandash.advancements.energized_cobblestone.description": "Craft a Energized Cobblestone",
+
+  "dustandash.advancements.integrated_block.title": "Conceptual Exchange",
+  "dustandash.advancements.integrated_block.description": "Craft a Integrated Block",
+
+  "dustandash.advancements.milling_machine.title": "Precision Operations",
+  "dustandash.advancements.milling_machine.description": "Craft a Milling Machine",
+
+  "dustandash.advancements.ash_collector.title": "I'm Hopper's Sister",
+  "dustandash.advancements.ash_collector.description": "Craft an Ash Collector. (No, they are not relatives)",
+
+  "dustandash.advancements.integrated_frame_1.title": "NEXT FRONTIER",
+  "dustandash.advancements.integrated_frame_1.description": "Craft Integrated Frame Tier 1",
+
+  "dustandash.advancements.reproduce_dust.title": "Essence of Plants",
+  "dustandash.advancements.reproduce_dust.description": "Craft a Reproduce Dust for crafting plants",
+
+  "dustandash.advancements.ash_steel_ingot.title": "Tough Alloy",
+  "dustandash.advancements.ash_steel_ingot.description": "Craft a piece of Ash Steel. [feel the darkness]",
+
+  "dustandash.advancements.centrifuge.title": "Unified Field Theory",
+  "dustandash.advancements.centrifuge.description": "Craft a Centrifuge. What a nice way to get dusts",
+
+  "dustandash.advancements.gear_box.title": "Mist Engine",
+  "dustandash.advancements.gear_box.description": "Craft a Gear Box",
+
+  "dustandash.advancements.integrated_frame_2.title": "Winning the soul",
+  "dustandash.advancements.integrated_frame_2.description": "Craft Integrated Frame Tier 2",
+
+  "dustandash.advancements.ionizer.title": "Electric & Exchange",
+  "dustandash.advancements.ionizer.description": "Craft an Ionizer",
+
+  "dustandash.advancements.integrated_frame_3.title": "My Against Fight",
+  "dustandash.advancements.integrated_frame_3.description": "Craft Integrated Frame Tier 3",
+
+  "dustandash.advancements.titanium_scrap.title": "Shards of Time",
+  "dustandash.advancements.titanium_scrap.description": "Craft some Titanium Scrap",
+
+  "dustandash.advancements.netherite_mud.title": "Coming out of the mud but not stained",
+  "dustandash.advancements.netherite_mud.description": "Craft Netherite Mud",
+
+  "dustandash.advancements.titanium_tungsten_alloy.title": "Master of Lacerate",
+  "dustandash.advancements.titanium_tungsten_alloy.description": "Craft a Titanium Tungsten Alloy",
+
+  "dustandash.advancements.titanium_aluminum_alloy.title": "Find the Aether",
+  "dustandash.advancements.titanium_aluminum_alloy.description": "Craft a Titanium Aluminum Alloy"
 
 }

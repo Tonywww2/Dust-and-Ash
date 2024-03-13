@@ -309,7 +309,7 @@ public class ModItems {
     public static final RegistryObject<Item> BOWL_WITH_DUST = ITEMS.register("bowl_with_dust",
             () -> new Item(new Item.Properties()
                     .tab(ModItemGroup.DUST_TAB)
-                    .stacksTo(1)
+                    .stacksTo(16)
             ));
 
     public static final RegistryObject<Item> ENERGIZED_COBBLESTONE_BUCKET = ITEMS.register("energized_cobblestone_bucket",

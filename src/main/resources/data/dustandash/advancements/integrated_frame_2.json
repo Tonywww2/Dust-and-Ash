@@ -1,0 +1,33 @@
+{
+	"display": {
+		"icon": {
+			"item": "dustandash:integrated_frame_2"
+		},
+		"title": {
+			"translate": "dustandash.advancements.integrated_frame_2.title"
+		},
+		"description": {
+			"translate": "dustandash.advancements.integrated_frame_2.description"
+		},
+		"frame": "challenge",
+		"show_toast": true,
+		"announce_to_chat": true,
+		"hidden": false
+	},
+	"parent": "dustandash:ash_steel_ingot",
+	"criteria": {
+		"requirement": {
+			"trigger": "minecraft:inventory_changed",
+			"conditions": {
+				"items": [
+					{
+						"item": "dustandash:integrated_frame_2"
+					}
+				]
+			}
+		}
+	},
+	"rewards": {
+		"experience": 10
+	}
+}
