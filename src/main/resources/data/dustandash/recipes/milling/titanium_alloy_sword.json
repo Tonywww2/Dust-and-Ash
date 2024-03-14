@@ -1,0 +1,42 @@
+{
+  "type": "dustandash:milling",
+  "step1": false,
+  "pattern": [
+    "  AC#",
+    " ACB ",
+    "A##  ",
+    "#B   ",
+    "D#   "
+  ],
+  "key": {
+    "catalyst":
+    {
+      "item": "dustandash:graphite_electrode"
+    },
+    "#":
+    {
+      "item": "dustandash:titanium_plate_scrap"
+    },
+    "A":
+    {
+      "item": "dustandash:lacerate_dust"
+    },
+    "B":
+    {
+      "item": "dustandash:titanium_aluminum_alloy"
+    },
+    "C":
+    {
+      "item": "dustandash:titanium_tungsten_alloy"
+    },
+    "D":
+    {
+      "item": "dustandash:carbon_fiber"
+    }
+  },
+  "output" : {
+    "item": "dustandash:titanium_alloy_sword",
+    "count": 1
+  }
+
+}

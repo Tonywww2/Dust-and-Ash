@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ABC",
+    " D ",
+    " E "
+  ],
+  "key": {
+    "A": {
+      "item": "dustandash:titanium_tungsten_alloy"
+    },
+    "B": {
+      "item": "dustandash:titanium_aluminum_alloy"
+    },
+    "C": {
+      "tag": "forge:ingots/titanium"
+    },
+    "D": {
+      "item": "dustandash:carbon_fiber"
+    },
+    "E": {
+      "item": "dustandash:graphite_electrode"
+    }
+  },
+  "result": {
+    "item": "dustandash:titanium_alloy_pickaxe"
+  }
+}

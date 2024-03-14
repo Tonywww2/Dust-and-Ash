@@ -80,6 +80,7 @@
   "item.dustandash.tungsten_dust": "Tungsten Dust",
   "item.dustandash.magnet": "Magnet",
   "item.dustandash.mantle_mixture": "Mantle Mixture",
+  "item.dustandash.titanium_heavy_plate": "Titanium Heavy Plate",
 
   "item.dustandash.copper_ingot": "Copper Ingot",
   "item.dustandash.tin_ingot": "Tin Ingot",
@@ -99,6 +100,7 @@
   "item.dustandash.redstone_scrap": "Scrap",
   "item.dustandash.ash_steel_scrap": "Scrap",
   "item.dustandash.carbon_fiber_scrap": "Scrap",
+  "item.dustandash.titanium_plate_scrap": "Scrap",
 
   "block.dustandash.dust_source": "Dust Source",
   "block.dustandash.dust": "Dust",

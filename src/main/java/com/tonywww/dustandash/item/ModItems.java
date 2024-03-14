@@ -462,6 +462,12 @@ public class ModItems {
                     .stacksTo(32)
             ));
 
+    public static final RegistryObject<Item> TITANIUM_HEAVY_PLATE = ITEMS.register("titanium_heavy_plate",
+            () -> new Item(new Item.Properties()
+                    .tab(ModItemGroup.ASH_TAB)
+                    .stacksTo(4)
+            ));
+
 
     // container stuff
     public static final RegistryObject<Item> GLASS_CONTAINER = ITEMS.register("glass_container",
@@ -563,6 +569,12 @@ public class ModItems {
             ));
 
     public static final RegistryObject<Item> CARBON_FIBER_SCRAP = ITEMS.register("carbon_fiber_scrap",
+            () -> new Item(new Item.Properties()
+                    .tab(ModItemGroup.ASH_TAB)
+                    .stacksTo(64)
+            ));
+
+    public static final RegistryObject<Item> TITANIUM_PLATE_SCRAP = ITEMS.register("titanium_plate_scrap",
             () -> new Item(new Item.Properties()
                     .tab(ModItemGroup.ASH_TAB)
                     .stacksTo(64)

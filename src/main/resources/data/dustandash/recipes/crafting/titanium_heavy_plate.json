@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#A#",
+    "A#A",
+    "#A#"
+  ],
+  "key": {
+    "#": {
+      "item": "dustandash:crystallize_dust"
+    },
+    "A": {
+      "tag": "forge:ingots/titanium"
+    }
+  },
+  "result": {
+    "item": "dustandash:titanium_heavy_plate"
+  }
+}

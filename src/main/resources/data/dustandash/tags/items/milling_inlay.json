@@ -10,7 +10,10 @@
     "minecraft:string",
     "minecraft:redstone_torch",
     "dustandash:ash_steel_ingot",
-    "dustandash:basic_machine_frame"
+    "dustandash:basic_machine_frame",
+    "dustandash:titanium_tungsten_alloy",
+    "dustandash:titanium_aluminum_alloy",
+    "dustandash:carbon_fiber"
   ]
 
 }
