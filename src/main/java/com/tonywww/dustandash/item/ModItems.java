@@ -2,10 +2,12 @@ package com.tonywww.dustandash.item;
 
 import com.tonywww.dustandash.DustAndAsh;
 import com.tonywww.dustandash.item.custom.*;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.*;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.*;
+import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.Item;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.registries.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -47,25 +49,25 @@ public class ModItems {
             ));
 
     public static final RegistryObject<Item> ASH_STEEL_BOOTS = ITEMS.register("ash_steel_boots",
-            () -> new ArmorItem(ModArmorMaterial.ASH_STEEL, EquipmentSlotType.FEET,
+            () -> new ArmorItem(ModArmorMaterial.ASH_STEEL, EquipmentSlot.FEET,
                     new Item.Properties()
                             .tab(ModItemGroup.DUST_TAB)
             ));
 
     public static final RegistryObject<Item> ASH_STEEL_CHESTPLATE = ITEMS.register("ash_steel_chestplate",
-            () -> new ArmorItem(ModArmorMaterial.ASH_STEEL, EquipmentSlotType.CHEST,
+            () -> new ArmorItem(ModArmorMaterial.ASH_STEEL, EquipmentSlot.CHEST,
                     new Item.Properties()
                             .tab(ModItemGroup.DUST_TAB)
             ));
 
     public static final RegistryObject<Item> ASH_STEEL_LEGGING = ITEMS.register("ash_steel_leggings",
-            () -> new ArmorItem(ModArmorMaterial.ASH_STEEL, EquipmentSlotType.LEGS,
+            () -> new ArmorItem(ModArmorMaterial.ASH_STEEL, EquipmentSlot.LEGS,
                     new Item.Properties()
                             .tab(ModItemGroup.DUST_TAB)
             ));
 
     public static final RegistryObject<Item> ASH_STEEL_HELMET = ITEMS.register("ash_steel_helmet",
-            () -> new ArmorItem(ModArmorMaterial.ASH_STEEL, EquipmentSlotType.HEAD,
+            () -> new ArmorItem(ModArmorMaterial.ASH_STEEL, EquipmentSlot.HEAD,
                     new Item.Properties()
                             .tab(ModItemGroup.DUST_TAB)
             ));

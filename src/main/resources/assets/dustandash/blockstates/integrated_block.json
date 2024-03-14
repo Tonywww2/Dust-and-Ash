@@ -1,6 +1,9 @@
 {
   "variants": {
-    "": {"model": "dustandash:block/integrated_block"}
+    "facing=north": { "model": "dustandash:block/integrated_block" },
+    "facing=east": { "model": "dustandash:block/integrated_block", "y": 90 },
+    "facing=south": { "model": "dustandash:block/integrated_block", "y": 180 },
+    "facing=west": { "model": "dustandash:block/integrated_block", "y": 270 }
   }
 
 }

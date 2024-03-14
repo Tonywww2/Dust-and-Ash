@@ -1,12 +1,11 @@
 package com.tonywww.dustandash.item;
 
-import net.minecraft.item.IItemTier;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.LazyValue;
-
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.util.LazyLoadedValue;
+import net.minecraft.world.item.Tier;
 import java.util.function.Supplier;
 
-public enum ModItemTier implements IItemTier {
+public enum ModItemTier implements Tier {
     FLINT(0, 48, 3.0F, 1.0F, 20, () -> {
         return Ingredient.of(ModItems.BLOODY_FLINT.get());
     }),
@@ -23,7 +22,7 @@ public enum ModItemTier implements IItemTier {
     private final float speed;
     private final float damage;
     private final int enchantmentValue;
-    private final LazyValue<Ingredient> repairIngredient;
+    private final LazyLoadedValue<Ingredient> repairIngredient;
 
     private ModItemTier(int pLevel, int pUses, float pSpeed, float pDamage, int pEnchantmentValue, Supplier<Ingredient> pRepairIngredient) {
         this.level = pLevel;
@@ -31,7 +30,7 @@ public enum ModItemTier implements IItemTier {
         this.speed = pSpeed;
         this.damage = pDamage;
         this.enchantmentValue = pEnchantmentValue;
-        this.repairIngredient = new LazyValue<>(pRepairIngredient);
+        this.repairIngredient = new LazyLoadedValue<>(pRepairIngredient);
     }
 
     public int getUses() {

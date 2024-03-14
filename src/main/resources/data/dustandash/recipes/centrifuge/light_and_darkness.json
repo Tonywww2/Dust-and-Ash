@@ -11,7 +11,7 @@
       "nbt": "{Potion:'minecraft:water'}"
     }
   ],
-  "output" : [
+  "outputs" : [
     {
       "item": "dustandash:soul_of_light"
     },

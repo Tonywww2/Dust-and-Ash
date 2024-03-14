@@ -119,7 +119,7 @@
   "block.dustandash.integrated_frame_3": "Integrated Frame Tier 3",
   "block.dustandash.cooled_magma_block": "Cooled Magma Block",
   "block.dustandash.netherite_mud": "Netherite Mud",
-  "block.dustandash.bloody_sapling": "Bloody Sapling",
+  "block.dustandash.cobblestone_with_moss": "Cobblestone With Moss",
 
   "container.integrated_block": "Integrated Block",
   "container.ash_collector": "Ash Collector",
@@ -139,10 +139,10 @@
   "itemGroup.ash_tab": "Dust and Ash: Ash",
   "itemGroup.blocks_tab": "Dust and Ash: Blocks",
 
-  "tooltip.dustandash.titanium_alloy_sword": "\u00A77Apply \n Speed, \n Luck, \n Dolphin's Grace\nto the player, \n Slowness\nto the target after attack.",
-  "tooltip.dustandash.titanium_alloy_great_sword": "\u00A77Apply \n Damage Resistance\nto the player, \n Weakness \nto the target after attack.",
-  "tooltip.dustandash.hand_vacuum": "\u00A77Use on a Dust to gain products.",
-  "tooltip.dustandash.iron_vacuum": "\u00A77Use on a Dust to gain products, requires Energized Dust in inventory.",
+  "tooltip.dustandash.titanium_alloy_sword": "\u00A77 Apply \n Speed, \n Luck, \n Dolphin's Grace\nto the player, \n Slowness\nto the target after attack.",
+  "tooltip.dustandash.titanium_alloy_great_sword": "\u00A77 Apply \n Damage Resistance\nto the player, \n Weakness \nto the target after attack.",
+  "tooltip.dustandash.hand_vacuum": "\u00A77 Use on a Dust to gain products.",
+  "tooltip.dustandash.iron_vacuum": "\u00A77 Use on a Dust to gain products, requires Energized Dust in inventory.",
 
   "dustandash.advancements.entry.title": "Dust and Ash",
   "dustandash.advancements.entry.description": "To the time to life, rather than to life in time.",
@@ -157,13 +157,10 @@
   "dustandash.advancements.dust_source.description": "Get a Dust Source. Place it above the ground to produce dust.",
 
   "dustandash.advancements.bloody_flint.title": "Evil Sacrifice",
-  "dustandash.advancements.bloody_flint.description": "Give Thy Blood to the...",
+  "dustandash.advancements.bloody_flint.description": "Give Thy Blood to the...\nNow craft some Moss Block and Cobblestone With Moss",
 
   "dustandash.advancements.flint_pickaxe.title": "It's a Pickaxe!",
   "dustandash.advancements.flint_pickaxe.description": "Craft a Flint Pickaxe. Ewww, sticky",
-
-  "dustandash.advancements.bloody_sapling.title": "Evil \"Life\"",
-  "dustandash.advancements.bloody_sapling.description": "Craft a Bloody Sapling.",
 
   "dustandash.advancements.hand_vacuum.title": "Power of Isolation",
   "dustandash.advancements.hand_vacuum.description": "Craft a Hand Vacuum",

@@ -1,33 +1,35 @@
 {
-	"display": {
-		"icon": {
-			"item": "dustandash:energized_cobblestone"
-		},
-		"title": {
-			"translate": "dustandash.advancements.energized_cobblestone.title"
-		},
-		"description": {
-			"translate": "dustandash.advancements.energized_cobblestone.description"
-		},
-		"frame": "task",
-		"show_toast": true,
-		"announce_to_chat": true,
-		"hidden": false
-	},
-	"parent": "dustandash:hand_vacuum",
-	"criteria": {
-		"requirement": {
-			"trigger": "minecraft:inventory_changed",
-			"conditions": {
-				"items": [
-					{
-						"item": "dustandash:energized_cobblestone"
-					}
-				]
-			}
-		}
-	},
-	"rewards": {
-		"experience": 10
-	}
+  "display": {
+    "icon": {
+      "item": "dustandash:energized_cobblestone"
+    },
+    "title": {
+      "translate": "dustandash.advancements.energized_cobblestone.title"
+    },
+    "description": {
+      "translate": "dustandash.advancements.energized_cobblestone.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "dustandash:hand_vacuum",
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "dustandash:energized_cobblestone"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "experience": 10
+  }
 }

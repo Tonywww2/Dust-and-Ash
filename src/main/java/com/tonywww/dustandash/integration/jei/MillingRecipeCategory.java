@@ -1,6 +1,6 @@
 package com.tonywww.dustandash.integration.jei;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.tonywww.dustandash.DustAndAsh;
 import com.tonywww.dustandash.block.ModBlocks;
 import com.tonywww.dustandash.data.recipes.MillingMachineRecipe;
@@ -11,8 +11,9 @@ import mezz.jei.api.gui.ingredient.IGuiItemStackGroup;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.IRecipeCategory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
 
 public class MillingRecipeCategory implements IRecipeCategory<MillingMachineRecipe> {
 
@@ -25,7 +26,7 @@ public class MillingRecipeCategory implements IRecipeCategory<MillingMachineReci
 
     public MillingRecipeCategory(IGuiHelper helper) {
         this.bg = helper.createDrawable(TEXTURE, 0, 0, 176, 85);
-        this.icon = helper.createDrawableIngredient(new ItemStack(ModBlocks.MILLING_MACHINE.get()));
+        this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModBlocks.MILLING_MACHINE.get()));
 
         this.wp = helper.createDrawable(TEXTURE, 0, 173, 97, 82);
     }
@@ -41,8 +42,8 @@ public class MillingRecipeCategory implements IRecipeCategory<MillingMachineReci
     }
 
     @Override
-    public String getTitle() {
-        return ModBlocks.MILLING_MACHINE.get().getName().getString();
+    public Component getTitle() {
+        return ModBlocks.MILLING_MACHINE.get().getName();
     }
 
     @Override
@@ -58,7 +59,7 @@ public class MillingRecipeCategory implements IRecipeCategory<MillingMachineReci
     @Override
     public void setIngredients(MillingMachineRecipe millingMachineRecipe, IIngredients iIngredients) {
         iIngredients.setInputIngredients(millingMachineRecipe.getIngredients());
-        iIngredients.setOutput(VanillaTypes.ITEM, millingMachineRecipe.getResultItem());
+        iIngredients.setOutput(VanillaTypes.ITEM_STACK, millingMachineRecipe.getResultItem());
 
     }
 
@@ -96,7 +97,7 @@ public class MillingRecipeCategory implements IRecipeCategory<MillingMachineReci
     }
 
     @Override
-    public void draw(MillingMachineRecipe recipe, MatrixStack matrixStack, double mouseX, double mouseY) {
+    public void draw(MillingMachineRecipe recipe, PoseStack matrixStack, double mouseX, double mouseY) {
         this.wp.draw(matrixStack, 71, 3);
 
     }

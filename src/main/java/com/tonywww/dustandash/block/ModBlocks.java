@@ -2,21 +2,18 @@ package com.tonywww.dustandash.block;
 
 import com.tonywww.dustandash.DustAndAsh;
 import com.tonywww.dustandash.block.custom.*;
-import com.tonywww.dustandash.block.custom.trees.BloodyTree;
 import com.tonywww.dustandash.item.ModItemGroup;
 import com.tonywww.dustandash.item.ModItems;
-import net.minecraft.block.*;
-import net.minecraft.block.material.Material;
-import net.minecraft.block.material.MaterialColor;
-import net.minecraft.block.trees.OakTree;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockReader;
-import net.minecraftforge.common.ToolType;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.level.block.RotatedPillarBlock;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.material.Material;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.material.MaterialColor;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.registries.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -28,9 +25,8 @@ public class ModBlocks {
 
     //Blocks
     public static final RegistryObject<Block> DUST_SOURCE = registerBlocks("dust_source",
-            () -> new DustSource(AbstractBlock.Properties
+            () -> new DustSource(BlockBehaviour.Properties
                     .of(Material.DIRT)
-                    .harvestTool(ToolType.SHOVEL)
                     .requiresCorrectToolForDrops()
                     .strength(2f, 2f)
                     .randomTicks()
@@ -38,26 +34,23 @@ public class ModBlocks {
             ));
 
     public static final RegistryObject<Block> DUST = registerBlocks("dust",
-            () -> new Dust(AbstractBlock.Properties
+            () -> new Dust(BlockBehaviour.Properties
                     .of(Material.TOP_SNOW)
-                    .harvestTool(ToolType.SHOVEL)
                     .strength(1f, 1f)
                     .noOcclusion()
                     .noCollission()
             ));
 
     public static final RegistryObject<Block> INTEGRATED_BLOCK = registerBlocks("integrated_block",
-            () -> new IntegratedBlock(AbstractBlock.Properties
+            () -> new IntegratedBlock(BlockBehaviour.Properties
                     .of(Material.GLASS)
-                    .harvestTool(ToolType.PICKAXE)
                     .strength(3f, 8f)
                     .noOcclusion()
             ));
 
     public static final RegistryObject<Block> ENERGIZED_COBBLESTONE = registerBlocks("energized_cobblestone",
-            () -> new Block(AbstractBlock.Properties
+            () -> new Block(BlockBehaviour.Properties
                     .of(Material.STONE)
-                    .harvestTool(ToolType.PICKAXE)
                     .requiresCorrectToolForDrops()
                     .strength(2f, 5f)
                     .lightLevel((l) -> {
@@ -66,106 +59,94 @@ public class ModBlocks {
             ));
 
     public static final RegistryObject<Block> ASH_COLLECTOR = registerBlocks("ash_collector",
-            () -> new AshCollector(AbstractBlock.Properties
+            () -> new AshCollector(BlockBehaviour.Properties
                     .of(Material.STONE)
-                    .harvestTool(ToolType.PICKAXE)
                     .strength(2f, 8f)
                     .noOcclusion()
             ));
 
     public static final RegistryObject<Block> MILLING_MACHINE = registerBlocks("milling_machine",
-            () -> new MillingMachine(AbstractBlock.Properties
+            () -> new MillingMachine(BlockBehaviour.Properties
                     .of(Material.STONE)
-                    .harvestTool(ToolType.PICKAXE)
                     .strength(2f, 8f)
                     .noOcclusion()
             ));
 
     public static final RegistryObject<Block> CENTRIFUGE = registerBlocks("centrifuge",
-            () -> new Centrifuge(AbstractBlock.Properties
+            () -> new Centrifuge(BlockBehaviour.Properties
                     .of(Material.HEAVY_METAL)
-                    .harvestTool(ToolType.PICKAXE)
                     .strength(2f, 8f)
                     .noOcclusion()
             ));
 
     public static final RegistryObject<Block> IONIZER = registerBlocks("ionizer",
-            () -> new Ionizer(AbstractBlock.Properties
+            () -> new Ionizer(BlockBehaviour.Properties
                     .of(Material.HEAVY_METAL)
-                    .harvestTool(ToolType.PICKAXE)
                     .strength(2f, 8f)
                     .noOcclusion()
             ));
 
     public static final RegistryObject<Block> LOG_PILE = registerBlocks("log_pile",
-            () -> new RotatedPillarBlock(AbstractBlock.Properties
+            () -> new RotatedPillarBlock(BlockBehaviour.Properties
                     .of(Material.WOOD)
                     .strength(2f)
                     .sound(SoundType.WOOD)
             ));
 
     public static final RegistryObject<Block> BLOCK_OF_ASH_STEEL = registerBlocks("block_of_ash_steel",
-            () -> new Block(AbstractBlock.Properties
+            () -> new Block(BlockBehaviour.Properties
                     .of(Material.WOOD)
                     .strength(2f)
                     .sound(SoundType.WOOD)
             ));
 
     public static final RegistryObject<Block> TITANIUM_SAND_BLOCK = registerBlocks("titanium_sand_block",
-            () -> new Block(AbstractBlock.Properties
+            () -> new Block(BlockBehaviour.Properties
                     .of(Material.STONE)
-                    .harvestTool(ToolType.SHOVEL)
                     .strength(1f, 6f)
                     .sound(SoundType.STONE)
             ));
 
     public static final RegistryObject<Block> INTEGRATED_FRAME_1 = registerBlocks("integrated_frame_1",
-            () -> new Block(AbstractBlock.Properties
+            () -> new Block(BlockBehaviour.Properties
                     .of(Material.STONE, MaterialColor.COLOR_BLACK)
-                    .harvestTool(ToolType.PICKAXE)
                     .strength(15f, 1200f)
                     .sound(SoundType.STONE)
             ));
 
     public static final RegistryObject<Block> INTEGRATED_FRAME_2 = registerBlocks("integrated_frame_2",
-            () -> new Block(AbstractBlock.Properties
+            () -> new Block(BlockBehaviour.Properties
                     .of(Material.STONE, MaterialColor.COLOR_BLACK)
-                    .harvestTool(ToolType.PICKAXE)
                     .strength(30f, 1200f)
                     .sound(SoundType.STONE)
             ));
 
     public static final RegistryObject<Block> INTEGRATED_FRAME_3 = registerBlocks("integrated_frame_3",
-            () -> new Block(AbstractBlock.Properties
+            () -> new Block(BlockBehaviour.Properties
                     .of(Material.STONE, MaterialColor.COLOR_BLACK)
-                    .harvestTool(ToolType.PICKAXE)
                     .strength(45f, 1200f)
                     .sound(SoundType.STONE)
             ));
 
     public static final RegistryObject<Block> COOLED_MAGMA_BLOCK = registerBlocks("cooled_magma_block",
-            () -> new Block(AbstractBlock.Properties
+            () -> new Block(BlockBehaviour.Properties
                     .of(Material.STONE, MaterialColor.NETHER)
                     .requiresCorrectToolForDrops()
-                    .harvestTool(ToolType.PICKAXE)
                     .sound(SoundType.STONE)
             ));
 
     public static final RegistryObject<Block> NETHERITE_MUD = registerBlocks("netherite_mud",
-            () -> new Block(AbstractBlock.Properties
+            () -> new Block(BlockBehaviour.Properties
                     .of(Material.DIRT, MaterialColor.NETHER)
                     .requiresCorrectToolForDrops()
-                    .harvestTool(ToolType.SHOVEL)
                     .strength(50f, 1200f)
             ));
 
-    public static final RegistryObject<Block> BLOODY_SAPLING = registerBlocks("bloody_sapling",
-            () -> new SaplingBlock(new BloodyTree(), AbstractBlock
-                    .Properties.of(Material.PLANT)
-                    .noCollission()
-                    .randomTicks()
-                    .instabreak()
-                    .sound(SoundType.GRASS)
+    public static final RegistryObject<Block> COBBLESTONE_WITH_MOSS = registerBlocks("cobblestone_with_moss",
+            () -> new Block(BlockBehaviour.Properties
+                    .of(Material.STONE, MaterialColor.NETHER)
+                    .requiresCorrectToolForDrops()
+                    .strength(1f, 2f)
             ));
 
 

@@ -1,7 +1,7 @@
 package com.tonywww.dustandash.loottables;
 
 import com.tonywww.dustandash.DustAndAsh;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 
 public class ModLootTables {
 

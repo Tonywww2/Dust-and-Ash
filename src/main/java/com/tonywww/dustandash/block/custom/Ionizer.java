@@ -1,79 +1,119 @@
 package com.tonywww.dustandash.block.custom;
 
-import com.tonywww.dustandash.tileentity.IonizerTile;
-import com.tonywww.dustandash.tileentity.ModTileEntities;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.inventory.InventoryHelper;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.World;
-import net.minecraftforge.fml.network.NetworkHooks;
+import com.tonywww.dustandash.block.entity.IonizerTile;
+import com.tonywww.dustandash.block.entity.ModTileEntities;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.Containers;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraftforge.network.NetworkHooks;
 
 import javax.annotation.Nullable;
 
 
-public class Ionizer extends Block {
+public class Ionizer extends BaseEntityBlock {
 
     public Ionizer(Properties properties) {
         super(properties);
 
     }
 
+    public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
+
+    private static final VoxelShape SHAPE =  Block.box(0, 0, 0, 16, 16, 16);
+
     @Override
-    public ActionResultType use(BlockState pState, World pLevel, BlockPos pPos, PlayerEntity pPlayer, Hand pHand, BlockRayTraceResult pHit) {
+    public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
+        return SHAPE;
+    }
+
+    /* FACING */
+
+    @Override
+    public BlockState getStateForPlacement(BlockPlaceContext pContext) {
+        return this.defaultBlockState().setValue(FACING, pContext.getHorizontalDirection().getOpposite());
+    }
+
+    @Override
+    public BlockState rotate(BlockState pState, Rotation pRotation) {
+        return pState.setValue(FACING, pRotation.rotate(pState.getValue(FACING)));
+    }
+
+    @Override
+    public BlockState mirror(BlockState pState, Mirror pMirror) {
+        return pState.rotate(pMirror.getRotation(pState.getValue(FACING)));
+    }
+
+    @Override
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
+        pBuilder.add(FACING);
+    }
+
+    /* BLOCK ENTITY */
+
+    @Override
+    public RenderShape getRenderShape(BlockState pState) {
+        return RenderShape.MODEL;
+    }
+
+    @Override
+    public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
 
         if (!pLevel.isClientSide) {
-            TileEntity tileEntity = pLevel.getBlockEntity(pPos);
+            BlockEntity tileEntity = pLevel.getBlockEntity(pPos);
 
             if (tileEntity instanceof IonizerTile) {
-                NetworkHooks.openGui((ServerPlayerEntity) pPlayer, (IonizerTile) tileEntity, pPos);
+                NetworkHooks.openGui((ServerPlayer) pPlayer, (IonizerTile) tileEntity, pPos);
             } else {
                 throw new IllegalStateException("Container provider is missing");
             }
 
         }
 
-        return ActionResultType.SUCCESS;
+        return InteractionResult.SUCCESS;
     }
 
     @Nullable
     @Override
-    public TileEntity createTileEntity(BlockState state, IBlockReader world) {
-        return ModTileEntities.IONIZER_TILE.get().create();
-    }
-
-    @Override
-    public boolean hasTileEntity(BlockState state) {
-        return true;
+    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+        return ModTileEntities.IONIZER_TILE.get().create(pos, state);
     }
 
 
     @Override
-    public void onRemove(BlockState pState, World pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving) {
+    public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving) {
         if (!pState.is(pNewState.getBlock())) {
-            TileEntity tileentity = pLevel.getBlockEntity(pPos);
+            BlockEntity tileentity = pLevel.getBlockEntity(pPos);
             if (tileentity instanceof IonizerTile) {
                 IonizerTile tile = (IonizerTile) tileentity;
-                Inventory inv = new Inventory(tile.invItemStackHandler.getSlots());
-
-                for (int i = 0; i < tile.invItemStackHandler.getSlots(); i++) {
-                    inv.setItem(i, tile.invItemStackHandler.getStackInSlot(i));
-
-                }
-                InventoryHelper.dropContents(pLevel, pPos, inv);
+                Containers.dropContents(pLevel, pPos, tile.getDroppableInventory());
                 pLevel.updateNeighbourForOutputSignal(pPos, this);
 
             }
 
             super.onRemove(pState, pLevel, pPos, pNewState, pIsMoving);
         }
+    }
+
+    @org.jetbrains.annotations.Nullable
+    @Override
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState blockState, BlockEntityType<T> blockEntityType) {
+        return createTickerHelper(blockEntityType, ModTileEntities.IONIZER_TILE.get(), IonizerTile::tick);
     }
 }

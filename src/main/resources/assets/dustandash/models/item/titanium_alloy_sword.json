@@ -8,6 +8,10 @@
 		"thirdperson_righthand": {
 			"rotation": [0, -90, 45],
 			"translation": [0, 7.25, 1.25]
+		},
+		"thirdperson_lefthand": {
+			"rotation": [0, 90, -45],
+			"translation": [0, 7.25, 1.25]
 		}
 	}
 }

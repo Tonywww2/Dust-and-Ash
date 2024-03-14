@@ -1,33 +1,35 @@
 {
-	"display": {
-		"icon": {
-			"item": "dustandash:hand_vacuum"
-		},
-		"title": {
-			"translate": "dustandash.advancements.hand_vacuum.title"
-		},
-		"description": {
-			"translate": "dustandash.advancements.hand_vacuum.description"
-		},
-		"frame": "task",
-		"show_toast": true,
-		"announce_to_chat": true,
-		"hidden": false
-	},
-	"parent": "dustandash:bloody_sapling",
-	"criteria": {
-		"requirement": {
-			"trigger": "minecraft:inventory_changed",
-			"conditions": {
-				"items": [
-					{
-						"item": "dustandash:hand_vacuum"
-					}
-				]
-			}
-		}
-	},
-	"rewards": {
-		"experience": 10
-	}
+  "display": {
+    "icon": {
+      "item": "dustandash:hand_vacuum"
+    },
+    "title": {
+      "translate": "dustandash.advancements.hand_vacuum.title"
+    },
+    "description": {
+      "translate": "dustandash.advancements.hand_vacuum.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "dustandash:bloody_flint",
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "dustandash:hand_vacuum"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "experience": 10
+  }
 }

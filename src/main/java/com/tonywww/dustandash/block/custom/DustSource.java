@@ -2,13 +2,13 @@ package com.tonywww.dustandash.block.custom;
 
 import com.tonywww.dustandash.block.ModBlocks;
 import com.tonywww.dustandash.util.ModTags;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.particles.ParticleTypes;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.core.particles.ParticleTypes;
 
 import java.util.Random;
 
@@ -27,7 +27,7 @@ public class DustSource extends Block {
     }
 
     @Override
-    public void animateTick(BlockState blockState, World world, BlockPos blockPos, Random random) {
+    public void animateTick(BlockState blockState, Level world, BlockPos blockPos, Random random) {
 
         float chance = 0.3f;
 
@@ -48,7 +48,7 @@ public class DustSource extends Block {
     }
 
     @Override
-    public void randomTick(BlockState blockState, ServerWorld world, BlockPos blockPos, Random random) {
+    public void randomTick(BlockState blockState, ServerLevel world, BlockPos blockPos, Random random) {
         if (random.nextDouble() < chancePerTick) {
             dustCycle(world, blockPos, random, chancePerBlock, height, radius);
 
@@ -58,7 +58,7 @@ public class DustSource extends Block {
 
     }
 
-    private static void dustCycle(ServerWorld world, BlockPos blockPos, Random random, double chancePerBlock, int height, int radius) {
+    private static void dustCycle(ServerLevel world, BlockPos blockPos, Random random, double chancePerBlock, int height, int radius) {
         //1.18+ Need to check below 0
         int startX = blockPos.getX() - radius;
         int startZ = blockPos.getZ() - radius;
@@ -68,7 +68,7 @@ public class DustSource extends Block {
         int endZ = blockPos.getZ() + radius;
         int endY = blockPos.getY();
 
-        if (startY < 1) startY = 1;
+        if (startY < world.getMinBuildHeight()) startY = world.getMinBuildHeight();
 
         //y
         for (int y = startY; y < endY; y++) {
@@ -79,13 +79,13 @@ public class DustSource extends Block {
                     BlockPos currentPos = new BlockPos(x, y, z);
                     BlockPos currentUpperPos = new BlockPos(x, y + 1, z);
 
-                    Block currentBlock = world.getBlockState(currentPos).getBlock();
-                    Block currentUpperBlock = world.getBlockState(currentUpperPos).getBlock();
+                    BlockState currentBlock = world.getBlockState(currentPos);
+                    BlockState currentUpperBlock = world.getBlockState(currentUpperPos);
 
-                    if (currentUpperBlock.equals(Blocks.AIR) && currentBlock.is(ModTags.Blocks.DUST_ABLE) && !currentBlock.is(ModTags.Blocks.NOT_DUST_ABLE)) {
+                    if (currentUpperBlock.is(Blocks.AIR) && currentBlock.is(ModTags.Blocks.DUST_ABLE) && !currentBlock.is(ModTags.Blocks.NOT_DUST_ABLE)) {
                         if (random.nextDouble() < chancePerBlock) {
                             world.setBlock(currentUpperPos, ModBlocks.DUST.get().defaultBlockState(), 2);
-                            world.updateNeighborsAt(blockPos, ModBlocks.DUST.get());
+                            world.updateNeighborsAt(currentUpperPos, ModBlocks.DUST.get());
 
                         }
 

@@ -2,25 +2,27 @@ package com.tonywww.dustandash.data.recipes;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.tonywww.dustandash.DustAndAsh;
 import com.tonywww.dustandash.block.ModBlocks;
 import com.tonywww.dustandash.item.ModItems;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.item.crafting.ShapedRecipe;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
+import net.minecraft.core.NonNullList;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.GsonHelper;
+import net.minecraft.world.Container;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import javax.annotation.Nullable;
 
-public class CentrifugeRecipe implements ICentrifugeRecipe {
+import static com.tonywww.dustandash.data.recipes.RecipeUtils.itemsFromJson;
+
+public class CentrifugeRecipe implements Recipe<Container> {
 
 
     private final ResourceLocation id;
@@ -41,12 +43,14 @@ public class CentrifugeRecipe implements ICentrifugeRecipe {
 
 
     @Override
-    public boolean matches(IInventory inv, World pLevel) {
+    public boolean matches(Container inv, Level pLevel) {
         for (int i = 0; i < MAX_SLOTS; i++) {
             ItemStack itemStack = inv.getItem(i);
-            if ((recipeItems.get(i).test(ModItems.EMPTY.get().getDefaultInstance()) && itemStack.isEmpty())
-                    || !recipeItems.get(i).test(itemStack)) {
+            if (!recipeItems.get(i).test(itemStack)) {
+//                if (!(recipeItems.get(i).test(RecipeUtils.EMPTY) && itemStack.isEmpty())
+//                        || !recipeItems.get(i).test(itemStack)) {
                 return false;
+
             }
 
         }
@@ -56,8 +60,13 @@ public class CentrifugeRecipe implements ICentrifugeRecipe {
     }
 
     @Override
-    public ItemStack assemble(IInventory pInv) {
+    public ItemStack assemble(Container pInv) {
         return null;
+    }
+
+    @Override
+    public boolean canCraftInDimensions(int p_43999_, int p_44000_) {
+        return true;
     }
 
     @Override
@@ -75,8 +84,13 @@ public class CentrifugeRecipe implements ICentrifugeRecipe {
     }
 
     @Override
-    public IRecipeSerializer<?> getSerializer() {
-        return ModRecipeTypes.CENTRIFUGE_SERIALIZER.get();
+    public RecipeSerializer<?> getSerializer() {
+        return ModRecipe.CENTRIFUGE_SERIALIZER.get();
+    }
+
+    @Override
+    public RecipeType<?> getType() {
+        return CentrifugeRecipeType.INSTANCE;
     }
 
     @Override
@@ -92,34 +106,39 @@ public class CentrifugeRecipe implements ICentrifugeRecipe {
         return tick;
     }
 
-    public static class CentrifugeRecipeType implements IRecipeType<CentrifugeRecipe> {
-        @Override
-        public String toString() {
-            return CentrifugeRecipe.TYPE_ID.toString();
-        }
+    public static class CentrifugeRecipeType implements RecipeType<CentrifugeRecipe> {
+        public static final CentrifugeRecipeType INSTANCE = new CentrifugeRecipeType();
+        public static final String ID = "centrifuge";
+
     }
 
-    public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<CentrifugeRecipe> {
+    public static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<CentrifugeRecipe> {
+
+        public static final Serializer INSTANCE = new Serializer();
+        public static final ResourceLocation ID = new ResourceLocation(DustAndAsh.MOD_ID, "centrifuge");
 
         @Override
         public CentrifugeRecipe fromJson(ResourceLocation pRecipeId, JsonObject json) {
 //            System.out.println(pRecipeId + " start from json");
-            JsonArray ingredients = JSONUtils.getAsJsonArray(json, "ingredients");
-            int tick = JSONUtils.getAsInt(json, "tick");
-            JsonArray outputArr = JSONUtils.getAsJsonArray(json, "output");
+//            JsonArray ingredients = GsonHelper.getAsJsonArray(json, "ingredients");
+            int tick = GsonHelper.getAsInt(json, "tick");
+            JsonArray outputArr = GsonHelper.getAsJsonArray(json, "outputs");
 
-            NonNullList<Ingredient> inputs = NonNullList.withSize(MAX_SLOTS, Ingredient.EMPTY);
+//            NonNullList<Ingredient> inputs = NonNullList.withSize(MAX_SLOTS, Ingredient.EMPTY);
+//            NonNullList<ItemStack> outputs = NonNullList.withSize(OUTPUT_SLOTS, ItemStack.EMPTY);
+            NonNullList<Ingredient> inputs = itemsFromJson(GsonHelper.getAsJsonArray(json, "ingredients"), MAX_SLOTS);
             NonNullList<ItemStack> outputs = NonNullList.withSize(OUTPUT_SLOTS, ItemStack.EMPTY);
 
 
-            for (int i = 0; i < ingredients.size(); i++) {
-                Ingredient temp = Ingredient.fromJson(ingredients.get(i));
-                if (temp.getItems()[0].getItem() != ModItems.EMPTY.get()) {
-                    inputs.set(i, temp);
-
-                }
-
-            }
+//            for (int i = 0; i < ingredients.size(); i++) {
+//                Ingredient temp = Ingredient.fromJson(ingredients.get(i));
+//
+//                if (temp.getItems()[0].getItem() != ModItems.EMPTY.get()) {
+//                    inputs.set(i, temp);
+//
+//                }
+//
+//            }
 
             for (int i = 0; i < outputs.size(); i++) {
                 ItemStack temp = Ingredient.fromJson(outputArr.get(i)).getItems()[0];
@@ -137,7 +156,7 @@ public class CentrifugeRecipe implements ICentrifugeRecipe {
 
         @Nullable
         @Override
-        public CentrifugeRecipe fromNetwork(ResourceLocation pRecipeId, PacketBuffer pBuffer) {
+        public CentrifugeRecipe fromNetwork(ResourceLocation pRecipeId, FriendlyByteBuf pBuffer) {
 //            System.out.println(pRecipeId + " start from network");
             // 3 readInt
             int tick = pBuffer.readInt();
@@ -165,7 +184,7 @@ public class CentrifugeRecipe implements ICentrifugeRecipe {
         }
 
         @Override
-        public void toNetwork(PacketBuffer pBuffer, CentrifugeRecipe pRecipe) {
+        public void toNetwork(FriendlyByteBuf pBuffer, CentrifugeRecipe pRecipe) {
 //            System.out.println(pRecipe.id + " start to network");
             // 3 writeInt
             pBuffer.writeInt(pRecipe.getTick());
@@ -184,10 +203,30 @@ public class CentrifugeRecipe implements ICentrifugeRecipe {
 
             for (ItemStack i : pRecipe.getResultItemStacks()) {
                 // 2 writeItem
-                pBuffer.writeItem(i);
+                pBuffer.writeItemStack(i, false);
 
             }
 
         }
+
+//        @Override
+//        public RecipeSerializer<?> setRegistryName(ResourceLocation name) {
+//            return INSTANCE;
+//        }
+//
+//        @org.jetbrains.annotations.Nullable
+//        @Override
+//        public ResourceLocation getRegistryName() {
+//            return ID;
+//        }
+//
+//        @Override
+//        public Class<RecipeSerializer<?>> getRegistryType() {
+//            return Serializer.castClass(RecipeSerializer.class);
+//        }
+//
+//        private static <G> Class<G> castClass(Class<?> cls) {
+//            return (Class<G>) cls;
+//        }
     }
 }

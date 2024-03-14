@@ -1,16 +1,12 @@
 package com.tonywww.dustandash.item.custom;
 
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUseContext;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
-import net.minecraft.world.World;
-
-import java.util.Objects;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
 public class RainCrystal extends Item {
     public RainCrystal(Properties pProperties) {
@@ -36,7 +32,7 @@ public class RainCrystal extends Item {
 
 
     @Override
-    public ActionResult<ItemStack> use(World world, PlayerEntity player, Hand pHand) {
+    public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand pHand) {
         if (!world.isClientSide) {
             ItemStack stack = null;
             if (player.getMainHandItem().getItem() == this) {
@@ -47,7 +43,7 @@ public class RainCrystal extends Item {
 
             }
             if (stack != null) {
-                player.getCooldowns().addCooldown(getItem(), 200);
+                player.getCooldowns().addCooldown(this, 200);
                 world.getLevelData().setRaining(true);
                 stack.setCount(stack.getCount() - 1);
 
@@ -59,7 +55,7 @@ public class RainCrystal extends Item {
     }
 
     @Override
-    public void onUseTick(World world, LivingEntity entity, ItemStack stack, int pCount) {
+    public void onUseTick(Level world, LivingEntity entity, ItemStack stack, int pCount) {
 
         super.onUseTick(world, entity, stack, pCount);
     }

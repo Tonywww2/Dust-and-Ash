@@ -1,6 +1,9 @@
 {
   "variants": {
-    "": {"model": "dustandash:block/ionizer"}
+    "facing=north": { "model": "dustandash:block/ionizer" },
+    "facing=east": { "model": "dustandash:block/ionizer", "y": 90 },
+    "facing=south": { "model": "dustandash:block/ionizer", "y": 180 },
+    "facing=west": { "model": "dustandash:block/ionizer", "y": 270 }
   }
 
 }

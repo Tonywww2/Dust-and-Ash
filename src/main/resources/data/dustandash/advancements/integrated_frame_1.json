@@ -1,33 +1,35 @@
 {
-	"display": {
-		"icon": {
-			"item": "dustandash:integrated_frame_1"
-		},
-		"title": {
-			"translate": "dustandash.advancements.integrated_frame_1.title"
-		},
-		"description": {
-			"translate": "dustandash.advancements.integrated_frame_1.description"
-		},
-		"frame": "challenge",
-		"show_toast": true,
-		"announce_to_chat": true,
-		"hidden": false
-	},
-	"parent": "dustandash:integrated_block",
-	"criteria": {
-		"requirement": {
-			"trigger": "minecraft:inventory_changed",
-			"conditions": {
-				"items": [
-					{
-						"item": "dustandash:integrated_frame_1"
-					}
-				]
-			}
-		}
-	},
-	"rewards": {
-		"experience": 10
-	}
+  "display": {
+    "icon": {
+      "item": "dustandash:integrated_frame_1"
+    },
+    "title": {
+      "translate": "dustandash.advancements.integrated_frame_1.title"
+    },
+    "description": {
+      "translate": "dustandash.advancements.integrated_frame_1.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "dustandash:integrated_block",
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "dustandash:integrated_frame_1"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "experience": 10
+  }
 }

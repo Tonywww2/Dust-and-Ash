@@ -1,33 +1,35 @@
 {
-	"display": {
-		"icon": {
-			"item": "dustandash:iron_vacuum"
-		},
-		"title": {
-			"translate": "dustandash.advancements.iron_vacuum.title"
-		},
-		"description": {
-			"translate": "dustandash.advancements.iron_vacuum.description"
-		},
-		"frame": "challenge",
-		"show_toast": true,
-		"announce_to_chat": true,
-		"hidden": false
-	},
-	"parent": "dustandash:hand_vacuum",
-	"criteria": {
-		"requirement": {
-			"trigger": "minecraft:inventory_changed",
-			"conditions": {
-				"items": [
-					{
-						"item": "dustandash:iron_vacuum"
-					}
-				]
-			}
-		}
-	},
-	"rewards": {
-		"experience": 10
-	}
+  "display": {
+    "icon": {
+      "item": "dustandash:iron_vacuum"
+    },
+    "title": {
+      "translate": "dustandash.advancements.iron_vacuum.title"
+    },
+    "description": {
+      "translate": "dustandash.advancements.iron_vacuum.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "dustandash:hand_vacuum",
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "dustandash:iron_vacuum"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "experience": 10
+  }
 }

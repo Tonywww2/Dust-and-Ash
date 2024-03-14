@@ -1,33 +1,35 @@
 {
-	"display": {
-		"icon": {
-			"item": "dustandash:gear_box"
-		},
-		"title": {
-			"translate": "dustandash.advancements.gear_box.title"
-		},
-		"description": {
-			"translate": "dustandash.advancements.gear_box.description"
-		},
-		"frame": "task",
-		"show_toast": true,
-		"announce_to_chat": true,
-		"hidden": false
-	},
-	"parent": "dustandash:ash_steel_ingot",
-	"criteria": {
-		"requirement": {
-			"trigger": "minecraft:inventory_changed",
-			"conditions": {
-				"items": [
-					{
-						"item": "dustandash:gear_box"
-					}
-				]
-			}
-		}
-	},
-	"rewards": {
-		"experience": 10
-	}
+  "display": {
+    "icon": {
+      "item": "dustandash:gear_box"
+    },
+    "title": {
+      "translate": "dustandash.advancements.gear_box.title"
+    },
+    "description": {
+      "translate": "dustandash.advancements.gear_box.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "dustandash:ash_steel_ingot",
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "dustandash:gear_box"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "experience": 10
+  }
 }

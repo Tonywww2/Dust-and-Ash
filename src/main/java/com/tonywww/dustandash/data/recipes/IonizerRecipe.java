@@ -2,29 +2,29 @@ package com.tonywww.dustandash.data.recipes;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.tonywww.dustandash.DustAndAsh;
 import com.tonywww.dustandash.block.ModBlocks;
 import com.tonywww.dustandash.item.ModItems;
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.world.World;
+import net.minecraft.core.NonNullList;
+import net.minecraft.core.Registry;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.Container;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.util.GsonHelper;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import javax.annotation.Nullable;
 
-public class IonizerRecipe implements IIonizerRecipe {
+import static com.tonywww.dustandash.data.recipes.RecipeUtils.itemsFromJson;
+
+public class IonizerRecipe implements Recipe<Container> {
 
 
     private final ResourceLocation id;
@@ -54,7 +54,7 @@ public class IonizerRecipe implements IIonizerRecipe {
 
     // 0 power 1-3 items 4-5 electrode
     @Override
-    public boolean matches(IInventory inv, World pLevel) {
+    public boolean matches(Container inv, Level pLevel) {
         if (inv.getItem(0).getCount() >= powerCost) {
             for (int i = 1; i <= 5; i++) {
                 ItemStack itemStack = inv.getItem(i);
@@ -72,8 +72,13 @@ public class IonizerRecipe implements IIonizerRecipe {
     }
 
     @Override
-    public ItemStack assemble(IInventory pInv) {
+    public ItemStack assemble(Container pInv) {
         return null;
+    }
+
+    @Override
+    public boolean canCraftInDimensions(int p_43999_, int p_44000_) {
+        return true;
     }
 
     @Override
@@ -107,8 +112,13 @@ public class IonizerRecipe implements IIonizerRecipe {
     }
 
     @Override
-    public IRecipeSerializer<?> getSerializer() {
-        return ModRecipeTypes.IONIZER_SERIALIZER.get();
+    public RecipeSerializer<?> getSerializer() {
+        return ModRecipe.IONIZER_SERIALIZER.get();
+    }
+
+    @Override
+    public RecipeType<?> getType() {
+        return IonizerRecipeType.INSTANCE;
     }
 
     @Override
@@ -124,42 +134,45 @@ public class IonizerRecipe implements IIonizerRecipe {
         return tick;
     }
 
-    public static class IonizerRecipeType implements IRecipeType<IonizerRecipe> {
-        @Override
-        public String toString() {
-            return IonizerRecipe.TYPE_ID.toString();
-        }
+    public static class IonizerRecipeType implements RecipeType<IonizerRecipe> {
+        public static final IonizerRecipeType INSTANCE = new IonizerRecipeType();
+        public static final String ID = "ionizer";
     }
 
-    public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<IonizerRecipe> {
+    public static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<IonizerRecipe> {
+
+        public static final Serializer INSTANCE = new Serializer();
+        public static final ResourceLocation ID = new ResourceLocation(DustAndAsh.MOD_ID, "ionizer");
 
         @Override
         public IonizerRecipe fromJson(ResourceLocation pRecipeId, JsonObject json) {
 //            System.out.println(pRecipeId + " start from json");
-            JsonArray ingredients = JSONUtils.getAsJsonArray(json, "ingredients");
-            ResourceLocation inputBlockStr = new ResourceLocation(JSONUtils.getAsString(json, "inputBlock"));
+//            JsonArray ingredients = GsonHelper.getAsJsonArray(json, "ingredients");
+            ResourceLocation inputBlockStr = new ResourceLocation(GsonHelper.getAsString(json, "inputBlock"));
 
-            JsonArray outputArr = JSONUtils.getAsJsonArray(json, "outputs");
-            int cost = JSONUtils.getAsInt(json, "cost");
-            int tick = JSONUtils.getAsInt(json, "tick");
-            boolean costElectrodes = JSONUtils.getAsBoolean(json, "costElectrodes");
-            ResourceLocation outputBlockStr = new ResourceLocation(JSONUtils.getAsString(json, "outputBlock"));
+            JsonArray outputArr = GsonHelper.getAsJsonArray(json, "outputs");
+            int cost = GsonHelper.getAsInt(json, "cost");
+            int tick = GsonHelper.getAsInt(json, "tick");
+            boolean costElectrodes = GsonHelper.getAsBoolean(json, "costElectrodes");
+            ResourceLocation outputBlockStr = new ResourceLocation(GsonHelper.getAsString(json, "outputBlock"));
 
-            NonNullList<Ingredient> inputs = NonNullList.withSize(MAX_SLOTS, Ingredient.EMPTY);
+//            NonNullList<Ingredient> inputs = NonNullList.withSize(MAX_SLOTS, Ingredient.EMPTY);
+            NonNullList<Ingredient> inputs = itemsFromJson(GsonHelper.getAsJsonArray(json, "ingredients"), MAX_SLOTS);
             Block inputBlock = null;
 
             NonNullList<ItemStack> outputs = NonNullList.withSize(OUTPUT_SLOTS, ItemStack.EMPTY);
             Block outputBlock = null;
 
 
-            for (int i = 0; i < ingredients.size(); i++) {
-                Ingredient temp = Ingredient.fromJson(ingredients.get(i));
-                if (temp.getItems()[0].getItem() != ModItems.EMPTY.get()) {
-                    inputs.set(i, temp);
-
-                }
-
-            }
+//            for (int i = 0; i < ingredients.size(); i++) {
+//                Ingredient temp = Ingredient.fromJson(ingredients.get(i));
+//
+//                if (temp.getItems()[0].getItem() != ModItems.EMPTY.get()) {
+//                    inputs.set(i, temp);
+//
+//                }
+//
+//            }
 
             if (inputBlockStr != ModItems.EMPTY.getId()) {
                 inputBlock = Registry.BLOCK.get(inputBlockStr);
@@ -180,15 +193,13 @@ public class IonizerRecipe implements IIonizerRecipe {
                 outputBlock = Registry.BLOCK.get(outputBlockStr);
 
             }
-//            System.out.println("inputBlock:" + inputBlock.getRegistryName());
-//            System.out.println("outputBlock:" + outputBlock.getRegistryName());
 
             return new IonizerRecipe(pRecipeId, inputs, inputBlock, outputs, cost, tick, costElectrodes, outputBlock);
         }
 
         @Nullable
         @Override
-        public IonizerRecipe fromNetwork(ResourceLocation pRecipeId, PacketBuffer pBuffer) {
+        public IonizerRecipe fromNetwork(ResourceLocation pRecipeId, FriendlyByteBuf pBuffer) {
             System.out.println(pRecipeId + " start from network");
             // 1 ingredients
             int inputSize = pBuffer.readVarInt();
@@ -228,7 +239,7 @@ public class IonizerRecipe implements IIonizerRecipe {
         }
 
         @Override
-        public void toNetwork(PacketBuffer pBuffer, IonizerRecipe pRecipe) {
+        public void toNetwork(FriendlyByteBuf pBuffer, IonizerRecipe pRecipe) {
 //            System.out.println(pRecipe.id + " start to network");
             // 1 ingredients
             pBuffer.writeVarInt(pRecipe.getIngredients().size());
@@ -243,7 +254,7 @@ public class IonizerRecipe implements IIonizerRecipe {
             pBuffer.writeVarInt(pRecipe.getResultItemStacks().size());
             for (ItemStack i : pRecipe.getResultItemStacks()) {
                 // 3 1 writeItem
-                pBuffer.writeItem(i);
+                pBuffer.writeItemStack(i, false);
             }
 
             // 4 tick
@@ -257,5 +268,25 @@ public class IonizerRecipe implements IIonizerRecipe {
             pBuffer.writeResourceLocation(pRecipe.outputBlock.getRegistryName());
 
         }
+
+//        @Override
+//        public RecipeSerializer<?> setRegistryName(ResourceLocation name) {
+//            return INSTANCE;
+//        }
+//
+//        @org.jetbrains.annotations.Nullable
+//        @Override
+//        public ResourceLocation getRegistryName() {
+//            return ID;
+//        }
+//
+//        @Override
+//        public Class<RecipeSerializer<?>> getRegistryType() {
+//            return Serializer.castClass(RecipeSerializer.class);
+//        }
+//
+//        private static <G> Class<G> castClass(Class<?> cls) {
+//            return (Class<G>) cls;
+//        }
     }
 }

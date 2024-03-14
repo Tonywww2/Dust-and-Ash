@@ -1,18 +1,18 @@
 package com.tonywww.dustandash.item;
 
 import com.tonywww.dustandash.DustAndAsh;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.IArmorMaterial;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.LazyValue;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.SoundEvents;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.util.LazyLoadedValue;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.item.ArmorMaterial;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraft.world.item.crafting.Ingredient;
 
 import java.util.function.Supplier;
 
-public enum ModArmorMaterial implements IArmorMaterial {
+public enum ModArmorMaterial implements ArmorMaterial {
 
     ASH_STEEL("ash_steel", 30, new int[]{2, 6, 7, 2}, 10, SoundEvents.ARMOR_EQUIP_IRON, 1.0F, 0.05F, () -> {
         return Ingredient.of(ModItems.ASH_STEEL_INGOT.get());
@@ -30,7 +30,7 @@ public enum ModArmorMaterial implements IArmorMaterial {
     private final SoundEvent sound;
     private final float toughness;
     private final float knockbackResistance;
-    private final LazyValue<Ingredient> repairIngredient;
+    private final LazyLoadedValue<Ingredient> repairIngredient;
 
     private ModArmorMaterial(String pName, int pDurabilityMultiplier, int[] pSlotProtections, int pEnchantmentValue, SoundEvent pSound, float pToughness, float pKnockbackResistance, Supplier<Ingredient> pRepairIngredient) {
         this.name = pName;
@@ -40,14 +40,14 @@ public enum ModArmorMaterial implements IArmorMaterial {
         this.sound = pSound;
         this.toughness = pToughness;
         this.knockbackResistance = pKnockbackResistance;
-        this.repairIngredient = new LazyValue<>(pRepairIngredient);
+        this.repairIngredient = new LazyLoadedValue<>(pRepairIngredient);
     }
 
-    public int getDurabilityForSlot(EquipmentSlotType pSlot) {
+    public int getDurabilityForSlot(EquipmentSlot pSlot) {
         return HEALTH_PER_SLOT[pSlot.getIndex()] * this.durabilityMultiplier;
     }
 
-    public int getDefenseForSlot(EquipmentSlotType pSlot) {
+    public int getDefenseForSlot(EquipmentSlot pSlot) {
         return this.slotProtections[pSlot.getIndex()];
     }
 

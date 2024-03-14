@@ -1,6 +1,10 @@
 {
   "variants": {
-    "": {"model": "dustandash:block/centrifuge"}
+    "facing=north": { "model": "dustandash:block/centrifuge" },
+    "facing=east": { "model": "dustandash:block/centrifuge", "y": 90 },
+    "facing=south": { "model": "dustandash:block/centrifuge", "y": 180 },
+    "facing=west": { "model": "dustandash:block/centrifuge", "y": 270 }
+
   }
 
 }

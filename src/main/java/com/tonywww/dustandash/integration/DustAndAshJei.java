@@ -2,11 +2,8 @@ package com.tonywww.dustandash.integration;
 
 import com.tonywww.dustandash.DustAndAsh;
 import com.tonywww.dustandash.block.ModBlocks;
-import com.tonywww.dustandash.container.IntegratedBlockContainer;
-import com.tonywww.dustandash.data.recipes.CentrifugeRecipe;
-import com.tonywww.dustandash.data.recipes.IntegratedBlockRecipe;
-import com.tonywww.dustandash.data.recipes.IonizerRecipe;
-import com.tonywww.dustandash.data.recipes.MillingMachineRecipe;
+import com.tonywww.dustandash.menu.IntegratedBlockContainer;
+import com.tonywww.dustandash.data.recipes.*;
 import com.tonywww.dustandash.integration.jei.CentrifugeRecipeCategory;
 import com.tonywww.dustandash.integration.jei.IntegratedBlockRecipeCategory;
 import com.tonywww.dustandash.integration.jei.IonizerCategory;
@@ -15,26 +12,43 @@ import com.tonywww.dustandash.screen.CentrifugeScreen;
 import com.tonywww.dustandash.screen.IntegratedBlockScreen;
 import com.tonywww.dustandash.screen.IonizerScreen;
 import com.tonywww.dustandash.screen.MillingMachineScreen;
+import mezz.jei.api.registration.*;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
-import mezz.jei.api.registration.*;
+import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.client.Minecraft;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.RecipeManager;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeManager;
 
+
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
 @JeiPlugin
+@ParametersAreNonnullByDefault
+@MethodsReturnNonnullByDefault
+@SuppressWarnings("unused")
 public class DustAndAshJei implements IModPlugin {
 
     private static final ResourceLocation PID = new ResourceLocation(DustAndAsh.MOD_ID, "jei_plugin");
+    private static final Minecraft MC = Minecraft.getInstance();
 
     @Override
     public ResourceLocation getPluginUid() {
         return PID;
     }
+
+//    // From Farmer Delight
+//    private static List<Recipe<?>> findRecipesByType(RecipeType<?> type) {
+//        return MC.level
+//                .getRecipeManager()
+//                .getRecipes()
+//                .stream()
+//                .filter(r -> r.getType() == type)
+//                .collect(Collectors.toList());
+//    }
 
     @Override
     public void registerCategories(IRecipeCategoryRegistration registration) {
@@ -50,6 +64,7 @@ public class DustAndAshJei implements IModPlugin {
     @Override
     public void registerRecipes(IRecipeRegistration registration) {
         RecipeManager rm = Objects.requireNonNull(Minecraft.getInstance().level).getRecipeManager();
+
         registration.addRecipes(rm.getRecipes().stream()
                         .filter(r -> r instanceof IntegratedBlockRecipe).collect(Collectors.toList()),
                 IntegratedBlockRecipeCategory.UID

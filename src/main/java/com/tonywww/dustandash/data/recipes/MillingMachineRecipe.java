@@ -2,26 +2,23 @@ package com.tonywww.dustandash.data.recipes;
 
 import com.google.common.collect.Maps;
 import com.google.gson.*;
+import com.tonywww.dustandash.DustAndAsh;
 import com.tonywww.dustandash.block.ModBlocks;
 import com.tonywww.dustandash.item.ModItems;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.item.crafting.ShapedRecipe;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
+import net.minecraft.core.NonNullList;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.GsonHelper;
+import net.minecraft.world.Container;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.*;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import javax.annotation.Nullable;
 import java.util.Map;
 
-public class MillingMachineRecipe implements IMillingMachineRecipe {
+public class MillingMachineRecipe implements Recipe<Container> {
 
 
     private final ResourceLocation id;
@@ -43,7 +40,7 @@ public class MillingMachineRecipe implements IMillingMachineRecipe {
         this.isStep1 = isStep1;
     }
 
-    private boolean isWorkPlaceEmpty(IInventory inv) {
+    private boolean isWorkPlaceEmpty(Container inv) {
         for (int i = 3; i <= 27; i++) {
             if (inv.getItem(i).getCount() > 0) {
                 return false;
@@ -54,7 +51,7 @@ public class MillingMachineRecipe implements IMillingMachineRecipe {
     }
 
     @Override
-    public boolean matches(IInventory inv, World pLevel) {
+    public boolean matches(Container inv, Level pLevel) {
         // step1 only check slot 0
         if (isStep1 && isWorkPlaceEmpty(inv)) {
             ItemStack itemStack = inv.getItem(0);
@@ -85,8 +82,13 @@ public class MillingMachineRecipe implements IMillingMachineRecipe {
     }
 
     @Override
-    public ItemStack assemble(IInventory pInv) {
+    public ItemStack assemble(Container pInv) {
         return null;
+    }
+
+    @Override
+    public boolean canCraftInDimensions(int p_43999_, int p_44000_) {
+        return true;
     }
 
     @Override
@@ -100,8 +102,8 @@ public class MillingMachineRecipe implements IMillingMachineRecipe {
     }
 
     @Override
-    public IRecipeSerializer<?> getSerializer() {
-        return ModRecipeTypes.MILLING_SERIALIZER.get();
+    public RecipeSerializer<?> getSerializer() {
+        return ModRecipe.MILLING_SERIALIZER.get();
     }
 
     @Override
@@ -117,36 +119,43 @@ public class MillingMachineRecipe implements IMillingMachineRecipe {
         return isStep1;
     }
 
-    public static class MillingRecipeType implements IRecipeType<MillingMachineRecipe> {
-        @Override
-        public String toString() {
-            return MillingMachineRecipe.TYPE_ID.toString();
-        }
+    @Override
+    public RecipeType<?> getType() {
+        return MillingRecipeType.INSTANCE;
     }
 
-    public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<MillingMachineRecipe> {
+    public static class MillingRecipeType implements RecipeType<MillingMachineRecipe> {
+        public static final MillingRecipeType INSTANCE = new MillingRecipeType();
+        public static final String ID = "milling";
+
+    }
+
+    //    public static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<MillingMachineRecipe> {
+    public static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<MillingMachineRecipe> {
+
+        public static final Serializer INSTANCE = new Serializer();
+        public static final ResourceLocation ID = new ResourceLocation(DustAndAsh.MOD_ID, "milling");
 
         @Override
         public MillingMachineRecipe fromJson(ResourceLocation pRecipeId, JsonObject json) {
 //            System.out.println(pRecipeId + " start from json");
-            ItemStack output = ShapedRecipe.itemFromJson(JSONUtils.getAsJsonObject(json, "output"));
+            ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "output"));
 
-//            JsonArray ingredients = JSONUtils.getAsJsonArray(json, "ingredients");
-            boolean step1 = JSONUtils.getAsBoolean(json, "step1");
+            boolean step1 = GsonHelper.getAsBoolean(json, "step1");
             NonNullList<Ingredient> inputs = NonNullList.withSize(MAX_SLOTS, Ingredient.EMPTY);
 
             if (step1) {
-                JsonArray ingredients = JSONUtils.getAsJsonArray(json, "ingredients");
+                JsonArray ingredients = GsonHelper.getAsJsonArray(json, "ingredients");
                 Ingredient temp = Ingredient.fromJson(ingredients.get(0));
                 inputs.set(0, temp);
 
             } else {
-                Map<String, Ingredient> map = keyFromJson(JSONUtils.getAsJsonObject(json, "key"));
-                JsonArray jArray = JSONUtils.getAsJsonArray(json, "pattern");
+                Map<String, Ingredient> map = keyFromJson(GsonHelper.getAsJsonObject(json, "key"));
+                JsonArray jArray = GsonHelper.getAsJsonArray(json, "pattern");
 
                 String[] astring = new String[jArray.size()];
                 for (int i = 0; i < astring.length; ++i) {
-                    astring[i] = JSONUtils.convertToString(jArray.get(i), "pattern[" + i + "]");
+                    astring[i] = GsonHelper.convertToString(jArray.get(i), "pattern[" + i + "]");
 
                 }
 
@@ -190,7 +199,7 @@ public class MillingMachineRecipe implements IMillingMachineRecipe {
 
         @Nullable
         @Override
-        public MillingMachineRecipe fromNetwork(ResourceLocation pRecipeId, PacketBuffer pBuffer) {
+        public MillingMachineRecipe fromNetwork(ResourceLocation pRecipeId, FriendlyByteBuf pBuffer) {
 //            System.out.println(pRecipeId + " start from network");
             NonNullList<Ingredient> inputs = NonNullList.withSize(MAX_SLOTS, Ingredient.of(ModItems.EMPTY.get()));
             // 1 readBoolean
@@ -209,7 +218,6 @@ public class MillingMachineRecipe implements IMillingMachineRecipe {
                     inputs.set(i, temp);
 
 
-
                 }
 
             }
@@ -221,7 +229,7 @@ public class MillingMachineRecipe implements IMillingMachineRecipe {
         }
 
         @Override
-        public void toNetwork(PacketBuffer pBuffer, MillingMachineRecipe pRecipe) {
+        public void toNetwork(FriendlyByteBuf pBuffer, MillingMachineRecipe pRecipe) {
 //            System.out.println(pRecipe.id + " start to network");
             // 1 writeBoolean
             pBuffer.writeBoolean(pRecipe.isStep1());
@@ -242,8 +250,32 @@ public class MillingMachineRecipe implements IMillingMachineRecipe {
             }
 
             // 3 writeItem
-            pBuffer.writeItem(pRecipe.getResultItem());
+            pBuffer.writeItemStack(pRecipe.getResultItem(), false);
 
         }
+
+
+//        @Override
+//        public RecipeSerializer<?> setRegistryName(ResourceLocation name) {
+//            return INSTANCE;
+//        }
+//
+//        @org.jetbrains.annotations.Nullable
+//        @Override
+//        public ResourceLocation getRegistryName() {
+//            return ID;
+//        }
+//
+//        @Override
+//        public Class<RecipeSerializer<?>> getRegistryType() {
+//            return Serializer.castClass(RecipeSerializer.class);
+//        }
+//
+//        private static <G> Class<G> castClass(Class<?> cls) {
+//            return (Class<G>) cls;
+//        }
+
     }
+
+
 }

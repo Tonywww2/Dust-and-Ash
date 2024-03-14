@@ -119,7 +119,7 @@
   "block.dustandash.integrated_frame_3": "聚合框架-3",
   "block.dustandash.cooled_magma_block": "冷却的岩浆块",
   "block.dustandash.netherite_mud": "含有下界合金的淤泥",
-  "block.dustandash.bloody_sapling": "血树苗",
+  "block.dustandash.cobblestone_with_moss": "苔藓复合圆石",
 
   "container.integrated_block": "聚合方块",
   "container.ash_collector": "余烬收集器",
@@ -139,10 +139,10 @@
   "itemGroup.ash_tab": "尘与烬：烬",
   "itemGroup.blocks_tab": "尘与烬：方块",
 
-  "tooltip.dustandash.titanium_alloy_sword": "\u00A77攻击后，给予玩家 \n 速度, \n 幸运, \n 海豚的恩惠, \n给予目标 \n 缓慢。",
-  "tooltip.dustandash.titanium_alloy_great_sword": "\u00A7攻击后，给予玩家 \n 抗性提升, \n给予目标 \n 虚弱。",
-  "tooltip.dustandash.hand_vacuum": "\u00A77对着一个 尘 使用以收集资源。",
-  "tooltip.dustandash.iron_vacuum": "\u00A77对着一个 尘 使用以收集资源，需要消耗物品栏内的 注能尘。",
+  "tooltip.dustandash.titanium_alloy_sword": "\u00A77 攻击后，给予玩家 \n 速度, \n 幸运, \n 海豚的恩惠, \n给予目标 \n 缓慢。",
+  "tooltip.dustandash.titanium_alloy_great_sword": "\u00A7 攻击后，给予玩家 \n 抗性提升, \n给予目标 \n 虚弱。",
+  "tooltip.dustandash.hand_vacuum": "\u00A77 对着一个 尘 使用以收集资源。",
+  "tooltip.dustandash.iron_vacuum": "\u00A77 对着一个 尘 使用以收集资源，需要消耗物品栏内的 注能尘。",
 
   "dustandash.advancements.entry.title": "尘与烬",
   "dustandash.advancements.entry.description": "「给时光以生命，而不是给生命以时光。」",
@@ -157,13 +157,10 @@
   "dustandash.advancements.dust_source.description": "获得一个灰尘源，它放在离地几格高的位置以生产 尘",
 
   "dustandash.advancements.bloody_flint.title": "邪恶献祭",
-  "dustandash.advancements.bloody_flint.description": "将我的血献给...",
+  "dustandash.advancements.bloody_flint.description": "将我的血献给...\n现在做一些苔藓块和苔藓复合圆石",
 
   "dustandash.advancements.flint_pickaxe.title": "这是把镐子！",
   "dustandash.advancements.flint_pickaxe.description": "制作染血燧石镐，呃...好粘",
-
-  "dustandash.advancements.bloody_sapling.title": "邪恶的 \"生命\"",
-  "dustandash.advancements.bloody_sapling.description": "制作血树苗。",
 
   "dustandash.advancements.hand_vacuum.title": "切分之力",
   "dustandash.advancements.hand_vacuum.description": "制作手摇式吸尘器",

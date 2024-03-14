@@ -1,6 +1,6 @@
 package com.tonywww.dustandash.integration.jei;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.tonywww.dustandash.DustAndAsh;
 import com.tonywww.dustandash.block.ModBlocks;
 import com.tonywww.dustandash.data.recipes.IonizerRecipe;
@@ -8,21 +8,22 @@ import com.tonywww.dustandash.item.ModItems;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.drawable.IDrawable;
-import mezz.jei.api.gui.ingredient.IGuiFluidStackGroup;
 import mezz.jei.api.gui.ingredient.IGuiItemStackGroup;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.IRecipeCategory;
-import net.minecraft.block.FlowingFluidBlock;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.client.gui.Font;
+import net.minecraft.core.NonNullList;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidUtil;
+import net.minecraft.world.item.crafting.Ingredient;
+
 
 public class IonizerCategory implements IRecipeCategory<IonizerRecipe> {
 
@@ -34,7 +35,7 @@ public class IonizerCategory implements IRecipeCategory<IonizerRecipe> {
 
     public IonizerCategory(IGuiHelper helper) {
         this.bg = helper.createDrawable(TEXTURE, 0, 0, 176, 90);
-        this.icon = helper.createDrawableIngredient(new ItemStack(ModBlocks.IONIZER.get()));
+        this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModBlocks.IONIZER.get()));
 
     }
 
@@ -49,8 +50,8 @@ public class IonizerCategory implements IRecipeCategory<IonizerRecipe> {
     }
 
     @Override
-    public String getTitle() {
-        return ModBlocks.IONIZER.get().getName().getString();
+    public Component getTitle() {
+        return ModBlocks.IONIZER.get().getName();
     }
 
     @Override
@@ -72,8 +73,8 @@ public class IonizerCategory implements IRecipeCategory<IonizerRecipe> {
         }
         // in block
         ItemStack instance1;
-        if (ionizerRecipe.getInputBlock() instanceof FlowingFluidBlock) {
-            FlowingFluidBlock fluidBlock = (FlowingFluidBlock) ionizerRecipe.getInputBlock();
+        if (ionizerRecipe.getInputBlock() instanceof LiquidBlock) {
+            LiquidBlock fluidBlock = (LiquidBlock) ionizerRecipe.getInputBlock();
             instance1 = FluidUtil.getFilledBucket(new FluidStack(fluidBlock.getFluid(), 1000));
 
         } else {
@@ -97,8 +98,8 @@ public class IonizerCategory implements IRecipeCategory<IonizerRecipe> {
 
         // out block
         ItemStack instance2;
-        if (ionizerRecipe.getResultBlock() instanceof FlowingFluidBlock) {
-            FlowingFluidBlock fluidBlock = (FlowingFluidBlock) ionizerRecipe.getResultBlock();
+        if (ionizerRecipe.getResultBlock() instanceof LiquidBlock) {
+            LiquidBlock fluidBlock = (LiquidBlock) ionizerRecipe.getResultBlock();
             instance2 = FluidUtil.getFilledBucket(new FluidStack(fluidBlock.getFluid(), 1000));
 
         } else {
@@ -117,7 +118,7 @@ public class IonizerCategory implements IRecipeCategory<IonizerRecipe> {
     public void setRecipe(IRecipeLayout iRecipeLayout, IonizerRecipe recipe, IIngredients ingredients) {
 
         IGuiItemStackGroup itemStacks = iRecipeLayout.getItemStacks();
-        IGuiFluidStackGroup fluidStacks = iRecipeLayout.getFluidStacks();
+//        IGuiFluidStackGroup fluidStacks = iRecipeLayout.getFluidStacks();
 
         itemStacks.init(1, true, 15, 49);
         itemStacks.init(2, true, 5, 69);
@@ -135,13 +136,15 @@ public class IonizerCategory implements IRecipeCategory<IonizerRecipe> {
         }
 
         // in block
-        if (recipe.getInputBlock() instanceof FlowingFluidBlock) {
-            fluidStacks.init(0, true, 59, 43);
-            FlowingFluidBlock fluidBlock = (FlowingFluidBlock) recipe.getInputBlock();
-            fluidStacks.set(0, new FluidStack(fluidBlock.getFluid(), 1000));
+        itemStacks.init(6, true, 59, 43);
+        if (recipe.getInputBlock() instanceof LiquidBlock) {
+//            fluidStacks.init(0, true, 59, 43);
+            LiquidBlock fluidBlock = (LiquidBlock) recipe.getInputBlock();
+//            fluidStacks.set(0, new FluidStack(fluidBlock.getFluid(), 1000));
+            itemStacks.set(6, FluidUtil.getFilledBucket(new FluidStack(fluidBlock.getFluid(), 1000)));
 
         } else {
-            itemStacks.init(6, true, 58, 42);
+//            itemStacks.init(6, true, 58, 42);
             ItemStack stack = recipe.getInputBlock().asItem().getDefaultInstance();
             if (!stack.isEmpty() && stack.getItem() != Items.AIR) {
                 itemStacks.set(6, stack);
@@ -165,14 +168,14 @@ public class IonizerCategory implements IRecipeCategory<IonizerRecipe> {
         }
 
         // out block
-
-        if (recipe.getResultBlock() instanceof FlowingFluidBlock) {
-            fluidStacks.init(1, true, 101, 43);
-            FlowingFluidBlock fluidBlock = (FlowingFluidBlock) recipe.getResultBlock();
-            fluidStacks.set(1, new FluidStack(fluidBlock.getFluid(), 1000));
+        itemStacks.init(11, true, 100, 42);
+        if (recipe.getResultBlock() instanceof LiquidBlock) {
+//            fluidStacks.init(1, true, 101, 43);
+            LiquidBlock fluidBlock = (LiquidBlock) recipe.getResultBlock();
+            itemStacks.set(11, FluidUtil.getFilledBucket(new FluidStack(fluidBlock.getFluid(), 1000)));
 
         } else {
-            itemStacks.init(11, true, 100, 42);
+//            itemStacks.init(11, true, 100, 42);
             ItemStack stack = recipe.getResultBlock().asItem().getDefaultInstance();
             if (!stack.isEmpty() && stack.getItem() != Items.AIR) {
                 itemStacks.set(11, stack);
@@ -185,8 +188,8 @@ public class IonizerCategory implements IRecipeCategory<IonizerRecipe> {
     }
 
     @Override
-    public void draw(IonizerRecipe recipe, MatrixStack matrixStack, double mouseX, double mouseY) {
-        FontRenderer font = Minecraft.getInstance().font;
+    public void draw(IonizerRecipe recipe, PoseStack matrixStack, double mouseX, double mouseY) {
+        Font font = Minecraft.getInstance().font;
 
         font.draw(matrixStack, recipe.getTick() + " ticks", 65, 60, 0x555555);
         font.draw(matrixStack, "Consume", 47, 70, 0x555555);

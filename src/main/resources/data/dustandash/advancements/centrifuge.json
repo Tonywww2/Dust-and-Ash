@@ -1,33 +1,35 @@
 {
-	"display": {
-		"icon": {
-			"item": "dustandash:centrifuge"
-		},
-		"title": {
-			"translate": "dustandash.advancements.centrifuge.title"
-		},
-		"description": {
-			"translate": "dustandash.advancements.centrifuge.description"
-		},
-		"frame": "challenge",
-		"show_toast": true,
-		"announce_to_chat": true,
-		"hidden": false
-	},
-	"parent": "dustandash:ash_steel_ingot",
-	"criteria": {
-		"requirement": {
-			"trigger": "minecraft:inventory_changed",
-			"conditions": {
-				"items": [
-					{
-						"item": "dustandash:centrifuge"
-					}
-				]
-			}
-		}
-	},
-	"rewards": {
-		"experience": 10
-	}
+  "display": {
+    "icon": {
+      "item": "dustandash:centrifuge"
+    },
+    "title": {
+      "translate": "dustandash.advancements.centrifuge.title"
+    },
+    "description": {
+      "translate": "dustandash.advancements.centrifuge.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "dustandash:ash_steel_ingot",
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "dustandash:centrifuge"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "experience": 10
+  }
 }

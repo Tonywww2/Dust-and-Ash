@@ -2,22 +2,20 @@ package com.tonywww.dustandash;
 
 import com.tonywww.dustandash.block.ModBlocks;
 import com.tonywww.dustandash.config.DustAndAshConfig;
-import com.tonywww.dustandash.container.ModContainers;
+import com.tonywww.dustandash.menu.ModMenus;
 import com.tonywww.dustandash.screen.*;
-import com.tonywww.dustandash.tileentity.ModTileEntities;
-import com.tonywww.dustandash.data.recipes.ModRecipeTypes;
+import com.tonywww.dustandash.block.entity.ModTileEntities;
+import com.tonywww.dustandash.data.recipes.ModRecipe;
 import com.tonywww.dustandash.item.ModItems;
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.client.gui.ScreenManager;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.RenderTypeLookup;
+import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.InterModComms;
-import net.minecraftforge.fml.ModContainer;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
@@ -25,7 +23,6 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
-import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLPaths;
 import net.minecraftforge.fml.loading.FileUtils;
@@ -58,16 +55,12 @@ public class DustAndAsh
 
         ModTileEntities.register(eventBus);
 
-        ModContainers.register(eventBus);
+        ModMenus.register(eventBus);
 
-        ModRecipeTypes.register(eventBus);
+        ModRecipe.register(eventBus);
 
         // Register the setup method for modloading
         eventBus.addListener(this::setup);
-        // Register the enqueueIMC method for modloading
-        eventBus.addListener(this::enqueueIMC);
-        // Register the processIMC method for modloading
-        eventBus.addListener(this::processIMC);
         // Register the doClientStuff method for modloading
         eventBus.addListener(this::doClientStuff);
 
@@ -84,37 +77,21 @@ public class DustAndAsh
 
     private void doClientStuff(final FMLClientSetupEvent event) {
         // do something that can only be done on the client
-        LOGGER.info("Got game settings {}", event.getMinecraftSupplier().get().options);
 
         event.enqueueWork(() -> {
-            RenderTypeLookup.setRenderLayer(ModBlocks.BLOODY_SAPLING.get(), RenderType.cutout());
-
-            ScreenManager.register(ModContainers.INTEGRATED_BLOCK_CONTAINER.get(), IntegratedBlockScreen::new);
-            ScreenManager.register(ModContainers.ASH_COLLECTOR_CONTAINER.get(), AshCollectorScreen::new);
-            ScreenManager.register(ModContainers.MILLING_MACHINE_CONTAINER.get(), MillingMachineScreen::new);
-            ScreenManager.register(ModContainers.CENTRIFUGE_CONTAINER.get(), CentrifugeScreen::new);
-            ScreenManager.register(ModContainers.IONIZER_CONTAINER.get(), IonizerScreen::new);
+            MenuScreens.register(ModMenus.INTEGRATED_BLOCK_CONTAINER.get(), IntegratedBlockScreen::new);
+            MenuScreens.register(ModMenus.ASH_COLLECTOR_CONTAINER.get(), AshCollectorScreen::new);
+            MenuScreens.register(ModMenus.MILLING_MACHINE_CONTAINER.get(), MillingMachineScreen::new);
+            MenuScreens.register(ModMenus.CENTRIFUGE_CONTAINER.get(), CentrifugeScreen::new);
+            MenuScreens.register(ModMenus.IONIZER_CONTAINER.get(), IonizerScreen::new);
 
 
         });
     }
 
-    private void enqueueIMC(final InterModEnqueueEvent event)
-    {
-        // some example code to dispatch IMC to another mod
-        InterModComms.sendTo("dustandash", "helloworld", () -> { LOGGER.info("Hello world from the MDK"); return "Hello world";});
-    }
-
-    private void processIMC(final InterModProcessEvent event)
-    {
-        // some example code to receive and process InterModComms from other mods
-        LOGGER.info("Got IMC {}", event.getIMCStream().
-                map(m->m.getMessageSupplier().get()).
-                collect(Collectors.toList()));
-    }
     // You can use SubscribeEvent and let the Event Bus discover methods to call
     @SubscribeEvent
-    public void onServerStarting(FMLServerStartingEvent event) {
+    public void onServerStarting(ServerStartingEvent event) {
         // do something when the server starts
         LOGGER.info("HELLO from server starting");
     }

@@ -1,6 +1,9 @@
 {
   "variants": {
-    "": {"model": "dustandash:block/milling_machine"}
+    "facing=north": { "model": "dustandash:block/milling_machine" },
+    "facing=east": { "model": "dustandash:block/milling_machine", "y": 90 },
+    "facing=south": { "model": "dustandash:block/milling_machine", "y": 180 },
+    "facing=west": { "model": "dustandash:block/milling_machine", "y": 270 }
   }
 
 }

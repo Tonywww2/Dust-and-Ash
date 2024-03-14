@@ -1,6 +1,6 @@
 package com.tonywww.dustandash.integration.jei;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.tonywww.dustandash.DustAndAsh;
 import com.tonywww.dustandash.block.ModBlocks;
 import com.tonywww.dustandash.data.recipes.CentrifugeRecipe;
@@ -12,14 +12,11 @@ import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
-
-import java.util.Collections;
+import net.minecraft.client.gui.Font;
+import net.minecraft.core.NonNullList;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
 
 public class CentrifugeRecipeCategory implements IRecipeCategory<CentrifugeRecipe> {
 
@@ -31,7 +28,7 @@ public class CentrifugeRecipeCategory implements IRecipeCategory<CentrifugeRecip
 
     public CentrifugeRecipeCategory(IGuiHelper helper) {
         this.bg = helper.createDrawable(TEXTURE, 0, 0, 176, 85);
-        this.icon = helper.createDrawableIngredient(new ItemStack(ModBlocks.CENTRIFUGE.get()));
+        this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModBlocks.CENTRIFUGE.get()));
     }
 
     @Override
@@ -45,8 +42,8 @@ public class CentrifugeRecipeCategory implements IRecipeCategory<CentrifugeRecip
     }
 
     @Override
-    public String getTitle() {
-        return ModBlocks.CENTRIFUGE.get().getName().getString();
+    public Component getTitle() {
+        return ModBlocks.CENTRIFUGE.get().getName();
     }
 
     @Override
@@ -107,8 +104,8 @@ public class CentrifugeRecipeCategory implements IRecipeCategory<CentrifugeRecip
     }
 
     @Override
-    public void draw(CentrifugeRecipe recipe, MatrixStack matrixStack, double mouseX, double mouseY) {
-        FontRenderer font = Minecraft.getInstance().font;
+    public void draw(CentrifugeRecipe recipe, PoseStack matrixStack, double mouseX, double mouseY) {
+        Font font = Minecraft.getInstance().font;
         font.draw(matrixStack, recipe.getTick() + " ticks", 65, 70, 0x555555);
     }
 }

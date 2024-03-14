@@ -9,7 +9,7 @@
       "item": "dustandash:grind_solvents"
     }
   ],
-  "output" : [
+  "outputs" : [
     {
       "item": "dustandash:empty"
     },

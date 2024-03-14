@@ -1,33 +1,35 @@
 {
-	"display": {
-		"icon": {
-			"item": "dustandash:titanium_tungsten_alloy"
-		},
-		"title": {
-			"translate": "dustandash.advancements.titanium_tungsten_alloy.title"
-		},
-		"description": {
-			"translate": "dustandash.advancements.titanium_tungsten_alloy.description"
-		},
-		"frame": "task",
-		"show_toast": true,
-		"announce_to_chat": true,
-		"hidden": false
-	},
-	"parent": "dustandash:titanium_scrap",
-	"criteria": {
-		"requirement": {
-			"trigger": "minecraft:inventory_changed",
-			"conditions": {
-				"items": [
-					{
-						"item": "dustandash:titanium_tungsten_alloy"
-					}
-				]
-			}
-		}
-	},
-	"rewards": {
-		"experience": 10
-	}
+  "display": {
+    "icon": {
+      "item": "dustandash:titanium_tungsten_alloy"
+    },
+    "title": {
+      "translate": "dustandash.advancements.titanium_tungsten_alloy.title"
+    },
+    "description": {
+      "translate": "dustandash.advancements.titanium_tungsten_alloy.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "dustandash:titanium_scrap",
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "dustandash:titanium_tungsten_alloy"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "experience": 10
+  }
 }

@@ -2,25 +2,24 @@ package com.tonywww.dustandash.data.recipes;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.tonywww.dustandash.DustAndAsh;
 import com.tonywww.dustandash.block.ModBlocks;
 import com.tonywww.dustandash.item.ModItems;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.item.crafting.ShapedRecipe;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
+import net.minecraft.core.NonNullList;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.GsonHelper;
+import net.minecraft.world.Container;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.*;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import javax.annotation.Nullable;
 
-public class IntegratedBlockRecipe implements IIntegratedBlockRecipe {
+import static com.tonywww.dustandash.data.recipes.RecipeUtils.itemsFromJson;
+
+public class IntegratedBlockRecipe implements Recipe<Container> {
 
 
     private final ResourceLocation id;
@@ -30,16 +29,16 @@ public class IntegratedBlockRecipe implements IIntegratedBlockRecipe {
 
     public static final int MAX_SLOTS = 8;
 
-    public IntegratedBlockRecipe(ResourceLocation id, ItemStack output, NonNullList<Ingredient> recipeItems, int level) {
+    public IntegratedBlockRecipe(ResourceLocation id, NonNullList<Ingredient> inputs, ItemStack output, int level) {
         this.id = id;
         this.output = output;
-        this.recipeItems = recipeItems;
+        this.recipeItems = inputs;
         this.level = level;
     }
 
 
     @Override
-    public boolean matches(IInventory inv, World pLevel) {
+    public boolean matches(Container inv, Level pLevel) {
         for (int i = 0; i < MAX_SLOTS; i++) {
             ItemStack itemStack = inv.getItem(i);
             if ((recipeItems.get(i).test(ModItems.EMPTY.get().getDefaultInstance()) && itemStack.isEmpty()) ||
@@ -54,13 +53,18 @@ public class IntegratedBlockRecipe implements IIntegratedBlockRecipe {
     }
 
     @Override
-    public ItemStack assemble(IInventory pInv) {
-        return null;
+    public ItemStack assemble(Container pInv) {
+        return output.copy();
+    }
+
+    @Override
+    public boolean canCraftInDimensions(int p_43999_, int p_44000_) {
+        return true;
     }
 
     @Override
     public ItemStack getResultItem() {
-        return output.copy();
+        return output;
     }
 
     @Override
@@ -69,8 +73,13 @@ public class IntegratedBlockRecipe implements IIntegratedBlockRecipe {
     }
 
     @Override
-    public IRecipeSerializer<?> getSerializer() {
-        return ModRecipeTypes.INTEGRATE_SERIALIZER.get();
+    public RecipeSerializer<?> getSerializer() {
+        return ModRecipe.INTEGRATE_SERIALIZER.get();
+    }
+
+    @Override
+    public RecipeType<?> getType() {
+        return IntegrateRecipeType.INSTANCE;
     }
 
     @Override
@@ -86,39 +95,44 @@ public class IntegratedBlockRecipe implements IIntegratedBlockRecipe {
         return level;
     }
 
-    public static class IntegrateRecipeType implements IRecipeType<IntegratedBlockRecipe> {
-        @Override
-        public String toString() {
-            return IntegratedBlockRecipe.TYPE_ID.toString();
-        }
+    public static class IntegrateRecipeType implements RecipeType<IntegratedBlockRecipe> {
+        public static final IntegrateRecipeType INSTANCE = new IntegrateRecipeType();
+        public static final String ID = "integrate";
+
     }
 
-    public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<IntegratedBlockRecipe> {
+    public static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<IntegratedBlockRecipe> {
+
+        public static final Serializer INSTANCE = new Serializer();
+        public static final ResourceLocation ID = new ResourceLocation(DustAndAsh.MOD_ID, "integrate");
 
         @Override
         public IntegratedBlockRecipe fromJson(ResourceLocation pRecipeId, JsonObject json) {
 //            System.out.println(pRecipeId + " start from json");
-            ItemStack output = ShapedRecipe.itemFromJson(JSONUtils.getAsJsonObject(json, "output"));
+            ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "output"));
 
-            JsonArray ingredients = JSONUtils.getAsJsonArray(json, "ingredients");
-            NonNullList<Ingredient> inputs = NonNullList.withSize(MAX_SLOTS, Ingredient.EMPTY);
-            int lv = JSONUtils.getAsInt(json, "level");
+//            JsonArray ingredients = GsonHelper.getAsJsonArray(json, "ingredients");
+//            NonNullList<Ingredient> inputs = NonNullList.withSize(MAX_SLOTS, Ingredient.EMPTY);
+            NonNullList<Ingredient> inputs = itemsFromJson(GsonHelper.getAsJsonArray(json, "ingredients"), MAX_SLOTS);
 
-            for (int i = 0; i < ingredients.size(); i++) {
-                Ingredient temp = Ingredient.fromJson(ingredients.get(i));
-                if (temp.getItems()[0].getItem() != ModItems.EMPTY.get()) {
-                    inputs.set(i, temp);
+            int lv = GsonHelper.getAsInt(json, "level");
 
-                }
+//            for (int i = 0; i < ingredients.size(); i++) {
+//                Ingredient temp = Ingredient.fromJson(ingredients.get(i));
+//
+//                if (!ingredients.isEmpty() && temp.getItems()[0].getItem() != ModItems.EMPTY.get()) {
+//                    inputs.set(i, temp);
+//
+//                }
+//
+//            }
 
-            }
-
-            return new IntegratedBlockRecipe(pRecipeId, output, inputs, lv);
+            return new IntegratedBlockRecipe(pRecipeId, inputs, output, lv);
         }
 
         @Nullable
         @Override
-        public IntegratedBlockRecipe fromNetwork(ResourceLocation pRecipeId, PacketBuffer pBuffer) {
+        public IntegratedBlockRecipe fromNetwork(ResourceLocation pRecipeId, FriendlyByteBuf pBuffer) {
 //            System.out.println(pRecipeId + " start from network");
             // 2 readInt
             int lv = pBuffer.readInt();
@@ -136,11 +150,11 @@ public class IntegratedBlockRecipe implements IIntegratedBlockRecipe {
             // 3 readItem
             ItemStack output = pBuffer.readItem();
 
-            return new IntegratedBlockRecipe(pRecipeId, output, inputs, lv);
+            return new IntegratedBlockRecipe(pRecipeId, inputs, output, lv);
         }
 
         @Override
-        public void toNetwork(PacketBuffer pBuffer, IntegratedBlockRecipe pRecipe) {
+        public void toNetwork(FriendlyByteBuf pBuffer, IntegratedBlockRecipe pRecipe) {
 //            System.out.println(pRecipe.id + " start to network");
             // 2 writeInt
             pBuffer.writeInt(pRecipe.getLevel());
@@ -154,8 +168,28 @@ public class IntegratedBlockRecipe implements IIntegratedBlockRecipe {
 
             }
             // 3 writeItem
-            pBuffer.writeItem(pRecipe.getResultItem());
+            pBuffer.writeItemStack(pRecipe.getResultItem(), false);
 
         }
+
+//        @Override
+//        public RecipeSerializer<?> setRegistryName(ResourceLocation name) {
+//            return INSTANCE;
+//        }
+//
+//        @org.jetbrains.annotations.Nullable
+//        @Override
+//        public ResourceLocation getRegistryName() {
+//            return ID;
+//        }
+//
+//        @Override
+//        public Class<RecipeSerializer<?>> getRegistryType() {
+//            return Serializer.castClass(RecipeSerializer.class);
+//        }
+//
+//        private static <G> Class<G> castClass(Class<?> cls) {
+//            return (Class<G>) cls;
+//        }
     }
 }

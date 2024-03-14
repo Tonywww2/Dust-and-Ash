@@ -1,6 +1,6 @@
 package com.tonywww.dustandash.integration.jei;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.tonywww.dustandash.DustAndAsh;
 import com.tonywww.dustandash.block.ModBlocks;
 import com.tonywww.dustandash.data.recipes.IntegratedBlockRecipe;
@@ -11,11 +11,11 @@ import mezz.jei.api.gui.ingredient.IGuiItemStackGroup;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.IRecipeCategory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.items.SlotItemHandler;
+import net.minecraft.core.NonNullList;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 
 public class IntegratedBlockRecipeCategory implements IRecipeCategory<IntegratedBlockRecipe> {
 
@@ -33,7 +33,7 @@ public class IntegratedBlockRecipeCategory implements IRecipeCategory<Integrated
 
     public IntegratedBlockRecipeCategory(IGuiHelper helper) {
         this.bg = helper.createDrawable(TEXTURE, 0, 0, 176, 85);
-        this.icon = helper.createDrawableIngredient(new ItemStack(ModBlocks.INTEGRATED_BLOCK.get()));
+        this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModBlocks.INTEGRATED_BLOCK.get()));
 
         this.lv11 = helper.createDrawable(TEXTURE, 176, 0, 9, 9);
         this.lv12 = helper.createDrawable(TEXTURE, 179, 0, 9, 9);
@@ -56,8 +56,8 @@ public class IntegratedBlockRecipeCategory implements IRecipeCategory<Integrated
     }
 
     @Override
-    public String getTitle() {
-        return ModBlocks.INTEGRATED_BLOCK.get().getName().getString();
+    public Component getTitle() {
+        return ModBlocks.INTEGRATED_BLOCK.get().getName();
     }
 
     @Override
@@ -118,7 +118,7 @@ public class IntegratedBlockRecipeCategory implements IRecipeCategory<Integrated
     }
 
     @Override
-    public void draw(IntegratedBlockRecipe recipe, MatrixStack matrixStack, double mouseX, double mouseY) {
+    public void draw(IntegratedBlockRecipe recipe, PoseStack matrixStack, double mouseX, double mouseY) {
         if (recipe.getLevel() > 0) {
             this.lv11.draw(matrixStack, 54, 27);
             this.lv12.draw(matrixStack, 113, 27);
