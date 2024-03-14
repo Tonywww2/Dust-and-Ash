@@ -80,6 +80,7 @@
   "item.dustandash.tungsten_dust": "钨粉",
   "item.dustandash.magnet": "磁铁",
   "item.dustandash.mantle_mixture": "地幔混合物",
+  "item.dustandash.titanium_heavy_plate": "重型钛板",
 
   "item.dustandash.copper_ingot": "铜锭",
   "item.dustandash.tin_ingot": "锡锭",
@@ -99,6 +100,7 @@
   "item.dustandash.redstone_scrap": "碎屑",
   "item.dustandash.ash_steel_scrap": "碎屑",
   "item.dustandash.carbon_fiber_scrap": "碎屑",
+  "item.dustandash.titanium_plate_scrap": "碎屑",
 
   "block.dustandash.dust_source": "灰尘源",
   "block.dustandash.dust": "尘",
@@ -140,6 +142,82 @@
   "tooltip.dustandash.titanium_alloy_sword": "\u00A77攻击后，给予玩家 \n 速度, \n 幸运, \n 海豚的恩惠, \n给予目标 \n 缓慢。",
   "tooltip.dustandash.titanium_alloy_great_sword": "\u00A7攻击后，给予玩家 \n 抗性提升, \n给予目标 \n 虚弱。",
   "tooltip.dustandash.hand_vacuum": "\u00A77对着一个 尘 使用以收集资源。",
-  "tooltip.dustandash.iron_vacuum": "\u00A77对着一个 尘 使用以收集资源，需要消耗物品栏内的 注能尘。"
+  "tooltip.dustandash.iron_vacuum": "\u00A77对着一个 尘 使用以收集资源，需要消耗物品栏内的 注能尘。",
+
+  "dustandash.advancements.entry.title": "尘与烬",
+  "dustandash.advancements.entry.description": "「给时光以生命，而不是给生命以时光。」",
+
+  "dustandash.advancements.sharpen_flint.title": "敲开燧石",
+  "dustandash.advancements.sharpen_flint.description": "制作锋利的燧石片，接下来是什么？",
+
+  "dustandash.advancements.mantle_mixture.title": "来自地心",
+  "dustandash.advancements.mantle_mixture.description": "制作地幔混合物",
+
+  "dustandash.advancements.dust_source.title": "波函数坍塌",
+  "dustandash.advancements.dust_source.description": "获得一个灰尘源，它放在离地几格高的位置以生产 尘",
+
+  "dustandash.advancements.bloody_flint.title": "邪恶献祭",
+  "dustandash.advancements.bloody_flint.description": "将我的血献给...",
+
+  "dustandash.advancements.flint_pickaxe.title": "这是把镐子！",
+  "dustandash.advancements.flint_pickaxe.description": "制作染血燧石镐，呃...好粘",
+
+  "dustandash.advancements.bloody_sapling.title": "邪恶的 \"生命\"",
+  "dustandash.advancements.bloody_sapling.description": "制作血树苗。",
+
+  "dustandash.advancements.hand_vacuum.title": "切分之力",
+  "dustandash.advancements.hand_vacuum.description": "制作手摇式吸尘器",
+
+  "dustandash.advancements.iron_vacuum.title": "更多...力量！",
+  "dustandash.advancements.iron_vacuum.description": "制作吸尘器",
+
+  "dustandash.advancements.energized_cobblestone.title": "地幔对流",
+  "dustandash.advancements.energized_cobblestone.description": "制作注能圆石",
+
+  "dustandash.advancements.integrated_block.title": "概念交换",
+  "dustandash.advancements.integrated_block.description": "制作聚合方块",
+
+  "dustandash.advancements.milling_machine.title": "精密处理",
+  "dustandash.advancements.milling_machine.description": "制作铣床和装配台",
+
+  "dustandash.advancements.ash_collector.title": "我是活塞的妹妹",
+  "dustandash.advancements.ash_collector.description": "制作余烬收集器 （他们没有关系）",
+
+  "dustandash.advancements.integrated_frame_1.title": "NEXT FRONTIER",
+  "dustandash.advancements.integrated_frame_1.description": "制作聚合框架-1",
+
+  "dustandash.advancements.reproduce_dust.title": "植物精元",
+  "dustandash.advancements.reproduce_dust.description": "制作生长之尘用于制造植物",
+
+  "dustandash.advancements.ash_steel_ingot.title": "坚硬的合金",
+  "dustandash.advancements.ash_steel_ingot.description": "制作烬钢锭 [理解深暗吧]",
+
+  "dustandash.advancements.centrifuge.title": "统一场论",
+  "dustandash.advancements.centrifuge.description": "制作离心机，现在获取元素尘变得更轻松了",
+
+  "dustandash.advancements.gear_box.title": "薄雾机械",
+  "dustandash.advancements.gear_box.description": "制作齿轮箱",
+
+  "dustandash.advancements.integrated_frame_2.title": "Winning the soul",
+  "dustandash.advancements.integrated_frame_2.description": "制作聚合框架-2",
+
+  "dustandash.advancements.ionizer.title": "电与交换",
+  "dustandash.advancements.ionizer.description": "制作万用电解机",
+
+  "dustandash.advancements.integrated_frame_3.title": "My Against Fight",
+  "dustandash.advancements.integrated_frame_3.description": "制作聚合框架-3",
+
+  "dustandash.advancements.titanium_scrap.title": "时间的碎片",
+  "dustandash.advancements.titanium_scrap.description": "制作一些钛碎片",
+
+  "dustandash.advancements.netherite_mud.title": "出淤泥而不染",
+  "dustandash.advancements.netherite_mud.description": "制作含有下界合金的淤泥",
+
+  "dustandash.advancements.titanium_tungsten_alloy.title": "撕裂之王",
+  "dustandash.advancements.titanium_tungsten_alloy.description": "制作钛钨合金",
+
+  "dustandash.advancements.titanium_aluminum_alloy.title": "寻找以太",
+  "dustandash.advancements.titanium_aluminum_alloy.description": "制作钛铝合金"
+
 
 }

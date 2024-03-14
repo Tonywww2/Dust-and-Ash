@@ -189,7 +189,7 @@ public class IonizerRecipe implements IIonizerRecipe {
         @Nullable
         @Override
         public IonizerRecipe fromNetwork(ResourceLocation pRecipeId, PacketBuffer pBuffer) {
-//            System.out.println(pRecipeId + " start from network");
+            System.out.println(pRecipeId + " start from network");
             // 1 ingredients
             int inputSize = pBuffer.readVarInt();
             NonNullList<Ingredient> inputs = NonNullList.withSize(MAX_SLOTS, Ingredient.EMPTY);
@@ -201,6 +201,7 @@ public class IonizerRecipe implements IIonizerRecipe {
             }
             // 2 inputBlock
             Block inputBlock = Registry.BLOCK.get(pBuffer.readResourceLocation());
+            System.out.println("inputBlock: " + inputBlock);
 
             // 3 outputs
             int outputSize = pBuffer.readVarInt();
@@ -213,14 +214,15 @@ public class IonizerRecipe implements IIonizerRecipe {
             }
 
             // 4 tick
-            int tick = pBuffer.readInt();
+            int tick = pBuffer.readVarInt();
             // 5 cost
-            int cost = pBuffer.readInt();
+            int cost = pBuffer.readVarInt();
             // 5.5
             boolean costElectrodes = pBuffer.readBoolean();
 
             // 6 outputBlock
             Block outputBlock = Registry.BLOCK.get(pBuffer.readResourceLocation());
+            System.out.println("outputBlock: " + outputBlock);
 
             return new IonizerRecipe(pRecipeId, inputs, inputBlock, outputs, cost, tick, costElectrodes, outputBlock);
         }
@@ -229,23 +231,25 @@ public class IonizerRecipe implements IIonizerRecipe {
         public void toNetwork(PacketBuffer pBuffer, IonizerRecipe pRecipe) {
 //            System.out.println(pRecipe.id + " start to network");
             // 1 ingredients
-            pBuffer.writeInt(pRecipe.getIngredients().size());
+            pBuffer.writeVarInt(pRecipe.getIngredients().size());
             for (Ingredient i : pRecipe.getIngredients()) {
+                // 1 1 toNetwork
                 i.toNetwork(pBuffer);
             }
             // 2 inputBlock
             pBuffer.writeResourceLocation(pRecipe.inputBlock.getRegistryName());
 
             // 3 outputs
-            pBuffer.writeInt(pRecipe.getResultItemStacks().size());
+            pBuffer.writeVarInt(pRecipe.getResultItemStacks().size());
             for (ItemStack i : pRecipe.getResultItemStacks()) {
+                // 3 1 writeItem
                 pBuffer.writeItem(i);
             }
 
             // 4 tick
-            pBuffer.writeInt(pRecipe.tick);
+            pBuffer.writeVarInt(pRecipe.tick);
             // 5 cost
-            pBuffer.writeInt(pRecipe.powerCost);
+            pBuffer.writeVarInt(pRecipe.powerCost);
             // 5.5 costElectrodes
             pBuffer.writeBoolean(pRecipe.costElectrodes);
 

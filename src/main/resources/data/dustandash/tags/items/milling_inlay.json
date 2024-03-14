@@ -13,7 +13,8 @@
     "dustandash:basic_machine_frame",
     "dustandash:titanium_tungsten_alloy",
     "dustandash:titanium_aluminum_alloy",
-    "dustandash:carbon_fiber"
+    "dustandash:carbon_fiber",
+    "dustandash:carbon_dust"
   ]
 
 }

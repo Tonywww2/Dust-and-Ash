@@ -109,7 +109,7 @@ public class IntegratedBlockRecipeCategory implements IRecipeCategory<Integrated
         itemStacks.init(5, true, 57, 52);
         itemStacks.init(6, true, 79, 52);
         itemStacks.init(7, true, 101, 52);
-        itemStacks.init(8, true, 3, 3);
+//        itemStacks.init(8, true, 3, 3);
         itemStacks.set(ingredients);
 
         itemStacks.init(9, false, 79, 9);
