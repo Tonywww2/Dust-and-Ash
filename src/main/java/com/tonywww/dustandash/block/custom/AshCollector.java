@@ -76,7 +76,7 @@ public class AshCollector extends BaseEntityBlock {
             BlockEntity tileEntity = pLevel.getBlockEntity(pPos);
 
             if (tileEntity instanceof AshCollectorTile) {
-                NetworkHooks.openGui((ServerPlayer) pPlayer, (AshCollectorTile) tileEntity, pPos);
+                NetworkHooks.openScreen((ServerPlayer) pPlayer, (AshCollectorTile) tileEntity, pPos);
             } else {
                 throw new IllegalStateException("Container provider is missing");
             }
