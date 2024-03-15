@@ -1,0 +1,18 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+        {
+            "tag": "forge:cobblestone"
+        },
+        {
+            "tag": "forge:cobblestone"
+        },
+        {
+            "item": "minecraft:moss_block"
+        }
+    ],
+    "result": {
+        "item": "dustandash:cobblestone_with_moss",
+        "count": 3
+    }
+}

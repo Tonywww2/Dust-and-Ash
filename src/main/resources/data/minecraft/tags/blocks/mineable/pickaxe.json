@@ -1,0 +1,16 @@
+{
+  "replace": false,
+  "values": [
+    "dustandash:integrated_block",
+    "dustandash:energized_cobblestone",
+    "dustandash:ash_collector",
+    "dustandash:milling_machine",
+    "dustandash:centrifuge",
+    "dustandash:ionizer",
+    "dustandash:block_of_ash_steel",
+    "dustandash:integrated_frame_1",
+    "dustandash:integrated_frame_2",
+    "dustandash:integrated_frame_3",
+    "dustandash:cooled_magma_block"
+  ]
+}
