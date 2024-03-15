@@ -1,7 +1,6 @@
 package com.tonywww.dustandash.block.entity;
 
 import com.tonywww.dustandash.block.ModBlocks;
-import com.tonywww.dustandash.data.recipes.ModRecipe;
 import com.tonywww.dustandash.menu.IntegratedBlockContainer;
 import com.tonywww.dustandash.data.recipes.IntegratedBlockRecipe;
 import com.tonywww.dustandash.util.ModTags;
@@ -18,10 +17,10 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.BeaconMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BeaconBlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.core.Direction;
@@ -44,10 +43,15 @@ public class IntegratedBlockTile extends SyncedBlockEntity implements MenuProvid
     public ItemStackHandler itemStackHandler;
     private LazyOptional<ItemStackHandler> handler;
 
+    public int currentLevel;
+    private int coolDownTime;
+
     public IntegratedBlockTile(BlockPos pos, BlockState state) {
         super(ModTileEntities.INTEGRATED_BLOCK_TILE.get(), pos, state);
         this.itemStackHandler = createHandler();
         this.handler = LazyOptional.of(() -> itemStackHandler);
+        this.currentLevel = 0;
+        this.coolDownTime = -1;
 
     }
 
@@ -153,13 +157,12 @@ public class IntegratedBlockTile extends SyncedBlockEntity implements MenuProvid
 
     public static boolean isBeaconOn(Level level, BlockPos pos) {
         if (level.getBlockState(pos.below(2)).getBlock() == Blocks.BEACON) {
-            BlockEntity tileEntity = level.getBlockEntity(pos.below(2));
-            if (tileEntity instanceof BeaconBlockEntity) {
-                BeaconBlockEntity beacon = (BeaconBlockEntity) tileEntity;
-//                return beacon.levels > 0;
-                return true;
+            //TODO
+//            BlockState blockState = level.getBlockState(pos.below(2));
+//            BeaconBlockEntity beacon = (BeaconBlockEntity) level.getBlockEntity(pos.below(2));
+//            beacon.
 
-            }
+            return true;
 
         }
         return false;
@@ -177,10 +180,16 @@ public class IntegratedBlockTile extends SyncedBlockEntity implements MenuProvid
     }
 
     public static void tick(Level level, BlockPos pos, BlockState state, IntegratedBlockTile be) {
-        if (!be.getLevel().isClientSide) {
+        if (!level.isClientSide) {
+            if (be.coolDownTime <= 0) {
+                be.currentLevel = getStructureLevel(level, pos);
+                be.coolDownTime = 4;
+
+            }
+
             craft(level, pos, state, be);
             float chance = 0.2f;
-            if (be.getLevel().random.nextDouble() < chance) {
+            if (level.random.nextDouble() < chance) {
                 List<ItemEntity> items = level.getEntitiesOfClass(ItemEntity.class, getArea(pos), VALID_ITEM_ENTITY);
                 for (ItemEntity item : items) {
                     for (int i = 0; i < be.itemStackHandler.getSlots(); i++) {
@@ -200,6 +209,8 @@ public class IntegratedBlockTile extends SyncedBlockEntity implements MenuProvid
 
 
             }
+            be.coolDownTime--;
+
         }
 
 
@@ -231,7 +242,7 @@ public class IntegratedBlockTile extends SyncedBlockEntity implements MenuProvid
         recipe.ifPresent(iRecipe -> {
             ItemStack output = iRecipe.getResultItem();
 
-            if (getStructureLevel(level, pos) >= iRecipe.getLevel()) {
+            if (be.currentLevel >= iRecipe.getLevel()) {
                 // crafting
                 for (int i = 0; i < be.itemStackHandler.getSlots(); i++) {
                     be.itemStackHandler.extractItem(i, 1, false);

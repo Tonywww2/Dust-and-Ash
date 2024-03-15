@@ -24,7 +24,6 @@ import net.minecraft.world.item.crafting.RecipeManager;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 @JeiPlugin
 @ParametersAreNonnullByDefault
@@ -40,93 +39,99 @@ public class DustAndAshJei implements IModPlugin {
         return PID;
     }
 
-//    // From Farmer Delight
-//    private static List<Recipe<?>> findRecipesByType(RecipeType<?> type) {
-//        return MC.level
-//                .getRecipeManager()
-//                .getRecipes()
-//                .stream()
-//                .filter(r -> r.getType() == type)
-//                .collect(Collectors.toList());
-//    }
-
     @Override
     public void registerCategories(IRecipeCategoryRegistration registration) {
         registration.addRecipeCategories(
-                new IntegratedBlockRecipeCategory(registration.getJeiHelpers().getGuiHelper()),
-                new MillingRecipeCategory(registration.getJeiHelpers().getGuiHelper()),
-                new CentrifugeRecipeCategory(registration.getJeiHelpers().getGuiHelper()),
-                new IonizerCategory(registration.getJeiHelpers().getGuiHelper())
+                new IntegratedBlockRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
 
-        );
+        registration.addRecipeCategories(
+                new MillingRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
+
+        registration.addRecipeCategories(
+                new CentrifugeRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
+
+        registration.addRecipeCategories(
+                new IonizerCategory(registration.getJeiHelpers().getGuiHelper()));
+
     }
 
     @Override
     public void registerRecipes(IRecipeRegistration registration) {
         RecipeManager rm = Objects.requireNonNull(Minecraft.getInstance().level).getRecipeManager();
 
-        registration.addRecipes(rm.getRecipes().stream()
-                        .filter(r -> r instanceof IntegratedBlockRecipe).collect(Collectors.toList()),
-                IntegratedBlockRecipeCategory.UID
-        );
+        registration.addRecipes(DustAndAshRecipeTypes.INTEGRATE,
+                rm.getAllRecipesFor(IntegratedBlockRecipe.IntegrateRecipeType.INSTANCE).stream().toList());
 
-        registration.addRecipes(rm.getRecipes().stream()
-                        .filter(r -> r instanceof MillingMachineRecipe).collect(Collectors.toList()),
-                MillingRecipeCategory.UID
-        );
+        registration.addRecipes(DustAndAshRecipeTypes.MILLING,
+                rm.getAllRecipesFor(MillingMachineRecipe.MillingRecipeType.INSTANCE).stream().toList());
 
-        registration.addRecipes(rm.getRecipes().stream()
-                        .filter(r -> r instanceof CentrifugeRecipe).collect(Collectors.toList()),
-                CentrifugeRecipeCategory.UID
-        );
+        registration.addRecipes(DustAndAshRecipeTypes.CENTRIFUGE,
+                rm.getAllRecipesFor(CentrifugeRecipe.CentrifugeRecipeType.INSTANCE).stream().toList());
 
-        registration.addRecipes(rm.getRecipes().stream()
-                        .filter(r -> r instanceof IonizerRecipe).collect(Collectors.toList()),
-                IonizerCategory.UID
-        );
+        registration.addRecipes(DustAndAshRecipeTypes.IONIZER,
+                rm.getAllRecipesFor(IonizerRecipe.IonizerRecipeType.INSTANCE).stream().toList());
+
+//        registration.addRecipes(rm.getRecipes().stream()
+//                        .filter(r -> r instanceof IntegratedBlockRecipe).collect(Collectors.toList()),
+//                IntegratedBlockRecipeCategory.UID
+//        );
+//
+//        registration.addRecipes(rm.getRecipes().stream()
+//                        .filter(r -> r instanceof MillingMachineRecipe).collect(Collectors.toList()),
+//                MillingRecipeCategory.UID
+//        );
+//
+//        registration.addRecipes(rm.getRecipes().stream()
+//                        .filter(r -> r instanceof CentrifugeRecipe).collect(Collectors.toList()),
+//                CentrifugeRecipeCategory.UID
+//        );
+//
+//        registration.addRecipes(rm.getRecipes().stream()
+//                        .filter(r -> r instanceof IonizerRecipe).collect(Collectors.toList()),
+//                IonizerCategory.UID
+//        );
     }
 
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
         registration.addRecipeCatalyst(
                 new ItemStack(ModBlocks.INTEGRATED_BLOCK.get()),
-                IntegratedBlockRecipeCategory.UID
+                DustAndAshRecipeTypes.INTEGRATE
         );
 
         registration.addRecipeCatalyst(
                 new ItemStack(ModBlocks.MILLING_MACHINE.get()),
-                MillingRecipeCategory.UID
+                DustAndAshRecipeTypes.MILLING
         );
 
         registration.addRecipeCatalyst(
                 new ItemStack(ModBlocks.CENTRIFUGE.get()),
-                CentrifugeRecipeCategory.UID
+                DustAndAshRecipeTypes.CENTRIFUGE
         );
 
         registration.addRecipeCatalyst(
                 new ItemStack(ModBlocks.IONIZER.get()),
-                IonizerCategory.UID
+                DustAndAshRecipeTypes.IONIZER
         );
 
     }
 
     @Override
     public void registerGuiHandlers(IGuiHandlerRegistration registration) {
-        registration.addRecipeClickArea(IntegratedBlockScreen.class, 80, 9, 16, 16, IntegratedBlockRecipeCategory.UID);
+        registration.addRecipeClickArea(IntegratedBlockScreen.class, 80, 9, 16, 16, DustAndAshRecipeTypes.INTEGRATE);
 
-        registration.addRecipeClickArea(MillingMachineScreen.class, 50, 12, 15, 11, MillingRecipeCategory.UID);
+        registration.addRecipeClickArea(MillingMachineScreen.class, 50, 12, 15, 11, DustAndAshRecipeTypes.MILLING);
 
-        registration.addRecipeClickArea(CentrifugeScreen.class, 80, 51, 16, 16, CentrifugeRecipeCategory.UID);
+        registration.addRecipeClickArea(CentrifugeScreen.class, 80, 51, 16, 16, DustAndAshRecipeTypes.CENTRIFUGE);
 
-        registration.addRecipeClickArea(IonizerScreen.class, 73, 28, 32, 11, IonizerCategory.UID);
+        registration.addRecipeClickArea(IonizerScreen.class, 73, 28, 32, 11, DustAndAshRecipeTypes.IONIZER);
 
     }
 
 
-
     @Override
     public void registerRecipeTransferHandlers(IRecipeTransferRegistration registration) {
-        registration.addRecipeTransferHandler(IntegratedBlockContainer.class, IntegratedBlockRecipeCategory.UID, 36, 8, 0, 36);
+        registration.addRecipeTransferHandler(IntegratedBlockContainer.class, DustAndAshRecipeTypes.INTEGRATE, 36, 8, 0, 36);
 
     }
 

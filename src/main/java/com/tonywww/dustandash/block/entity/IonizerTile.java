@@ -36,7 +36,7 @@ import javax.annotation.Nullable;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import static com.tonywww.dustandash.config.DustAndAshConfig.centrifugeProgressPerTick;
+import static com.tonywww.dustandash.config.DustAndAshConfig.ionizerProgressPerTick;
 
 public class IonizerTile extends SyncedBlockEntity implements MenuProvider {
 
@@ -54,7 +54,7 @@ public class IonizerTile extends SyncedBlockEntity implements MenuProvider {
 
     private IonizerRecipe currRecipe;
 
-    private double progressPerTick = centrifugeProgressPerTick.get();
+    private double progressPerTick = ionizerProgressPerTick.get();
 
 
     public IonizerTile(BlockPos pos, BlockState state) {
