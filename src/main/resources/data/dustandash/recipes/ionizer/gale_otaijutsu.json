@@ -1,0 +1,39 @@
+{
+  "type": "dustandash:ionizer",
+  "ingredients": [
+    {
+      "item": "dustandash:titanium_alloy_sword"
+    },
+    {
+      "item": "dustandash:grind_solvents"
+    },
+    {
+      "item": "minecraft:scute"
+    },
+    {
+      "item": "dustandash:wind_crystal"
+    },
+    {
+      "item": "dustandash:graphite_electrode"
+    }
+  ],
+  "inputBlock": "minecraft:crying_obsidian",
+  "outputs": [
+    {
+      "item": "dustandash:gale_otaijutsu"
+    },
+    {
+      "item": "dustandash:ash"
+    },
+    {
+      "item": "dustandash:empty"
+    },
+    {
+      "item": "dustandash:empty"
+    }
+  ],
+  "cost": 16,
+  "tick": 1600,
+  "costElectrodes": true,
+  "outputBlock": "minecraft:obsidian"
+}

@@ -12,6 +12,9 @@
   "item.dustandash.titanium_alloy_great_sword": "Titanium Alloy Great Sword",
   "item.dustandash.titanium_alloy_pickaxe": "Titanium Alloy Pickaxe",
 
+  "item.dustandash.gale_otaijutsu": "§b Gale Otaijutsu",
+  "item.dustandash.sunburn_mega_sword": "§c Sunburn Mega Sword",
+
   "item.dustandash.ash_steel_boots": "Ash Steel Boots",
   "item.dustandash.ash_steel_chestplate": "Ash Steel Chestplate",
   "item.dustandash.ash_steel_leggings": "Ash Steel leggings",
@@ -41,8 +44,8 @@
 
   "item.dustandash.dust_with_energy": "Energized Dust",
   "item.dustandash.pure_energy": "Pure Energy",
-  "item.dustandash.soul_of_light": "\u00A7eSoul of Light",
-  "item.dustandash.pure_darkness": "\u00A7cPure Darkness",
+  "item.dustandash.soul_of_light": "\u00A7e Soul of Light",
+  "item.dustandash.pure_darkness": "\u00A7c Pure Darkness",
 
   "item.dustandash.energized_cobblestone_bucket": "Energized Cobblestone Bucket",
   "item.dustandash.ash": "Ash",
@@ -102,6 +105,16 @@
   "item.dustandash.carbon_fiber_scrap": "Scrap",
   "item.dustandash.titanium_plate_scrap": "Scrap",
 
+  "item.dustandash.wind_crystal": "\u00A7b Wind Crystal",
+  "item.dustandash.fire_crystal": "\u00A7c Fire Crystal",
+  "item.dustandash.sliver_crystal": "\u00A77 Sliver Crystal",
+  "item.dustandash.parasitism_crystal": "\u00A74 Parasitism Crystal",
+  "item.dustandash.depravity_crystal": "\u00A72 Depravity Crystal",
+  "item.dustandash.apotheosis_crystal": "\u00A7e Apotheosis Crystal",
+  "item.dustandash.eternal_light_crystal": "\u00A7f Eternal Light Crystal",
+  "item.dustandash.forever_dark_crystal": "\u00A70 Forever Dark Crystal",
+  "item.dustandash.void_crystal": "\u00A7m Void Crystal",
+
   "block.dustandash.dust_source": "Dust Source",
   "block.dustandash.dust": "Dust",
   "block.dustandash.integrated_block": "Integrated Block",
@@ -143,6 +156,9 @@
   "tooltip.dustandash.titanium_alloy_great_sword": "\u00A77 Apply \n Damage Resistance\nto the player, \n Weakness \nto the target after attack.",
   "tooltip.dustandash.hand_vacuum": "\u00A77 Use on a Dust to gain products.",
   "tooltip.dustandash.iron_vacuum": "\u00A77 Use on a Dust to gain products, requires Energized Dust in inventory.",
+
+  "tooltip.dustandash.gale_otaijutsu": "Weapon",
+  "tooltip.dustandash.sunburn_mega_sword": "Weapon",
 
   "dustandash.advancements.entry.title": "Dust and Ash",
   "dustandash.advancements.entry.description": "To the time to life, rather than to life in time.",

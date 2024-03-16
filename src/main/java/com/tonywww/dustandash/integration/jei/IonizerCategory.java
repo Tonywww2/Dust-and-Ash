@@ -143,20 +143,20 @@ public class IonizerCategory implements IRecipeCategory<IonizerRecipe> {
 
         }
 
-        builder.addSlot(RecipeIngredientRole.INPUT, 135, 49).addItemStack(recipe.getResultItemStacks().get(0));
-        builder.addSlot(RecipeIngredientRole.INPUT, 155, 49).addItemStack(recipe.getResultItemStacks().get(1));
-        builder.addSlot(RecipeIngredientRole.INPUT, 135, 69).addItemStack(recipe.getResultItemStacks().get(2));
-        builder.addSlot(RecipeIngredientRole.INPUT, 155, 69).addItemStack(recipe.getResultItemStacks().get(3));
+        builder.addSlot(RecipeIngredientRole.OUTPUT, 135, 49).addItemStack(recipe.getResultItemStacks().get(0));
+        builder.addSlot(RecipeIngredientRole.OUTPUT, 155, 49).addItemStack(recipe.getResultItemStacks().get(1));
+        builder.addSlot(RecipeIngredientRole.OUTPUT, 135, 69).addItemStack(recipe.getResultItemStacks().get(2));
+        builder.addSlot(RecipeIngredientRole.OUTPUT, 155, 69).addItemStack(recipe.getResultItemStacks().get(3));
 
         // out block
         if (recipe.getResultBlock() instanceof LiquidBlock) {
             LiquidBlock fluidBlock = (LiquidBlock) recipe.getResultBlock();
-            builder.addSlot(RecipeIngredientRole.INPUT, 101, 43).addFluidStack(fluidBlock.getFluid(), 1000);
+            builder.addSlot(RecipeIngredientRole.OUTPUT, 101, 43).addFluidStack(fluidBlock.getFluid(), 1000);
 
         } else {
             ItemStack stack = recipe.getResultBlock().asItem().getDefaultInstance();
             if (!stack.isEmpty() && stack.getItem() != Items.AIR) {
-                builder.addSlot(RecipeIngredientRole.INPUT, 101, 43).addItemStack(stack);
+                builder.addSlot(RecipeIngredientRole.OUTPUT, 101, 43).addItemStack(stack);
 
             }
 

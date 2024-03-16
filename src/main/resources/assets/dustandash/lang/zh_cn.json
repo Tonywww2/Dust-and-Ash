@@ -12,6 +12,9 @@
   "item.dustandash.titanium_alloy_great_sword": "钛合金镀钨巨剑",
   "item.dustandash.titanium_alloy_pickaxe": "钛合金镀钨镐",
 
+  "item.dustandash.gale_otaijutsu": "§b 疾风大太刀",
+  "item.dustandash.sunburn_mega_sword": "§c 日炎巨剑",
+
   "item.dustandash.ash_steel_boots": "烬钢靴",
   "item.dustandash.ash_steel_chestplate": "烬钢胸甲",
   "item.dustandash.ash_steel_leggings": "烬钢护腿",
@@ -41,8 +44,8 @@
 
   "item.dustandash.dust_with_energy": "注能尘",
   "item.dustandash.pure_energy": "纯净能量",
-  "item.dustandash.soul_of_light": "\u00A7l光之魂",
-  "item.dustandash.pure_darkness": "\u00A74\u00A7l纯暗",
+  "item.dustandash.soul_of_light": "\u00A7l 光之魂",
+  "item.dustandash.pure_darkness": "\u00A74\u00A7l 纯暗",
 
   "item.dustandash.energized_cobblestone_bucket": "桶装注能圆石",
   "item.dustandash.ash": "烬",
@@ -102,6 +105,16 @@
   "item.dustandash.carbon_fiber_scrap": "碎屑",
   "item.dustandash.titanium_plate_scrap": "碎屑",
 
+  "item.dustandash.wind_crystal": "\u00A7b 风之结晶",
+  "item.dustandash.fire_crystal": "\u00A7c 火之结晶",
+  "item.dustandash.sliver_crystal": "\u00A77 银之结晶",
+  "item.dustandash.parasitism_crystal": "\u00A74 寄生之结晶",
+  "item.dustandash.depravity_crystal": "\u00A72 腐化之结晶",
+  "item.dustandash.apotheosis_crystal": "\u00A7e 神化之结晶",
+  "item.dustandash.eternal_light_crystal": "\u00A7f 无尽光明之结晶",
+  "item.dustandash.forever_dark_crystal": "\u00A70 永恒黑暗之结晶",
+  "item.dustandash.void_crystal": "\u00A7m 无之结晶",
+
   "block.dustandash.dust_source": "灰尘源",
   "block.dustandash.dust": "尘",
   "block.dustandash.integrated_block": "聚合方块",
@@ -143,6 +156,9 @@
   "tooltip.dustandash.titanium_alloy_great_sword": "\u00A7 攻击后，给予玩家 \n 抗性提升, \n给予目标 \n 虚弱。",
   "tooltip.dustandash.hand_vacuum": "\u00A77 对着一个 尘 使用以收集资源。",
   "tooltip.dustandash.iron_vacuum": "\u00A77 对着一个 尘 使用以收集资源，需要消耗物品栏内的 注能尘。",
+
+  "tooltip.dustandash.gale_otaijutsu": "Weapon",
+  "tooltip.dustandash.sunburn_mega_sword": "Weapon",
 
   "dustandash.advancements.entry.title": "尘与烬",
   "dustandash.advancements.entry.description": "「给时光以生命，而不是给生命以时光。」",
@@ -215,6 +231,5 @@
 
   "dustandash.advancements.titanium_aluminum_alloy.title": "寻找以太",
   "dustandash.advancements.titanium_aluminum_alloy.description": "制作钛铝合金"
-
 
 }

@@ -92,26 +92,29 @@ public class ModItems {
 
     public static final RegistryObject<Item> TITANIUM_ALLOY_SWORD = ITEMS.register("titanium_alloy_sword",
             () -> new TitaniumAlloySword(ModItemTier.TITANIUM_ALLOY, 2, -2.0F,
-                    (new Item.Properties())
+                    (new Item.Properties().fireResistant())
             ));
     public static final RegistryObject<Item> TITANIUM_ALLOY_GREAT_SWORD = ITEMS.register("titanium_alloy_great_sword",
             () -> new TitaniumAlloyGreatSword(ModItemTier.TITANIUM_ALLOY, 7, -2.9F,
-                    (new Item.Properties())
+                    (new Item.Properties().fireResistant())
             ));
 
     public static final RegistryObject<Item> TITANIUM_ALLOY_PICKAXE = ITEMS.register("titanium_alloy_pickaxe",
             () -> new PickaxeItem(ModItemTier.TITANIUM_ALLOY, 1, -2.7F,
-                    (new Item.Properties())
-            ));
-    public static final RegistryObject<Item> RAIN_CRYSTAL = ITEMS.register("rain_crystal",
-            () -> new RainCrystal(new Item.Properties()
-                    .stacksTo(1)
+                    (new Item.Properties().fireResistant())
             ));
 
-    public static final RegistryObject<Item> SUN_CRYSTAL = ITEMS.register("sun_crystal",
-            () -> new SunCrystal(new Item.Properties()
-                    .stacksTo(1)
+    // SP Weapons
+    public static final RegistryObject<Item> GALE_OTAIJUTSU = ITEMS.register("gale_otaijutsu",
+            () -> new GaleOtaijutsu(ModItemTier.TITANIUM_ALLOY, 2, -1.0F,
+                    (new Item.Properties().fireResistant())
             ));
+
+    public static final RegistryObject<Item> SUNBURN_MEGA_SWORD = ITEMS.register("sunburn_mega_sword",
+            () -> new SunburnMegaSword(ModItemTier.TITANIUM_ALLOY, 9, -3.1F,
+                    (new Item.Properties().fireResistant())
+            ));
+
 
     // metals
     public static final RegistryObject<Item> ASH_STEEL_INGOT = ITEMS.register("ash_steel_ingot",
@@ -256,6 +259,16 @@ public class ModItems {
             ));
 
     // advance material
+    public static final RegistryObject<Item> RAIN_CRYSTAL = ITEMS.register("rain_crystal",
+            () -> new RainCrystal(new Item.Properties()
+                    .stacksTo(1)
+            ));
+
+    public static final RegistryObject<Item> SUN_CRYSTAL = ITEMS.register("sun_crystal",
+            () -> new SunCrystal(new Item.Properties()
+                    .stacksTo(1)
+            ));
+
     public static final RegistryObject<Item> DUST_WITH_ENERGY = ITEMS.register("dust_with_energy",
             () -> new Item(new Item.Properties()
                     .stacksTo(64)
@@ -283,12 +296,12 @@ public class ModItems {
 
     public static final RegistryObject<Item> SOUL_OF_LIGHT = ITEMS.register("soul_of_light",
             () -> new Item(new Item.Properties()
-                    .stacksTo(64)
+                    .stacksTo(2)
             ));
 
     public static final RegistryObject<Item> PURE_DARKNESS = ITEMS.register("pure_darkness",
             () -> new Item(new Item.Properties()
-                    .stacksTo(64)
+                    .stacksTo(2)
             ));
 
     // normal materials
@@ -490,6 +503,51 @@ public class ModItems {
                     .stacksTo(64)
             ));
 
+    // Element Crystal
+    public static final RegistryObject<Item> WIND_CRYSTAL = ITEMS.register("wind_crystal",
+            () -> new Item(new Item.Properties()
+                    .stacksTo(4)
+            ));
+
+    public static final RegistryObject<Item> FIRE_CRYSTAL = ITEMS.register("fire_crystal",
+            () -> new Item(new Item.Properties()
+                    .stacksTo(4)
+            ));
+
+    public static final RegistryObject<Item> SLIVER_CRYSTAL = ITEMS.register("sliver_crystal",
+            () -> new Item(new Item.Properties()
+                    .stacksTo(4)
+            ));
+
+    public static final RegistryObject<Item> PARASITISM_CRYSTAL = ITEMS.register("parasitism_crystal",
+            () -> new Item(new Item.Properties()
+                    .stacksTo(4)
+            ));
+
+    public static final RegistryObject<Item> DEPRAVITY_CRYSTAL = ITEMS.register("depravity_crystal",
+            () -> new Item(new Item.Properties()
+                    .stacksTo(4)
+            ));
+
+    public static final RegistryObject<Item> APOTHEOSIS_CRYSTAL = ITEMS.register("apotheosis_crystal",
+            () -> new Item(new Item.Properties()
+                    .stacksTo(4)
+            ));
+
+    public static final RegistryObject<Item> ETERNAL_LIGHT_CRYSTAL = ITEMS.register("eternal_light_crystal",
+            () -> new Item(new Item.Properties()
+                    .stacksTo(4)
+            ));
+
+    public static final RegistryObject<Item> FOREVER_DARK_CRYSTAL = ITEMS.register("forever_dark_crystal",
+            () -> new Item(new Item.Properties()
+                    .stacksTo(4)
+            ));
+
+    public static final RegistryObject<Item> VOID_CRYSTAL = ITEMS.register("void_crystal",
+            () -> new Item(new Item.Properties()
+                    .stacksTo(4)
+            ));
 
 
     public static void register(IEventBus eventBus) {

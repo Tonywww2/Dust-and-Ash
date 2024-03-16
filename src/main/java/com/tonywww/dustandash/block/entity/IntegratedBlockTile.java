@@ -17,8 +17,10 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.BeaconMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BeaconBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.core.Direction;
@@ -157,8 +159,6 @@ public class IntegratedBlockTile extends SyncedBlockEntity implements MenuProvid
         if (level.getBlockState(pos.below(2)).getBlock() == Blocks.BEACON) {
             //TODO
 //            BlockState blockState = level.getBlockState(pos.below(2));
-//            BeaconBlockEntity beacon = (BeaconBlockEntity) level.getBlockEntity(pos.below(2));
-//            beacon.
 
             return true;
 

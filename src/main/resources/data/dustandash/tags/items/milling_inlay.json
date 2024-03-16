@@ -9,12 +9,19 @@
     "minecraft:repeater",
     "minecraft:string",
     "minecraft:redstone_torch",
+    "minecraft:netherite_scrap",
+    "minecraft:blaze_rod",
     "dustandash:ash_steel_ingot",
     "dustandash:basic_machine_frame",
     "dustandash:titanium_tungsten_alloy",
     "dustandash:titanium_aluminum_alloy",
     "dustandash:carbon_fiber",
-    "dustandash:carbon_dust"
+    "dustandash:carbon_dust",
+    "dustandash:soul_of_light",
+    "dustandash:pure_darkness",
+    "dustandash:graphite_electrode",
+    "minecraft:white_carpet",
+    "minecraft:feather"
   ]
 
 }

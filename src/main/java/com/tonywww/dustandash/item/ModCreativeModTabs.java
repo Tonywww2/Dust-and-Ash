@@ -63,6 +63,19 @@ public class ModCreativeModTabs {
                         pOutput.accept(ModItems.BLOODY_FLINT.get());
                         pOutput.accept(ModItems.BLOODY_FLINT_STICK.get());
 
+                        pOutput.accept(ModItems.WIND_CRYSTAL.get());
+                        pOutput.accept(ModItems.FIRE_CRYSTAL.get());
+                        pOutput.accept(ModItems.SLIVER_CRYSTAL.get());
+                        pOutput.accept(ModItems.PARASITISM_CRYSTAL.get());
+                        pOutput.accept(ModItems.DEPRAVITY_CRYSTAL.get());
+                        pOutput.accept(ModItems.APOTHEOSIS_CRYSTAL.get());
+                        pOutput.accept(ModItems.ETERNAL_LIGHT_CRYSTAL.get());
+                        pOutput.accept(ModItems.FOREVER_DARK_CRYSTAL.get());
+                        pOutput.accept(ModItems.VOID_CRYSTAL.get());
+
+                        pOutput.accept(ModItems.GALE_OTAIJUTSU.get());
+                        pOutput.accept(ModItems.SUNBURN_MEGA_SWORD.get());
+
                     })
                     .build());
 
