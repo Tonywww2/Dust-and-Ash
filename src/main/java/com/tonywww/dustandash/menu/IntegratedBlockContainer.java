@@ -9,7 +9,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
@@ -33,7 +33,7 @@ public class IntegratedBlockContainer extends AbstractContainerMenu {
         layoutPlayerInventorySlots(8, 86);
 
         if (tileEntity != null) {
-            tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(h -> {
+            tileEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(h -> {
                 addSlot(new SlotItemHandler(h, 0, 36, 42));
                 addSlot(new SlotItemHandler(h, 1, 124, 42));
 
@@ -86,7 +86,7 @@ public class IntegratedBlockContainer extends AbstractContainerMenu {
     private static IntegratedBlockTile getTileEntity(final Inventory playerInventory, final FriendlyByteBuf data) {
         Objects.requireNonNull(playerInventory, "playerInventory cannot be null");
         Objects.requireNonNull(data, "data cannot be null");
-        final BlockEntity tileAtPos = playerInventory.player.level.getBlockEntity(data.readBlockPos());
+        final BlockEntity tileAtPos = playerInventory.player.level().getBlockEntity(data.readBlockPos());
         if (tileAtPos instanceof IntegratedBlockTile) {
             return (IntegratedBlockTile) tileAtPos;
         }
@@ -99,7 +99,7 @@ public class IntegratedBlockContainer extends AbstractContainerMenu {
 //        } else {
 //            throw new IllegalStateException("Container provider is missing");
 //        }
-        return ((IntegratedBlockTile) tileEntity).getStructureLevel(tileEntity.getLevel(), tileEntity.getBlockPos());
+        return IntegratedBlockTile.getStructureLevel(tileEntity.getLevel(), tileEntity.getBlockPos());
 
     }
 
@@ -109,7 +109,7 @@ public class IntegratedBlockContainer extends AbstractContainerMenu {
 //        } else {
 //            throw new IllegalStateException("Container provider is missing");
 //        }
-        return ((IntegratedBlockTile) tileEntity).isBeaconOn(tileEntity.getLevel(), tileEntity.getBlockPos());
+        return IntegratedBlockTile.isBeaconOn(tileEntity.getLevel(), tileEntity.getBlockPos());
 
     }
 

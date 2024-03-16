@@ -1,11 +1,11 @@
 package com.tonywww.dustandash.data.recipes;
 
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.tonywww.dustandash.DustAndAsh;
 import com.tonywww.dustandash.block.ModBlocks;
 import com.tonywww.dustandash.item.ModItems;
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
@@ -13,7 +13,6 @@ import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import javax.annotation.Nullable;
 
@@ -53,7 +52,7 @@ public class IntegratedBlockRecipe implements Recipe<Container> {
     }
 
     @Override
-    public ItemStack assemble(Container pInv) {
+    public ItemStack assemble(Container pInv, RegistryAccess pRegistryAccess) {
         return output.copy();
     }
 
@@ -63,7 +62,7 @@ public class IntegratedBlockRecipe implements Recipe<Container> {
     }
 
     @Override
-    public ItemStack getResultItem() {
+    public ItemStack getResultItem(RegistryAccess pRegistryAccess) {
         return output;
     }
 
@@ -101,7 +100,7 @@ public class IntegratedBlockRecipe implements Recipe<Container> {
 
     }
 
-    public static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<IntegratedBlockRecipe> {
+    public static class Serializer implements RecipeSerializer<IntegratedBlockRecipe> {
 
         public static final Serializer INSTANCE = new Serializer();
         public static final ResourceLocation ID = new ResourceLocation(DustAndAsh.MOD_ID, "integrate");
@@ -168,7 +167,7 @@ public class IntegratedBlockRecipe implements Recipe<Container> {
 
             }
             // 3 writeItem
-            pBuffer.writeItemStack(pRecipe.getResultItem(), false);
+            pBuffer.writeItemStack(pRecipe.getResultItem(null), false);
 
         }
 

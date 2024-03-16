@@ -5,7 +5,7 @@ import net.minecraftforge.common.ForgeConfigSpec;
 public final class DustAndAshConfig {
 
     public static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
-    public static final ForgeConfigSpec SPEC;
+    public static final ForgeConfigSpec COMMON_CONFIG;
 
     public static final ForgeConfigSpec.ConfigValue<Double> dustSourceChancePerTick;
     public static final ForgeConfigSpec.ConfigValue<Double> dustSourceChancePerBlock;
@@ -17,7 +17,8 @@ public final class DustAndAshConfig {
     public static final ForgeConfigSpec.ConfigValue<Double> ironVacuumConsumeRate;
 
     static {
-        BUILDER.push("Config for Dust and Ash");
+
+        BUILDER.comment("Config for Dust and Ash").push("General");
 
         dustSourceChancePerTick = BUILDER.comment("\nThe chance of active a dust generating cycle per tick. Range[0, 1] Default: 0.3").defineInRange("dustSourceChancePerTick", 0.4d, 0d, 1d);
         dustSourceChancePerBlock = BUILDER.comment("\nThe chance of generate a dust per block. Range[0, 1] Default: 0.4").defineInRange("dustSourceChancePerBlock", 0.4d, 0d, 1d);
@@ -32,7 +33,7 @@ public final class DustAndAshConfig {
         ironVacuumConsumeRate = BUILDER.comment("\nThe chance of consume a fuel per use. Range[0, 1] Default: 0.35").defineInRange("ironVacuumConsumeRate", 0.35d, 0, 1);
 
         BUILDER.pop();
-        SPEC = BUILDER.build();
+        COMMON_CONFIG = BUILDER.build();
 
     }
 

@@ -1,7 +1,6 @@
 package com.tonywww.dustandash.item.custom;
 
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.SwordItem;
@@ -15,6 +14,7 @@ import net.minecraft.world.level.Level;
 
 import javax.annotation.Nullable;
 import java.util.List;
+
 
 public class TitaniumAlloyGreatSword extends SwordItem {
     public TitaniumAlloyGreatSword(Tier pTier, int pAttackDamageModifier, float pAttackSpeedModifier, Properties pProperties) {
@@ -35,7 +35,7 @@ public class TitaniumAlloyGreatSword extends SwordItem {
     @Override
     public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltip, TooltipFlag pFlag) {
 
-        pTooltip.add(new TranslatableComponent("tooltip.dustandash.titanium_alloy_great_sword"));
+        pTooltip.add(Component.translatable("tooltip.dustandash.titanium_alloy_great_sword"));
 
         super.appendHoverText(pStack, pLevel, pTooltip, pFlag);
     }

@@ -9,6 +9,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.LevelData;
 import net.minecraft.world.level.storage.ServerLevelData;
 
+import net.minecraft.world.item.Item.Properties;
+
 public class SunCrystal extends Item {
     public SunCrystal(Properties pProperties) {
         super(pProperties);

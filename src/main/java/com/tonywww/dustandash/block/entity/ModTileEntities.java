@@ -10,7 +10,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 public class ModTileEntities {
 
-    public static DeferredRegister<BlockEntityType<?>> TILE_ENTITIES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITIES, DustAndAsh.MOD_ID);
+    public static DeferredRegister<BlockEntityType<?>> TILE_ENTITIES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, DustAndAsh.MOD_ID);
 
     public static RegistryObject<BlockEntityType<IntegratedBlockTile>> INTEGRATED_BLOCK_TILE =
             TILE_ENTITIES.register("integrated_block",

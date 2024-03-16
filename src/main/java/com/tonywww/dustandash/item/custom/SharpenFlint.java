@@ -22,7 +22,6 @@ public class SharpenFlint extends Item {
 
         Level world = context.getLevel();
 
-
         return super.onItemUseFirst(stack, context);
     }
 
@@ -31,7 +30,8 @@ public class SharpenFlint extends Item {
         if (!world.isClientSide) {
             ItemStack item = player.getMainHandItem();
             if (item.getItem() == this && player.invulnerableTime <= 0 && item.getCount() > 0) {
-                player.hurt(ModDamageSource.SHARPEN_FLINT, 2.0f);
+                //TODO ModDamageSources
+                player.hurt(world.damageSources().magic(), 2.0f);
                 world.addFreshEntity(new ItemEntity(
                         world,
                         player.getX(),

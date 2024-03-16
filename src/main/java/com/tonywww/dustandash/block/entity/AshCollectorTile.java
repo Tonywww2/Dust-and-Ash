@@ -5,7 +5,7 @@ import com.tonywww.dustandash.item.ModItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -20,8 +20,8 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 
 import javax.annotation.Nonnull;
@@ -71,7 +71,7 @@ public class AshCollectorTile extends SyncedBlockEntity implements MenuProvider{
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-        if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+        if (cap == ForgeCapabilities.ITEM_HANDLER) {
             return this.handler.cast();
 
         }
@@ -91,8 +91,8 @@ public class AshCollectorTile extends SyncedBlockEntity implements MenuProvider{
     }
 
     @Override
-    public TranslatableComponent getDisplayName() {
-        return new TranslatableComponent("screen.dustandash.ash_collector");
+    public Component getDisplayName() {
+        return Component.translatable("screen.dustandash.ash_collector");
     }
 
     @Nullable

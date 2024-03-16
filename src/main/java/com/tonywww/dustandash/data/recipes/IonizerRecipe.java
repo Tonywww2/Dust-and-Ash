@@ -6,7 +6,7 @@ import com.tonywww.dustandash.DustAndAsh;
 import com.tonywww.dustandash.block.ModBlocks;
 import com.tonywww.dustandash.item.ModItems;
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.Registry;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
@@ -18,7 +18,7 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.registries.ForgeRegistryEntry;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
 
@@ -72,7 +72,7 @@ public class IonizerRecipe implements Recipe<Container> {
     }
 
     @Override
-    public ItemStack assemble(Container pInv) {
+    public ItemStack assemble(Container pInv, RegistryAccess pRegistryAccess) {
         return null;
     }
 
@@ -82,7 +82,7 @@ public class IonizerRecipe implements Recipe<Container> {
     }
 
     @Override
-    public ItemStack getResultItem() {
+    public ItemStack getResultItem(RegistryAccess pRegistryAccess) {
         return ItemStack.EMPTY;
     }
 
@@ -139,7 +139,7 @@ public class IonizerRecipe implements Recipe<Container> {
         public static final String ID = "ionizer";
     }
 
-    public static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<IonizerRecipe> {
+    public static class Serializer implements RecipeSerializer<IonizerRecipe> {
 
         public static final Serializer INSTANCE = new Serializer();
         public static final ResourceLocation ID = new ResourceLocation(DustAndAsh.MOD_ID, "ionizer");
@@ -175,7 +175,7 @@ public class IonizerRecipe implements Recipe<Container> {
 //            }
 
             if (inputBlockStr != ModItems.EMPTY.getId()) {
-                inputBlock = Registry.BLOCK.get(inputBlockStr);
+                inputBlock = ForgeRegistries.BLOCKS.getValue(inputBlockStr);
 
             }
 
@@ -190,7 +190,7 @@ public class IonizerRecipe implements Recipe<Container> {
             }
 
             if (outputBlockStr != ModItems.EMPTY.getId()) {
-                outputBlock = Registry.BLOCK.get(outputBlockStr);
+                outputBlock = ForgeRegistries.BLOCKS.getValue(outputBlockStr);
 
             }
 
@@ -211,7 +211,7 @@ public class IonizerRecipe implements Recipe<Container> {
 
             }
             // 2 inputBlock
-            Block inputBlock = Registry.BLOCK.get(pBuffer.readResourceLocation());
+            Block inputBlock = ForgeRegistries.BLOCKS.getValue(pBuffer.readResourceLocation());
             System.out.println("inputBlock: " + inputBlock);
 
             // 3 outputs
@@ -232,7 +232,7 @@ public class IonizerRecipe implements Recipe<Container> {
             boolean costElectrodes = pBuffer.readBoolean();
 
             // 6 outputBlock
-            Block outputBlock = Registry.BLOCK.get(pBuffer.readResourceLocation());
+            Block outputBlock = ForgeRegistries.BLOCKS.getValue(pBuffer.readResourceLocation());
             System.out.println("outputBlock: " + outputBlock);
 
             return new IonizerRecipe(pRecipeId, inputs, inputBlock, outputs, cost, tick, costElectrodes, outputBlock);
@@ -248,7 +248,8 @@ public class IonizerRecipe implements Recipe<Container> {
                 i.toNetwork(pBuffer);
             }
             // 2 inputBlock
-            pBuffer.writeResourceLocation(pRecipe.inputBlock.getRegistryName());
+//            pBuffer.writeResourceLocation(pRecipe.inputBlock.getRegistryName());
+            pBuffer.writeResourceLocation(ForgeRegistries.BLOCKS.getKey(pRecipe.inputBlock));
 
             // 3 outputs
             pBuffer.writeVarInt(pRecipe.getResultItemStacks().size());
@@ -265,7 +266,8 @@ public class IonizerRecipe implements Recipe<Container> {
             pBuffer.writeBoolean(pRecipe.costElectrodes);
 
             // 6 outputBlock
-            pBuffer.writeResourceLocation(pRecipe.outputBlock.getRegistryName());
+//            pBuffer.writeResourceLocation(pRecipe.outputBlock.getRegistryName());
+            pBuffer.writeResourceLocation(ForgeRegistries.BLOCKS.getKey(pRecipe.outputBlock));
 
         }
 

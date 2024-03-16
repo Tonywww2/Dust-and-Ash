@@ -7,7 +7,7 @@ import com.tonywww.dustandash.util.ModTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Container;
@@ -17,17 +17,15 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.inventory.BeaconMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BeaconBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.core.Direction;
 import net.minecraft.world.phys.AABB;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 
 import javax.annotation.Nonnull;
@@ -100,7 +98,7 @@ public class IntegratedBlockTile extends SyncedBlockEntity implements MenuProvid
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-        if (!this.remove && cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+        if (!this.remove && cap == ForgeCapabilities.ITEM_HANDLER) {
             if (side == null || side == Direction.DOWN) {
                 return this.handler.cast();
 
@@ -169,8 +167,8 @@ public class IntegratedBlockTile extends SyncedBlockEntity implements MenuProvid
     }
 
     @Override
-    public TranslatableComponent getDisplayName() {
-        return new TranslatableComponent("screen.dustandash.integrated_block");
+    public Component getDisplayName() {
+        return Component.translatable("screen.dustandash.integrated_block");
     }
 
     @Nullable
@@ -240,7 +238,7 @@ public class IntegratedBlockTile extends SyncedBlockEntity implements MenuProvid
         Optional<IntegratedBlockRecipe> recipe = level.getRecipeManager().getRecipeFor(IntegratedBlockRecipe.IntegrateRecipeType.INSTANCE, inv, level);
 
         recipe.ifPresent(iRecipe -> {
-            ItemStack output = iRecipe.getResultItem();
+            ItemStack output = iRecipe.getResultItem(null);
 
             if (be.currentLevel >= iRecipe.getLevel()) {
                 // crafting

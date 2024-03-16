@@ -3,13 +3,12 @@ package com.tonywww.dustandash.block.entity;
 import com.tonywww.dustandash.menu.CentrifugeContainer;
 import com.tonywww.dustandash.menu.CentrifugeItemHandler;
 import com.tonywww.dustandash.data.recipes.CentrifugeRecipe;
-import com.tonywww.dustandash.data.recipes.ModRecipe;
 import com.tonywww.dustandash.util.ModTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Container;
@@ -23,8 +22,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 
 import javax.annotation.Nonnull;
@@ -139,7 +138,7 @@ public class CentrifugeTile extends SyncedBlockEntity implements MenuProvider {
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-        if (!this.remove && cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+        if (!this.remove && cap == ForgeCapabilities.ITEM_HANDLER) {
             if (side == null) {
                 return this.handler.cast();
             }
@@ -155,8 +154,8 @@ public class CentrifugeTile extends SyncedBlockEntity implements MenuProvider {
     }
 
     @Override
-    public TranslatableComponent getDisplayName() {
-        return new TranslatableComponent("screen.dustandash.centrifuge");
+    public Component getDisplayName() {
+        return Component.translatable("screen.dustandash.centrifuge");
     }
 
     @Nullable

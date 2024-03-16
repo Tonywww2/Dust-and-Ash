@@ -27,6 +27,8 @@ import net.minecraftforge.network.NetworkHooks;
 import javax.annotation.Nullable;
 
 
+import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
+
 public class Ionizer extends BaseEntityBlock {
 
     public Ionizer(Properties properties) {
@@ -79,7 +81,7 @@ public class Ionizer extends BaseEntityBlock {
             BlockEntity tileEntity = pLevel.getBlockEntity(pPos);
 
             if (tileEntity instanceof IonizerTile) {
-                NetworkHooks.openGui((ServerPlayer) pPlayer, (IonizerTile) tileEntity, pPos);
+                NetworkHooks.openScreen((ServerPlayer) pPlayer, (IonizerTile) tileEntity, pPos);
             } else {
                 throw new IllegalStateException("Container provider is missing");
             }

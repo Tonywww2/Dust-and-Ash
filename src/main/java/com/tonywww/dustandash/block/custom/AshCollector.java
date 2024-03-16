@@ -26,6 +26,8 @@ import net.minecraftforge.network.NetworkHooks;
 
 import javax.annotation.Nullable;
 
+import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
+
 public class AshCollector extends BaseEntityBlock {
     public AshCollector(Properties properties) {
         super(properties);

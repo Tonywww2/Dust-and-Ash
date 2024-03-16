@@ -16,24 +16,24 @@ public class ModRecipe {
 
     }
 
-    public static RecipeType<IntegratedBlockRecipe> INTEGRATE_RECIPE = new IntegratedBlockRecipe.IntegrateRecipeType();
-
-    public static RecipeType<MillingMachineRecipe> MILLING_RECIPE = new MillingMachineRecipe.MillingRecipeType();
-
-    public static RecipeType<CentrifugeRecipe> CENTRIFUGE_RECIPE = new CentrifugeRecipe.CentrifugeRecipeType();
-
-    public static RecipeType<IonizerRecipe> IONIZER_RECIPE = new IonizerRecipe.IonizerRecipeType();
+//    public static RecipeType<IntegratedBlockRecipe> INTEGRATE_RECIPE = new IntegratedBlockRecipe.IntegrateRecipeType();
+//
+//    public static RecipeType<MillingMachineRecipe> MILLING_RECIPE = new MillingMachineRecipe.MillingRecipeType();
+//
+//    public static RecipeType<CentrifugeRecipe> CENTRIFUGE_RECIPE = new CentrifugeRecipe.CentrifugeRecipeType();
+//
+//    public static RecipeType<IonizerRecipe> IONIZER_RECIPE = new IonizerRecipe.IonizerRecipeType();
 
     public static final RegistryObject<IntegratedBlockRecipe.Serializer> INTEGRATE_SERIALIZER =
-            RECIPE_TYPE.register("integrate", IntegratedBlockRecipe.Serializer::new);
+            RECIPE_TYPE.register("integrate", () -> IntegratedBlockRecipe.Serializer.INSTANCE);
 
     public static final RegistryObject<MillingMachineRecipe.Serializer> MILLING_SERIALIZER =
             RECIPE_TYPE.register("milling", () -> MillingMachineRecipe.Serializer.INSTANCE);
 
     public static final RegistryObject<CentrifugeRecipe.Serializer> CENTRIFUGE_SERIALIZER =
-            RECIPE_TYPE.register("centrifuge", CentrifugeRecipe.Serializer::new);
+            RECIPE_TYPE.register("centrifuge", () -> CentrifugeRecipe.Serializer.INSTANCE);
 
     public static final RegistryObject<IonizerRecipe.Serializer> IONIZER_SERIALIZER =
-            RECIPE_TYPE.register("ionizer", IonizerRecipe.Serializer::new);
+            RECIPE_TYPE.register("ionizer", () -> IonizerRecipe.Serializer.INSTANCE);
 
 }

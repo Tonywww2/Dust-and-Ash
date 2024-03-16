@@ -135,9 +135,9 @@
 
   "death.attack.sharpen_flint" : "%1$s 的血流干了......",
 
-  "itemGroup.dust_tab": "尘与烬：尘",
-  "itemGroup.ash_tab": "尘与烬：烬",
-  "itemGroup.blocks_tab": "尘与烬：方块",
+  "creativetab.dust_tab": "尘与烬：尘",
+  "creativetab.ash_tab": "尘与烬：烬",
+  "creativetab.blocks_tab": "尘与烬：方块",
 
   "tooltip.dustandash.titanium_alloy_sword": "\u00A77 攻击后，给予玩家 \n 速度, \n 幸运, \n 海豚的恩惠, \n给予目标 \n 缓慢。",
   "tooltip.dustandash.titanium_alloy_great_sword": "\u00A7 攻击后，给予玩家 \n 抗性提升, \n给予目标 \n 虚弱。",

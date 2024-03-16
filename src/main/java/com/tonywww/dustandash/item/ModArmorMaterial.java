@@ -1,41 +1,59 @@
 package com.tonywww.dustandash.item;
 
 import com.tonywww.dustandash.DustAndAsh;
+import net.minecraft.Util;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.util.LazyLoadedValue;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraft.world.item.crafting.Ingredient;
 
+import java.util.EnumMap;
 import java.util.function.Supplier;
 
 public enum ModArmorMaterial implements ArmorMaterial {
 
-    ASH_STEEL("ash_steel", 30, new int[]{2, 6, 7, 2}, 10, SoundEvents.ARMOR_EQUIP_IRON, 1.0F, 0.05F, () -> {
+    ASH_STEEL("ash_steel", 30, Util.make(new EnumMap<>(ArmorItem.Type.class), (arr) -> {
+        arr.put(ArmorItem.Type.BOOTS, 2);
+        arr.put(ArmorItem.Type.LEGGINGS, 6);
+        arr.put(ArmorItem.Type.CHESTPLATE, 7);
+        arr.put(ArmorItem.Type.HELMET, 2);
+    }), 10, SoundEvents.ARMOR_EQUIP_IRON, 1.0F, 0.05F, () -> {
         return Ingredient.of(ModItems.ASH_STEEL_INGOT.get());
     }),
-    TITANIUM("titanium", 37, new int[]{4, 7, 7, 4}, 22, SoundEvents.ARMOR_EQUIP_NETHERITE, 2.25F, 0.15F, () -> {
+    TITANIUM("titanium", 37, Util.make(new EnumMap<>(ArmorItem.Type.class), (arr) -> {
+        arr.put(ArmorItem.Type.BOOTS, 4);
+        arr.put(ArmorItem.Type.LEGGINGS, 7);
+        arr.put(ArmorItem.Type.CHESTPLATE, 7);
+        arr.put(ArmorItem.Type.HELMET, 4);
+    }), 22, SoundEvents.ARMOR_EQUIP_NETHERITE, 2.25F, 0.15F, () -> {
         return Ingredient.of(ModItems.TITANIUM_INGOT.get());
     })
     ;
 
-    private static final int[] HEALTH_PER_SLOT = new int[]{13, 15, 16, 11};
+    private static final EnumMap<ArmorItem.Type, Integer> HEALTH_FUNCTION_FOR_TYPE = Util.make(new EnumMap<>(ArmorItem.Type.class), (p_266653_) -> {
+        p_266653_.put(ArmorItem.Type.BOOTS, 13);
+        p_266653_.put(ArmorItem.Type.LEGGINGS, 15);
+        p_266653_.put(ArmorItem.Type.CHESTPLATE, 16);
+        p_266653_.put(ArmorItem.Type.HELMET, 11);
+    });
     private final String name;
     private final int durabilityMultiplier;
-    private final int[] slotProtections;
+    private final EnumMap<ArmorItem.Type, Integer> protectionFunctionForType;
     private final int enchantmentValue;
     private final SoundEvent sound;
     private final float toughness;
     private final float knockbackResistance;
     private final LazyLoadedValue<Ingredient> repairIngredient;
 
-    private ModArmorMaterial(String pName, int pDurabilityMultiplier, int[] pSlotProtections, int pEnchantmentValue, SoundEvent pSound, float pToughness, float pKnockbackResistance, Supplier<Ingredient> pRepairIngredient) {
+    private ModArmorMaterial(String pName, int pDurabilityMultiplier, EnumMap<ArmorItem.Type, Integer> protectionFunctionForType, int pEnchantmentValue, SoundEvent pSound, float pToughness, float pKnockbackResistance, Supplier<Ingredient> pRepairIngredient) {
         this.name = pName;
         this.durabilityMultiplier = pDurabilityMultiplier;
-        this.slotProtections = pSlotProtections;
+        this.protectionFunctionForType = protectionFunctionForType;
         this.enchantmentValue = pEnchantmentValue;
         this.sound = pSound;
         this.toughness = pToughness;
@@ -43,12 +61,14 @@ public enum ModArmorMaterial implements ArmorMaterial {
         this.repairIngredient = new LazyLoadedValue<>(pRepairIngredient);
     }
 
-    public int getDurabilityForSlot(EquipmentSlot pSlot) {
-        return HEALTH_PER_SLOT[pSlot.getIndex()] * this.durabilityMultiplier;
+    @Override
+    public int getDurabilityForType(ArmorItem.Type p_266807_) {
+        return HEALTH_FUNCTION_FOR_TYPE.get(p_266807_) * this.durabilityMultiplier;
     }
 
-    public int getDefenseForSlot(EquipmentSlot pSlot) {
-        return this.slotProtections[pSlot.getIndex()];
+    @Override
+    public int getDefenseForType(ArmorItem.Type type) {
+        return this.protectionFunctionForType.get(type);
     }
 
     public int getEnchantmentValue() {

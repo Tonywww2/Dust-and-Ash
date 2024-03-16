@@ -5,7 +5,6 @@ import com.tonywww.dustandash.config.DustAndAshConfig;
 import com.tonywww.dustandash.loottables.ModLootTables;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -20,6 +19,7 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 
@@ -27,9 +27,12 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Objects;
 
+import net.minecraft.world.item.Item.Properties;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
+
 public class HandVacuum extends Item {
 
-    private double successRate = DustAndAshConfig.handVacuumSuccessRate.get();
+    private double successRate;
 
     public HandVacuum(Properties properties) {
         super(properties);
@@ -60,12 +63,14 @@ public class HandVacuum extends Item {
 
         if (blockState.getBlock().equals(ModBlocks.DUST.get()) && !playerEntity.getCooldowns().isOnCooldown(this)) {
 
+            successRate = DustAndAshConfig.handVacuumSuccessRate.get();
+
             //successful rate
             if (world.random.nextDouble() < successRate) {
                 //succeed
                 playerEntity.getCooldowns().addCooldown(this, 15);
                 world.setBlock(blockPos, Blocks.AIR.defaultBlockState(), 2);
-                retrieve(blockPos, world);
+                retrieve(blockPos, world, playerEntity);
 
                 world.playSound(null, blockPos, SoundEvents.IRON_GOLEM_HURT, SoundSource.BLOCKS, 1f, 1f);
                 return true;
@@ -85,21 +90,23 @@ public class HandVacuum extends Item {
     }
 
 
-    private void retrieve(BlockPos blockPos, Level world) {
-        LootContext.Builder builder = new LootContext.Builder((ServerLevel) world).withRandom(world.random);
-        //Different
-        LootTable lootTable = world.getServer().getLootTables().get(ModLootTables.HAND_VACUUM);
-        List<ItemStack> list = lootTable.getRandomItems(builder.create(LootContextParamSets.EMPTY));
+    private void retrieve(BlockPos blockPos, Level level, Player playerEntity) {
+        LootParams lootparams = (new LootParams.Builder((ServerLevel) level))
+                .withLuck(playerEntity.getLuck())
+                .create(LootContextParamSets.EMPTY);
+
+        LootTable lootTable = level.getServer().getLootData().getLootTable(ModLootTables.HAND_VACUUM);
+        List<ItemStack> list = lootTable.getRandomItems(lootparams);
 
         for (ItemStack i : list) {
             ItemEntity itemEntity = new ItemEntity(
-                    world,
+                    level,
                     blockPos.getX() + 0.5f,
                     blockPos.getY() + 0.5f,
                     blockPos.getZ() + 0.5f,
                     i
             );
-            world.addFreshEntity(itemEntity);
+            level.addFreshEntity(itemEntity);
 
         }
 
@@ -108,7 +115,7 @@ public class HandVacuum extends Item {
     @Override
     public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltip, TooltipFlag pFlag) {
 
-        pTooltip.add(new TranslatableComponent("tooltip.dustandash.hand_vacuum"));
+        pTooltip.add(Component.translatable("tooltip.dustandash.hand_vacuum"));
 
         super.appendHoverText(pStack, pLevel, pTooltip, pFlag);
     }

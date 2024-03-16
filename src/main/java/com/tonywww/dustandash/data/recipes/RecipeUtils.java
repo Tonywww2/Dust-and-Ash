@@ -28,7 +28,7 @@ public class RecipeUtils {
                     continue;
                 }
             }
-            if (ForgeConfig.SERVER.skipEmptyShapelessCheck.get() || !ingredient.isEmpty()) {
+            if (!ingredient.isEmpty()) {
                 nonnulllist.set(i, ingredient);
 
             }

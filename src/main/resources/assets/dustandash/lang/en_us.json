@@ -135,9 +135,9 @@
 
   "death.attack.sharpen_flint" : "%1$s's blood ran dry",
 
-  "itemGroup.dust_tab": "Dust and Ash: Dust",
-  "itemGroup.ash_tab": "Dust and Ash: Ash",
-  "itemGroup.blocks_tab": "Dust and Ash: Blocks",
+  "creativetab.dust_tab": "Dust and Ash: Dust",
+  "creativetab.ash_tab": "Dust and Ash: Ash",
+  "creativetab.blocks_tab": "Dust and Ash: Blocks",
 
   "tooltip.dustandash.titanium_alloy_sword": "\u00A77 Apply \n Speed, \n Luck, \n Dolphin's Grace\nto the player, \n Slowness\nto the target after attack.",
   "tooltip.dustandash.titanium_alloy_great_sword": "\u00A77 Apply \n Damage Resistance\nto the player, \n Weakness \nto the target after attack.",

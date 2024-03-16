@@ -6,7 +6,6 @@ import com.tonywww.dustandash.item.ModItems;
 import com.tonywww.dustandash.loottables.ModLootTables;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -20,7 +19,7 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Tiers;
-import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
@@ -29,9 +28,10 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Objects;
 
+
 public class IronVacuum extends Item {
 
-    private double consumeRate = DustAndAshConfig.ironVacuumConsumeRate.get();
+    private double consumeRate;
 
     public IronVacuum(Properties properties) {
         super(properties);
@@ -66,6 +66,8 @@ public class IronVacuum extends Item {
         BlockPos blockPos = context.getClickedPos();
         BlockState blockState = world.getBlockState(blockPos);
 
+        consumeRate = DustAndAshConfig.ironVacuumConsumeRate.get();
+
         if (blockState.getBlock().equals(ModBlocks.DUST.get())) {
             for (ItemStack i : playerEntity.inventoryMenu.getItems()) {
                 if (i.getItem() == ModItems.DUST_WITH_ENERGY.get() && i.getCount() > 0) {
@@ -76,7 +78,7 @@ public class IronVacuum extends Item {
                     }
                     playerEntity.getCooldowns().addCooldown(this, 5);
                     world.setBlock(blockPos, Blocks.AIR.defaultBlockState(), 2);
-                    retrieve(blockPos, world);
+                    retrieve(blockPos, world, playerEntity);
                     return true;
 
                 }
@@ -91,21 +93,23 @@ public class IronVacuum extends Item {
 
     }
 
-    private void retrieve(BlockPos blockPos, Level world) {
-        LootContext.Builder builder = new LootContext.Builder((ServerLevel) world).withRandom(world.random);
+    private void retrieve(BlockPos blockPos, Level level, Player playerEntity) {
+        LootParams lootparams = (new LootParams.Builder((ServerLevel) level))
+                .withLuck(playerEntity.getLuck())
+                .create(LootContextParamSets.EMPTY);
         //Different
-        LootTable lootTable = world.getServer().getLootTables().get(ModLootTables.IRON_VACUUM);
-        List<ItemStack> list = lootTable.getRandomItems(builder.create(LootContextParamSets.EMPTY));
+        LootTable lootTable = level.getServer().getLootData().getLootTable(ModLootTables.IRON_VACUUM);
+        List<ItemStack> list = lootTable.getRandomItems(lootparams);
 
         for (ItemStack i : list) {
             ItemEntity itemEntity = new ItemEntity(
-                    world,
+                    level,
                     blockPos.getX() + 0.5f,
                     blockPos.getY() + 0.5f,
                     blockPos.getZ() + 0.5f,
                     i
             );
-            world.addFreshEntity(itemEntity);
+            level.addFreshEntity(itemEntity);
 
         }
 
@@ -119,7 +123,7 @@ public class IronVacuum extends Item {
     @Override
     public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltip, TooltipFlag pFlag) {
 
-        pTooltip.add(new TranslatableComponent("tooltip.dustandash.iron_vacuum"));
+        pTooltip.add(Component.translatable("tooltip.dustandash.iron_vacuum"));
 
         super.appendHoverText(pStack, pLevel, pTooltip, pFlag);
     }

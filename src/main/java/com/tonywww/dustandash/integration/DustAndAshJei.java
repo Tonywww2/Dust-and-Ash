@@ -8,6 +8,7 @@ import com.tonywww.dustandash.integration.jei.CentrifugeRecipeCategory;
 import com.tonywww.dustandash.integration.jei.IntegratedBlockRecipeCategory;
 import com.tonywww.dustandash.integration.jei.IonizerCategory;
 import com.tonywww.dustandash.integration.jei.MillingRecipeCategory;
+import com.tonywww.dustandash.menu.ModMenus;
 import com.tonywww.dustandash.screen.CentrifugeScreen;
 import com.tonywww.dustandash.screen.IntegratedBlockScreen;
 import com.tonywww.dustandash.screen.IonizerScreen;
@@ -131,7 +132,7 @@ public class DustAndAshJei implements IModPlugin {
 
     @Override
     public void registerRecipeTransferHandlers(IRecipeTransferRegistration registration) {
-        registration.addRecipeTransferHandler(IntegratedBlockContainer.class, DustAndAshRecipeTypes.INTEGRATE, 36, 8, 0, 36);
+        registration.addRecipeTransferHandler(IntegratedBlockContainer.class, ModMenus.INTEGRATED_BLOCK_CONTAINER.get(), DustAndAshRecipeTypes.INTEGRATE, 36, 8, 0, 36);
 
     }
 

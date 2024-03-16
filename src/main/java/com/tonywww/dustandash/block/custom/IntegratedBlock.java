@@ -28,6 +28,8 @@ import net.minecraftforge.network.NetworkHooks;
 import javax.annotation.Nullable;
 
 
+import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
+
 public class IntegratedBlock extends BaseEntityBlock {
 
     public IntegratedBlock(Properties properties) {
@@ -80,7 +82,7 @@ public class IntegratedBlock extends BaseEntityBlock {
             BlockEntity tileEntity = pLevel.getBlockEntity(pPos);
 
             if (tileEntity instanceof IntegratedBlockTile) {
-                NetworkHooks.openGui((ServerPlayer) pPlayer, (IntegratedBlockTile) tileEntity, pPos);
+                NetworkHooks.openScreen((ServerPlayer) pPlayer, (IntegratedBlockTile) tileEntity, pPos);
             } else {
                 throw new IllegalStateException("Container provider is missing");
             }

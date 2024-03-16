@@ -27,6 +27,8 @@ import net.minecraftforge.network.NetworkHooks;
 import javax.annotation.Nullable;
 
 
+import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
+
 public class Centrifuge extends BaseEntityBlock {
 
     public Centrifuge(Properties properties) {
@@ -79,7 +81,7 @@ public class Centrifuge extends BaseEntityBlock {
             BlockEntity tileEntity = pLevel.getBlockEntity(pPos);
 
             if (tileEntity instanceof CentrifugeTile) {
-                NetworkHooks.openGui((ServerPlayer) pPlayer, (CentrifugeTile) tileEntity, pPos);
+                NetworkHooks.openScreen((ServerPlayer) pPlayer, (CentrifugeTile) tileEntity, pPos);
             } else {
                 throw new IllegalStateException("Container provider is missing");
             }

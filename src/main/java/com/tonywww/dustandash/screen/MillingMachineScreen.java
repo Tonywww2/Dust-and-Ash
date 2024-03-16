@@ -1,11 +1,10 @@
 package com.tonywww.dustandash.screen;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import com.tonywww.dustandash.DustAndAsh;
 import com.tonywww.dustandash.menu.MillingMachineContainer;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
@@ -18,33 +17,33 @@ public class MillingMachineScreen extends AbstractContainerScreen<MillingMachine
     }
 
     @Override
-    public void render(PoseStack pMatrixStack, int pMouseX, int pMouseY, float pPartialTicks) {
-        this.renderBackground(pMatrixStack);
-        super.render(pMatrixStack, pMouseX, pMouseY, pPartialTicks);
-        this.renderTooltip(pMatrixStack, pMouseX, pMouseY);
+    public void render(GuiGraphics guiGraphics, int pMouseX, int pMouseY, float pPartialTicks) {
+        this.renderBackground(guiGraphics);
+        super.render(guiGraphics, pMouseX, pMouseY, pPartialTicks);
+        this.renderTooltip(guiGraphics, pMouseX, pMouseY);
 
     }
 
     @Override
-    protected void renderBg(PoseStack pMatrixStack, float pPartialTicks, int pX, int pY) {
+    protected void renderBg(GuiGraphics guiGraphics, float pPartialTicks, int pX, int pY) {
         if (this.minecraft == null) return;
 
         ScreenUtils.init(GUI);
         int i = this.leftPos;
         int j = this.topPos;
 
-        this.blit(pMatrixStack, i, j, 0, 0, 175, 173);
+        guiGraphics.blit(GUI, i, j, 0, 0, 175, 173);
 
         if (!this.menu.isWorkSpaceEmpty()) {
             // Render workspace
-            this.blit(pMatrixStack, i + 71, j + 3, 0, 173, 97, 82);
+            guiGraphics.blit(GUI, i + 71, j + 3, 0, 173, 97, 82);
 
         }
 
     }
 
     @Override
-    protected void renderLabels(PoseStack pMatrixStack, int pX, int pY) {
+    protected void renderLabels(GuiGraphics guiGraphics, int pX, int pY) {
 
     }
 }

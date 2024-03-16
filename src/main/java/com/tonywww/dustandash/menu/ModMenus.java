@@ -10,7 +10,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 public class ModMenus {
 
-    public static DeferredRegister<MenuType<?>> CONTAINERS = DeferredRegister.create(ForgeRegistries.CONTAINERS, DustAndAsh.MOD_ID);
+    public static DeferredRegister<MenuType<?>> CONTAINERS = DeferredRegister.create(ForgeRegistries.MENU_TYPES, DustAndAsh.MOD_ID);
 
     public static final RegistryObject<MenuType<IntegratedBlockContainer>> INTEGRATED_BLOCK_CONTAINER = CONTAINERS.register("integrated_block_container",
             () -> IForgeMenuType.create(IntegratedBlockContainer::new));

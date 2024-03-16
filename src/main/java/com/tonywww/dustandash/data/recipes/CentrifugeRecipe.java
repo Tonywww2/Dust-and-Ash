@@ -6,6 +6,7 @@ import com.tonywww.dustandash.DustAndAsh;
 import com.tonywww.dustandash.block.ModBlocks;
 import com.tonywww.dustandash.item.ModItems;
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.Container;
@@ -16,14 +17,12 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import javax.annotation.Nullable;
 
 import static com.tonywww.dustandash.data.recipes.RecipeUtils.itemsFromJson;
 
 public class CentrifugeRecipe implements Recipe<Container> {
-
 
     private final ResourceLocation id;
     private final NonNullList<ItemStack> outputItemStacks;
@@ -60,7 +59,7 @@ public class CentrifugeRecipe implements Recipe<Container> {
     }
 
     @Override
-    public ItemStack assemble(Container pInv) {
+    public ItemStack assemble(Container pInv, RegistryAccess pRegistryAccess) {
         return null;
     }
 
@@ -70,7 +69,7 @@ public class CentrifugeRecipe implements Recipe<Container> {
     }
 
     @Override
-    public ItemStack getResultItem() {
+    public ItemStack getResultItem(RegistryAccess pRegistryAccess) {
         return ItemStack.EMPTY;
     }
 
@@ -112,7 +111,7 @@ public class CentrifugeRecipe implements Recipe<Container> {
 
     }
 
-    public static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<CentrifugeRecipe> {
+    public static class Serializer implements RecipeSerializer<CentrifugeRecipe> {
 
         public static final Serializer INSTANCE = new Serializer();
         public static final ResourceLocation ID = new ResourceLocation(DustAndAsh.MOD_ID, "centrifuge");

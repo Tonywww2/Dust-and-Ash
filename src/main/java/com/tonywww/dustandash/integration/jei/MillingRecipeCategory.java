@@ -1,19 +1,24 @@
 package com.tonywww.dustandash.integration.jei;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import com.tonywww.dustandash.DustAndAsh;
 import com.tonywww.dustandash.block.ModBlocks;
 import com.tonywww.dustandash.data.recipes.MillingMachineRecipe;
+import com.tonywww.dustandash.integration.DustAndAshRecipeTypes;
 import mezz.jei.api.constants.VanillaTypes;
-import mezz.jei.api.gui.IRecipeLayout;
+import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
-import mezz.jei.api.gui.ingredient.IGuiItemStackGroup;
+import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
-import mezz.jei.api.ingredients.IIngredients;
+import mezz.jei.api.recipe.IFocusGroup;
+import mezz.jei.api.recipe.RecipeIngredientRole;
+import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+
+import java.util.Arrays;
 
 public class MillingRecipeCategory implements IRecipeCategory<MillingMachineRecipe> {
 
@@ -32,13 +37,8 @@ public class MillingRecipeCategory implements IRecipeCategory<MillingMachineReci
     }
 
     @Override
-    public ResourceLocation getUid() {
-        return UID;
-    }
-
-    @Override
-    public Class<? extends MillingMachineRecipe> getRecipeClass() {
-        return MillingMachineRecipe.class;
+    public RecipeType<MillingMachineRecipe> getRecipeType() {
+        return DustAndAshRecipeTypes.MILLING;
     }
 
     @Override
@@ -56,40 +56,37 @@ public class MillingRecipeCategory implements IRecipeCategory<MillingMachineReci
         return icon;
     }
 
+//    @Override
+//    public void setIngredients(MillingMachineRecipe millingMachineRecipe, IIngredients iIngredients) {
+//        iIngredients.setInputIngredients(millingMachineRecipe.getIngredients());
+//        iIngredients.setOutput(VanillaTypes.ITEM_STACK, millingMachineRecipe.getResultItem());
+//
+//    }
+
     @Override
-    public void setIngredients(MillingMachineRecipe millingMachineRecipe, IIngredients iIngredients) {
-        iIngredients.setInputIngredients(millingMachineRecipe.getIngredients());
-        iIngredients.setOutput(VanillaTypes.ITEM_STACK, millingMachineRecipe.getResultItem());
+    public void setRecipe(IRecipeLayoutBuilder builder, MillingMachineRecipe recipe, IFocusGroup focuses) {
 
-    }
-
-    @Override
-    public void setRecipe(IRecipeLayout iRecipeLayout, MillingMachineRecipe recipe, IIngredients ingredients) {
-
-        IGuiItemStackGroup itemStacks = iRecipeLayout.getItemStacks();
+//        IGuiItemStackGroup itemStacks = iRecipeLayout.getItemStacks();
 
         for (int i = 1; i <= 5; i++) {
             for (int j = 1; j <= 5; j++) {
-                itemStacks.init((5 * i) + j - 3, true, 70 + (16 * j), (16 * i) - 13);
+                if (recipe.isStep1()) {
+                    builder.addSlot(RecipeIngredientRole.OUTPUT, 71 + (16 * j), (16 * i) - 12).addItemStack(recipe.getResultItem(null));
+
+                } else {
+                    builder.addSlot(RecipeIngredientRole.INPUT, 71 + (16 * j), (16 * i) - 12).addItemStacks(Arrays.asList(recipe.getIngredients().get((5 * i) + j - 5).getItems()));
+
+                }
 
             }
         }
 
         if (recipe.isStep1()) {
-            itemStacks.init(0, true, 27, 9);
-            itemStacks.set(0, recipe.getIngredients().get(0).getItems()[0].copy());
-
-            for (int i = 3; i <= 27; i++) {
-                itemStacks.set(i, recipe.getResultItem());
-
-            }
+            builder.addSlot(RecipeIngredientRole.INPUT, 28, 10).addItemStacks(Arrays.asList(recipe.getIngredients().get(0).getItems()));
 
         } else {
-            itemStacks.init(1, true, 27, 37);
-            itemStacks.set(ingredients);
-
-            itemStacks.init(2, false, 27, 65);
-            itemStacks.set(2, recipe.getResultItem());
+            builder.addSlot(RecipeIngredientRole.INPUT, 28, 38).addItemStacks(Arrays.asList(recipe.getIngredients().get(0).getItems()));
+            builder.addSlot(RecipeIngredientRole.OUTPUT, 28, 66).addItemStack(recipe.getResultItem(null));
 
         }
 
@@ -97,8 +94,8 @@ public class MillingRecipeCategory implements IRecipeCategory<MillingMachineReci
     }
 
     @Override
-    public void draw(MillingMachineRecipe recipe, PoseStack matrixStack, double mouseX, double mouseY) {
-        this.wp.draw(matrixStack, 71, 3);
+    public void draw(MillingMachineRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+        this.wp.draw(guiGraphics, 71, 3);
 
     }
 }

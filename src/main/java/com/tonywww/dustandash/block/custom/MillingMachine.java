@@ -28,6 +28,8 @@ import net.minecraftforge.network.NetworkHooks;
 import javax.annotation.Nullable;
 
 
+import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
+
 public class MillingMachine extends BaseEntityBlock {
 
     public MillingMachine(Properties properties) {
@@ -80,7 +82,7 @@ public class MillingMachine extends BaseEntityBlock {
             BlockEntity tileEntity = pLevel.getBlockEntity(pPos);
 
             if (tileEntity instanceof MillingMachineTile) {
-                NetworkHooks.openGui((ServerPlayer) pPlayer, (MillingMachineTile) tileEntity, pPos);
+                NetworkHooks.openScreen((ServerPlayer) pPlayer, (MillingMachineTile) tileEntity, pPos);
             } else {
                 throw new IllegalStateException("Container provider is missing");
             }
