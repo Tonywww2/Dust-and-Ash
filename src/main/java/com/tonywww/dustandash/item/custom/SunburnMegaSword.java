@@ -1,5 +1,7 @@
 package com.tonywww.dustandash.item.custom;
 
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -34,8 +36,17 @@ public class SunburnMegaSword extends SwordItem {
 
         }
         if (!player.getCooldowns().isOnCooldown(this)) {
-            Explosion explosion = new Explosion(player.level(), player, entity.getX(), entity.getY() - 0.25d, entity.getZ(), 3, true, Explosion.BlockInteraction.KEEP);
+            Explosion explosion = new Explosion(player.level(), player, player.getX(), player.getY() + 0.125d, player.getZ(), 2.25f, true, Explosion.BlockInteraction.KEEP);
             player.level().playSound(null, player.blockPosition(), SoundEvents.GENERIC_EXPLODE, SoundSource.PLAYERS, 1f, 1f);
+            player.level().addParticle(
+                    ParticleTypes.EXPLOSION,
+                    player.getX() + 0.5d,
+                    player.getY() + 0.25d,
+                    player.getZ() + 0.5d,
+                    0,
+                    0,
+                    0
+            );
             explosion.explode();
             player.getCooldowns().addCooldown(this, 40);
 
