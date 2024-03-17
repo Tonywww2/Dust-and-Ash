@@ -41,7 +41,7 @@ public class EchoActivator extends Item {
                 }
 
             } else if (blockState.getBlock() == Blocks.CAKE) {
-                level.setBlock(blockPos, blockState.setValue(BlockStateProperties.CAN_SUMMON, Boolean.valueOf(true)), 3);
+                level.setBlock(blockPos, Blocks.SCULK_SHRIEKER.defaultBlockState().setValue(BlockStateProperties.CAN_SUMMON, Boolean.valueOf(true)), 3);
                 stack.hurtAndBreak(1, playerEntity, player -> player.broadcastBreakEvent(player.getUsedItemHand()));
 
             }
