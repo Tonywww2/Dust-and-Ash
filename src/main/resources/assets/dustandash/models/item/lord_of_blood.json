@@ -1,0 +1,27 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "minecraft:item/handheld",
+	"textures": {
+		"layer0": "dustandash:item/lord_of_blood"
+	},
+	"display": {
+		"thirdperson_righthand": {
+			"rotation": [0, -90, 45],
+			"translation": [0, 7.25, 1.25],
+			"scale": [1.25, 1.25, 1.25]
+		},
+		"thirdperson_lefthand": {
+			"rotation": [0, 90, -45],
+			"translation": [0, 7.25, 1.25],
+			"scale": [1.25, 1.25, 1.25]
+		},
+		"firstperson_righthand": {
+			"rotation": [50, 90, 0],
+			"translation": [2, 7.75, 0]
+		},
+		"firstperson_lefthand": {
+			"rotation": [-50, 90, 0],
+			"translation": [2, 7.75, 0]
+		}
+	}
+}
