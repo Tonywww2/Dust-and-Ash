@@ -115,7 +115,7 @@ public class LordOfBlood extends SwordItem {
                 particle1((ServerLevel) level, entity, PARTICLE, RADIUS, 2, 64);
                 hurtAllEntities(entities, damageSource, 2);
                 effectAllEntities(entities, new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60, 0));
-                entity.heal(2);
+                entity.heal(3);
             }
             case 2 -> {
                 level.playSound(null, entity.blockPosition(), SoundEvents.PLAYER_LEVELUP, SoundSource.PLAYERS, 1f, 1f);
@@ -124,7 +124,7 @@ public class LordOfBlood extends SwordItem {
                 hurtAllEntities(entities, damageSource, 4);
                 effectAllEntities(entities, new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 80, 1));
                 effectAllEntities(entities, new MobEffectInstance(MobEffects.WEAKNESS, 60, 0));
-                entity.heal(3);
+                entity.heal(4);
             }
             case 3 -> {
                 level.playSound(null, entity.blockPosition(), SoundEvents.ENCHANTMENT_TABLE_USE, SoundSource.PLAYERS, 1f, 1f);
@@ -133,7 +133,7 @@ public class LordOfBlood extends SwordItem {
                 particle3((ServerLevel) level, entity, PARTICLE, RADIUS - 3f, 3, 32);
                 hurtAllEntities(entities, damageSource, 6);
                 effectAllEntities(entities, new MobEffectInstance(MobEffects.WEAKNESS, 60, 1));
-                entity.heal(4);
+                entity.heal(7);
             }
             default -> setCharges(stack, 0);
         }
