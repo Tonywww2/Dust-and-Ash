@@ -55,7 +55,7 @@ public class GaleOtaijutsu extends SwordItem {
 
             }
 
-            float extraDamage = player.fallDistance * 1.25f;
+            float extraDamage = (player.fallDistance + 1) * 1.25f;
             entity.hurt(player.damageSources().playerAttack(player), extraDamage);
             entity.invulnerableTime = 0;
             player.resetFallDistance();
