@@ -1,10 +1,9 @@
 package com.tonywww.dustandash.item.custom;
 
-import com.tonywww.dustandash.util.ModTags;
+import com.tonywww.dustandash.config.DustAndAshConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.core.particles.ParticleOptions;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -13,12 +12,10 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
@@ -29,14 +26,17 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.function.Predicate;
 
+
 public class LordOfBlood extends SwordItem {
 
-    static final float RADIUS = 8f;
-    static final Vector3f COLOR = new Vector3f(1f, 0.1921568f, 0.2039215f);
-    static final DustParticleOptions PARTICLE = new DustParticleOptions(COLOR, 2.0F);
+    static final Vector3f COLOR_RED = new Vector3f(1f, 0.1921568f, 0.2039215f);
+    static final Vector3f COLOR_GREY = new Vector3f(0.7529411f, 0.7529411f, 0.7529411f);
+    static final DustParticleOptions PARTICLE_RED = new DustParticleOptions(COLOR_RED, 2.0F);
+    static final DustParticleOptions PARTICLE_GREY = new DustParticleOptions(COLOR_GREY, 2.0F);
 
     public LordOfBlood(Tier pTier, int pAttackDamageModifier, float pAttackSpeedModifier, Properties pProperties) {
         super(pTier, pAttackDamageModifier, pAttackSpeedModifier, pProperties);
+
     }
 
     @Override
@@ -90,6 +90,22 @@ public class LordOfBlood extends SwordItem {
         return 0;
     }
 
+    public static float getRadius(ItemStack stack) {
+        CompoundTag compoundtag = stack.getTag();
+        if (compoundtag != null) {
+            if (compoundtag.contains("Radius")) {
+                return compoundtag.getFloat("Radius");
+
+            } else {
+                float radius = DustAndAshConfig.lordOfBloodRadius.get().floatValue();
+                compoundtag.putFloat("Radius", radius);
+                return radius;
+            }
+
+        }
+        return 0;
+    }
+
     @Override
     public UseAnim getUseAnimation(ItemStack stack) {
         return UseAnim.EAT;
@@ -103,7 +119,8 @@ public class LordOfBlood extends SwordItem {
     @Override
     public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity entity) {
 
-        List<LivingEntity> entities = level.getEntitiesOfClass(LivingEntity.class, getArea(entity.blockPosition()), VALID_ENTITY);
+        float radius = getRadius(stack);
+        List<LivingEntity> entities = level.getEntitiesOfClass(LivingEntity.class, getArea(entity.blockPosition(), (int) radius), VALID_ENTITY);
         DamageSource damageSource = level.damageSources().thorns(entity);
 
         setCharges(stack, getCharges(stack) + 1);
@@ -111,28 +128,39 @@ public class LordOfBlood extends SwordItem {
         switch (curStacks) {
             case 1 -> {
                 level.playSound(null, entity.blockPosition(), SoundEvents.EXPERIENCE_ORB_PICKUP, SoundSource.PLAYERS, 1f, 1f);
-                particle1((ServerLevel) level, entity, PARTICLE, RADIUS, 2, 64);
+
+                particle1((ServerLevel) level, entity, PARTICLE_RED, radius, 2, 64);
+
+                particle1((ServerLevel) level, entity, PARTICLE_GREY, -radius, 1, 64);
+                particle3((ServerLevel) level, entity, PARTICLE_GREY, radius - 3f, 1, 32);
+
                 hurtAllEntities(entities, damageSource, 2);
-                effectAllEntities(entities, new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60, 0));
+                effectAllEntities(entities, new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60, 0), entity);
                 entity.heal(3);
             }
             case 2 -> {
                 level.playSound(null, entity.blockPosition(), SoundEvents.PLAYER_LEVELUP, SoundSource.PLAYERS, 1f, 1f);
-                particle1((ServerLevel) level, entity, PARTICLE, RADIUS, 2, 64);
-                particle1((ServerLevel) level, entity, PARTICLE, -RADIUS, 2, 64);
+
+                particle1((ServerLevel) level, entity, PARTICLE_RED, radius, 2, 64);
+                particle1((ServerLevel) level, entity, PARTICLE_RED, -radius, 2, 64);
+
+                particle3((ServerLevel) level, entity, PARTICLE_GREY, radius - 3f, 1, 32);
+
                 hurtAllEntities(entities, damageSource, 4);
-                effectAllEntities(entities, new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 80, 1));
-                effectAllEntities(entities, new MobEffectInstance(MobEffects.WEAKNESS, 60, 0));
+                effectAllEntities(entities, new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 80, 1), entity);
+                effectAllEntities(entities, new MobEffectInstance(MobEffects.WEAKNESS, 60, 0), entity);
                 entity.heal(4);
             }
             case 3 -> {
                 level.playSound(null, entity.blockPosition(), SoundEvents.ENCHANTMENT_TABLE_USE, SoundSource.PLAYERS, 1f, 1f);
-                particle1((ServerLevel) level, entity, PARTICLE, RADIUS, 2, 64);
-                particle1((ServerLevel) level, entity, PARTICLE, -RADIUS, 2, 64);
-                particle3((ServerLevel) level, entity, PARTICLE, RADIUS - 3f, 3, 32);
+
+                particle1((ServerLevel) level, entity, PARTICLE_RED, radius, 2, 64);
+                particle1((ServerLevel) level, entity, PARTICLE_RED, -radius, 2, 64);
+                particle3((ServerLevel) level, entity, PARTICLE_RED, radius - 3f, 3, 32);
+
                 hurtAllEntities(entities, damageSource, 6);
-                effectAllEntities(entities, new MobEffectInstance(MobEffects.WEAKNESS, 60, 1));
-                entity.heal(7);
+                effectAllEntities(entities, new MobEffectInstance(MobEffects.WEAKNESS, 60, 1), entity);
+                entity.heal(5);
             }
             default -> setCharges(stack, 0);
         }
@@ -141,24 +169,30 @@ public class LordOfBlood extends SwordItem {
 
     protected final Predicate<LivingEntity> VALID_ENTITY = LivingEntity::isAlive;
 
-    private AABB getArea(BlockPos blockPos) {
+    private AABB getArea(BlockPos blockPos, int radius) {
         return new AABB(
-                blockPos.offset(-(int) RADIUS, -2, -(int) RADIUS),
-                blockPos.offset(1 + (int) RADIUS, 1 + (int) RADIUS, 1 + (int) RADIUS));
+                blockPos.offset(-radius, -2, -radius),
+                blockPos.offset(1 + radius, 1 + radius, 1 + radius));
     }
 
     private void hurtAllEntities(List<LivingEntity> entities, DamageSource damageSource, float damage) {
         for (LivingEntity i : entities) {
-            i.hurt(damageSource, damage);
-            i.invulnerableTime = 0;
+            if (!i.equals(damageSource.getEntity())) {
+                i.hurt(damageSource, damage);
+                i.invulnerableTime = 0;
+
+            }
 
         }
 
     }
 
-    private void effectAllEntities(List<LivingEntity> entities, MobEffectInstance effect) {
+    private void effectAllEntities(List<LivingEntity> entities, MobEffectInstance effect, Entity source) {
         for (LivingEntity i : entities) {
-            i.addEffect(effect);
+            if (!i.equals(source)) {
+                i.addEffect(effect);
+
+            }
 
         }
 
@@ -202,9 +236,9 @@ public class LordOfBlood extends SwordItem {
                     entity.getY() + 0.125d,
                     entity.getZ() + z,
                     thickness,
-                    0.1,
                     0.015625,
-                    0.05,
+                    0.015625,
+                    0.015625,
                     0
             );
 
