@@ -1,0 +1,15 @@
+{
+  "replace": false,
+  "values": [
+    "dustandash:wind_crystal",
+    "dustandash:fire_crystal",
+    "dustandash:sliver_crystal",
+    "dustandash:parasitism_crystal",
+    "dustandash:depravity_crystal",
+    "dustandash:apotheosis_crystal",
+    "dustandash:eternal_light_crystal",
+    "dustandash:forever_dark_crystal",
+    "dustandash:void_crystal"
+  ]
+
+}

@@ -1,0 +1,39 @@
+{
+  "type": "dustandash:ionizer",
+  "ingredients": [
+    {
+      "item": "dustandash:titanium_alloy_great_sword"
+    },
+    {
+      "item": "dustandash:echo_activator"
+    },
+    {
+      "item": "minecraft:glistering_melon_slice"
+    },
+    {
+      "item": "dustandash:parasitism_crystal"
+    },
+    {
+      "item": "dustandash:graphite_electrode"
+    }
+  ],
+  "inputBlock": "minecraft:crying_obsidian",
+  "outputs": [
+    {
+      "item": "dustandash:lord_of_blood"
+    },
+    {
+      "item": "dustandash:ash"
+    },
+    {
+      "item": "dustandash:empty"
+    },
+    {
+      "item": "dustandash:empty"
+    }
+  ],
+  "cost": 16,
+  "tick": 1600,
+  "costElectrodes": true,
+  "outputBlock": "minecraft:obsidian"
+}

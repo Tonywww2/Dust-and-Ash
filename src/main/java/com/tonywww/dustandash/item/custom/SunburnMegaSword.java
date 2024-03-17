@@ -54,6 +54,7 @@ public class SunburnMegaSword extends SwordItem {
                         1
                 );
                 explosion.explode();
+                entity.invulnerableTime = 0;
                 player.getCooldowns().addCooldown(this, 40);
 
             }

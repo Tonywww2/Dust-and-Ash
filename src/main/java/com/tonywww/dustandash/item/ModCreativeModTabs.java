@@ -75,6 +75,8 @@ public class ModCreativeModTabs {
 
                         pOutput.accept(ModItems.GALE_OTAIJUTSU.get());
                         pOutput.accept(ModItems.SUNBURN_MEGA_SWORD.get());
+                        pOutput.accept(ModItems.SUNBURN_MEGA_SWORD.get());
+                        pOutput.accept(ModItems.LORD_OF_BLOOD.get());
 
                     })
                     .build());

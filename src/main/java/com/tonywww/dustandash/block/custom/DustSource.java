@@ -76,7 +76,8 @@ public class DustSource extends Block {
         int endZ = blockPos.getZ() + radius;
         int endY = blockPos.getY();
 
-        if (startY < world.getMinBuildHeight()) startY = world.getMinBuildHeight();
+//        if (startY < world.getMinBuildHeight()) startY = world.getMinBuildHeight();
+        startY = Math.max(world.getMinBuildHeight(), startY);
 
         //y
         for (int y = startY; y < endY; y++) {

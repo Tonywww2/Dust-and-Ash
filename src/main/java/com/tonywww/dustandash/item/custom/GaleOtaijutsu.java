@@ -7,18 +7,14 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.damagesource.DamageSources;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.SwordItem;
-import net.minecraft.world.item.Tier;
-import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
@@ -39,13 +35,14 @@ public class GaleOtaijutsu extends SwordItem {
 
         if (!world.isClientSide()) {
             if (entity instanceof LivingEntity) {
-                int effectLevel = (int) (player.fallDistance * 1.5);
-                if (effectLevel > 100) {
-                    effectLevel = 100;
-                }
-                if (effectLevel < 0) {
-                    effectLevel = 0;
-                }
+//                int effectLevel = (int) (player.fallDistance * 1.5);
+                int effectLevel = Mth.clamp((int) (player.fallDistance * 1.5), 0, 100);
+//                if (effectLevel > 100) {
+//                    effectLevel = 100;
+//                }
+//                if (effectLevel < 0) {
+//                    effectLevel = 0;
+//                }
 
                 player.addEffect(new MobEffectInstance(MobEffects.DIG_SPEED, 60, effectLevel));
                 player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 300, 1));
@@ -75,7 +72,6 @@ public class GaleOtaijutsu extends SwordItem {
         double xVel = Math.sin(Math.toRadians(angle));
         double zVel = Math.cos(Math.toRadians(angle));
         Vec3 vec = new Vec3(-xVel * 0.5, 1.0d, zVel * 0.5);
-
 
         if (!world.isClientSide) {
             if (!playerEntity.getCooldowns().isOnCooldown(this)) {
@@ -108,6 +104,11 @@ public class GaleOtaijutsu extends SwordItem {
 
         }
         return super.onItemUseFirst(stack, context);
+    }
+
+    @Override
+    public UseAnim getUseAnimation(ItemStack stack) {
+        return UseAnim.TOOT_HORN;
     }
 
     @Override

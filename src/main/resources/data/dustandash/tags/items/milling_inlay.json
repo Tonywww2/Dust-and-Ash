@@ -2,6 +2,7 @@
   "replace": false,
   "values": [
     "#dustandash:element_dust",
+    "#dustandash:element_crystals",
     "#forge:gears",
     "minecraft:iron_nugget",
     "minecraft:glass_pane",
