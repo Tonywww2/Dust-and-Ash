@@ -88,6 +88,7 @@ public class ModCreativeModTabs {
 
                         pOutput.accept(ModItems.RAIN_CRYSTAL.get());
                         pOutput.accept(ModItems.SUN_CRYSTAL.get());
+                        pOutput.accept(ModItems.ECHO_ACTIVATOR.get());
 
                         pOutput.accept(ModItems.ASH_STEEL_INGOT.get());
                         pOutput.accept(ModItems.TITANIUM_INGOT.get());

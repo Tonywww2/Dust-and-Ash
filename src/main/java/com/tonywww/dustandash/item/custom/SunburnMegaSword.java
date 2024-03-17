@@ -3,6 +3,7 @@ package com.tonywww.dustandash.item.custom;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
@@ -30,26 +31,32 @@ public class SunburnMegaSword extends SwordItem {
 
     @Override
     public boolean onLeftClickEntity(ItemStack stack, Player player, Entity entity) {
-        if (entity instanceof LivingEntity) {
-            player.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 200, 0));
-            entity.setSecondsOnFire(4);
+        Level world = player.level();
 
-        }
-        if (!player.getCooldowns().isOnCooldown(this)) {
-            Explosion explosion = new Explosion(player.level(), player, player.getX(), player.getY() + 0.125d, player.getZ(), 2.25f, true, Explosion.BlockInteraction.KEEP);
-            player.level().playSound(null, player.blockPosition(), SoundEvents.GENERIC_EXPLODE, SoundSource.PLAYERS, 1f, 1f);
-            player.level().addParticle(
-                    ParticleTypes.EXPLOSION,
-                    player.getX() + 0.5d,
-                    player.getY() + 0.25d,
-                    player.getZ() + 0.5d,
-                    0,
-                    0,
-                    0
-            );
-            explosion.explode();
-            player.getCooldowns().addCooldown(this, 40);
+        if (!world.isClientSide()) {
+            if (entity instanceof LivingEntity) {
+                player.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 200, 0));
+                entity.setSecondsOnFire(4);
 
+            }
+            if (!player.getCooldowns().isOnCooldown(this)) {
+                Explosion explosion = new Explosion(player.level(), player, player.getX(), player.getY() + 0.125d, player.getZ(), 2.25f, true, Explosion.BlockInteraction.KEEP);
+                player.level().playSound(null, player.blockPosition(), SoundEvents.GENERIC_EXPLODE, SoundSource.PLAYERS, 1f, 1f);
+                ((ServerLevel) player.level()).sendParticles(
+                        ParticleTypes.EXPLOSION,
+                        player.getX(),
+                        player.getY() + 0.25d,
+                        player.getZ(),
+                        3,
+                        0,
+                        0,
+                        0,
+                        1
+                );
+                explosion.explode();
+                player.getCooldowns().addCooldown(this, 40);
+
+            }
         }
 
         return super.onLeftClickEntity(stack, player, entity);

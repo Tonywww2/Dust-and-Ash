@@ -1,7 +1,9 @@
 package com.tonywww.dustandash.item.custom;
 
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundSetEntityMotionPacket;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -33,18 +35,32 @@ public class GaleOtaijutsu extends SwordItem {
 
     @Override
     public boolean onLeftClickEntity(ItemStack stack, Player player, Entity entity) {
-        if (entity instanceof LivingEntity) {
-            player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 300, 1));
-            player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 100, 0));
+        Level world = player.level();
 
-            ((LivingEntity) entity).addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 100, 1));
+        if (!world.isClientSide()) {
+            if (entity instanceof LivingEntity) {
+                int effectLevel = (int) (player.fallDistance * 1.5);
+                if (effectLevel > 100) {
+                    effectLevel = 100;
+                }
+                if (effectLevel < 0) {
+                    effectLevel = 0;
+                }
+
+                player.addEffect(new MobEffectInstance(MobEffects.DIG_SPEED, 60, effectLevel));
+                player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 300, 1));
+                player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 100, 0));
+
+                ((LivingEntity) entity).addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 100, 1));
+
+            }
+
+            float extraDamage = player.fallDistance * 1.25f;
+            entity.hurt(player.damageSources().playerAttack(player), extraDamage);
+            entity.invulnerableTime = 0;
+            player.resetFallDistance();
 
         }
-
-        float extraDamage = player.fallDistance;
-        entity.hurt(player.damageSources().playerAttack(player), extraDamage);
-        entity.invulnerableTime = 0;
-        player.fallDistance = 0;
 
         return super.onLeftClickEntity(stack, player, entity);
     }
@@ -58,11 +74,23 @@ public class GaleOtaijutsu extends SwordItem {
         double angle = playerEntity.getViewYRot(0) % 360;
         double xVel = Math.sin(Math.toRadians(angle));
         double zVel = Math.cos(Math.toRadians(angle));
-        Vec3 vec = new Vec3(-xVel * 0.75, 1.25d, zVel * 0.75);
+        Vec3 vec = new Vec3(-xVel * 0.5, 1.0d, zVel * 0.5);
 
 
         if (!world.isClientSide) {
             if (!playerEntity.getCooldowns().isOnCooldown(this)) {
+                ((ServerLevel) world).sendParticles(
+                        ParticleTypes.CLOUD,
+                        playerEntity.getX(),
+                        playerEntity.getY() + 0.5d,
+                        playerEntity.getZ(),
+                        50,
+                        0,
+                        -0.5,
+                        0,
+                        1
+                );
+
                 world.playSound(null, playerEntity.blockPosition(), SoundEvents.PISTON_EXTEND, SoundSource.PLAYERS, 1f, 1f);
                 playerEntity.getCooldowns().addCooldown(this, 40);
                 if (playerEntity instanceof ServerPlayer) {

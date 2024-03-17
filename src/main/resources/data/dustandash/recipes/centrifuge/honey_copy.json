@@ -1,0 +1,40 @@
+{
+  "type": "dustandash:centrifuge",
+  "tick": 200,
+  "ingredients": [
+    {
+      "item": "minecraft:honey_bottle"
+    },
+    {
+      "item": "dustandash:water_miscible_solvents"
+    }
+  ],
+  "outputs" : [
+    {
+      "item": "minecraft:honey_bottle"
+    },
+    {
+      "item": "dustandash:empty"
+    },
+    {
+      "item": "dustandash:empty"
+    },
+    {
+      "item": "minecraft:honey_bottle"
+    },
+
+    {
+      "item": "dustandash:base_oil"
+    },
+    {
+      "item": "minecraft:honey_bottle"
+    },
+    {
+      "item": "dustandash:empty"
+    },
+    {
+      "item": "dustandash:empty"
+    }
+
+  ]
+}

@@ -9,10 +9,13 @@
         },
         {
             "item": "dustandash:smelt_dust"
+        },
+        {
+            "tag": "forge:stone"
         }
     ],
     "result": {
         "item": "minecraft:netherrack",
-        "count": 1
+        "count": 2
     }
 }

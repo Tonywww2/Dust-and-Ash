@@ -1,0 +1,21 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+        {
+            "tag": "forge:crops/carrot"
+        },
+        {
+            "item": "dustandash:carbon_fiber"
+        },
+        {
+            "item": "dustandash:dust_with_energy"
+        },
+        {
+            "item": "dustandash:crystallize_dust"
+        }
+    ],
+    "result": {
+        "item": "umapyoi:jewel",
+        "count": 1
+    }
+}

@@ -1,0 +1,35 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "AB ",
+        "CDE",
+        " FG"
+    ],
+    "key": {
+        "A": {
+            "item": "dustandash:bloody_flint"
+        },
+        "B": {
+            "item": "dustandash:absorb_dust"
+        },
+        "C": {
+            "item": "dustandash:metamorphose_dust"
+        },
+        "D": {
+            "item": "minecraft:blue_candle"
+        },
+        "E": {
+            "item": "dustandash:seep_dust"
+        },
+        "F": {
+            "item": "dustandash:extinguish_dust"
+        },
+        "G": {
+            "item": "dustandash:bloody_flint_stick"
+        }
+    },
+    "result": {
+        "item": "dustandash:echo_activator",
+        "count": 1
+    }
+}

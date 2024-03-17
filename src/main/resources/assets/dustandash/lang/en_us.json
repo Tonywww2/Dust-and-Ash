@@ -22,6 +22,7 @@
 
   "item.dustandash.rain_crystal": "Rain Crystal",
   "item.dustandash.sun_crystal": "Sun Crystal",
+  "item.dustandash.echo_activator": "Echo Activator",
 
   "item.dustandash.metal_dust": "Dust of Metal",
   "item.dustandash.life_dust": "Dust of Life",
@@ -156,9 +157,10 @@
   "tooltip.dustandash.titanium_alloy_great_sword": "\u00A77 Apply \n Damage Resistance\nto the player, \n Weakness \nto the target after attack.",
   "tooltip.dustandash.hand_vacuum": "\u00A77 Use on a Dust to gain products.",
   "tooltip.dustandash.iron_vacuum": "\u00A77 Use on a Dust to gain products, requires Energized Dust in inventory.",
+  "tooltip.dustandash.echo_activator": "\u00A77 Use on a Sculk Shrieker or a Cake to turn it into a full Sculk Shrieker",
 
-  "tooltip.dustandash.gale_otaijutsu": "Weapon",
-  "tooltip.dustandash.sunburn_mega_sword": "Weapon",
+  "tooltip.dustandash.gale_otaijutsu": "Spirit Helm Breaker",
+  "tooltip.dustandash.sunburn_mega_sword": "Explosion",
 
   "dustandash.advancements.entry.title": "Dust and Ash",
   "dustandash.advancements.entry.description": "To the time to life, rather than to life in time.",

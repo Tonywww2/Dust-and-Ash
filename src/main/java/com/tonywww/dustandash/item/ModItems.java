@@ -269,6 +269,12 @@ public class ModItems {
                     .stacksTo(1)
             ));
 
+    public static final RegistryObject<Item> ECHO_ACTIVATOR = ITEMS.register("echo_activator",
+            () -> new EchoActivator(new Item.Properties()
+                    .stacksTo(1)
+                    .durability(2)
+            ));
+
     public static final RegistryObject<Item> DUST_WITH_ENERGY = ITEMS.register("dust_with_energy",
             () -> new Item(new Item.Properties()
                     .stacksTo(64)

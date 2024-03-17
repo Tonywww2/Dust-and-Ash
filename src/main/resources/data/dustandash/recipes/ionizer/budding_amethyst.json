@@ -1,0 +1,39 @@
+{
+  "type": "dustandash:ionizer",
+  "ingredients": [
+    {
+      "item": "dustandash:reproduce_dust"
+    },
+    {
+      "item": "dustandash:water_miscible_solvents"
+    },
+    {
+      "item": "dustandash:crystallize_dust"
+    },
+    {
+      "item": "minecraft:purple_dye"
+    },
+    {
+      "item": "dustandash:integrated_frame_1"
+    }
+  ],
+  "inputBlock": "minecraft:lava",
+  "outputs": [
+    {
+      "item": "minecraft:budding_amethyst"
+    },
+    {
+      "item": "dustandash:ash"
+    },
+    {
+      "item": "minecraft:quartz"
+    },
+    {
+      "item": "minecraft:emerald"
+    }
+  ],
+  "cost": 3,
+  "tick": 1200,
+  "costElectrodes": true,
+  "outputBlock": "minecraft:air"
+}
