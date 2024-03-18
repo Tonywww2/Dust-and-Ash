@@ -127,7 +127,7 @@ public class LordOfBlood extends SwordItem {
         int curStacks = getCharges(stack);
         switch (curStacks) {
             case 1 -> {
-                level.playSound(null, entity.blockPosition(), SoundEvents.EXPERIENCE_ORB_PICKUP, SoundSource.PLAYERS, 1f, 1f);
+                level.playSound(null, entity.blockPosition(), SoundEvents.WARDEN_ROAR, SoundSource.PLAYERS, 1f, 1f);
 
                 particle1((ServerLevel) level, entity, PARTICLE_RED, radius, 2, 64);
 
@@ -139,7 +139,7 @@ public class LordOfBlood extends SwordItem {
                 entity.heal(3);
             }
             case 2 -> {
-                level.playSound(null, entity.blockPosition(), SoundEvents.PLAYER_LEVELUP, SoundSource.PLAYERS, 1f, 1f);
+                level.playSound(null, entity.blockPosition(), SoundEvents.WARDEN_ANGRY, SoundSource.PLAYERS, 1f, 1f);
 
                 particle1((ServerLevel) level, entity, PARTICLE_RED, radius, 2, 64);
                 particle1((ServerLevel) level, entity, PARTICLE_RED, -radius, 2, 64);
@@ -152,7 +152,7 @@ public class LordOfBlood extends SwordItem {
                 entity.heal(4);
             }
             case 3 -> {
-                level.playSound(null, entity.blockPosition(), SoundEvents.ENCHANTMENT_TABLE_USE, SoundSource.PLAYERS, 1f, 1f);
+                level.playSound(null, entity.blockPosition(), SoundEvents.WARDEN_SONIC_BOOM, SoundSource.PLAYERS, 1f, 1f);
 
                 particle1((ServerLevel) level, entity, PARTICLE_RED, radius, 2, 64);
                 particle1((ServerLevel) level, entity, PARTICLE_RED, -radius, 2, 64);
