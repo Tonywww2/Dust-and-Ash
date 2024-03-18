@@ -24,7 +24,8 @@
 
   "item.dustandash.rain_crystal": "雨之水晶",
   "item.dustandash.sun_crystal": "日之水晶",
-  "item.dustandash.echo_activator": "回音激活器",
+  "item.dustandash.echo_activator": "回声激活器",
+  "item.dustandash.nano_machine": "纳米机器",
 
   "item.dustandash.metal_dust": "金属之尘",
   "item.dustandash.life_dust": "生命之尘",
@@ -160,6 +161,7 @@
   "tooltip.dustandash.hand_vacuum": "\u00A77 对着一个 尘 使用以收集资源。",
   "tooltip.dustandash.iron_vacuum": "\u00A77 对着一个 尘 使用以收集资源，需要消耗物品栏内的 注能尘。",
   "tooltip.dustandash.echo_activator": "\u00A77 能将一个 幽匿尖啸体 或 蛋糕 变成完整的 幽匿尖啸体",
+  "tooltip.dustandash.nano_machine": "\u00A77 修复副手的物品，微笑 :)\n 或者在副手使用它来获得力量",
 
   "tooltip.dustandash.gale_otaijutsu": "登龙",
   "tooltip.dustandash.sunburn_mega_sword": "爆裂",

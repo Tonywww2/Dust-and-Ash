@@ -31,9 +31,9 @@ public class ModTags {
     public static class Items{
 
         public static final TagKey<Item> CRAFT_MATERIAL = createTag("craft_material");
-        public static final TagKey<Item> TRIGGER_MATERIAL = createTag("trigger_material");
         public static final TagKey<Item> MILLING_INLAY = createTag("milling_inlay");
         public static final TagKey<Item> CENTRIFUGE_CATALYST = createTag("centrifuge_catalyst");
+        public static final TagKey<Item> NANO_BLACKLIST = createTag("nano_blacklist");
 
         private static TagKey<Item> createTag(String name){
 

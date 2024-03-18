@@ -108,7 +108,7 @@ public class LordOfBlood extends SwordItem {
 
     @Override
     public UseAnim getUseAnimation(ItemStack stack) {
-        return UseAnim.EAT;
+        return UseAnim.DRINK;
     }
 
     @Override

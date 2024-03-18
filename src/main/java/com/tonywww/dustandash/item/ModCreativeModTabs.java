@@ -151,6 +151,7 @@ public class ModCreativeModTabs {
                         pOutput.accept(ModItems.CARBON_FIBER_SCRAP.get());
                         pOutput.accept(ModItems.TITANIUM_PLATE_SCRAP.get());
 
+                        pOutput.accept(ModItems.NANO_MACHINE.get());
 
                     })
                     .build());

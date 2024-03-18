@@ -279,6 +279,11 @@ public class ModItems {
                     .durability(2)
             ));
 
+    public static final RegistryObject<Item> NANO_MACHINE = ITEMS.register("nano_machine",
+            () -> new NanoMachine(new Item.Properties()
+                    .stacksTo(3)
+            ));
+
     public static final RegistryObject<Item> DUST_WITH_ENERGY = ITEMS.register("dust_with_energy",
             () -> new Item(new Item.Properties()
                     .stacksTo(64)

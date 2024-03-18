@@ -2,6 +2,7 @@
 	"credit": "Made with Blockbench",
 	"parent": "minecraft:item/handheld",
 	"textures": {
+		"particle": "block/redstone_dust_dot",
 		"layer0": "dustandash:item/lord_of_blood"
 	},
 	"display": {

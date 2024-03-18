@@ -25,6 +25,7 @@
   "item.dustandash.rain_crystal": "Rain Crystal",
   "item.dustandash.sun_crystal": "Sun Crystal",
   "item.dustandash.echo_activator": "Echo Activator",
+  "item.dustandash.nano_machine": "Nano Machine",
 
   "item.dustandash.metal_dust": "Dust of Metal",
   "item.dustandash.life_dust": "Dust of Life",
@@ -160,6 +161,7 @@
   "tooltip.dustandash.hand_vacuum": "\u00A77 Use on a Dust to gain products.",
   "tooltip.dustandash.iron_vacuum": "\u00A77 Use on a Dust to gain products, requires Energized Dust in inventory.",
   "tooltip.dustandash.echo_activator": "\u00A77 Use on a Sculk Shrieker or a Cake to turn it into a full Sculk Shrieker",
+  "tooltip.dustandash.nano_machine": "\u00A77 Fix the item in the off hand, smile :)\n Or consume it in the off hand to gain POWER",
 
   "tooltip.dustandash.gale_otaijutsu": "Spirit Helm Breaker",
   "tooltip.dustandash.sunburn_mega_sword": "Explosion",
