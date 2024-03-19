@@ -24,5 +24,25 @@
 			"rotation": [-50, 90, 0],
 			"translation": [2, 7.75, 0]
 		}
-	}
+	},
+    "overrides": [
+        {
+            "predicate": {
+                "charges": 1
+            },
+            "model": "dustandash:item/lord_of_blood_1"
+        },
+        {
+            "predicate": {
+                "charges": 2
+            },
+            "model": "dustandash:item/lord_of_blood_2"
+        },
+        {
+            "predicate": {
+                "charges": 3
+            },
+            "model": "dustandash:item/lord_of_blood_3"
+        }
+    ]
 }

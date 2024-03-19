@@ -2,6 +2,7 @@ package com.tonywww.dustandash;
 
 import com.tonywww.dustandash.block.ModBlocks;
 import com.tonywww.dustandash.config.DustAndAshConfig;
+import com.tonywww.dustandash.event.ModEntites;
 import com.tonywww.dustandash.item.ModCreativeModTabs;
 import com.tonywww.dustandash.menu.ModMenus;
 import com.tonywww.dustandash.screen.*;
@@ -9,6 +10,9 @@ import com.tonywww.dustandash.block.entity.ModTileEntities;
 import com.tonywww.dustandash.data.recipes.ModRecipe;
 import com.tonywww.dustandash.item.ModItems;
 import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.client.renderer.entity.ArrowRenderer;
+import net.minecraft.client.renderer.entity.EntityRenderers;
+import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.server.ServerStartingEvent;
@@ -46,6 +50,8 @@ public class DustAndAsh {
 
         ModTileEntities.register(eventBus);
 
+        ModEntites.register(eventBus);
+
         ModMenus.register(eventBus);
 
         ModRecipe.register(eventBus);
@@ -76,6 +82,9 @@ public class DustAndAsh {
 
 
         });
+
+        EntityRenderers.register(ModEntites.LIGHTNING_BULLET.get(), ThrownItemRenderer::new);
+
     }
 
     // You can use SubscribeEvent and let the Event Bus discover methods to call

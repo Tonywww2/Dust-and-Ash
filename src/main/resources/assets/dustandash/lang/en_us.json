@@ -12,9 +12,9 @@
   "item.dustandash.titanium_alloy_great_sword": "Titanium Alloy Great Sword",
   "item.dustandash.titanium_alloy_pickaxe": "Titanium Alloy Pickaxe",
 
-  "item.dustandash.gale_otaijutsu": "§b Gale Otaijutsu",
+  "item.dustandash.gale_otaijutsu": "§3 Gale Otaijutsu",
   "item.dustandash.sunburn_mega_sword": "§c Sunburn Mega Sword",
-
+  "item.dustandash.white_lightning": "§b 疾風迅雷",
   "item.dustandash.lord_of_blood": "§4 Lord Of Blood",
 
   "item.dustandash.ash_steel_boots": "Ash Steel Boots",
@@ -109,9 +109,9 @@
   "item.dustandash.carbon_fiber_scrap": "Scrap",
   "item.dustandash.titanium_plate_scrap": "Scrap",
 
-  "item.dustandash.wind_crystal": "\u00A7b Wind Crystal",
+  "item.dustandash.wind_crystal": "§3 Wind Crystal",
   "item.dustandash.fire_crystal": "\u00A7c Fire Crystal",
-  "item.dustandash.sliver_crystal": "\u00A77 Sliver Crystal",
+  "item.dustandash.sliver_crystal": "§b Sliver Crystal",
   "item.dustandash.parasitism_crystal": "\u00A74 Parasitism Crystal",
   "item.dustandash.depravity_crystal": "\u00A72 Depravity Crystal",
   "item.dustandash.apotheosis_crystal": "\u00A7e Apotheosis Crystal",
@@ -165,6 +165,7 @@
 
   "tooltip.dustandash.gale_otaijutsu": "Spirit Helm Breaker",
   "tooltip.dustandash.sunburn_mega_sword": "Explosion",
+  "tooltip.dustandash.white_lightning": "白い稲妻",
   "tooltip.dustandash.lord_of_blood": "Bloodboon Ritual",
 
   "dustandash.advancements.entry.title": "Dust and Ash",

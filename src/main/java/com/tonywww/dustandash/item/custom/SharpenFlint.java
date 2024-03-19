@@ -1,7 +1,6 @@
 package com.tonywww.dustandash.item.custom;
 
 import com.tonywww.dustandash.item.ModItems;
-import com.tonywww.dustandash.util.ModDamageSource;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;

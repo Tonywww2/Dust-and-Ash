@@ -16,6 +16,8 @@ public final class DustAndAshConfig {
     public static final ForgeConfigSpec.ConfigValue<Double> handVacuumSuccessRate;
     public static final ForgeConfigSpec.ConfigValue<Double> ironVacuumConsumeRate;
     public static final ForgeConfigSpec.ConfigValue<Double> lordOfBloodRadius;
+    public static final ForgeConfigSpec.ConfigValue<Double> whiteLightningExtraDamage;
+    public static final ForgeConfigSpec.ConfigValue<Double> whiteLightningExtraPercentage;
 
     static {
 
@@ -43,6 +45,12 @@ public final class DustAndAshConfig {
 
         lordOfBloodRadius = BUILDER.comment("\nThe Radius of Lord Of Blood. Range[4, 32] Default: 12")
                 .defineInRange("lordOfBloodRadius", 12d, 4d, 32d);
+
+        whiteLightningExtraDamage = BUILDER.comment("\nThe Extra Damage of 疾風迅雷. Range[0, MAX_FLOAT] Default: 4")
+                .defineInRange("whiteLightningExtraDamage", 4.0d, 0d, Float.MAX_VALUE);
+
+        whiteLightningExtraPercentage = BUILDER.comment("\nThe Extra Percentage Damage of 疾風迅雷. Range[0, 10.0] Default: 0.09")
+                .defineInRange("whiteLightningExtraPercentage", 0.09d, 0d, 10d);
 
         BUILDER.pop();
         COMMON_CONFIG = BUILDER.build();

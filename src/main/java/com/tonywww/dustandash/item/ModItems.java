@@ -91,32 +91,44 @@ public class ModItems {
 
     public static final RegistryObject<Item> TITANIUM_ALLOY_SWORD = ITEMS.register("titanium_alloy_sword",
             () -> new TitaniumAlloySword(ModItemTier.TITANIUM_ALLOY, 2, -2.0F,
-                    (new Item.Properties().fireResistant())
+                    (new Item.Properties()
+                            .fireResistant())
             ));
     public static final RegistryObject<Item> TITANIUM_ALLOY_GREAT_SWORD = ITEMS.register("titanium_alloy_great_sword",
             () -> new TitaniumAlloyGreatSword(ModItemTier.TITANIUM_ALLOY, 7, -2.9F,
-                    (new Item.Properties().fireResistant())
+                    (new Item.Properties()
+                            .fireResistant())
             ));
 
     public static final RegistryObject<Item> TITANIUM_ALLOY_PICKAXE = ITEMS.register("titanium_alloy_pickaxe",
             () -> new PickaxeItem(ModItemTier.TITANIUM_ALLOY, 1, -2.7F,
-                    (new Item.Properties().fireResistant())
+                    (new Item.Properties()
+                            .fireResistant())
             ));
 
     // SP Weapons
     public static final RegistryObject<Item> GALE_OTAIJUTSU = ITEMS.register("gale_otaijutsu",
             () -> new GaleOtaijutsu(ModItemTier.TITANIUM_ALLOY, 2, -1.0F,
-                    (new Item.Properties().fireResistant())
+                    (new Item.Properties()
+                            .fireResistant())
             ));
 
     public static final RegistryObject<Item> SUNBURN_MEGA_SWORD = ITEMS.register("sunburn_mega_sword",
             () -> new SunburnMegaSword(ModItemTier.TITANIUM_ALLOY, 9, -3.1F,
-                    (new Item.Properties().fireResistant())
+                    (new Item.Properties()
+                            .fireResistant())
+            ));
+
+    public static final RegistryObject<Item> WHITE_LIGHTNING = ITEMS.register("white_lightning",
+            () -> new WhiteLightning(ModItemTier.TITANIUM_ALLOY, 4, -2.0F,
+                    (new Item.Properties()
+                            .fireResistant())
             ));
 
     public static final RegistryObject<Item> LORD_OF_BLOOD = ITEMS.register("lord_of_blood",
             () -> new LordOfBlood(ModItemTier.TITANIUM_ALLOY, 4, -2.8F,
-                    (new Item.Properties().fireResistant())
+                    (new Item.Properties()
+                            .fireResistant())
             ));
 
 

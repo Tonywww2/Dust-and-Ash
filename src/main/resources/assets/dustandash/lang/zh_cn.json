@@ -12,9 +12,9 @@
   "item.dustandash.titanium_alloy_great_sword": "钛合金镀钨巨剑",
   "item.dustandash.titanium_alloy_pickaxe": "钛合金镀钨镐",
 
-  "item.dustandash.gale_otaijutsu": "§b 疾风大太刀",
+  "item.dustandash.gale_otaijutsu": "§3 疾风大太刀",
   "item.dustandash.sunburn_mega_sword": "§c 日炎巨剑",
-
+  "item.dustandash.white_lightning": "§b 疾風迅雷",
   "item.dustandash.lord_of_blood": "§4 鲜血君王",
 
   "item.dustandash.ash_steel_boots": "烬钢靴",
@@ -109,9 +109,9 @@
   "item.dustandash.carbon_fiber_scrap": "碎屑",
   "item.dustandash.titanium_plate_scrap": "碎屑",
 
-  "item.dustandash.wind_crystal": "\u00A7b 风之结晶",
+  "item.dustandash.wind_crystal": "§3 风之结晶",
   "item.dustandash.fire_crystal": "\u00A7c 火之结晶",
-  "item.dustandash.sliver_crystal": "\u00A77 银之结晶",
+  "item.dustandash.sliver_crystal": "§b 银之结晶",
   "item.dustandash.parasitism_crystal": "\u00A74 寄生之结晶",
   "item.dustandash.depravity_crystal": "\u00A72 腐化之结晶",
   "item.dustandash.apotheosis_crystal": "\u00A7e 神化之结晶",
@@ -165,6 +165,7 @@
 
   "tooltip.dustandash.gale_otaijutsu": "登龙",
   "tooltip.dustandash.sunburn_mega_sword": "爆裂",
+  "tooltip.dustandash.white_lightning": "白い稲妻",
   "tooltip.dustandash.lord_of_blood": "授血仪式",
 
   "dustandash.advancements.entry.title": "尘与烬",

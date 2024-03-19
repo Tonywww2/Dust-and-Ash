@@ -15,24 +15,6 @@ public class RainCrystal extends Item {
         super(pProperties);
     }
 
-//    @Override
-//    public ActionResultType onItemUseFirst(ItemStack stack, ItemUseContext context) {
-//
-//        World world = context.getLevel();
-//
-//        if (!world.isClientSide) {
-//            PlayerEntity playerEntity = Objects.requireNonNull(context.getPlayer());
-//
-//            world.getLevelData().setRaining(true);
-//            playerEntity.getCooldowns().addCooldown(getItem(), 200);
-//            stack.setCount(stack.getCount() - 1);
-//
-//        }
-//
-//        return super.onItemUseFirst(stack, context);
-//    }
-
-
     @Override
     public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand pHand) {
         if (!world.isClientSide) {

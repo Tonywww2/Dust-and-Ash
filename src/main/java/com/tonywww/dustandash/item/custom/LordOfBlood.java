@@ -25,9 +25,13 @@ import org.joml.Vector3f;
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.jar.Attributes;
 
 
 public class LordOfBlood extends SwordItem {
+
+    private static final String RADIUS_TAG = "radius";
+    private static final String CHARGES_TAG = "charges";
 
     static final Vector3f COLOR_RED = new Vector3f(1f, 0.1921568f, 0.2039215f);
     static final Vector3f COLOR_GREY = new Vector3f(0.7529411f, 0.7529411f, 0.7529411f);
@@ -78,32 +82,29 @@ public class LordOfBlood extends SwordItem {
 
     public static void setCharges(ItemStack stack, int val) {
         CompoundTag compoundtag = stack.getOrCreateTag();
-        compoundtag.putInt("Charges", val);
+        compoundtag.putInt(CHARGES_TAG, val);
     }
 
     public static int getCharges(ItemStack stack) {
-        CompoundTag compoundtag = stack.getTag();
-        if (compoundtag != null) {
-            return compoundtag.getInt("Charges");
+        CompoundTag compoundtag = stack.getOrCreateTag();
+        if (compoundtag.contains(CHARGES_TAG)) {
+            return compoundtag.getInt(CHARGES_TAG);
 
         }
         return 0;
     }
 
     public static float getRadius(ItemStack stack) {
-        CompoundTag compoundtag = stack.getTag();
-        if (compoundtag != null) {
-            if (compoundtag.contains("Radius")) {
-                return compoundtag.getFloat("Radius");
+        CompoundTag compoundtag = stack.getOrCreateTag();
+        if (compoundtag.contains(RADIUS_TAG)) {
+            return compoundtag.getFloat(RADIUS_TAG);
 
-            } else {
-                float radius = DustAndAshConfig.lordOfBloodRadius.get().floatValue();
-                compoundtag.putFloat("Radius", radius);
-                return radius;
-            }
-
+        } else {
+            float radius = DustAndAshConfig.lordOfBloodRadius.get().floatValue();
+            compoundtag.putFloat(RADIUS_TAG, radius);
+            return radius;
         }
-        return 0;
+
     }
 
     @Override
@@ -127,24 +128,32 @@ public class LordOfBlood extends SwordItem {
         int curStacks = getCharges(stack);
         switch (curStacks) {
             case 1 -> {
-                level.playSound(null, entity.blockPosition(), SoundEvents.WARDEN_ROAR, SoundSource.PLAYERS, 1f, 1f);
 
-                particle1((ServerLevel) level, entity, PARTICLE_RED, radius, 2, 64);
+                if (!level.isClientSide()) {
+                    level.playSound(null, entity.blockPosition(), SoundEvents.WARDEN_ROAR, SoundSource.PLAYERS, 1f, 1f);
 
-                particle1((ServerLevel) level, entity, PARTICLE_GREY, -radius, 1, 64);
-                particle3((ServerLevel) level, entity, PARTICLE_GREY, radius - 3f, 1, 32);
+                    particle1((ServerLevel) level, entity, PARTICLE_RED, radius, 2, 64);
+
+                    particle1((ServerLevel) level, entity, PARTICLE_GREY, -radius, 1, 64);
+                    particle3((ServerLevel) level, entity, PARTICLE_GREY, radius - 3f, 1, 32);
+
+                }
+
 
                 hurtAllEntities(entities, damageSource, 2);
                 effectAllEntities(entities, new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60, 0), entity);
                 entity.heal(3);
             }
             case 2 -> {
-                level.playSound(null, entity.blockPosition(), SoundEvents.WARDEN_ANGRY, SoundSource.PLAYERS, 1f, 1f);
+                if (!level.isClientSide()) {
+                    level.playSound(null, entity.blockPosition(), SoundEvents.WARDEN_ANGRY, SoundSource.PLAYERS, 1f, 1f);
 
-                particle1((ServerLevel) level, entity, PARTICLE_RED, radius, 2, 64);
-                particle1((ServerLevel) level, entity, PARTICLE_RED, -radius, 2, 64);
+                    particle1((ServerLevel) level, entity, PARTICLE_RED, radius, 2, 64);
+                    particle1((ServerLevel) level, entity, PARTICLE_RED, -radius, 2, 64);
 
-                particle3((ServerLevel) level, entity, PARTICLE_GREY, radius - 3f, 1, 32);
+                    particle3((ServerLevel) level, entity, PARTICLE_GREY, radius - 3f, 1, 32);
+
+                }
 
                 hurtAllEntities(entities, damageSource, 4);
                 effectAllEntities(entities, new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 80, 1), entity);
@@ -152,15 +161,19 @@ public class LordOfBlood extends SwordItem {
                 entity.heal(4);
             }
             case 3 -> {
-                level.playSound(null, entity.blockPosition(), SoundEvents.WARDEN_SONIC_BOOM, SoundSource.PLAYERS, 1f, 1f);
+                if (!level.isClientSide()) {
+                    level.playSound(null, entity.blockPosition(), SoundEvents.WARDEN_SONIC_BOOM, SoundSource.PLAYERS, 1f, 1f);
 
-                particle1((ServerLevel) level, entity, PARTICLE_RED, radius, 2, 64);
-                particle1((ServerLevel) level, entity, PARTICLE_RED, -radius, 2, 64);
-                particle3((ServerLevel) level, entity, PARTICLE_RED, radius - 3f, 3, 32);
+                    particle1((ServerLevel) level, entity, PARTICLE_RED, radius, 2, 64);
+                    particle1((ServerLevel) level, entity, PARTICLE_RED, -radius, 2, 64);
+                    particle3((ServerLevel) level, entity, PARTICLE_RED, radius - 3f, 3, 32);
+
+                }
 
                 hurtAllEntities(entities, damageSource, 6);
                 effectAllEntities(entities, new MobEffectInstance(MobEffects.WEAKNESS, 60, 1), entity);
                 entity.heal(5);
+
             }
             default -> setCharges(stack, 0);
         }
