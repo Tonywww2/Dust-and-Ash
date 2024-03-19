@@ -1,0 +1,6 @@
+{
+	"parent": "dustandash:item/lord_of_blood",
+	"textures": {
+		"layer0": "dustandash:item/lord_of_blood_1"
+	}
+}
