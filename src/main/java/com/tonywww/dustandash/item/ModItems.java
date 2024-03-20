@@ -2,7 +2,6 @@ package com.tonywww.dustandash.item;
 
 import com.tonywww.dustandash.DustAndAsh;
 import com.tonywww.dustandash.item.custom.*;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.Item;
@@ -120,13 +119,13 @@ public class ModItems {
             ));
 
     public static final RegistryObject<Item> WHITE_LIGHTNING = ITEMS.register("white_lightning",
-            () -> new WhiteLightning(ModItemTier.TITANIUM_ALLOY, 4, -2.0F,
+            () -> new WhiteLightning(ModItemTier.TITANIUM_ALLOY, 3, -2.0F,
                     (new Item.Properties()
                             .fireResistant())
             ));
 
     public static final RegistryObject<Item> LORD_OF_BLOOD = ITEMS.register("lord_of_blood",
-            () -> new LordOfBlood(ModItemTier.TITANIUM_ALLOY, 4, -2.8F,
+            () -> new LordOfBlood(ModItemTier.TITANIUM_ALLOY, 4, -2.6F,
                     (new Item.Properties()
                             .fireResistant())
             ));
@@ -541,7 +540,7 @@ public class ModItems {
                     .stacksTo(4)
             ));
 
-    public static final RegistryObject<Item> SLIVER_CRYSTAL = ITEMS.register("sliver_crystal",
+    public static final RegistryObject<Item> SILVER_CRYSTAL = ITEMS.register("silver_crystal",
             () -> new Item(new Item.Properties()
                     .stacksTo(4)
             ));

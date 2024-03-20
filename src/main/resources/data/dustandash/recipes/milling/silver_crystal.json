@@ -1,0 +1,66 @@
+{
+  "type": "dustandash:milling",
+  "step1": false,
+  "pattern": [
+    "ACBDA",
+    "EGHIF",
+    "BHJHB",
+    "FIHKE",
+    "ADBCA"
+  ],
+  "key": {
+    "catalyst":
+    {
+      "item": "dustandash:reproduce_dust"
+    },
+    "A":
+    {
+      "item": "minecraft:end_rod"
+    },
+    "B":
+    {
+      "item": "minecraft:lightning_rod"
+    },
+    "C":
+    {
+      "item": "dustandash:lacerate_dust"
+    },
+    "D":
+    {
+      "item": "dustandash:inherit_dust"
+    },
+    "E":
+    {
+      "tag": "forge:ingots/silver"
+    },
+    "F":
+    {
+      "item": "dustandash:extinguish_dust"
+    },
+    "G":
+    {
+      "item": "dustandash:soul_of_light"
+    },
+    "H":
+    {
+      "item": "dustandash:carbon_fiber"
+    },
+    "I":
+    {
+      "item": "dustandash:graphite_electrode"
+    },
+    "J":
+    {
+      "item": "dustandash:titanium_plate_scrap"
+    },
+    "K":
+    {
+      "item": "dustandash:pure_darkness"
+    }
+  },
+  "output" : {
+    "item": "dustandash:silver_crystal",
+    "count": 1
+  }
+
+}

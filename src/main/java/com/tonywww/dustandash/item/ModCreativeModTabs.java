@@ -65,7 +65,7 @@ public class ModCreativeModTabs {
 
                         pOutput.accept(ModItems.WIND_CRYSTAL.get());
                         pOutput.accept(ModItems.FIRE_CRYSTAL.get());
-                        pOutput.accept(ModItems.SLIVER_CRYSTAL.get());
+                        pOutput.accept(ModItems.SILVER_CRYSTAL.get());
                         pOutput.accept(ModItems.PARASITISM_CRYSTAL.get());
                         pOutput.accept(ModItems.DEPRAVITY_CRYSTAL.get());
                         pOutput.accept(ModItems.APOTHEOSIS_CRYSTAL.get());
