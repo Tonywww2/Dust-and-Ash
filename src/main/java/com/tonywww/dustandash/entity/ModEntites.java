@@ -1,4 +1,4 @@
-package com.tonywww.dustandash.event;
+package com.tonywww.dustandash.entity;
 
 import com.tonywww.dustandash.DustAndAsh;
 import com.tonywww.dustandash.entity.LightningProjectileEntity;

@@ -2,18 +2,26 @@
 	"credit": "Made with Blockbench",
 	"parent": "minecraft:item/handheld",
 	"textures": {
-		"layer0": "dustandash:item/gale_otaijutsu"
+		"layer0": "dustandash:item/white_lightning"
 	},
 	"display": {
 		"thirdperson_righthand": {
-			"rotation": [0, -90, 45],
+			"rotation": [90, -90, 45],
 			"translation": [0, 7.25, 1.25],
 			"scale": [1.25, 1.25, 1.25]
 		},
 		"thirdperson_lefthand": {
-			"rotation": [0, 90, -45],
+			"rotation": [90, 90, -45],
 			"translation": [0, 7.25, 1.25],
 			"scale": [1.25, 1.25, 1.25]
+		},
+		"firstperson_righthand": {
+			"rotation": [-150, -90, 180],
+			"translation": [0, 6, 0]
+		},
+		"firstperson_lefthand": {
+			"rotation": [-150, 90, 180],
+			"translation": [0, 6, 0]
 		}
 	}
 }

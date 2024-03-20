@@ -1,14 +1,16 @@
 package com.tonywww.dustandash.entity;
 
-import com.tonywww.dustandash.event.ModEntites;
 import com.tonywww.dustandash.item.ModItems;
 import com.tonywww.dustandash.item.custom.WhiteLightning;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
@@ -46,11 +48,14 @@ public class LightningProjectileEntity extends ThrowableItemProjectile {
                     source = ModItems.WHITE_LIGHTNING.get().getDefaultInstance();
 
                 }
-                float damage =  WhiteLightning.getExtraDamage(source) + 2F;
+                float damage =  WhiteLightning.getExtraDamage(source) + ((SwordItem) source.getItem()).getDamage();
+
                 if (isPowerful) {
                     damage += (livingEntity.getHealth() * WhiteLightning.getExtraPercentage(source));
+                    ((LivingEntity) entity).addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 100, 3));
 
                 }
+                entity.invulnerableTime = 0;
                 entity.hurt(owner.damageSources().indirectMagic(entity, owner), damage);
 
             }

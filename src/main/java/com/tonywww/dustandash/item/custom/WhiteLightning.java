@@ -54,7 +54,8 @@ public class WhiteLightning extends SwordItem {
                 setAttackCounts(stack, getAttackCounts(stack) - 2);
                 setCharges(stack, getCharges(stack) + 2);
 
-                player.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 200, 0));
+                player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 100, 0));
+                player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 100, 0));
                 lightningFlag = true;
 
             } else {
@@ -81,7 +82,7 @@ public class WhiteLightning extends SwordItem {
             entity.hurt(player.damageSources().indirectMagic(entity, player), damage);
             setAdvCharges(stack, getAdvCharges(stack) - 1);
 //            setAttackCounts(stack, getAttackCounts(stack) + 1);
-//            player.sendSystemMessage(Component.literal(targetHealth + " " + damage));
+            level.playSound(null, player.blockPosition(), SoundEvents.ENDER_DRAGON_FLAP, SoundSource.PLAYERS, 1f, 1f);
 
             entity.invulnerableTime = 0;
 
@@ -129,9 +130,8 @@ public class WhiteLightning extends SwordItem {
                 projectile.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 25.0F, 0.0F);
                 level.addFreshEntity(projectile);
 
-                player.getCooldowns().addCooldown(this, 1);
                 setAdvCharges(stack, getAdvCharges(stack) - 1);
-
+                level.playSound(null, player.blockPosition(), SoundEvents.ENDER_DRAGON_SHOOT, SoundSource.PLAYERS, 1f, 1f);
                 if (getAdvCharges(stack) <= 0) {
                     // no adv charges
                     level.playSound(null, player.blockPosition(), SoundEvents.BEACON_DEACTIVATE, SoundSource.PLAYERS, 1f, 1f);
@@ -151,8 +151,8 @@ public class WhiteLightning extends SwordItem {
 
                         projectile.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 5.0F, 0.0F);
                         level.addFreshEntity(projectile);
+                        level.playSound(null, player.blockPosition(), SoundEvents.EGG_THROW, SoundSource.PLAYERS, 1f, 1f);
 
-                        player.getCooldowns().addCooldown(this, 1);
                         setCharges(stack, getCharges(stack) - 1);
                     } else {
                         // no bullet
@@ -167,10 +167,15 @@ public class WhiteLightning extends SwordItem {
                         setAdvCharges(stack, getAdvCharges(stack) + 10);
                         player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 400, 3));
 
+                    } else {
+                        // no bullet
+                        level.playSound(null, player.blockPosition(), SoundEvents.VILLAGER_NO, SoundSource.PLAYERS, 1f, 1f);
+
                     }
 
                 }
             }
+            player.getCooldowns().addCooldown(this, 1);
         }
         return super.use(level, player, hand);
     }
