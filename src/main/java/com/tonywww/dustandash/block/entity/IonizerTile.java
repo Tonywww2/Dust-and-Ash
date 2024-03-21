@@ -264,7 +264,7 @@ public class IonizerTile extends SyncedBlockEntity implements MenuProvider {
                                     pos.getX() + 0.5f,
                                     pos.getY() - 0.5f,
                                     pos.getZ() + 0.5f,
-                                    i
+                                    i.copy()
                             );
                             level.addFreshEntity(itemEntity);
 

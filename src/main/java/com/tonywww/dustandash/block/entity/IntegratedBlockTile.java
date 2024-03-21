@@ -252,7 +252,8 @@ public class IntegratedBlockTile extends SyncedBlockEntity implements MenuProvid
                         pos.getX(),
                         pos.getY() + 1,
                         pos.getZ(),
-                        output);
+                        output.copy()
+                );
 
                 level.addFreshEntity(itemEntity);
                 if (isBeaconOn(level, pos)) {
