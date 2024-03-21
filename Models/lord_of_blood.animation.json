@@ -1,0 +1,143 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.lord_of_blood.use": {
+			"animation_length": 3.5,
+			"bones": {
+				"rod": {
+					"position": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.5": {
+							"vector": [0, 8, 0],
+							"easing": "easeInBack"
+						},
+						"1.0": {
+							"vector": [0, 0, 0]
+						},
+						"2.0": {
+							"vector": [0, 8, 0],
+							"easing": "easeInBack"
+						},
+						"3.0": {
+							"vector": [0, 12, 0],
+							"easing": "easeInOutBack"
+						},
+						"3.5": {
+							"vector": [0, 12, 0],
+							"easing": "easeInOutBack"
+						}
+					}
+				},
+				"arms": {
+					"position": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.5": {
+							"vector": [0, 8, 0],
+							"easing": "easeInBack"
+						},
+						"1.0": {
+							"vector": [0, 0, 0]
+						},
+						"2.0": {
+							"vector": [0, 8, 0],
+							"easing": "easeInBack"
+						},
+						"3.0": {
+							"vector": [0, 12, 0],
+							"easing": "easeInOutBack"
+						},
+						"3.5": {
+							"vector": [0, 12, 0],
+							"easing": "easeInOutBack"
+						}
+					}
+				},
+				"head": {
+					"position": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.5": {
+							"vector": [0, 8, 0],
+							"easing": "easeInBack"
+						},
+						"1.0": {
+							"vector": [0, 0, 0]
+						},
+						"2.0": {
+							"vector": [0, 8, 0],
+							"easing": "easeInBack"
+						},
+						"3.0": {
+							"vector": [0, 12, 0],
+							"easing": "easeInOutBack"
+						},
+						"3.5": {
+							"vector": [0, 12, 0],
+							"easing": "easeInOutBack"
+						}
+					}
+				},
+				"effects": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"3.5": {
+							"vector": [0, 720, 0]
+						}
+					},
+					"position": {
+						"0.0": {
+							"vector": [0, 55, 0]
+						},
+						"0.1": {
+							"vector": [0, 0, 0],
+							"easing": "easeOutBack"
+						}
+					},
+					"scale": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.1": {
+							"vector": [1, 1, 1],
+							"easing": "easeInBack"
+						}
+					}
+				}
+			}
+		},
+		"animation.lord_of_blood.idle": {
+			"loop": true,
+			"animation_length": 1,
+			"bones": {
+				"effects": {
+					"scale": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"1.0": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"rod": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"1.0": {
+							"vector": [0, 72000, 0]
+						}
+					}
+				}
+			}
+		}
+	},
+	"geckolib_format_version": 2
+}
