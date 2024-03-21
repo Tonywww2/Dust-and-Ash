@@ -1,6 +1,8 @@
 package com.tonywww.dustandash.item.custom;
 
 import com.tonywww.dustandash.config.DustAndAshConfig;
+import com.tonywww.dustandash.render.LordOfBloodRenderer;
+import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.core.particles.ParticleOptions;
@@ -20,15 +22,24 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
+import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import org.joml.Vector3f;
+import software.bernie.geckolib.animatable.GeoItem;
+import software.bernie.geckolib.animatable.SingletonGeoAnimatable;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.*;
+import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.util.GeckoLibUtil;
+import software.bernie.geckolib.util.RenderUtils;
 
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.function.Predicate;
-import java.util.jar.Attributes;
 
 
-public class LordOfBlood extends SwordItem {
+public class LordOfBlood extends SwordItem implements GeoItem {
+    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
     private static final String RADIUS_TAG = "radius";
     private static final String CHARGES_TAG = "charges";
@@ -40,6 +51,8 @@ public class LordOfBlood extends SwordItem {
 
     public LordOfBlood(Tier pTier, int pAttackDamageModifier, float pAttackSpeedModifier, Properties pProperties) {
         super(pTier, pAttackDamageModifier, pAttackSpeedModifier, pProperties);
+
+        SingletonGeoAnimatable.registerSyncedAnimatable(this);
 
     }
 
@@ -70,15 +83,20 @@ public class LordOfBlood extends SwordItem {
 
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
-        if (getCharges(player.getItemInHand(hand)) < 3) {
-            player.startUsingItem(hand);
+        if (!level.isClientSide()) {
+            if (getCharges(player.getItemInHand(hand)) < 3) {
+                use.stop();
+                triggerAnim(player, GeoItem.getOrAssignId(player.getItemInHand(hand), (ServerLevel) level), "use", "use");
+                player.startUsingItem(hand);
 
-        } else {
-            level.playSound(null, player.blockPosition(), SoundEvents.PLAYER_BURP, SoundSource.PLAYERS, 1f, 1f);
+            } else {
+                level.playSound(null, player.blockPosition(), SoundEvents.PLAYER_BURP, SoundSource.PLAYERS, 1f, 1f);
 
+            }
         }
         return super.use(level, player, hand);
     }
+
 
     public static void setCharges(ItemStack stack, int val) {
         CompoundTag compoundtag = stack.getOrCreateTag();
@@ -109,73 +127,76 @@ public class LordOfBlood extends SwordItem {
 
     @Override
     public UseAnim getUseAnimation(ItemStack stack) {
-        return UseAnim.DRINK;
-    }
-
-    @Override
-    public void onUseTick(Level level, LivingEntity entity, ItemStack stack, int time) {
-        super.onUseTick(level, entity, stack, time);
+//        return UseAnim.DRINK;
+        return UseAnim.BOW;
     }
 
     @Override
     public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity entity) {
 
-        float radius = getRadius(stack);
-        List<LivingEntity> entities = level.getEntitiesOfClass(LivingEntity.class, getArea(entity.blockPosition(), (int) radius), VALID_ENTITY);
-        DamageSource damageSource = level.damageSources().thorns(entity);
+        if (!level.isClientSide()) {
 
-        setCharges(stack, getCharges(stack) + 1);
-        int curStacks = getCharges(stack);
-        switch (curStacks) {
-            case 1 -> {
+            float radius = getRadius(stack);
+            List<LivingEntity> entities = level.getEntitiesOfClass(LivingEntity.class, getArea(entity.blockPosition(), (int) radius), VALID_ENTITY);
+            DamageSource damageSource = level.damageSources().thorns(entity);
 
-                if (!level.isClientSide()) {
-                    level.playSound(null, entity.blockPosition(), SoundEvents.WARDEN_ROAR, SoundSource.PLAYERS, 1f, 1f);
+            setCharges(stack, getCharges(stack) + 1);
+            int curStacks = getCharges(stack);
+            switch (curStacks) {
+                case 1 -> {
 
-                    particle1((ServerLevel) level, entity, PARTICLE_RED, radius, 2, 64);
+                    if (!level.isClientSide()) {
+                        level.playSound(null, entity.blockPosition(), SoundEvents.WARDEN_ROAR, SoundSource.PLAYERS, 1f, 1f);
 
-                    particle1((ServerLevel) level, entity, PARTICLE_GREY, -radius, 1, 64);
-                    particle3((ServerLevel) level, entity, PARTICLE_GREY, radius - 3f, 1, 32);
+                        particle1((ServerLevel) level, entity, PARTICLE_RED, radius, 2, 64);
+
+                        particle1((ServerLevel) level, entity, PARTICLE_GREY, -radius, 1, 64);
+                        particle3((ServerLevel) level, entity, PARTICLE_GREY, radius - 3f, 1, 32);
+
+                    }
+
+
+                    hurtAllEntities(entities, damageSource, 2);
+                    effectAllEntities(entities, new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60, 0), entity);
+                    entity.heal(3);
+                }
+                case 2 -> {
+                    if (!level.isClientSide()) {
+                        level.playSound(null, entity.blockPosition(), SoundEvents.WARDEN_ANGRY, SoundSource.PLAYERS, 1f, 1f);
+
+                        particle1((ServerLevel) level, entity, PARTICLE_RED, radius, 2, 64);
+                        particle1((ServerLevel) level, entity, PARTICLE_RED, -radius, 2, 64);
+
+                        particle3((ServerLevel) level, entity, PARTICLE_GREY, radius - 3f, 1, 32);
+
+                    }
+
+                    hurtAllEntities(entities, damageSource, 4);
+                    effectAllEntities(entities, new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 80, 1), entity);
+                    effectAllEntities(entities, new MobEffectInstance(MobEffects.WEAKNESS, 60, 0), entity);
+                    entity.heal(4);
+                }
+                case 3 -> {
+                    if (!level.isClientSide()) {
+                        level.playSound(null, entity.blockPosition(), SoundEvents.WARDEN_SONIC_BOOM, SoundSource.PLAYERS, 1f, 1f);
+
+                        particle1((ServerLevel) level, entity, PARTICLE_RED, radius, 2, 64);
+                        particle1((ServerLevel) level, entity, PARTICLE_RED, -radius, 2, 64);
+                        particle3((ServerLevel) level, entity, PARTICLE_RED, radius - 3f, 3, 32);
+
+                    }
+
+                    hurtAllEntities(entities, damageSource, 6);
+                    effectAllEntities(entities, new MobEffectInstance(MobEffects.WEAKNESS, 60, 1), entity);
+                    entity.heal(5);
 
                 }
-
-
-                hurtAllEntities(entities, damageSource, 2);
-                effectAllEntities(entities, new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60, 0), entity);
-                entity.heal(3);
+                default -> setCharges(stack, 0);
             }
-            case 2 -> {
-                if (!level.isClientSide()) {
-                    level.playSound(null, entity.blockPosition(), SoundEvents.WARDEN_ANGRY, SoundSource.PLAYERS, 1f, 1f);
-
-                    particle1((ServerLevel) level, entity, PARTICLE_RED, radius, 2, 64);
-                    particle1((ServerLevel) level, entity, PARTICLE_RED, -radius, 2, 64);
-
-                    particle3((ServerLevel) level, entity, PARTICLE_GREY, radius - 3f, 1, 32);
-
-                }
-
-                hurtAllEntities(entities, damageSource, 4);
-                effectAllEntities(entities, new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 80, 1), entity);
-                effectAllEntities(entities, new MobEffectInstance(MobEffects.WEAKNESS, 60, 0), entity);
-                entity.heal(4);
-            }
-            case 3 -> {
-                if (!level.isClientSide()) {
-                    level.playSound(null, entity.blockPosition(), SoundEvents.WARDEN_SONIC_BOOM, SoundSource.PLAYERS, 1f, 1f);
-
-                    particle1((ServerLevel) level, entity, PARTICLE_RED, radius, 2, 64);
-                    particle1((ServerLevel) level, entity, PARTICLE_RED, -radius, 2, 64);
-                    particle3((ServerLevel) level, entity, PARTICLE_RED, radius - 3f, 3, 32);
-
-                }
-
-                hurtAllEntities(entities, damageSource, 6);
-                effectAllEntities(entities, new MobEffectInstance(MobEffects.WEAKNESS, 60, 1), entity);
-                entity.heal(5);
+            if (entity instanceof Player player) {
+                player.getCooldowns().addCooldown(this, 15);
 
             }
-            default -> setCharges(stack, 0);
         }
         return super.finishUsingItem(stack, level, entity);
     }
@@ -261,7 +282,10 @@ public class LordOfBlood extends SwordItem {
 
     @Override
     public void releaseUsing(ItemStack stack, Level level, LivingEntity entity, int time) {
+        if (!level.isClientSide()) {
+            use.stop();
 
+        }
         super.releaseUsing(stack, level, entity, time);
     }
 
@@ -278,4 +302,46 @@ public class LordOfBlood extends SwordItem {
         super.appendHoverText(pStack, pLevel, pTooltip, pFlag);
     }
 
+    @Override
+    public void initializeClient(Consumer<IClientItemExtensions> consumer) {
+        consumer.accept(new IClientItemExtensions() {
+            private LordOfBloodRenderer renderer;
+
+            @Override
+            public BlockEntityWithoutLevelRenderer getCustomRenderer() {
+                if (this.renderer == null)
+                    this.renderer = new LordOfBloodRenderer();
+
+                return this.renderer;
+            }
+        });
+    }
+
+    private PlayState predicate(AnimationState animationState) {
+        animationState.getController().setAnimation(RawAnimation.begin().then("animation.lord_of_blood.idle", Animation.LoopType.LOOP));
+        return PlayState.CONTINUE;
+
+    }
+
+    AnimationController<LordOfBlood> idle = new AnimationController<>(this, "idle", 0, this::predicate);
+    AnimationController<LordOfBlood> use = new AnimationController<>(this, "use", 0, state -> PlayState.STOP)
+            .triggerableAnim("use", RawAnimation.begin().thenPlay("animation.lord_of_blood.use"));
+
+    @Override
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(idle);
+
+        controllers.add(use);
+
+    }
+
+    @Override
+    public double getTick(Object itemStack) {
+        return RenderUtils.getCurrentTick();
+    }
+
+    @Override
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return this.cache;
+    }
 }

@@ -1,48 +1,85 @@
 {
-	"credit": "Made with Blockbench",
-	"parent": "minecraft:item/handheld",
-	"textures": {
-		"particle": "block/redstone_dust_dot",
-		"layer0": "dustandash:item/lord_of_blood"
-	},
-	"display": {
-		"thirdperson_righthand": {
-			"rotation": [0, -90, 45],
-			"translation": [0, 14, 1.25],
-			"scale": [2, 2, 2]
-		},
-		"thirdperson_lefthand": {
-			"rotation": [0, 90, -45],
-			"translation": [0, 14, 1.25],
-			"scale": [2, 2, 2]
-		},
-		"firstperson_righthand": {
-			"rotation": [50, 90, 0],
-			"translation": [2, 7.75, 0]
-		},
-		"firstperson_lefthand": {
-			"rotation": [-50, 90, 0],
-			"translation": [2, 7.75, 0]
-		}
-	},
-    "overrides": [
-        {
-            "predicate": {
-                "charges": 1
-            },
-            "model": "dustandash:item/lord_of_blood_1"
-        },
-        {
-            "predicate": {
-                "charges": 2
-            },
-            "model": "dustandash:item/lord_of_blood_2"
-        },
-        {
-            "predicate": {
-                "charges": 3
-            },
-            "model": "dustandash:item/lord_of_blood_3"
-        }
-    ]
+  "credit": "Made with Blockbench",
+  "parent": "builtin/entity",
+  "texture_size": [
+    64,
+    64
+  ],
+  "display": {
+    "thirdperson_righthand": {
+      "rotation": [
+        0,
+        -90,
+        0
+      ],
+      "translation": [
+        0,
+        -13,
+        1
+      ]
+    },
+    "thirdperson_lefthand": {
+      "rotation": [
+        0,
+        90,
+        0
+      ],
+      "translation": [
+        0,
+        -13,
+        1
+      ]
+    },
+    "firstperson_righthand": {
+      "rotation": [
+        0,
+        -90,
+        0
+      ],
+      "translation": [
+        1,
+        -6,
+        0
+      ],
+      "scale": [
+        0.5,
+        0.5,
+        0.5
+      ]
+    },
+    "firstperson_lefthand": {
+      "rotation": [
+        0,
+        90,
+        0
+      ],
+      "translation": [
+        1,
+        -6,
+        0
+      ],
+      "scale": [
+        0.5,
+        0.5,
+        0.5
+      ]
+    },
+    "gui": {
+      "rotation": [
+        0,
+        0,
+        -45
+      ],
+      "translation": [
+        -8,
+        -8,
+        0
+      ],
+      "scale": [
+        0.5,
+        0.5,
+        0.5
+      ]
+    }
+  }
 }
