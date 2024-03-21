@@ -130,6 +130,11 @@ public class ModItems {
                             .fireResistant())
             ));
 
+    public static final RegistryObject<Item> JUDGEMENT = ITEMS.register("judgement",
+            () -> new Judgement(ModItemTier.TITANIUM_ALLOY, 12, -3.2F,
+                    (new Item.Properties()
+                            .fireResistant())
+            ));
 
     // metals
     public static final RegistryObject<Item> ASH_STEEL_INGOT = ITEMS.register("ash_steel_ingot",
