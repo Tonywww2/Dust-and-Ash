@@ -58,21 +58,33 @@ public class LordOfBlood extends SwordItem implements GeoItem {
 
     @Override
     public boolean onLeftClickEntity(ItemStack stack, Player player, Entity entity) {
-        Level world = player.level();
+        Level level = player.level();
         boolean result = super.onLeftClickEntity(stack, player, entity);
 
-        if (!world.isClientSide()) {
+        if (!level.isClientSide()) {
             if (player.getAttackStrengthScale(0.1f) >= 1) {
                 player.heal(2.0f);
 
             }
 
             if (getCharges(stack) >= 3) {
-                world.playSound(null, entity.blockPosition(), SoundEvents.DRAGON_FIREBALL_EXPLODE, SoundSource.PLAYERS, 1f, 1f);
+                level.playSound(null, entity.blockPosition(), SoundEvents.DRAGON_FIREBALL_EXPLODE, SoundSource.PLAYERS, 1f, 1f);
                 player.addEffect(new MobEffectInstance(MobEffects.SATURATION, 20, 0));
                 player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 40, 1));
                 player.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 60, 1));
                 setCharges(stack, 0);
+
+                ((ServerLevel) level).sendParticles(
+                        PARTICLE_RED,
+                        entity.getX(),
+                        entity.getY() + 0.5d,
+                        entity.getZ(),
+                        64,
+                        0.5d,
+                        0.5d,
+                        0.5d,
+                        0
+                );
 
             }
 
@@ -97,6 +109,30 @@ public class LordOfBlood extends SwordItem implements GeoItem {
         return super.use(level, player, hand);
     }
 
+    @Override
+    public void onUseTick(Level level, LivingEntity entity, ItemStack stack, int tick) {
+
+        if (!level.isClientSide()) {
+            if (tick % 4 == 0) {
+                int charges = getCharges(stack) + 1;
+                ((ServerLevel) level).sendParticles(
+                        PARTICLE_RED,
+                        entity.getX(),
+                        entity.getY() + 3.5d,
+                        entity.getZ(),
+                        charges * 4,
+                        0.5d * (charges / 2d),
+                        0.5d * (charges / 2d),
+                        0.5d * (charges / 2d),
+                        0
+                );
+
+            }
+
+        }
+
+        super.onUseTick(level, entity, stack, tick);
+    }
 
     public static void setCharges(ItemStack stack, int val) {
         CompoundTag compoundtag = stack.getOrCreateTag();

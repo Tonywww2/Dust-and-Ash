@@ -16,6 +16,7 @@
   "item.dustandash.sunburn_mega_sword": "§c 日炎巨剑",
   "item.dustandash.white_lightning": "§b 疾風迅雷",
   "item.dustandash.lord_of_blood": "§4 鲜血君王",
+  "item.dustandash.judgement": "§e 审判",
 
   "item.dustandash.ash_steel_boots": "烬钢靴",
   "item.dustandash.ash_steel_chestplate": "烬钢胸甲",
@@ -167,7 +168,7 @@
   "tooltip.dustandash.sunburn_mega_sword": "爆裂",
   "tooltip.dustandash.white_lightning": "白い稲妻",
   "tooltip.dustandash.lord_of_blood": "授血仪式",
-  "tooltip.dustandash.judgement": "授血仪式",
+  "tooltip.dustandash.judgement": "Il Giudizio Universale",
 
   "dustandash.advancements.entry.title": "尘与烬",
   "dustandash.advancements.entry.description": "「给时光以生命，而不是给生命以时光。」",

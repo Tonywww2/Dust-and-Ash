@@ -3,6 +3,7 @@ package com.tonywww.dustandash.item.custom;
 import com.tonywww.dustandash.config.DustAndAshConfig;
 import com.tonywww.dustandash.entity.LightningProjectileEntity;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -19,6 +20,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
+import org.joml.Vector3f;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -35,6 +37,8 @@ public class WhiteLightning extends SwordItem {
     private static final int MAX_CHARGE = 16;
     private static final int ADVANCED_MAX_CHARGE = 10;
 
+    public static final DustParticleOptions PARTICLE_BLUE = new DustParticleOptions(new Vector3f(0, 1f, 1f), 2.0F);
+
     public WhiteLightning(Tier pTier, int pAttackDamageModifier, float pAttackSpeedModifier, Properties pProperties) {
         super(pTier, pAttackDamageModifier, pAttackSpeedModifier, pProperties);
 
@@ -44,67 +48,81 @@ public class WhiteLightning extends SwordItem {
     public boolean onLeftClickEntity(ItemStack stack, Player player, Entity entity) {
         Level level = player.level();
 
-        boolean damageFlag = false;
-        boolean lightningFlag = false;
-        float targetHealth = 0;
+        if (!level.isClientSide()) {
+            boolean damageFlag = false;
+            boolean lightningFlag = false;
+            float targetHealth = 0;
 
-        // normal mode
-        if (!level.isClientSide() && entity instanceof LivingEntity livingEntity && player.getAttackStrengthScale(0.1f) >= 1) {
-            if (getAttackCounts(stack) >= 2) {
-                setAttackCounts(stack, getAttackCounts(stack) - 2);
-                setCharges(stack, getCharges(stack) + 2);
+            // normal mode
+            if (entity instanceof LivingEntity livingEntity && player.getAttackStrengthScale(0.1f) >= 1) {
+                if (getAttackCounts(stack) >= 2) {
+                    setAttackCounts(stack, getAttackCounts(stack) - 2);
+                    setCharges(stack, getCharges(stack) + 2);
 
-                player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 100, 0));
-                player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 100, 0));
-                lightningFlag = true;
+                    player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 100, 0));
+                    player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 160, 0));
+                    lightningFlag = true;
 
-            } else {
-                setAttackCounts(stack, getAttackCounts(stack) + 1);
+                } else {
+                    setAttackCounts(stack, getAttackCounts(stack) + 1);
 
-            }
-            if (getAdvCharges(stack) > 0) {
-                // under release
-                damageFlag = true;
-                targetHealth = livingEntity.getHealth();
+                }
+                if (getAdvCharges(stack) > 0) {
+                    // under release
+                    damageFlag = true;
+                    targetHealth = livingEntity.getHealth();
 
-                if (getAdvCharges(stack) <= 0) {
-                    // no adv charges
-                    level.playSound(null, player.blockPosition(), SoundEvents.BEACON_DEACTIVATE, SoundSource.PLAYERS, 1f, 1f);
+                    ((ServerLevel) level).sendParticles(
+                            PARTICLE_BLUE,
+                            entity.getX(),
+                            entity.getY() + 0.5d,
+                            entity.getZ(),
+                            5,
+                            0.5d,
+                            0.5d,
+                            0.5d,
+                            0
+                    );
+
+                    if (getAdvCharges(stack) <= 0) {
+                        // no adv charges
+                        level.playSound(null, player.blockPosition(), SoundEvents.BEACON_DEACTIVATE, SoundSource.PLAYERS, 1f, 1f);
+
+                    }
 
                 }
 
             }
 
-        }
-
-        if (damageFlag) {
-            float damage = (targetHealth * getExtraPercentage(stack)) + getExtraDamage(stack);
-            entity.hurt(player.damageSources().indirectMagic(entity, player), damage);
-            setAdvCharges(stack, getAdvCharges(stack) - 1);
+            if (damageFlag) {
+                float damage = (targetHealth * getExtraPercentage(stack)) + getExtraDamage(stack);
+                entity.hurt(player.damageSources().indirectMagic(entity, player), damage);
+                setAdvCharges(stack, getAdvCharges(stack) - 1);
 //            setAttackCounts(stack, getAttackCounts(stack) + 1);
-            level.playSound(null, player.blockPosition(), SoundEvents.ENDER_DRAGON_FLAP, SoundSource.PLAYERS, 1f, 1f);
+                level.playSound(null, player.blockPosition(), SoundEvents.ENDER_DRAGON_FLAP, SoundSource.PLAYERS, 1f, 1f);
 
-            entity.invulnerableTime = 0;
+                entity.invulnerableTime = 0;
 
-        }
+            }
 
-        if (lightningFlag) {
-            List<LivingEntity> entities = level.getEntitiesOfClass(LivingEntity.class, getArea(entity.blockPosition(), (int) 1), VALID_ENTITY);
-            hurtAllEntities(entities, player.damageSources().indirectMagic(entity, player), 5);
-            level.playSound(null, entity.blockPosition(), SoundEvents.LIGHTNING_BOLT_IMPACT, SoundSource.PLAYERS, 1f, 1f);
-            ((ServerLevel) level).sendParticles(
-                    ParticleTypes.SONIC_BOOM,
-                    entity.getX(),
-                    entity.getY() + 0.5d,
-                    entity.getZ(),
-                    16,
-                    0.25,
-                    0.25,
-                    0.25,
-                    10
-            );
+            if (lightningFlag) {
+                List<LivingEntity> entities = level.getEntitiesOfClass(LivingEntity.class, getArea(entity.blockPosition(), (int) 1), VALID_ENTITY);
+                hurtAllEntities(entities, player.damageSources().indirectMagic(entity, player), 5);
+                level.playSound(null, entity.blockPosition(), SoundEvents.LIGHTNING_BOLT_IMPACT, SoundSource.PLAYERS, 1f, 1f);
+                ((ServerLevel) level).sendParticles(
+                        ParticleTypes.SONIC_BOOM,
+                        entity.getX(),
+                        entity.getY() + 1.0d,
+                        entity.getZ(),
+                        16,
+                        0.25,
+                        0.25,
+                        0.25,
+                        10
+                );
 
-            entity.invulnerableTime = 0;
+                entity.invulnerableTime = 0;
+            }
         }
 
 

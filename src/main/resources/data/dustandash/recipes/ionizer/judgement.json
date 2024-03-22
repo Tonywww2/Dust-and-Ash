@@ -1,0 +1,39 @@
+{
+  "type": "dustandash:ionizer",
+  "ingredients": [
+    {
+      "item": "dustandash:titanium_alloy_great_sword"
+    },
+    {
+      "item": "dustandash:bloody_flint"
+    },
+    {
+      "item": "dustandash:reductant"
+    },
+    {
+      "item": "dustandash:apotheosis_crystal"
+    },
+    {
+      "item": "dustandash:graphite_electrode"
+    }
+  ],
+  "inputBlock": "minecraft:crying_obsidian",
+  "outputs": [
+    {
+      "item": "dustandash:judgement"
+    },
+    {
+      "item": "dustandash:ash"
+    },
+    {
+      "item": "dustandash:empty"
+    },
+    {
+      "item": "dustandash:empty"
+    }
+  ],
+  "cost": 16,
+  "tick": 1600,
+  "costElectrodes": true,
+  "outputBlock": "minecraft:obsidian"
+}

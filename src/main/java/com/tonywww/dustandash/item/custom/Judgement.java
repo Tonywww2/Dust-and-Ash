@@ -3,6 +3,7 @@ package com.tonywww.dustandash.item.custom;
 import com.tonywww.dustandash.render.JudgementRenderer;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -40,6 +41,7 @@ public class Judgement extends PickaxeItem implements GeoItem {
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         if (!level.isClientSide()) {
+            triggerAnim(player, GeoItem.getOrAssignId(player.getItemInHand(hand), (ServerLevel) level), "use", "use");
             player.startUsingItem(hand);
 
         }
@@ -76,6 +78,8 @@ public class Judgement extends PickaxeItem implements GeoItem {
                 player.getCooldowns().addCooldown(this, cd);
 
             }
+            use.stop();
+
         }
         super.releaseUsing(stack, level, entity, tick);
     }
@@ -87,6 +91,8 @@ public class Judgement extends PickaxeItem implements GeoItem {
                 player.getCooldowns().addCooldown(this, MAX_CD);
 
             }
+            use.stop();
+
         }
         return super.finishUsingItem(stack, level, entity);
     }
@@ -131,10 +137,13 @@ public class Judgement extends PickaxeItem implements GeoItem {
     }
 
     AnimationController<Judgement> idle = new AnimationController<>(this, "idle", 0, this::predicate);
+    AnimationController<Judgement> use = new AnimationController<>(this, "use", 0, state -> PlayState.STOP)
+            .triggerableAnim("use", RawAnimation.begin().thenPlay("animation.judgement.use"));
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(idle);
+        controllers.add(use);
 
     }
 

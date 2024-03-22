@@ -2,6 +2,7 @@ package com.tonywww.dustandash.entity;
 
 import com.tonywww.dustandash.item.ModItems;
 import com.tonywww.dustandash.item.custom.WhiteLightning;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
@@ -14,6 +15,8 @@ import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
+
+import static com.tonywww.dustandash.item.custom.WhiteLightning.PARTICLE_BLUE;
 
 public class LightningProjectileEntity extends ThrowableItemProjectile {
 
@@ -52,7 +55,18 @@ public class LightningProjectileEntity extends ThrowableItemProjectile {
 
                 if (isPowerful) {
                     damage += (livingEntity.getHealth() * WhiteLightning.getExtraPercentage(source));
-                    ((LivingEntity) entity).addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 100, 3));
+                    ((LivingEntity) entity).addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 100, 4));
+                    ((ServerLevel) this.level()).sendParticles(
+                            PARTICLE_BLUE,
+                            entity.getX(),
+                            entity.getY() + 0.5d,
+                            entity.getZ(),
+                            5,
+                            0.5d,
+                            0.5d,
+                            0.5d,
+                            0
+                    );
 
                 }
                 entity.invulnerableTime = 0;

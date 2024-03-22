@@ -15,26 +15,6 @@
 						}
 					}
 				},
-				"effect1": {
-					"scale": {
-						"0.0": {
-							"vector": [0, 0, 0]
-						},
-						"1.0": {
-							"vector": [0, 0, 0]
-						}
-					}
-				},
-				"effect2": {
-					"scale": {
-						"0.0": {
-							"vector": [0, 0, 0]
-						},
-						"1.0": {
-							"vector": [0, 0, 0]
-						}
-					}
-				},
 				"head": {
 					"rotation": {
 						"0.0": {
@@ -62,6 +42,82 @@
 						},
 						"1.0": {
 							"vector": [0, -72000, 0]
+						}
+					}
+				}
+			}
+		},
+		"animation.judgement.use": {
+			"loop": "hold_on_last_frame",
+			"animation_length": 1,
+			"bones": {
+				"rod": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"1.0": {
+							"vector": [0, 45, 0]
+						}
+					}
+				},
+				"top": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"1.0": {
+							"vector": [0, 0, 0]
+						}
+					},
+					"position": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"1.0": {
+							"vector": [0, -9, 0]
+						}
+					},
+					"scale": {
+						"vector": [1.5, 2, 2]
+					}
+				},
+				"head": {
+					"rotation": {
+						"vector": [90, 0, 0]
+					},
+					"scale": {
+						"0.0": {
+							"vector": [1, 1, 1]
+						},
+						"1.0": {
+							"vector": [3.5, 1.75, 1.75]
+						}
+					}
+				},
+				"top1": {
+					"rotation": {
+						"vector": [0, -45, 0]
+					},
+					"scale": {
+						"0.0": {
+							"vector": [1, 1, 1]
+						},
+						"1.0": {
+							"vector": [1.5, 2.5, 1.5]
+						}
+					}
+				},
+				"top2": {
+					"rotation": {
+						"vector": [0, 45, 0]
+					},
+					"scale": {
+						"0.0": {
+							"vector": [1, 1, 1]
+						},
+						"1.0": {
+							"vector": [1.5, 2.5, 1.5]
 						}
 					}
 				}
