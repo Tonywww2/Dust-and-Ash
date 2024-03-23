@@ -177,11 +177,11 @@ public class MillingMachineTile extends SyncedBlockEntity implements MenuProvide
                 }
 
                 be.invItemStackHandler.setStackInSlot(2, output.copy());
+                level.playSound(null, pos, SoundEvents.ANVIL_USE, SoundSource.BLOCKS, 0.5f, 1f);
 
 
             }
 
-            level.playSound(null, pos, SoundEvents.ANVIL_USE, SoundSource.BLOCKS, 0.5f, 1f);
 
             be.inventoryChanged();
         });

@@ -11,7 +11,9 @@ import net.minecraft.world.MenuProvider;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.AbstractFurnaceBlock;
 import net.minecraft.world.level.block.FurnaceBlock;
+import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.world.level.block.entity.FurnaceBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.entity.player.Player;
@@ -131,7 +133,7 @@ public class AshCollectorTile extends SyncedBlockEntity implements MenuProvider{
     }
 
     public static boolean shouldWork(Level level, BlockPos pos, BlockState state, AshCollectorTile be) {
-        if (level.getBlockState(pos.above()).getBlock() instanceof FurnaceBlock) {
+        if (level.getBlockState(pos.above()).getBlock() instanceof AbstractFurnaceBlock) {
             BlockState block = level.getBlockState(pos.above());
 
             return block.getValue(BlockStateProperties.LIT);
@@ -143,8 +145,7 @@ public class AshCollectorTile extends SyncedBlockEntity implements MenuProvider{
 
     private static void suckInItem(Level level, BlockPos pos, BlockState state, AshCollectorTile be) {
         if (be.coolDownTime <= 0 && be.itemStackHandler.getStackInSlot(1).getCount() < be.itemStackHandler.getSlotLimit(1)) {
-            if (level.getBlockEntity(pos.above()) instanceof FurnaceBlockEntity) {
-                FurnaceBlockEntity tile = (FurnaceBlockEntity) level.getBlockEntity(pos.above());
+            if (level.getBlockEntity(pos.above()) instanceof AbstractFurnaceBlockEntity tile) {
                 ItemStack target = tile.getItem(2);
 
                 if (be.itemStackHandler.getStackInSlot(1).isEmpty() || target.getItem() == be.itemStackHandler.getStackInSlot(1).getItem()) {
