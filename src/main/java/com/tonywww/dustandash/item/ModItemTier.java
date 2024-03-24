@@ -9,7 +9,7 @@ public enum ModItemTier implements Tier {
     FLINT(0, 48, 3.0F, 1.0F, 20, () -> {
         return Ingredient.of(ModItems.BLOODY_FLINT.get());
     }),
-    ASH_STEEL(3, 880, 7.5F, 2.5F, 16, () -> {
+    ASH_STEEL(4, 1280, 9.5F, 3.5F, 18, () -> {
         return Ingredient.of(ModItems.ASH_STEEL_INGOT.get());
     }),
     TITANIUM_ALLOY(5, 3280, 12.5F, 6.0F, 28, () -> {

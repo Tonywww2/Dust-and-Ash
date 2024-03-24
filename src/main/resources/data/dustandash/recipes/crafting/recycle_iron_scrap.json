@@ -11,11 +11,20 @@
       "item": "dustandash:iron_scrap"
     },
     {
+      "item": "dustandash:iron_scrap"
+    },
+    {
+      "item": "dustandash:iron_scrap"
+    },
+    {
+      "item": "dustandash:iron_scrap"
+    },
+    {
       "item": "dustandash:crystallize_dust"
     }
   ],
   "result": {
     "item": "minecraft:iron_ingot",
-    "count": 1
+    "count": 2
   }
 }

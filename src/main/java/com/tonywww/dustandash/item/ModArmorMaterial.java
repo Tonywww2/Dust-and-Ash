@@ -18,11 +18,11 @@ import java.util.function.Supplier;
 public enum ModArmorMaterial implements ArmorMaterial {
 
     ASH_STEEL("ash_steel", 30, Util.make(new EnumMap<>(ArmorItem.Type.class), (arr) -> {
-        arr.put(ArmorItem.Type.BOOTS, 2);
-        arr.put(ArmorItem.Type.LEGGINGS, 6);
-        arr.put(ArmorItem.Type.CHESTPLATE, 7);
-        arr.put(ArmorItem.Type.HELMET, 2);
-    }), 10, SoundEvents.ARMOR_EQUIP_IRON, 1.0F, 0.05F, () -> {
+        arr.put(ArmorItem.Type.BOOTS, 4);
+        arr.put(ArmorItem.Type.CHESTPLATE, 9);
+        arr.put(ArmorItem.Type.LEGGINGS, 7);
+        arr.put(ArmorItem.Type.HELMET, 4);
+    }), 18, SoundEvents.ARMOR_EQUIP_IRON, 2.0F, 0.15F, () -> {
         return Ingredient.of(ModItems.ASH_STEEL_INGOT.get());
     }),
     TITANIUM("titanium", 37, Util.make(new EnumMap<>(ArmorItem.Type.class), (arr) -> {
@@ -30,7 +30,7 @@ public enum ModArmorMaterial implements ArmorMaterial {
         arr.put(ArmorItem.Type.LEGGINGS, 7);
         arr.put(ArmorItem.Type.CHESTPLATE, 7);
         arr.put(ArmorItem.Type.HELMET, 4);
-    }), 22, SoundEvents.ARMOR_EQUIP_NETHERITE, 2.25F, 0.15F, () -> {
+    }), 22, SoundEvents.ARMOR_EQUIP_NETHERITE, 4.25F, 0.25F, () -> {
         return Ingredient.of(ModItems.TITANIUM_INGOT.get());
     })
     ;
