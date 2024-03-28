@@ -15,6 +15,7 @@ public final class DustAndAshConfig {
     public static final ForgeConfigSpec.ConfigValue<Double> ionizerProgressPerTick;
     public static final ForgeConfigSpec.ConfigValue<Double> handVacuumSuccessRate;
     public static final ForgeConfigSpec.ConfigValue<Double> ironVacuumConsumeRate;
+    public static final ForgeConfigSpec.ConfigValue<Double> galeOtaijutsuDamageRate;
     public static final ForgeConfigSpec.ConfigValue<Double> lordOfBloodRadius;
     public static final ForgeConfigSpec.ConfigValue<Double> whiteLightningExtraDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> whiteLightningExtraPercentage;
@@ -42,6 +43,9 @@ public final class DustAndAshConfig {
                 .defineInRange("handVacuumSuccessRate", 0.55d, 0, 1);
         ironVacuumConsumeRate = BUILDER.comment("\nThe chance of consume a fuel per use. Range[0, 1] Default: 0.35")
                 .defineInRange("ironVacuumConsumeRate", 0.35d, 0, 1);
+
+        galeOtaijutsuDamageRate = BUILDER.comment("\nThe Radius of Lord Of Blood. Range[1, 10] Default: 1.25")
+                .defineInRange("galeOtaijutsuDamageRate", 1.25d, 1d, 10d);
 
         lordOfBloodRadius = BUILDER.comment("\nThe Radius of Lord Of Blood. Range[4, 32] Default: 12")
                 .defineInRange("lordOfBloodRadius", 12d, 4d, 32d);

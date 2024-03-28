@@ -79,7 +79,7 @@ public class ModItems {
             ));
 
     public static final RegistryObject<Item> ASH_STEEL_AXE = ITEMS.register("ash_steel_axe",
-            () -> new AxeItem(ModItemTier.ASH_STEEL, 6.5F, -3.05F,
+            () -> new AxeItem(ModItemTier.ASH_STEEL, 5.5F, -3.05F,
                     (new Item.Properties())
             ));
 

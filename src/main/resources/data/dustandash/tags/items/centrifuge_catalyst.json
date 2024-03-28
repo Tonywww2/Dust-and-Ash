@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "dustandash:water_miscible_solvents",
+    "dustandash:grind_solvents",
+    "dustandash:base_oil",
+    "dustandash:glass_container",
+    "minecraft:potion"
+  ]
+}

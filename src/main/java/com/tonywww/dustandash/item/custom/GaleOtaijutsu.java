@@ -23,6 +23,8 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Objects;
 
+import static com.tonywww.dustandash.config.DustAndAshConfig.galeOtaijutsuDamageRate;
+
 
 public class GaleOtaijutsu extends SwordItem {
     public GaleOtaijutsu(Tier pTier, int pAttackDamageModifier, float pAttackSpeedModifier, Properties pProperties) {
@@ -52,7 +54,7 @@ public class GaleOtaijutsu extends SwordItem {
 
             }
 
-            float extraDamage = (player.fallDistance + 1) * 1.25f;
+            float extraDamage = (float) ((player.fallDistance + 1) * galeOtaijutsuDamageRate.get());
             entity.hurt(player.damageSources().playerAttack(player), extraDamage);
             entity.invulnerableTime = 0;
             player.resetFallDistance();

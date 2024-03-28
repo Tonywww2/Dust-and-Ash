@@ -54,7 +54,7 @@ public class WhiteLightning extends SwordItem {
             float targetHealth = 0;
 
             // normal mode
-            if (entity instanceof LivingEntity livingEntity && player.getAttackStrengthScale(0.1f) >= 1) {
+            if (entity instanceof LivingEntity livingEntity && player.getAttackStrengthScale(0.2f) >= 1) {
                 if (getAttackCounts(stack) >= 2) {
                     setAttackCounts(stack, getAttackCounts(stack) - 2);
                     setCharges(stack, getCharges(stack) + 2);
