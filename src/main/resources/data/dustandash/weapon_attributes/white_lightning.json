@@ -32,7 +32,8 @@
         "swing_sound": {
           "id": "bettercombat:sword_slash",
           "pitch": 1.2
-        },
+        }
+      },
       {
         "hitbox": "FORWARD_BOX",
         "damage_multiplier": 1.1,

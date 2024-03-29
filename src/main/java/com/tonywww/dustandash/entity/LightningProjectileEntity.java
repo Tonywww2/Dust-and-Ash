@@ -21,6 +21,7 @@ import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
+import net.minecraftforge.entity.PartEntity;
 
 import static com.tonywww.dustandash.item.custom.WhiteLightning.PARTICLE_BLUE;
 
@@ -52,40 +53,47 @@ public class LightningProjectileEntity extends ThrowableItemProjectile {
             this.level().broadcastEntityEvent(this, (byte) 3);
             Entity entity = result.getEntity();
             Entity owner = this.getOwner();
+            float targetHealth = 0;
             if (entity instanceof LivingEntity livingEntity) {
-                if (source == null || source.isEmpty()) {
-                    source = ModItems.WHITE_LIGHTNING.get().getDefaultInstance();
+                targetHealth = livingEntity.getHealth();
+
+            } else if (entity instanceof PartEntity partEntity) {
+                entity = partEntity.getParent();
+                if (entity instanceof LivingEntity livingEntity) {
+                    targetHealth = livingEntity.getHealth();
 
                 }
-                float baseDamage =  WhiteLightning.getExtraDamage(source) + ((SwordItem) source.getItem()).getDamage();
-                float extraDamage = 0;
 
+            }
+
+            if (source == null || source.isEmpty()) {
+                source = ModItems.WHITE_LIGHTNING.get().getDefaultInstance();
+
+            }
+
+            float baseDamage = WhiteLightning.getExtraDamage(source) + ((SwordItem) source.getItem()).getDamage();
+            entity.invulnerableTime = 0;
+            if (isPowerful) {
+                ((LivingEntity) entity).addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 100, 4));
+                ((ServerLevel) this.level()).sendParticles(
+                        PARTICLE_BLUE,
+                        entity.getX(),
+                        entity.getY() + 0.5d,
+                        entity.getZ(),
+                        5,
+                        0.5d,
+                        0.5d,
+                        0.5d,
+                        0
+                );
+                entity.hurt(owner.damageSources().indirectMagic(entity, owner), baseDamage + (targetHealth * WhiteLightning.getExtraPercentage(source)));
                 entity.invulnerableTime = 0;
-                if (isPowerful) {
-                    extraDamage = (livingEntity.getHealth() * WhiteLightning.getExtraPercentage(source));
-                    ((LivingEntity) entity).addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 100, 4));
-                    ((ServerLevel) this.level()).sendParticles(
-                            PARTICLE_BLUE,
-                            entity.getX(),
-                            entity.getY() + 0.5d,
-                            entity.getZ(),
-                            5,
-                            0.5d,
-                            0.5d,
-                            0.5d,
-                            0
-                    );
-                    entity.hurt(owner.damageSources().indirectMagic(entity, owner), baseDamage + extraDamage);
-                    entity.invulnerableTime = 0;
 
-                }
+            }
 
-                if (owner instanceof Player player) {
-                    entity.hurt(owner.damageSources().playerAttack(player), baseDamage);
-                    entity.invulnerableTime = 0;
-
-                }
-
+            if (owner instanceof Player player) {
+                entity.hurt(owner.damageSources().playerAttack(player), baseDamage);
+                entity.invulnerableTime = 0;
 
             }
 

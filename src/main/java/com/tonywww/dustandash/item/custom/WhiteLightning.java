@@ -20,6 +20,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
+import net.minecraftforge.entity.PartEntity;
 import org.joml.Vector3f;
 
 import javax.annotation.Nullable;
@@ -53,8 +54,10 @@ public class WhiteLightning extends SwordItem {
             boolean lightningFlag = false;
             float targetHealth = 0;
 
+            System.out.println(entity.getClass());
+
             // normal mode
-            if (entity instanceof LivingEntity livingEntity && player.getAttackStrengthScale(0.2f) >= 1) {
+            if (player.getAttackStrengthScale(0.2f) >= 1) {
                 if (getAttackCounts(stack) >= 2) {
                     setAttackCounts(stack, getAttackCounts(stack) - 2);
                     setCharges(stack, getCharges(stack) + 2);
@@ -70,7 +73,18 @@ public class WhiteLightning extends SwordItem {
                 if (getAdvCharges(stack) > 0) {
                     // under release
                     damageFlag = true;
-                    targetHealth = livingEntity.getHealth();
+                    if (entity instanceof LivingEntity livingEntity) {
+                        targetHealth = livingEntity.getHealth();
+
+                    } else if (entity instanceof PartEntity partEntity){
+                        entity = partEntity.getParent();
+                        if (entity instanceof LivingEntity livingEntity) {
+                            targetHealth = livingEntity.getHealth();
+
+                        }
+
+
+                    }
 
                     ((ServerLevel) level).sendParticles(
                             PARTICLE_BLUE,
