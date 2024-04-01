@@ -27,6 +27,8 @@
   "item.dustandash.sun_crystal": "日之水晶",
   "item.dustandash.echo_activator": "回声激活器",
   "item.dustandash.nano_machine": "纳米机器",
+  "item.dustandash.placeholder": "占位符",
+  "item.dustandash.position_selector": "位置选择器",
 
   "item.dustandash.metal_dust": "金属之尘",
   "item.dustandash.life_dust": "生命之尘",
@@ -128,6 +130,7 @@
   "block.dustandash.milling_machine": "铣床和装配台",
   "block.dustandash.centrifuge": "离心机",
   "block.dustandash.ionizer": "万用电解机",
+  "block.dustandash.item_sender": "物品发送器",
 
   "block.dustandash.log_pile": "原木捆",
   "block.dustandash.block_of_ash_steel": "烬钢锭",
@@ -144,12 +147,14 @@
   "container.milling_machine": "铣床和装配台",
   "container.centrifuge": "离心机",
   "container.ionizer": "万用电解机",
+  "container.item_sender": "物品发送器",
 
   "screen.dustandash.integrated_block": "聚合方块",
   "screen.dustandash.ash_collector": "余烬收集器",
   "screen.dustandash.milling_machine": "铣床和装配台",
   "screen.dustandash.centrifuge": "离心机",
   "screen.dustandash.ionizer": "万用电解机",
+  "screen.dustandash.item_sender": "物品发送器",
 
   "death.attack.sharpen_flint" : "%1$s 的血流干了......",
 

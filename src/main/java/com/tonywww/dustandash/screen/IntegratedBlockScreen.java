@@ -1,18 +1,18 @@
 package com.tonywww.dustandash.screen;
 
 import com.tonywww.dustandash.DustAndAsh;
-import com.tonywww.dustandash.menu.IntegratedBlockContainer;
+import com.tonywww.dustandash.menu.IntegratedBlockContainerMenu;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
-public class IntegratedBlockScreen extends AbstractContainerScreen<IntegratedBlockContainer> {
+public class IntegratedBlockScreen extends AbstractContainerScreen<IntegratedBlockContainerMenu> {
 
     private final ResourceLocation GUI = new ResourceLocation(DustAndAsh.MOD_ID, "textures/gui/integrated_block_gui.png");
 
-    public IntegratedBlockScreen(IntegratedBlockContainer pMenu, Inventory pPlayerInventory, Component pTitle) {
+    public IntegratedBlockScreen(IntegratedBlockContainerMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
         super(pMenu, pPlayerInventory, pTitle);
     }
 

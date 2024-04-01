@@ -335,6 +335,16 @@ public class ModItems {
                     .stacksTo(2)
             ));
 
+    public static final RegistryObject<Item> PLACEHOLDER = ITEMS.register("placeholder",
+            () -> new Item(new Item.Properties()
+                    .stacksTo(1)
+            ));
+
+    public static final RegistryObject<Item> POSITION_SELECTOR = ITEMS.register("position_selector",
+            () -> new PositionSelector(new Item.Properties()
+                    .stacksTo(1)
+            ));
+
     // normal materials
     public static final RegistryObject<Item> BLOODY_FLINT = ITEMS.register("bloody_flint",
             () -> new Item(new Item.Properties()

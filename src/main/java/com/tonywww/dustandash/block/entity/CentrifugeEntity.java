@@ -1,6 +1,6 @@
 package com.tonywww.dustandash.block.entity;
 
-import com.tonywww.dustandash.menu.CentrifugeContainer;
+import com.tonywww.dustandash.menu.CentrifugeContainerMenu;
 import com.tonywww.dustandash.menu.CentrifugeItemHandler;
 import com.tonywww.dustandash.data.recipes.CentrifugeRecipe;
 import com.tonywww.dustandash.util.ModTags;
@@ -32,7 +32,7 @@ import java.util.Optional;
 
 import static com.tonywww.dustandash.config.DustAndAshConfig.centrifugeProgressPerTick;
 
-public class CentrifugeTile extends SyncedBlockEntity implements MenuProvider {
+public class CentrifugeEntity extends SyncedBlockEntity implements MenuProvider {
 
     public ItemStackHandler invItemStackHandler;
     private final LazyOptional<ItemStackHandler> handler;
@@ -49,8 +49,8 @@ public class CentrifugeTile extends SyncedBlockEntity implements MenuProvider {
     private double progressPerTick = centrifugeProgressPerTick.get();
 
 
-    public CentrifugeTile(BlockPos pos, BlockState state) {
-        super(ModTileEntities.CENTRIFUGE_TILE.get(), pos, state);
+    public CentrifugeEntity(BlockPos pos, BlockState state) {
+        super(ModBlockEntities.CENTRIFUGE_ENTITY.get(), pos, state);
 
         this.invItemStackHandler = createInputsHandler();
 
@@ -65,9 +65,9 @@ public class CentrifugeTile extends SyncedBlockEntity implements MenuProvider {
             public int get(int pIndex) {
                 switch(pIndex) {
                     case 0:
-                        return (int) CentrifugeTile.this.currentProgression;
+                        return (int) CentrifugeEntity.this.currentProgression;
                     case 1:
-                        return CentrifugeTile.this.targetProgression;
+                        return CentrifugeEntity.this.targetProgression;
                     default:
                         return 0;
                 }
@@ -76,10 +76,10 @@ public class CentrifugeTile extends SyncedBlockEntity implements MenuProvider {
             public void set(int pIndex, int pValue) {
                 switch(pIndex) {
                     case 0:
-                        CentrifugeTile.this.currentProgression = pValue;
+                        CentrifugeEntity.this.currentProgression = pValue;
                         break;
                     case 1:
-                        CentrifugeTile.this.targetProgression = pValue;
+                        CentrifugeEntity.this.targetProgression = pValue;
                         break;
                 }
 
@@ -161,11 +161,11 @@ public class CentrifugeTile extends SyncedBlockEntity implements MenuProvider {
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory playerInventory, Player playerEntity) {
-        return new CentrifugeContainer(id, playerInventory, this, dataAccess);
+        return new CentrifugeContainerMenu(id, playerInventory, this, dataAccess);
     }
 
 
-    public static void tick(Level level, BlockPos pos, BlockState state, CentrifugeTile be) {
+    public static void tick(Level level, BlockPos pos, BlockState state, CentrifugeEntity be) {
         if (!be.getLevel().isClientSide) {
             if (isReadyForNext(be)) {
                 craft(level, be);
@@ -185,7 +185,7 @@ public class CentrifugeTile extends SyncedBlockEntity implements MenuProvider {
         return drops;
     }
 
-    private static void tickProgression(Level level, BlockPos pos, CentrifugeTile be) {
+    private static void tickProgression(Level level, BlockPos pos, CentrifugeEntity be) {
         if (be.currentProgression >= 1) {
             be.currentProgression += be.progressPerTick;
 
@@ -204,7 +204,7 @@ public class CentrifugeTile extends SyncedBlockEntity implements MenuProvider {
      *
      * @return
      */
-    private static boolean isReadyForNext(CentrifugeTile be) {
+    private static boolean isReadyForNext(CentrifugeEntity be) {
         // is working
         if (be.currentProgression > 0) {
             return false;
@@ -223,7 +223,7 @@ public class CentrifugeTile extends SyncedBlockEntity implements MenuProvider {
 
     }
 
-    public static void craft(Level level, CentrifugeTile be) {
+    public static void craft(Level level, CentrifugeEntity be) {
         Container inv = new SimpleContainer(be.invItemStackHandler.getSlots());
         for (int i = 0; i < be.invItemStackHandler.getSlots(); i++) {
             inv.setItem(i, be.invItemStackHandler.getStackInSlot(i));
@@ -245,7 +245,7 @@ public class CentrifugeTile extends SyncedBlockEntity implements MenuProvider {
 
     }
 
-    public static void setOutput(Level level, BlockPos pos, CentrifugeTile be) {
+    public static void setOutput(Level level, BlockPos pos, CentrifugeEntity be) {
         for (int i = 2; i <= 9; i++) {
             ItemStack temp = be.nextOutput.get(i - 2);
             if (temp != ItemStack.EMPTY) {

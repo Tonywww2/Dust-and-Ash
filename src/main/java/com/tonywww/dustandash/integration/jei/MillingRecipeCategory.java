@@ -23,7 +23,7 @@ import java.util.Arrays;
 public class MillingRecipeCategory implements IRecipeCategory<MillingMachineRecipe> {
 
     public final static ResourceLocation UID = new ResourceLocation(DustAndAsh.MOD_ID, "milling");
-    public final static ResourceLocation TEXTURE = new ResourceLocation(DustAndAsh.MOD_ID, "textures/gui/milling_machine_gui.png");
+    public final static ResourceLocation TEXTURE = new ResourceLocation(DustAndAsh.MOD_ID, "textures/gui/milling_machine_jei.png");
 
     private final IDrawable bg;
     private final IDrawable icon;

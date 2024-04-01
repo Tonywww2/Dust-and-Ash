@@ -1,7 +1,7 @@
 package com.tonywww.dustandash.block.custom;
 
-import com.tonywww.dustandash.block.entity.IonizerTile;
-import com.tonywww.dustandash.block.entity.ModTileEntities;
+import com.tonywww.dustandash.block.entity.IonizerEntity;
+import com.tonywww.dustandash.block.entity.ModBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
@@ -25,9 +25,6 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.network.NetworkHooks;
 
 import javax.annotation.Nullable;
-
-
-import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 
 public class Ionizer extends BaseEntityBlock {
 
@@ -80,8 +77,8 @@ public class Ionizer extends BaseEntityBlock {
         if (!pLevel.isClientSide) {
             BlockEntity tileEntity = pLevel.getBlockEntity(pPos);
 
-            if (tileEntity instanceof IonizerTile) {
-                NetworkHooks.openScreen((ServerPlayer) pPlayer, (IonizerTile) tileEntity, pPos);
+            if (tileEntity instanceof IonizerEntity) {
+                NetworkHooks.openScreen((ServerPlayer) pPlayer, (IonizerEntity) tileEntity, pPos);
             } else {
                 throw new IllegalStateException("Container provider is missing");
             }
@@ -94,7 +91,7 @@ public class Ionizer extends BaseEntityBlock {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return ModTileEntities.IONIZER_TILE.get().create(pos, state);
+        return ModBlockEntities.IONIZER_ENTITY.get().create(pos, state);
     }
 
 
@@ -102,8 +99,8 @@ public class Ionizer extends BaseEntityBlock {
     public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving) {
         if (!pState.is(pNewState.getBlock())) {
             BlockEntity tileentity = pLevel.getBlockEntity(pPos);
-            if (tileentity instanceof IonizerTile) {
-                IonizerTile tile = (IonizerTile) tileentity;
+            if (tileentity instanceof IonizerEntity) {
+                IonizerEntity tile = (IonizerEntity) tileentity;
                 Containers.dropContents(pLevel, pPos, tile.getDroppableInventory());
                 pLevel.updateNeighbourForOutputSignal(pPos, this);
 
@@ -116,6 +113,6 @@ public class Ionizer extends BaseEntityBlock {
     @org.jetbrains.annotations.Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState blockState, BlockEntityType<T> blockEntityType) {
-        return createTickerHelper(blockEntityType, ModTileEntities.IONIZER_TILE.get(), IonizerTile::tick);
+        return createTickerHelper(blockEntityType, ModBlockEntities.IONIZER_ENTITY.get(), IonizerEntity::tick);
     }
 }

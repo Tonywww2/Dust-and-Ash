@@ -1,10 +1,11 @@
 package com.tonywww.dustandash.menu;
 
 import com.tonywww.dustandash.block.ModBlocks;
-import com.tonywww.dustandash.block.entity.IntegratedBlockTile;
+import com.tonywww.dustandash.block.entity.AshCollectorEntity;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.item.ItemStack;
@@ -13,18 +14,17 @@ import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
-import net.minecraft.world.inventory.Slot;
 
 import java.util.Objects;
 
-public class IntegratedBlockContainer extends AbstractContainerMenu {
+public class AshCollectorContainerMenu extends AbstractContainerMenu {
 
     private final BlockEntity tileEntity;
     private final ContainerLevelAccess canInteractWithCallable;
     private final IItemHandler playerInventory;
 
-    public IntegratedBlockContainer(int id, Inventory playerInventory, IntegratedBlockTile tileEntity) {
-        super(ModMenus.INTEGRATED_BLOCK_CONTAINER.get(), id);
+    public AshCollectorContainerMenu(int id, Inventory playerInventory, AshCollectorEntity tileEntity) {
+        super(ModContainerMenus.ASH_COLLECTOR_CONTAINER.get(), id);
 
         this.tileEntity = tileEntity;
         this.canInteractWithCallable = ContainerLevelAccess.create(tileEntity.getLevel(), tileEntity.getBlockPos());
@@ -34,15 +34,8 @@ public class IntegratedBlockContainer extends AbstractContainerMenu {
 
         if (tileEntity != null) {
             tileEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(h -> {
-                addSlot(new SlotItemHandler(h, 0, 36, 42));
-                addSlot(new SlotItemHandler(h, 1, 124, 42));
-
-                addSlot(new SlotItemHandler(h, 2, 58, 31));
-                addSlot(new SlotItemHandler(h, 3, 80, 31));
-                addSlot(new SlotItemHandler(h, 4, 102, 31));
-                addSlot(new SlotItemHandler(h, 5, 58, 53));
-                addSlot(new SlotItemHandler(h, 6, 80, 53));
-                addSlot(new SlotItemHandler(h, 7, 102, 53));
+                addSlot(new SlotItemHandler(h, 0, 66, 29));
+                addSlot(new SlotItemHandler(h, 1, 94, 29));
 
             });
         }
@@ -76,46 +69,30 @@ public class IntegratedBlockContainer extends AbstractContainerMenu {
         addSlotRange(playerInventory, 0, leftCol, topRow, 9, 18);
     }
 
-    public IntegratedBlockContainer(final int id,
-                                    final Inventory playerInventory,
-                                    final FriendlyByteBuf data) {
+    public AshCollectorContainerMenu(final int id,
+                                     final Inventory playerInventory,
+                                     final FriendlyByteBuf data) {
         this(id, playerInventory, getTileEntity(playerInventory, data));
 
     }
 
-    private static IntegratedBlockTile getTileEntity(final Inventory playerInventory, final FriendlyByteBuf data) {
+    public boolean shouldWork() {
+        return AshCollectorEntity.shouldWork(tileEntity.getLevel(), tileEntity.getBlockPos(), tileEntity.getBlockState(), (AshCollectorEntity) tileEntity);
+    }
+
+    private static AshCollectorEntity getTileEntity(final Inventory playerInventory, final FriendlyByteBuf data) {
         Objects.requireNonNull(playerInventory, "playerInventory cannot be null");
         Objects.requireNonNull(data, "data cannot be null");
         final BlockEntity tileAtPos = playerInventory.player.level().getBlockEntity(data.readBlockPos());
-        if (tileAtPos instanceof IntegratedBlockTile) {
-            return (IntegratedBlockTile) tileAtPos;
+        if (tileAtPos instanceof AshCollectorEntity) {
+            return (AshCollectorEntity) tileAtPos;
         }
         throw new IllegalStateException("Tile entity is not correct! " + tileAtPos);
     }
 
-    public int getStructureLevel() {
-//        if (tileEntity instanceof IntegratedBlockTile) {
-//            return ((IntegratedBlockTile) tileEntity).getStructureLevel();
-//        } else {
-//            throw new IllegalStateException("Container provider is missing");
-//        }
-        return IntegratedBlockTile.getStructureLevel(tileEntity.getLevel(), tileEntity.getBlockPos());
-
-    }
-
-    public boolean isBeaconOn() {
-//        if (tileEntity instanceof IntegratedBlockTile) {
-//            return ((IntegratedBlockTile) tileEntity).getStructureLevel();
-//        } else {
-//            throw new IllegalStateException("Container provider is missing");
-//        }
-        return IntegratedBlockTile.isBeaconOn(tileEntity.getLevel(), tileEntity.getBlockPos());
-
-    }
-
     @Override
     public boolean stillValid(Player pPlayer) {
-        return stillValid(canInteractWithCallable, pPlayer, ModBlocks.INTEGRATED_BLOCK.get());
+        return stillValid(canInteractWithCallable, pPlayer, ModBlocks.ASH_COLLECTOR.get());
     }
 
     // CREDIT GOES TO: diesieben07 | https://github.com/diesieben07/SevenCommons
@@ -134,7 +111,7 @@ public class IntegratedBlockContainer extends AbstractContainerMenu {
     private static final int TE_INVENTORY_FIRST_SLOT_INDEX = VANILLA_FIRST_SLOT_INDEX + VANILLA_SLOT_COUNT;
 
     // THIS YOU HAVE TO DEFINE!
-    private static final int TE_INVENTORY_SLOT_COUNT = 8;  // must match TileEntityInventoryBasic.NUMBER_OF_SLOTS
+    private static final int TE_INVENTORY_SLOT_COUNT = 2;  // must match TileEntityInventoryBasic.NUMBER_OF_SLOTS
 
     @Override
     public ItemStack quickMoveStack(Player playerIn, int index) {

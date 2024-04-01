@@ -1,6 +1,6 @@
 package com.tonywww.dustandash.block.entity;
 
-import com.tonywww.dustandash.menu.IonizerContainer;
+import com.tonywww.dustandash.menu.IonizerContainerMenu;
 import com.tonywww.dustandash.menu.IonizerItemHandler;
 import com.tonywww.dustandash.data.recipes.IonizerRecipe;
 import com.tonywww.dustandash.item.ModItems;
@@ -37,7 +37,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import static com.tonywww.dustandash.config.DustAndAshConfig.ionizerProgressPerTick;
 
-public class IonizerTile extends SyncedBlockEntity implements MenuProvider {
+public class IonizerEntity extends SyncedBlockEntity implements MenuProvider {
 
     public ItemStackHandler invItemStackHandler;
     private final LazyOptional<ItemStackHandler> handler;
@@ -56,8 +56,8 @@ public class IonizerTile extends SyncedBlockEntity implements MenuProvider {
     private double progressPerTick = ionizerProgressPerTick.get();
 
 
-    public IonizerTile(BlockPos pos, BlockState state) {
-        super(ModTileEntities.IONIZER_TILE.get(), pos, state);
+    public IonizerEntity(BlockPos pos, BlockState state) {
+        super(ModBlockEntities.IONIZER_ENTITY.get(), pos, state);
 
         this.invItemStackHandler = createInputsHandler();
 
@@ -74,11 +74,11 @@ public class IonizerTile extends SyncedBlockEntity implements MenuProvider {
             public int get(int pIndex) {
                 switch (pIndex) {
                     case 0:
-                        return (int) IonizerTile.this.currentProgression;
+                        return (int) IonizerEntity.this.currentProgression;
                     case 1:
-                        return IonizerTile.this.targetProgression;
+                        return IonizerEntity.this.targetProgression;
                     case 2:
-                        return IonizerTile.this.isBelowAvailable;
+                        return IonizerEntity.this.isBelowAvailable;
                     default:
                         return 0;
                 }
@@ -87,13 +87,13 @@ public class IonizerTile extends SyncedBlockEntity implements MenuProvider {
             public void set(int pIndex, int pValue) {
                 switch (pIndex) {
                     case 0:
-                        IonizerTile.this.currentProgression = pValue;
+                        IonizerEntity.this.currentProgression = pValue;
                         break;
                     case 1:
-                        IonizerTile.this.targetProgression = pValue;
+                        IonizerEntity.this.targetProgression = pValue;
                         break;
                     case 2:
-                        IonizerTile.this.isBelowAvailable = pValue;
+                        IonizerEntity.this.isBelowAvailable = pValue;
                         break;
                 }
 
@@ -178,7 +178,7 @@ public class IonizerTile extends SyncedBlockEntity implements MenuProvider {
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory playerInventory, Player playerEntity) {
-        return new IonizerContainer(id, playerInventory, this, dataAccess);
+        return new IonizerContainerMenu(id, playerInventory, this, dataAccess);
     }
 
     public NonNullList<ItemStack> getDroppableInventory() {
@@ -189,7 +189,7 @@ public class IonizerTile extends SyncedBlockEntity implements MenuProvider {
         return drops;
     }
 
-    public static void tick(Level level, BlockPos pos, BlockState state, IonizerTile be) {
+    public static void tick(Level level, BlockPos pos, BlockState state, IonizerEntity be) {
         if (!level.isClientSide) {
             updateBelow(level, pos, be);
             craft(level, pos, be);
@@ -198,7 +198,7 @@ public class IonizerTile extends SyncedBlockEntity implements MenuProvider {
 
     }
 
-    private static void updateBelow(Level level, BlockPos pos, IonizerTile be) {
+    private static void updateBelow(Level level, BlockPos pos, IonizerEntity be) {
         be.below = level.getBlockState(pos.below());
         if (be.below != null && be.below.getBlock() != Blocks.AIR) {
             be.isBelowAvailable = 1;
@@ -208,7 +208,7 @@ public class IonizerTile extends SyncedBlockEntity implements MenuProvider {
 
     }
 
-    public static void craft(Level level, BlockPos pos, IonizerTile be) {
+    public static void craft(Level level, BlockPos pos, IonizerEntity be) {
         // 0 power 1-3 items 4-5 electrode
         Container inv = new SimpleContainer(be.invItemStackHandler.getSlots());
         for (int i = 0; i < be.invItemStackHandler.getSlots(); i++) {

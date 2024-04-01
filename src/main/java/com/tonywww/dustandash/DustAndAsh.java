@@ -4,9 +4,8 @@ import com.tonywww.dustandash.block.ModBlocks;
 import com.tonywww.dustandash.config.DustAndAshConfig;
 import com.tonywww.dustandash.entity.ModEntites;
 import com.tonywww.dustandash.item.ModCreativeModTabs;
-import com.tonywww.dustandash.menu.ModMenus;
-import com.tonywww.dustandash.screen.*;
-import com.tonywww.dustandash.block.entity.ModTileEntities;
+import com.tonywww.dustandash.menu.ModContainerMenus;
+import com.tonywww.dustandash.block.entity.ModBlockEntities;
 import com.tonywww.dustandash.data.recipes.ModRecipe;
 import com.tonywww.dustandash.item.ModItems;
 import net.minecraftforge.common.MinecraftForge;
@@ -40,11 +39,11 @@ public class DustAndAsh {
 
         ModBlocks.register(eventBus);
 
-        ModTileEntities.register(eventBus);
+        ModBlockEntities.register(eventBus);
 
         ModEntites.register(eventBus);
 
-        ModMenus.register(eventBus);
+        ModContainerMenus.register(eventBus);
 
         ModRecipe.register(eventBus);
 

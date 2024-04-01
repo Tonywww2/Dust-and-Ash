@@ -1,7 +1,7 @@
 package com.tonywww.dustandash.block.custom;
 
-import com.tonywww.dustandash.block.entity.CentrifugeTile;
-import com.tonywww.dustandash.block.entity.ModTileEntities;
+import com.tonywww.dustandash.block.entity.CentrifugeEntity;
+import com.tonywww.dustandash.block.entity.ModBlockEntities;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Containers;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -25,9 +25,6 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.network.NetworkHooks;
 
 import javax.annotation.Nullable;
-
-
-import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 
 public class Centrifuge extends BaseEntityBlock {
 
@@ -80,8 +77,8 @@ public class Centrifuge extends BaseEntityBlock {
         if (!pLevel.isClientSide) {
             BlockEntity tileEntity = pLevel.getBlockEntity(pPos);
 
-            if (tileEntity instanceof CentrifugeTile) {
-                NetworkHooks.openScreen((ServerPlayer) pPlayer, (CentrifugeTile) tileEntity, pPos);
+            if (tileEntity instanceof CentrifugeEntity) {
+                NetworkHooks.openScreen((ServerPlayer) pPlayer, (CentrifugeEntity) tileEntity, pPos);
             } else {
                 throw new IllegalStateException("Container provider is missing");
             }
@@ -94,15 +91,15 @@ public class Centrifuge extends BaseEntityBlock {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return ModTileEntities.CENTRIFUGE_TILE.get().create(pos, state);
+        return ModBlockEntities.CENTRIFUGE_ENTITY.get().create(pos, state);
     }
 
     @Override
     public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving) {
         if (!pState.is(pNewState.getBlock())) {
             BlockEntity tileentity = pLevel.getBlockEntity(pPos);
-            if (tileentity instanceof CentrifugeTile) {
-                CentrifugeTile tile = (CentrifugeTile) tileentity;
+            if (tileentity instanceof CentrifugeEntity) {
+                CentrifugeEntity tile = (CentrifugeEntity) tileentity;
                 Containers.dropContents(pLevel, pPos, tile.getDroppableInventory());
                 pLevel.updateNeighbourForOutputSignal(pPos, this);
 
@@ -115,6 +112,6 @@ public class Centrifuge extends BaseEntityBlock {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState blockState, BlockEntityType<T> blockEntityType) {
-        return createTickerHelper(blockEntityType, ModTileEntities.CENTRIFUGE_TILE.get(), CentrifugeTile::tick);
+        return createTickerHelper(blockEntityType, ModBlockEntities.CENTRIFUGE_ENTITY.get(), CentrifugeEntity::tick);
     }
 }

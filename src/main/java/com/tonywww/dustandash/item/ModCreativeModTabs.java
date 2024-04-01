@@ -127,6 +127,8 @@ public class ModCreativeModTabs {
                         pOutput.accept(ModItems.MAGNET.get());
                         pOutput.accept(ModItems.MANTLE_MIXTURE.get());
                         pOutput.accept(ModItems.TITANIUM_HEAVY_PLATE.get());
+                        pOutput.accept(ModItems.PLACEHOLDER.get());
+                        pOutput.accept(ModItems.POSITION_SELECTOR.get());
 
                         pOutput.accept(ModItems.GLASS_CONTAINER.get());
                         pOutput.accept(ModItems.WATER_MISCIBLE_SOLVENTS.get());
@@ -169,6 +171,7 @@ public class ModCreativeModTabs {
                         pOutput.accept(ModBlocks.MILLING_MACHINE.get());
                         pOutput.accept(ModBlocks.CENTRIFUGE.get());
                         pOutput.accept(ModBlocks.IONIZER.get());
+                        pOutput.accept(ModBlocks.ITEM_SENDER.get());
                         pOutput.accept(ModBlocks.LOG_PILE.get());
                         pOutput.accept(ModBlocks.BLOCK_OF_ASH_STEEL.get());
                         pOutput.accept(ModBlocks.TITANIUM_SAND_BLOCK.get());

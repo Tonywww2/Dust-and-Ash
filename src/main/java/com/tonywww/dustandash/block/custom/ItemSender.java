@@ -1,41 +1,39 @@
 package com.tonywww.dustandash.block.custom;
 
+import com.tonywww.dustandash.block.entity.ItemSenderEntity;
 import com.tonywww.dustandash.block.entity.MillingMachineEntity;
 import com.tonywww.dustandash.block.entity.ModBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.network.NetworkHooks;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nullable;
-
-public class MillingMachine extends BaseEntityBlock {
-
-    public MillingMachine(Properties properties) {
+public class ItemSender extends BaseEntityBlock {
+    public ItemSender(Properties properties) {
         super(properties);
-
     }
 
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
 
-    private static final VoxelShape SHAPE =  Block.box(1, 0, 1, 15, 27, 15);
+    private static final VoxelShape SHAPE =  Block.box(0, 0, 0, 16, 16, 16);
 
     @Override
     public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
@@ -77,8 +75,8 @@ public class MillingMachine extends BaseEntityBlock {
         if (!pLevel.isClientSide) {
             BlockEntity tileEntity = pLevel.getBlockEntity(pPos);
 
-            if (tileEntity instanceof MillingMachineEntity) {
-                NetworkHooks.openScreen((ServerPlayer) pPlayer, (MillingMachineEntity) tileEntity, pPos);
+            if (tileEntity instanceof ItemSenderEntity) {
+                NetworkHooks.openScreen((ServerPlayer) pPlayer, (ItemSenderEntity) tileEntity, pPos);
             } else {
                 throw new IllegalStateException("Container provider is missing");
             }
@@ -88,18 +86,12 @@ public class MillingMachine extends BaseEntityBlock {
         return InteractionResult.SUCCESS;
     }
 
-    @Nullable
-    @Override
-    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return ModBlockEntities.MILLING_MACHINE_ENTITY.get().create(pos, state);
-    }
-
     @Override
     public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving) {
         if (!pState.is(pNewState.getBlock())) {
             BlockEntity tileentity = pLevel.getBlockEntity(pPos);
-            if (tileentity instanceof MillingMachineEntity) {
-                MillingMachineEntity tile = (MillingMachineEntity) tileentity;
+            if (tileentity instanceof ItemSenderEntity) {
+                ItemSenderEntity tile = (ItemSenderEntity) tileentity;
                 Containers.dropContents(pLevel, pPos, tile.getDroppableInventory());
                 pLevel.updateNeighbourForOutputSignal(pPos, this);
 
@@ -109,9 +101,15 @@ public class MillingMachine extends BaseEntityBlock {
         }
     }
 
+    @Nullable
+    @Override
+    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+        return new ItemSenderEntity(pos, state);
+    }
+
     @org.jetbrains.annotations.Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState blockState, BlockEntityType<T> blockEntityType) {
-        return createTickerHelper(blockEntityType, ModBlockEntities.MILLING_MACHINE_ENTITY.get(), MillingMachineEntity::tick);
+        return createTickerHelper(blockEntityType, ModBlockEntities.ITEM_SENDER_ENTITY.get(), ItemSenderEntity::tick);
     }
 }

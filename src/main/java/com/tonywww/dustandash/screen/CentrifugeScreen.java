@@ -1,18 +1,18 @@
 package com.tonywww.dustandash.screen;
 
 import com.tonywww.dustandash.DustAndAsh;
-import com.tonywww.dustandash.menu.CentrifugeContainer;
+import com.tonywww.dustandash.menu.CentrifugeContainerMenu;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
-public class CentrifugeScreen extends AbstractContainerScreen<CentrifugeContainer> {
+public class CentrifugeScreen extends AbstractContainerScreen<CentrifugeContainerMenu> {
 
     private final ResourceLocation GUI = new ResourceLocation(DustAndAsh.MOD_ID, "textures/gui/centrifuge_gui.png");
 
-    public CentrifugeScreen(CentrifugeContainer pMenu, Inventory pPlayerInventory, Component pTitle) {
+    public CentrifugeScreen(CentrifugeContainerMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
         super(pMenu, pPlayerInventory, pTitle);
     }
 

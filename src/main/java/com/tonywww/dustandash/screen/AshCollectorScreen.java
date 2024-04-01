@@ -1,18 +1,18 @@
 package com.tonywww.dustandash.screen;
 
 import com.tonywww.dustandash.DustAndAsh;
-import com.tonywww.dustandash.menu.AshCollectorContainer;
+import com.tonywww.dustandash.menu.AshCollectorContainerMenu;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
-public class AshCollectorScreen extends AbstractContainerScreen<AshCollectorContainer> {
+public class AshCollectorScreen extends AbstractContainerScreen<AshCollectorContainerMenu> {
 
     private final ResourceLocation GUI = new ResourceLocation(DustAndAsh.MOD_ID, "textures/gui/ash_collector_gui.png");
 
-    public AshCollectorScreen(AshCollectorContainer pMenu, Inventory pPlayerInventory, Component pTitle) {
+    public AshCollectorScreen(AshCollectorContainerMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
         super(pMenu, pPlayerInventory, pTitle);
     }
 

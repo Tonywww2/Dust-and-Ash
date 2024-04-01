@@ -2,13 +2,13 @@ package com.tonywww.dustandash.integration;
 
 import com.tonywww.dustandash.DustAndAsh;
 import com.tonywww.dustandash.block.ModBlocks;
-import com.tonywww.dustandash.menu.IntegratedBlockContainer;
+import com.tonywww.dustandash.menu.IntegratedBlockContainerMenu;
 import com.tonywww.dustandash.data.recipes.*;
 import com.tonywww.dustandash.integration.jei.CentrifugeRecipeCategory;
 import com.tonywww.dustandash.integration.jei.IntegratedBlockRecipeCategory;
 import com.tonywww.dustandash.integration.jei.IonizerCategory;
 import com.tonywww.dustandash.integration.jei.MillingRecipeCategory;
-import com.tonywww.dustandash.menu.ModMenus;
+import com.tonywww.dustandash.menu.ModContainerMenus;
 import com.tonywww.dustandash.screen.CentrifugeScreen;
 import com.tonywww.dustandash.screen.IntegratedBlockScreen;
 import com.tonywww.dustandash.screen.IonizerScreen;
@@ -121,7 +121,7 @@ public class DustAndAshJei implements IModPlugin {
     public void registerGuiHandlers(IGuiHandlerRegistration registration) {
         registration.addRecipeClickArea(IntegratedBlockScreen.class, 80, 9, 16, 16, DustAndAshRecipeTypes.INTEGRATE);
 
-        registration.addRecipeClickArea(MillingMachineScreen.class, 50, 12, 15, 11, DustAndAshRecipeTypes.MILLING);
+        registration.addRecipeClickArea(MillingMachineScreen.class, 50, 26, 15, 11, DustAndAshRecipeTypes.MILLING);
 
         registration.addRecipeClickArea(CentrifugeScreen.class, 80, 51, 16, 16, DustAndAshRecipeTypes.CENTRIFUGE);
 
@@ -132,7 +132,7 @@ public class DustAndAshJei implements IModPlugin {
 
     @Override
     public void registerRecipeTransferHandlers(IRecipeTransferRegistration registration) {
-        registration.addRecipeTransferHandler(IntegratedBlockContainer.class, ModMenus.INTEGRATED_BLOCK_CONTAINER.get(), DustAndAshRecipeTypes.INTEGRATE, 36, 8, 0, 36);
+        registration.addRecipeTransferHandler(IntegratedBlockContainerMenu.class, ModContainerMenus.INTEGRATED_BLOCK_CONTAINER.get(), DustAndAshRecipeTypes.INTEGRATE, 36, 8, 0, 36);
 
     }
 

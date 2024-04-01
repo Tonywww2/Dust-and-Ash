@@ -1,7 +1,7 @@
 package com.tonywww.dustandash.event;
 
 import com.tonywww.dustandash.entity.ModEntites;
-import com.tonywww.dustandash.menu.ModMenus;
+import com.tonywww.dustandash.menu.ModContainerMenus;
 import com.tonywww.dustandash.overlay.WhiteLightningOverlay;
 import com.tonywww.dustandash.screen.*;
 import net.minecraft.client.gui.screens.MenuScreens;
@@ -19,11 +19,12 @@ public class ClientSetupEvents {
     @SubscribeEvent
     public static void setupClient(final FMLClientSetupEvent event) {
         event.enqueueWork(() -> {
-            MenuScreens.register(ModMenus.INTEGRATED_BLOCK_CONTAINER.get(), IntegratedBlockScreen::new);
-            MenuScreens.register(ModMenus.ASH_COLLECTOR_CONTAINER.get(), AshCollectorScreen::new);
-            MenuScreens.register(ModMenus.MILLING_MACHINE_CONTAINER.get(), MillingMachineScreen::new);
-            MenuScreens.register(ModMenus.CENTRIFUGE_CONTAINER.get(), CentrifugeScreen::new);
-            MenuScreens.register(ModMenus.IONIZER_CONTAINER.get(), IonizerScreen::new);
+            MenuScreens.register(ModContainerMenus.INTEGRATED_BLOCK_CONTAINER.get(), IntegratedBlockScreen::new);
+            MenuScreens.register(ModContainerMenus.ASH_COLLECTOR_CONTAINER.get(), AshCollectorScreen::new);
+            MenuScreens.register(ModContainerMenus.MILLING_MACHINE_CONTAINER.get(), MillingMachineScreen::new);
+            MenuScreens.register(ModContainerMenus.CENTRIFUGE_CONTAINER.get(), CentrifugeScreen::new);
+            MenuScreens.register(ModContainerMenus.IONIZER_CONTAINER.get(), IonizerScreen::new);
+            MenuScreens.register(ModContainerMenus.ITEM_SENDER_CONTAINER.get(), ItemSenderScreen::new);
 
 
         });

@@ -1,18 +1,18 @@
 package com.tonywww.dustandash.screen;
 
 import com.tonywww.dustandash.DustAndAsh;
-import com.tonywww.dustandash.menu.IonizerContainer;
+import com.tonywww.dustandash.menu.IonizerContainerMenu;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.resources.ResourceLocation;
 
-public class IonizerScreen extends AbstractContainerScreen<IonizerContainer> {
+public class IonizerScreen extends AbstractContainerScreen<IonizerContainerMenu> {
 
     private final ResourceLocation GUI = new ResourceLocation(DustAndAsh.MOD_ID, "textures/gui/ionizer_gui.png");
 
-    public IonizerScreen(IonizerContainer pMenu, Inventory pPlayerInventory, Component pTitle) {
+    public IonizerScreen(IonizerContainerMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
         super(pMenu, pPlayerInventory, pTitle);
     }
 

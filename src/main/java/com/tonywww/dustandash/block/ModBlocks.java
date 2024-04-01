@@ -84,6 +84,13 @@ public class ModBlocks {
                     .noOcclusion()
             ));
 
+    public static final RegistryObject<Block> ITEM_SENDER = registerBlocks("item_sender",
+            () -> new ItemSender(BlockBehaviour.Properties
+                    .copy(Blocks.STONE)
+                    .strength(2f, 8f)
+                    .noOcclusion()
+            ));
+
     public static final RegistryObject<Block> LOG_PILE = registerBlocks("log_pile",
             () -> new RotatedPillarBlock(BlockBehaviour.Properties
                     .copy(Blocks.STONE)

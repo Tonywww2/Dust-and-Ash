@@ -1,7 +1,7 @@
 package com.tonywww.dustandash.block.custom;
 
-import com.tonywww.dustandash.block.entity.AshCollectorTile;
-import com.tonywww.dustandash.block.entity.ModTileEntities;
+import com.tonywww.dustandash.block.entity.AshCollectorEntity;
+import com.tonywww.dustandash.block.entity.ModBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionResult;
@@ -25,8 +25,6 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.network.NetworkHooks;
 
 import javax.annotation.Nullable;
-
-import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 
 public class AshCollector extends BaseEntityBlock {
     public AshCollector(Properties properties) {
@@ -77,8 +75,8 @@ public class AshCollector extends BaseEntityBlock {
         if (!pLevel.isClientSide) {
             BlockEntity tileEntity = pLevel.getBlockEntity(pPos);
 
-            if (tileEntity instanceof AshCollectorTile) {
-                NetworkHooks.openScreen((ServerPlayer) pPlayer, (AshCollectorTile) tileEntity, pPos);
+            if (tileEntity instanceof AshCollectorEntity) {
+                NetworkHooks.openScreen((ServerPlayer) pPlayer, (AshCollectorEntity) tileEntity, pPos);
             } else {
                 throw new IllegalStateException("Container provider is missing");
             }
@@ -91,15 +89,15 @@ public class AshCollector extends BaseEntityBlock {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return ModTileEntities.ASH_COLLECTOR_TILE.get().create(pos, state);
+        return ModBlockEntities.ASH_COLLECTOR_ENTITY.get().create(pos, state);
     }
 
     @Override
     public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving) {
         if (!pState.is(pNewState.getBlock())) {
             BlockEntity tileentity = pLevel.getBlockEntity(pPos);
-            if (tileentity instanceof AshCollectorTile) {
-                AshCollectorTile tile = (AshCollectorTile) tileentity;
+            if (tileentity instanceof AshCollectorEntity) {
+                AshCollectorEntity tile = (AshCollectorEntity) tileentity;
                 Containers.dropContents(pLevel, pPos, tile.getDroppableInventory());
                 pLevel.updateNeighbourForOutputSignal(pPos, this);
 
@@ -112,6 +110,6 @@ public class AshCollector extends BaseEntityBlock {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState blockState, BlockEntityType<T> blockEntityType) {
-        return createTickerHelper(blockEntityType, ModTileEntities.ASH_COLLECTOR_TILE.get(), AshCollectorTile::tick);
+        return createTickerHelper(blockEntityType, ModBlockEntities.ASH_COLLECTOR_ENTITY.get(), AshCollectorEntity::tick);
     }
 }

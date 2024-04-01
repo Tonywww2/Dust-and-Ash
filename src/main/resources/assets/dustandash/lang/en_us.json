@@ -27,6 +27,8 @@
   "item.dustandash.sun_crystal": "Sun Crystal",
   "item.dustandash.echo_activator": "Echo Activator",
   "item.dustandash.nano_machine": "Nano Machine",
+  "item.dustandash.placeholder": "Placeholder",
+  "item.dustandash.position_selector": "Position Selector",
 
   "item.dustandash.metal_dust": "Dust of Metal",
   "item.dustandash.life_dust": "Dust of Life",
@@ -128,6 +130,7 @@
   "block.dustandash.milling_machine": "Milling & Assembly Machine",
   "block.dustandash.centrifuge": "Centrifuge",
   "block.dustandash.ionizer": "Ionizer",
+  "block.dustandash.item_sender": "Item Sender",
 
   "block.dustandash.log_pile": "Log Pile",
   "block.dustandash.block_of_ash_steel": "Block of Ash Steel",
@@ -144,12 +147,14 @@
   "container.milling_machine": "Milling Machine",
   "container.centrifuge": "Centrifuge",
   "container.ionizer": "Ionizer",
+  "container.item_sender": "Item Sender",
 
   "screen.dustandash.integrated_block": "Integrated Block",
   "screen.dustandash.ash_collector": "Ash Collector",
   "screen.dustandash.milling_machine": "Milling Machine",
   "screen.dustandash.centrifuge": "Centrifuge",
   "screen.dustandash.ionizer": "Ionizer",
+  "screen.dustandash.item_sender": "Item Sender",
 
   "death.attack.sharpen_flint" : "%1$s's blood ran dry",
 

@@ -107,19 +107,22 @@ public class LightningProjectileEntity extends ThrowableItemProjectile {
         super.onHit(result);
 
         if (!this.level().isClientSide()) {
-            Explosion explosion = new Explosion(this.level(), getOwner(), result.getLocation().x(), result.getLocation().y() + 1.0d, result.getLocation().z(), 1.5f, true, Explosion.BlockInteraction.KEEP);
-            ((ServerLevel) this.level()).sendParticles(
-                    ParticleTypes.EXPLOSION,
-                    result.getLocation().x(),
-                    result.getLocation().y() + 0.25d,
-                    result.getLocation().z(),
-                    2,
-                    0,
-                    0,
-                    0,
-                    1
-            );
-            explosion.explode();
+            if (isPowerful) {
+                Explosion explosion = new Explosion(this.level(), getOwner(), result.getLocation().x(), result.getLocation().y() + 1.0d, result.getLocation().z(), 1.5f, true, Explosion.BlockInteraction.KEEP);
+                ((ServerLevel) this.level()).sendParticles(
+                        ParticleTypes.EXPLOSION,
+                        result.getLocation().x(),
+                        result.getLocation().y() + 0.25d,
+                        result.getLocation().z(),
+                        2,
+                        0,
+                        0,
+                        0,
+                        1
+                );
+                explosion.explode();
+
+            }
         }
 
         this.discard();

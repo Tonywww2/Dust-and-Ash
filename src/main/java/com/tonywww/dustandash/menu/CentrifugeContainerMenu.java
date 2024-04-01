@@ -1,49 +1,59 @@
 package com.tonywww.dustandash.menu;
 
 import com.tonywww.dustandash.block.ModBlocks;
-import com.tonywww.dustandash.block.entity.MillingMachineTile;
-import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.Slot;
-import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.inventory.ContainerLevelAccess;
-import net.minecraft.world.item.ItemStack;
+import com.tonywww.dustandash.block.entity.CentrifugeEntity;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.inventory.ContainerLevelAccess;
+import net.minecraft.world.inventory.SimpleContainerData;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
+import net.minecraft.world.inventory.Slot;
 
 import java.util.Objects;
 
-public class MillingMachineContainer extends AbstractContainerMenu {
+public class CentrifugeContainerMenu extends AbstractContainerMenu {
 
-    private final MillingMachineTile tileEntity;
+    private final CentrifugeEntity tileEntity;
     private final ContainerLevelAccess canInteractWithCallable;
     private final IItemHandler playerInventory;
+    private final ContainerData data;
 
-    public MillingMachineContainer(int id, Inventory playerInventory, MillingMachineTile tileEntity) {
-        super(ModMenus.MILLING_MACHINE_CONTAINER.get(), id);
+    public CentrifugeContainerMenu(int id, Inventory playerInventory, CentrifugeEntity tileEntity, ContainerData data) {
+        super(ModContainerMenus.CENTRIFUGE_CONTAINER.get(), id);
 
         this.tileEntity = tileEntity;
         this.canInteractWithCallable = ContainerLevelAccess.create(tileEntity.getLevel(), tileEntity.getBlockPos());
         this.playerInventory = new InvWrapper(playerInventory);
 
-        layoutPlayerInventorySlots(8, 93);
+        this.data = data;
+
+        layoutPlayerInventorySlots(8, 92);
 
         if (tileEntity != null) {
             tileEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(h -> {
-                addSlot(new SlotItemHandler(h, 0, 28, 10));
-                addSlot(new SlotItemHandler(h, 1, 28, 38));
-                addSlot(new SlotItemHandler(h, 2, 28, 66));
+                addSlot(new SlotItemHandler(h, 0, 80, 6));
+                addSlot(new SlotItemHandler(h, 1, 80, 27));
 
-                    for (int i = 1; i <= 5; i++) {
-                        for (int j = 1; j <= 5; j++) {
-                            addSlot(new SlotItemHandler(h, (5 * i) + j - 3, 71 + (16 * j), (16 * i) - 12));
+                addSlot(new SlotItemHandler(h, 2, 22, 12));
+                addSlot(new SlotItemHandler(h, 3, 42, 30));
+                addSlot(new SlotItemHandler(h, 4, 22, 48));
+                addSlot(new SlotItemHandler(h, 5, 42, 66));
 
-                        }
-                    }
+                addSlot(new SlotItemHandler(h, 6, 138, 12));
+                addSlot(new SlotItemHandler(h, 7, 118, 30));
+                addSlot(new SlotItemHandler(h, 8, 138, 48));
+                addSlot(new SlotItemHandler(h, 9, 118, 66));
+
+                addDataSlots(data);
+
             });
 
         }
@@ -51,8 +61,12 @@ public class MillingMachineContainer extends AbstractContainerMenu {
 
     }
 
-    public boolean isWorkSpaceEmpty() {
-        return tileEntity.isWorkPlaceEmpty();
+    public float getProgressionRatio() {
+        if (this.data.get(0) > 0) {
+            return this.data.get(0) / (float) this.data.get(1);
+
+        }
+        return 0;
     }
 
     private int addSlotRange(IItemHandler handler, int index, int x, int y, int amount, int dx) {
@@ -81,26 +95,26 @@ public class MillingMachineContainer extends AbstractContainerMenu {
         addSlotRange(playerInventory, 0, leftCol, topRow, 9, 18);
     }
 
-    public MillingMachineContainer(final int id,
+    public CentrifugeContainerMenu(final int id,
                                    final Inventory playerInventory,
                                    final FriendlyByteBuf data) {
-        this(id, playerInventory, getTileEntity(playerInventory, data));
+        this(id, playerInventory, getTileEntity(playerInventory, data), new SimpleContainerData(4));
 
     }
 
-    private static MillingMachineTile getTileEntity(final Inventory playerInventory, final FriendlyByteBuf data) {
+    private static CentrifugeEntity getTileEntity(final Inventory playerInventory, final FriendlyByteBuf data) {
         Objects.requireNonNull(playerInventory, "playerInventory cannot be null");
         Objects.requireNonNull(data, "data cannot be null");
         final BlockEntity tileAtPos = playerInventory.player.level().getBlockEntity(data.readBlockPos());
-        if (tileAtPos instanceof MillingMachineTile) {
-            return (MillingMachineTile) tileAtPos;
+        if (tileAtPos instanceof CentrifugeEntity) {
+            return (CentrifugeEntity) tileAtPos;
         }
         throw new IllegalStateException("Tile entity is not correct! " + tileAtPos);
     }
 
     @Override
     public boolean stillValid(Player pPlayer) {
-        return stillValid(canInteractWithCallable, pPlayer, ModBlocks.MILLING_MACHINE.get());
+        return stillValid(canInteractWithCallable, pPlayer, ModBlocks.CENTRIFUGE.get());
     }
 
     // CREDIT GOES TO: diesieben07 | https://github.com/diesieben07/SevenCommons
@@ -119,7 +133,7 @@ public class MillingMachineContainer extends AbstractContainerMenu {
     private static final int TE_INVENTORY_FIRST_SLOT_INDEX = VANILLA_FIRST_SLOT_INDEX + VANILLA_SLOT_COUNT;
 
     // THIS YOU HAVE TO DEFINE!
-    private static final int TE_INVENTORY_SLOT_COUNT = 28;  // must match TileEntityInventoryBasic.NUMBER_OF_SLOTS
+    private static final int TE_INVENTORY_SLOT_COUNT = 10;  // must match TileEntityInventoryBasic.NUMBER_OF_SLOTS
 
     @Override
     public ItemStack quickMoveStack(Player playerIn, int index) {

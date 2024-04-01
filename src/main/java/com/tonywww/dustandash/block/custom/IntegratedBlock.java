@@ -1,8 +1,7 @@
 package com.tonywww.dustandash.block.custom;
 
-import com.tonywww.dustandash.block.entity.CentrifugeTile;
-import com.tonywww.dustandash.block.entity.IntegratedBlockTile;
-import com.tonywww.dustandash.block.entity.ModTileEntities;
+import com.tonywww.dustandash.block.entity.IntegratedBlockEntity;
+import com.tonywww.dustandash.block.entity.ModBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Containers;
@@ -26,9 +25,6 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.network.NetworkHooks;
 
 import javax.annotation.Nullable;
-
-
-import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 
 public class IntegratedBlock extends BaseEntityBlock {
 
@@ -81,8 +77,8 @@ public class IntegratedBlock extends BaseEntityBlock {
         if (!pLevel.isClientSide) {
             BlockEntity tileEntity = pLevel.getBlockEntity(pPos);
 
-            if (tileEntity instanceof IntegratedBlockTile) {
-                NetworkHooks.openScreen((ServerPlayer) pPlayer, (IntegratedBlockTile) tileEntity, pPos);
+            if (tileEntity instanceof IntegratedBlockEntity) {
+                NetworkHooks.openScreen((ServerPlayer) pPlayer, (IntegratedBlockEntity) tileEntity, pPos);
             } else {
                 throw new IllegalStateException("Container provider is missing");
             }
@@ -95,7 +91,7 @@ public class IntegratedBlock extends BaseEntityBlock {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return ModTileEntities.INTEGRATED_BLOCK_TILE.get().create(pos, state);
+        return ModBlockEntities.INTEGRATED_BLOCK_ENTITY.get().create(pos, state);
     }
 
 
@@ -103,8 +99,8 @@ public class IntegratedBlock extends BaseEntityBlock {
     public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving) {
         if (!pState.is(pNewState.getBlock())) {
             BlockEntity tileentity = pLevel.getBlockEntity(pPos);
-            if (tileentity instanceof IntegratedBlockTile) {
-                IntegratedBlockTile tile = (IntegratedBlockTile) tileentity;
+            if (tileentity instanceof IntegratedBlockEntity) {
+                IntegratedBlockEntity tile = (IntegratedBlockEntity) tileentity;
                 Containers.dropContents(pLevel, pPos, tile.getDroppableInventory());
                 pLevel.updateNeighbourForOutputSignal(pPos, this);
 
@@ -117,6 +113,6 @@ public class IntegratedBlock extends BaseEntityBlock {
     @org.jetbrains.annotations.Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState blockState, BlockEntityType<T> blockEntityType) {
-        return createTickerHelper(blockEntityType, ModTileEntities.INTEGRATED_BLOCK_TILE.get(), IntegratedBlockTile::tick);
+        return createTickerHelper(blockEntityType, ModBlockEntities.INTEGRATED_BLOCK_ENTITY.get(), IntegratedBlockEntity::tick);
     }
 }

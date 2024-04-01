@@ -1,6 +1,6 @@
 package com.tonywww.dustandash.block.entity;
 
-import com.tonywww.dustandash.menu.AshCollectorContainer;
+import com.tonywww.dustandash.menu.AshCollectorContainerMenu;
 import com.tonywww.dustandash.item.ModItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
@@ -12,9 +12,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.AbstractFurnaceBlock;
-import net.minecraft.world.level.block.FurnaceBlock;
 import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
-import net.minecraft.world.level.block.entity.FurnaceBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.player.Inventory;
@@ -29,14 +27,14 @@ import net.minecraftforge.items.ItemStackHandler;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class AshCollectorTile extends SyncedBlockEntity implements MenuProvider{
+public class AshCollectorEntity extends SyncedBlockEntity implements MenuProvider {
 
     public final ItemStackHandler itemStackHandler = createHandler();
     private final LazyOptional<ItemStackHandler> handler = LazyOptional.of(() -> itemStackHandler);
     private int coolDownTime = -1;
 
-    public AshCollectorTile(BlockPos pos, BlockState state) {
-        super(ModTileEntities.ASH_COLLECTOR_TILE.get(), pos, state);
+    public AshCollectorEntity(BlockPos pos, BlockState state) {
+        super(ModBlockEntities.ASH_COLLECTOR_ENTITY.get(), pos, state);
     }
 
     private ItemStackHandler createHandler() {
@@ -100,7 +98,7 @@ public class AshCollectorTile extends SyncedBlockEntity implements MenuProvider{
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory playerInventory, Player playerEntity) {
-        return new AshCollectorContainer(id, playerInventory, this);
+        return new AshCollectorContainerMenu(id, playerInventory, this);
     }
 
     public NonNullList<ItemStack> getDroppableInventory() {
@@ -112,7 +110,7 @@ public class AshCollectorTile extends SyncedBlockEntity implements MenuProvider{
     }
 
 //    @Override
-    public static void tick(Level level, BlockPos pos, BlockState state, AshCollectorTile be) {
+    public static void tick(Level level, BlockPos pos, BlockState state, AshCollectorEntity be) {
         float chance = 0.001f;
         if (level != null && !level.isClientSide) {
             suckInItem(level, pos, state, be);
@@ -132,7 +130,7 @@ public class AshCollectorTile extends SyncedBlockEntity implements MenuProvider{
 
     }
 
-    public static boolean shouldWork(Level level, BlockPos pos, BlockState state, AshCollectorTile be) {
+    public static boolean shouldWork(Level level, BlockPos pos, BlockState state, AshCollectorEntity be) {
         if (level.getBlockState(pos.above()).getBlock() instanceof AbstractFurnaceBlock) {
             BlockState block = level.getBlockState(pos.above());
 
@@ -143,7 +141,7 @@ public class AshCollectorTile extends SyncedBlockEntity implements MenuProvider{
 
     }
 
-    private static void suckInItem(Level level, BlockPos pos, BlockState state, AshCollectorTile be) {
+    private static void suckInItem(Level level, BlockPos pos, BlockState state, AshCollectorEntity be) {
         if (be.coolDownTime <= 0 && be.itemStackHandler.getStackInSlot(1).getCount() < be.itemStackHandler.getSlotLimit(1)) {
             if (level.getBlockEntity(pos.above()) instanceof AbstractFurnaceBlockEntity tile) {
                 ItemStack target = tile.getItem(2);

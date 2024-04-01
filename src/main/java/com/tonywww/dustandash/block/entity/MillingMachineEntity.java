@@ -1,6 +1,6 @@
 package com.tonywww.dustandash.block.entity;
 
-import com.tonywww.dustandash.menu.MillingMachineContainer;
+import com.tonywww.dustandash.menu.MillingMachineContainerMenu;
 import com.tonywww.dustandash.menu.MillingMachineItemHandler;
 import com.tonywww.dustandash.data.recipes.MillingMachineRecipe;
 import com.tonywww.dustandash.util.ModTags;
@@ -29,7 +29,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Optional;
 
-public class MillingMachineTile extends SyncedBlockEntity implements MenuProvider {
+public class MillingMachineEntity extends SyncedBlockEntity implements MenuProvider {
 
     public ItemStackHandler invItemStackHandler;
     private final LazyOptional<ItemStackHandler> handler;
@@ -37,8 +37,8 @@ public class MillingMachineTile extends SyncedBlockEntity implements MenuProvide
     private final LazyOptional<MillingMachineItemHandler> outputHandler;
     private final LazyOptional<MillingMachineItemHandler> workspaceHandler;
 
-    public MillingMachineTile(BlockPos pos, BlockState state) {
-        super(ModTileEntities.MILLING_MACHINE_TILE.get(), pos, state);
+    public MillingMachineEntity(BlockPos pos, BlockState state) {
+        super(ModBlockEntities.MILLING_MACHINE_ENTITY.get(), pos, state);
 
         this.invItemStackHandler = createInputsHandler();
 
@@ -123,7 +123,7 @@ public class MillingMachineTile extends SyncedBlockEntity implements MenuProvide
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory playerInventory, Player playerEntity) {
-        return new MillingMachineContainer(id, playerInventory, this);
+        return new MillingMachineContainerMenu(id, playerInventory, this);
     }
 
     public NonNullList<ItemStack> getDroppableInventory() {
@@ -134,7 +134,7 @@ public class MillingMachineTile extends SyncedBlockEntity implements MenuProvide
         return drops;
     }
 
-    public static void tick(Level level, BlockPos pos, BlockState state, MillingMachineTile be) {
+    public static void tick(Level level, BlockPos pos, BlockState state, MillingMachineEntity be) {
         if (!level.isClientSide) {
             craft(level, pos, be);
 
@@ -144,7 +144,7 @@ public class MillingMachineTile extends SyncedBlockEntity implements MenuProvide
     }
 
 
-    public static void craft(Level level, BlockPos pos, MillingMachineTile be) {
+    public static void craft(Level level, BlockPos pos, MillingMachineEntity be) {
         Container inv = new SimpleContainer(be.invItemStackHandler.getSlots());
         for (int i = 0; i < be.invItemStackHandler.getSlots(); i++) {
             inv.setItem(i, be.invItemStackHandler.getStackInSlot(i));

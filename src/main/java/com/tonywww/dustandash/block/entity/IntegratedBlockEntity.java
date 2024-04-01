@@ -1,7 +1,7 @@
 package com.tonywww.dustandash.block.entity;
 
 import com.tonywww.dustandash.block.ModBlocks;
-import com.tonywww.dustandash.menu.IntegratedBlockContainer;
+import com.tonywww.dustandash.menu.IntegratedBlockContainerMenu;
 import com.tonywww.dustandash.data.recipes.IntegratedBlockRecipe;
 import com.tonywww.dustandash.util.ModTags;
 import net.minecraft.core.BlockPos;
@@ -17,10 +17,8 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.inventory.BeaconMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BeaconBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.core.Direction;
@@ -36,7 +34,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 
-public class IntegratedBlockTile extends SyncedBlockEntity implements MenuProvider {
+public class IntegratedBlockEntity extends SyncedBlockEntity implements MenuProvider {
 
     public static int radius = 1;
 
@@ -46,8 +44,8 @@ public class IntegratedBlockTile extends SyncedBlockEntity implements MenuProvid
     public int currentLevel;
     private int coolDownTime;
 
-    public IntegratedBlockTile(BlockPos pos, BlockState state) {
-        super(ModTileEntities.INTEGRATED_BLOCK_TILE.get(), pos, state);
+    public IntegratedBlockEntity(BlockPos pos, BlockState state) {
+        super(ModBlockEntities.INTEGRATED_BLOCK_ENTITY.get(), pos, state);
         this.itemStackHandler = createHandler();
         this.handler = LazyOptional.of(() -> itemStackHandler);
         this.currentLevel = 0;
@@ -174,10 +172,10 @@ public class IntegratedBlockTile extends SyncedBlockEntity implements MenuProvid
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory playerInventory, Player playerEntity) {
-        return new IntegratedBlockContainer(id, playerInventory, this);
+        return new IntegratedBlockContainerMenu(id, playerInventory, this);
     }
 
-    public static void tick(Level level, BlockPos pos, BlockState state, IntegratedBlockTile be) {
+    public static void tick(Level level, BlockPos pos, BlockState state, IntegratedBlockEntity be) {
         if (!level.isClientSide) {
             if (be.coolDownTime <= 0) {
                 be.currentLevel = getStructureLevel(level, pos);
@@ -228,7 +226,7 @@ public class IntegratedBlockTile extends SyncedBlockEntity implements MenuProvid
         return new AABB(blockPos.offset(-radius, -1, -radius), blockPos.offset(1 + radius, 1 + radius, 1 + radius));
     }
 
-    public static void craft(Level level, BlockPos pos, BlockState state, IntegratedBlockTile be) {
+    public static void craft(Level level, BlockPos pos, BlockState state, IntegratedBlockEntity be) {
         Container inv = new SimpleContainer(be.itemStackHandler.getSlots());
         for (int i = 0; i < be.itemStackHandler.getSlots(); i++) {
             inv.setItem(i, be.itemStackHandler.getStackInSlot(i));
@@ -249,9 +247,9 @@ public class IntegratedBlockTile extends SyncedBlockEntity implements MenuProvid
                 playParticles(level, pos, getStructureLevel(level, pos));
                 ItemEntity itemEntity = new ItemEntity(
                         level,
-                        pos.getX(),
-                        pos.getY() + 1,
-                        pos.getZ(),
+                        pos.getX() + 0.5d,
+                        pos.getY() + 1d,
+                        pos.getZ()+ 0.5d,
                         output.copy()
                 );
 
