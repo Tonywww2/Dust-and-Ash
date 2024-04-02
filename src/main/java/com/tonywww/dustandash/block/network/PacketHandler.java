@@ -12,8 +12,8 @@ public class PacketHandler {
             .serverAcceptedVersions(s -> true)
             .clientAcceptedVersions(s -> true)
             .networkProtocolVersion(()-> NetworkConstants.NETVERSION)
-            .simpleChannel()
-            ;
+            .simpleChannel();
+
 
     public static void register() {
         INSTANCE.messageBuilder(ItemSenderSavePacket.class, NetworkDirection.PLAY_TO_SERVER.ordinal())
@@ -21,7 +21,7 @@ public class PacketHandler {
                 .decoder(ItemSenderSavePacket::new)
                 .consumerMainThread(ItemSenderSavePacket::handle)
                 .add();
-        ;
+
 
     }
 

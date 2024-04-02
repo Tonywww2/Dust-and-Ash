@@ -37,10 +37,10 @@ public class ItemSenderContainerMenu extends AbstractContainerMenu {
             tileEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(h -> {
                 addSlot(new SlotItemHandler(h, 0, 151, 8));
 
-                addSlot(new SlotItemHandler(h, 1, 80, 8));
-                addSlot(new SlotItemHandler(h, 2, 80, 29));
-                addSlot(new SlotItemHandler(h, 3, 80, 50));
-                addSlot(new SlotItemHandler(h, 4, 80, 71));
+                addSlot(new SlotItemHandler(h, 1, 10, 17));
+                addSlot(new SlotItemHandler(h, 2, 80, 17));
+                addSlot(new SlotItemHandler(h, 3, 10, 46));
+                addSlot(new SlotItemHandler(h, 4, 80, 46));
 
                 addDataSlots(data);
 

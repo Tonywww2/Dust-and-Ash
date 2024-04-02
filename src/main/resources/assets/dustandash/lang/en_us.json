@@ -156,6 +156,9 @@
   "screen.dustandash.ionizer": "Ionizer",
   "screen.dustandash.item_sender": "Item Sender",
 
+  "screen.dustandash.item_sender_slot_id": "Slot ID",
+  "screen.dustandash.item_sender_save": "Save",
+
   "death.attack.sharpen_flint" : "%1$s's blood ran dry",
 
   "creativetab.dust_tab": "Dust and Ash: Dust",
@@ -164,6 +167,7 @@
 
   "tooltip.dustandash.titanium_alloy_sword": "\u00A77 Apply \n Speed, \n Luck, \n Dolphin's Grace\nto the player, \n Slowness\nto the target after attack.",
   "tooltip.dustandash.titanium_alloy_great_sword": "\u00A77 Apply \n Damage Resistance\nto the player, \n Weakness \nto the target after attack.",
+  "tooltip.dustandash.sharpen_flint": "\u00A77 Make a little sacrifice",
   "tooltip.dustandash.hand_vacuum": "\u00A77 Use on a Dust to gain products.",
   "tooltip.dustandash.iron_vacuum": "\u00A77 Use on a Dust to gain products, requires Energized Dust in inventory.",
   "tooltip.dustandash.echo_activator": "\u00A77 Use on a Sculk Shrieker or a Cake to turn it into a full Sculk Shrieker",

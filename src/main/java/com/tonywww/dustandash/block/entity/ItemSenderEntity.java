@@ -8,7 +8,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.util.Mth;
 import net.minecraft.world.Container;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.WorldlyContainer;
@@ -25,7 +24,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.CapabilityProvider;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandler;
@@ -33,7 +31,6 @@ import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
-import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -262,8 +259,9 @@ public class ItemSenderEntity extends SyncedBlockEntity implements MenuProvider 
 
                                     } else if (ItemHandlerHelper.canItemStacksStack(targetStack, thisStack)) {
                                         int originalSize = thisStack.getCount();
-                                        thisStack = handler.insertItem(targetSlot, thisStack, false);
-                                        insertedItem = originalSize < thisStack.getCount();
+                                        thisStack = handler.insertItem(targetSlot, thisStack.split(1), false);
+//                                        insertedItem = originalSize < thisStack.getCount();
+                                        insertedItem = true;
 
                                     }
                                 }

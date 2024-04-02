@@ -71,7 +71,6 @@ public class LightningProjectileEntity extends ThrowableItemProjectile {
 
             }
 
-            float baseDamage = WhiteLightning.getExtraDamage(source) + ((SwordItem) source.getItem()).getDamage();
             entity.invulnerableTime = 0;
             if (isPowerful) {
                 ((LivingEntity) entity).addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 100, 4));
@@ -86,12 +85,13 @@ public class LightningProjectileEntity extends ThrowableItemProjectile {
                         0.5d,
                         0
                 );
-                entity.hurt(owner.damageSources().indirectMagic(entity, owner), baseDamage + (targetHealth * WhiteLightning.getExtraPercentage(source)));
+                entity.hurt(owner.damageSources().indirectMagic(entity, owner), targetHealth * WhiteLightning.getExtraPercentage(source));
                 entity.invulnerableTime = 0;
 
             }
 
             if (owner instanceof Player player) {
+                float baseDamage = WhiteLightning.getExtraDamage(source) + ((SwordItem) source.getItem()).getDamage();
                 entity.hurt(owner.damageSources().playerAttack(player), baseDamage);
                 entity.invulnerableTime = 0;
 

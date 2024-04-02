@@ -76,7 +76,7 @@ public class WhiteLightning extends SwordItem {
                     if (entity instanceof LivingEntity livingEntity) {
                         targetHealth = livingEntity.getHealth();
 
-                    } else if (entity instanceof PartEntity partEntity){
+                    } else if (entity instanceof PartEntity partEntity) {
                         entity = partEntity.getParent();
                         if (entity instanceof LivingEntity livingEntity) {
                             targetHealth = livingEntity.getHealth();
@@ -109,7 +109,7 @@ public class WhiteLightning extends SwordItem {
             }
 
             if (damageFlag) {
-                float damage = (targetHealth * getExtraPercentage(stack)) + getExtraDamage(stack);
+                float damage = (targetHealth * getExtraPercentage(stack)) + (getExtraDamage(stack) * 2);
                 entity.hurt(player.damageSources().indirectMagic(entity, player), damage);
                 setAdvCharges(stack, getAdvCharges(stack) - 1);
 //            setAttackCounts(stack, getAttackCounts(stack) + 1);
