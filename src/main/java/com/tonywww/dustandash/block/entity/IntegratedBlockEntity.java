@@ -191,7 +191,7 @@ public class IntegratedBlockEntity extends SyncedBlockEntity implements MenuProv
                     for (int i = 0; i < be.itemStackHandler.getSlots(); i++) {
                         if (be.itemStackHandler.getStackInSlot(i).getCount() == 0) {
                             be.itemStackHandler.insertItem(i, item.getItem().copy(), false);
-                            item.getItem().setCount(item.getItem().getCount() - 1);
+                            item.getItem().shrink(1);
                             level.playSound(null, pos, SoundEvents.CHICKEN_HURT, SoundSource.BLOCKS, 0.25f, 1f);
 
                         }

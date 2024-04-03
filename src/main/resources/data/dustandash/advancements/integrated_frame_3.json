@@ -14,7 +14,7 @@
     "announce_to_chat": true,
     "hidden": false
   },
-  "parent": "dustandash:gear_box",
+  "parent": "dustandash:dark_energy_collapser",
   "criteria": {
     "requirement": {
       "trigger": "minecraft:inventory_changed",

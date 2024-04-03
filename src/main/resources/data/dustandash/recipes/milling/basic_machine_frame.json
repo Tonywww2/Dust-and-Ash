@@ -3,15 +3,15 @@
   "step1": false,
   "pattern": [
     "#####",
-    " AAAE",
-    " BCDE",
-    " AAAE",
+    "DAAAE",
+    "DB CE",
+    "DAAAE",
     "#####"
   ],
   "key": {
     "catalyst":
     {
-      "item": "minecraft:iron_trapdoor"
+      "item": "dustandash:iron_structural_components"
     },
     "#":
     {
@@ -23,15 +23,15 @@
     },
     "B":
     {
-      "item": "minecraft:redstone_torch"
+      "item": "dustandash:ash_steel_lever"
     },
     "C":
     {
-      "item": "minecraft:repeater"
+      "item": "dustandash:redstone_vacuum_tube"
     },
     "D":
     {
-      "item": "dustandash:iron_gear"
+      "item": "minecraft:iron_bars"
     },
     "E":
     {

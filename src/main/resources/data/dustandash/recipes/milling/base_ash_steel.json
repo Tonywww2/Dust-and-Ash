@@ -3,7 +3,7 @@
   "step1": true,
   "ingredients": [
     {
-      "item": "dustandash:block_of_ash_steel"
+      "item": "dustandash:ash_steel_heavy_plate"
     }
   ],
   "output" : {

@@ -65,7 +65,7 @@ public class MillingMachineEntity extends SyncedBlockEntity implements MenuProvi
                 if (slot == 2) {
                     return false;
                 } else if (slot > 2) {
-                    return stack.is(ModTags.Items.MILLING_INLAY);
+                    return !stack.is(ModTags.Items.MILLING_BLACKLIST);
 
                 }
                 return true;

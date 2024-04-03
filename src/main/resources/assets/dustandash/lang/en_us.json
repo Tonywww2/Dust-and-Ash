@@ -64,10 +64,18 @@
   "item.dustandash.iron_gear": "Iron Gear",
   "item.dustandash.redstone_gear": "Redstone Gear",
   "item.dustandash.ash_steel_gear": "Ash Steel Gear",
+  "item.dustandash.iron_structural_components": "Iron Structural Components",
+  "item.dustandash.ash_steel_structural_components": "Ash Steel Structural Components",
+  "item.dustandash.ash_steel_cylinder": "Ash Steel Cylinder",
+  "item.dustandash.ash_steel_lever": "Ash Steel Lever",
+  "item.dustandash.reaction_chamber": "Reaction Chamber",
+  "item.dustandash.power_converter": "Power Converter",
+  "item.dustandash.redstone_vacuum_tube": "Redstone VacuumTube",
+
   "item.dustandash.bloody_flint": "Bloody Flint",
   "item.dustandash.bloody_flint_stick": "Bloody Flint Stick",
   "item.dustandash.wooden_tool_handle": "Wooden Tool Handle",
-  "item.dustandash.gear_box": "Gear Box",
+  "item.dustandash.dark_energy_collapser": "Dark Energy Collapser",
   "item.dustandash.raw_titanium_sand": "Raw Titanium Sand (With Chlorine)",
   "item.dustandash.titanium_sand": "Titanium Sand (With Reductant)",
   "item.dustandash.titanium_scrap": "Titanium Scrap",
@@ -90,6 +98,7 @@
   "item.dustandash.tungsten_dust": "Tungsten Dust",
   "item.dustandash.magnet": "Magnet",
   "item.dustandash.mantle_mixture": "Mantle Mixture",
+  "item.dustandash.ash_steel_heavy_plate": "Ash Steel Heavy Plate",
   "item.dustandash.titanium_heavy_plate": "Titanium Heavy Plate",
 
   "item.dustandash.copper_ingot": "Copper Ingot",
@@ -227,8 +236,8 @@
   "dustandash.advancements.centrifuge.title": "Unified Field Theory",
   "dustandash.advancements.centrifuge.description": "Craft a Centrifuge. What a nice way to get dusts",
 
-  "dustandash.advancements.gear_box.title": "Mist Engine",
-  "dustandash.advancements.gear_box.description": "Craft a Gear Box",
+  "dustandash.advancements.dark_energy_collapser.title": "Mist Engine",
+  "dustandash.advancements.dark_energy_collapser.description": "Craft a Dark Energy Collapser",
 
   "dustandash.advancements.integrated_frame_2.title": "Winning the soul",
   "dustandash.advancements.integrated_frame_2.description": "Craft Integrated Frame Tier 2",

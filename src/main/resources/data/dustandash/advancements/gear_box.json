@@ -1,13 +1,13 @@
 {
   "display": {
     "icon": {
-      "item": "dustandash:gear_box"
+      "item": "dustandash:dark_energy_collapser"
     },
     "title": {
-      "translate": "dustandash.advancements.gear_box.title"
+      "translate": "dustandash.advancements.dark_energy_collapser.title"
     },
     "description": {
-      "translate": "dustandash.advancements.gear_box.description"
+      "translate": "dustandash.advancements.dark_energy_collapser.description"
     },
     "frame": "task",
     "show_toast": true,
@@ -22,7 +22,7 @@
         "items": [
           {
             "items": [
-              "dustandash:gear_box"
+              "dustandash:dark_energy_collapser"
             ]
           }
         ]

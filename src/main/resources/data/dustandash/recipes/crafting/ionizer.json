@@ -7,16 +7,16 @@
   ],
   "key": {
     "A": {
-      "item": "dustandash:glass_container"
+      "item": "dustandash:ash_steel_cylinder"
     },
     "B": {
       "item": "minecraft:chain"
     },
     "C": {
-      "item": "minecraft:comparator"
+      "item": "dustandash:redstone_vacuum_tube"
     },
     "D": {
-      "item": "dustandash:gear_box"
+      "item": "dustandash:dark_energy_collapser"
     },
     "E": {
       "item": "minecraft:smooth_stone_slab"

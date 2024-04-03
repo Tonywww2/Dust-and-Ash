@@ -97,7 +97,7 @@ public class CentrifugeRecipeCategory implements IRecipeCategory<CentrifugeRecip
     @Override
     public void draw(CentrifugeRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
         Font font = Minecraft.getInstance().font;
-        guiGraphics.drawString(font, recipe.getTick() + " ticks", 65, 70, 0x555555);
+        guiGraphics.drawString(font, recipe.getTick() + " ticks", 65, 70, 0xffffff);
 
     }
 }

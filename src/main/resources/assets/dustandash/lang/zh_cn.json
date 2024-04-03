@@ -64,10 +64,18 @@
   "item.dustandash.iron_gear": "铁齿轮",
   "item.dustandash.redstone_gear": "红石齿轮",
   "item.dustandash.ash_steel_gear": "烬钢齿轮",
+  "item.dustandash.iron_structural_components": "铁结构构件",
+  "item.dustandash.ash_steel_structural_components": "烬钢结构构件",
+  "item.dustandash.ash_steel_cylinder": "烬钢气缸",
+  "item.dustandash.ash_steel_lever": "烬钢传动杆",
+  "item.dustandash.reaction_chamber": "反应室",
+  "item.dustandash.power_converter": "动力转化器",
+  "item.dustandash.redstone_vacuum_tube": "红石真空管",
+
   "item.dustandash.bloody_flint": "染血的燧石片",
   "item.dustandash.bloody_flint_stick": "染血的燧石棍",
   "item.dustandash.wooden_tool_handle": "木质工具手柄",
-  "item.dustandash.gear_box": "齿轮箱",
+  "item.dustandash.dark_energy_collapser": "暗能坍缩装置",
   "item.dustandash.raw_titanium_sand": "含氯粗钛沙",
   "item.dustandash.titanium_sand": "细钛沙",
   "item.dustandash.titanium_scrap": "钛碎片",
@@ -90,6 +98,7 @@
   "item.dustandash.tungsten_dust": "钨粉",
   "item.dustandash.magnet": "磁铁",
   "item.dustandash.mantle_mixture": "地幔混合物",
+  "item.dustandash.ash_steel_heavy_plate": "重型烬钢板",
   "item.dustandash.titanium_heavy_plate": "重型钛板",
 
   "item.dustandash.copper_ingot": "铜锭",
@@ -227,8 +236,8 @@
   "dustandash.advancements.centrifuge.title": "统一场论",
   "dustandash.advancements.centrifuge.description": "制作离心机，现在获取元素尘变得更轻松了",
 
-  "dustandash.advancements.gear_box.title": "薄雾机械",
-  "dustandash.advancements.gear_box.description": "制作齿轮箱",
+  "dustandash.advancements.dark_energy_collapser.title": "薄雾机械",
+  "dustandash.advancements.dark_energy_collapser.description": "制作暗能坍缩装置",
 
   "dustandash.advancements.integrated_frame_2.title": "Winning the soul",
   "dustandash.advancements.integrated_frame_2.description": "制作聚合框架-2",

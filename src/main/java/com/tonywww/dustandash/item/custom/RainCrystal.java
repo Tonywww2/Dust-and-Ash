@@ -29,7 +29,7 @@ public class RainCrystal extends Item {
             if (stack != null) {
                 player.getCooldowns().addCooldown(this, 200);
                 world.getLevelData().setRaining(true);
-                stack.setCount(stack.getCount() - 1);
+                stack.shrink(1);
 
             }
 

@@ -73,7 +73,7 @@ public class IronVacuum extends Item {
                 if (i.getItem() == ModItems.DUST_WITH_ENERGY.get() && i.getCount() > 0) {
                     // going to cost
                     if (world.random.nextDouble() < consumeRate) {
-                        i.setCount(i.getCount() - 1);
+                        i.shrink(1);
 
                     }
                     playerEntity.getCooldowns().addCooldown(this, 5);

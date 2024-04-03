@@ -126,6 +126,7 @@ public class ModCreativeModTabs {
                         pOutput.accept(ModItems.CARBON_FIBER_PLATE.get());
                         pOutput.accept(ModItems.MAGNET.get());
                         pOutput.accept(ModItems.MANTLE_MIXTURE.get());
+                        pOutput.accept(ModItems.ASH_STEEL_HEAVY_PLATE.get());
                         pOutput.accept(ModItems.TITANIUM_HEAVY_PLATE.get());
                         pOutput.accept(ModItems.PLACEHOLDER.get());
                         pOutput.accept(ModItems.POSITION_SELECTOR.get());
@@ -143,10 +144,17 @@ public class ModCreativeModTabs {
                         pOutput.accept(ModItems.SODIUM_DUST.get());
                         pOutput.accept(ModItems.GRAPHITE_ELECTRODE.get());
 
-                        pOutput.accept(ModItems.GEAR_BOX.get());
+                        pOutput.accept(ModItems.DARK_ENERGY_COLLAPSER.get());
                         pOutput.accept(ModItems.IRON_GEAR.get());
                         pOutput.accept(ModItems.REDSTONE_GEAR.get());
                         pOutput.accept(ModItems.ASH_STEEL_GEAR.get());
+                        pOutput.accept(ModItems.IRON_STRUCTURAL_COMPONENTS.get());
+                        pOutput.accept(ModItems.ASH_STEEL_STRUCTURAL_COMPONENTS.get());
+                        pOutput.accept(ModItems.ASH_STEEL_CYLINDER.get());
+                        pOutput.accept(ModItems.ASH_STEEL_LEVER.get());
+                        pOutput.accept(ModItems.REACTION_CHAMBER.get());
+                        pOutput.accept(ModItems.POWER_CONVERTER.get());
+                        pOutput.accept(ModItems.REDSTONE_VACUUM_TUBE.get());
 
                         pOutput.accept(ModItems.IRON_SCRAP.get());
                         pOutput.accept(ModItems.REDSTONE_SCRAP.get());

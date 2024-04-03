@@ -1,35 +1,29 @@
 {
-    "type": "minecraft:crafting_shaped",
-    "pattern": [
-        "#B#",
-        "GCG",
-        "OTS"
-    ],
-    "key": {
-        "#": {
-            "item": "minecraft:chain"
-        },
-        "B": {
-            "item": "minecraft:piston"
-        },
-        "G": {
-            "item": "minecraft:glass"
-        },
-        "C": {
-            "item": "minecraft:cauldron"
-        },
-        "O": {
-            "item": "dustandash:ash_steel_gear"
-        },
-        "T": {
-            "item": "dustandash:basic_machine_frame"
-        },
-        "S": {
-            "item": "dustandash:redstone_gear"
-        }
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "CBC",
+    "GEG",
+    "CTC"
+  ],
+  "key": {
+    "B": {
+      "item": "minecraft:piston"
     },
-    "result": {
-        "item": "dustandash:centrifuge",
-        "count": 1
+    "G": {
+      "item": "minecraft:glass"
+    },
+    "C": {
+      "item": "dustandash:ash_steel_cylinder"
+    },
+    "T": {
+      "item": "dustandash:iron_structural_components"
+    },
+    "E": {
+      "item": "dustandash:reaction_chamber"
     }
+  },
+  "result": {
+    "item": "dustandash:centrifuge",
+    "count": 1
+  }
 }

@@ -217,26 +217,29 @@ public class ItemSenderEntity extends SyncedBlockEntity implements MenuProvider 
 
                 if (be.targetPos != null) {
                     Container container = getContainerAt(level, be.targetPos);
+
                     if (container != null) {
                         for (int i = 0; i < 4; i++) {
                             int targetSlot = be.targetSlots[i];
+                            ItemStack thisStack = be.invItemStackHandler.getStackInSlot(i + 1);
 
-                            if (container.getContainerSize() > targetSlot) {
-                                ItemStack thisStack = be.invItemStackHandler.getStackInSlot(i + 1);
-                                ItemStack targetStack = container.getItem(targetSlot);
+                            if (!thisStack.is(ModItems.PLACEHOLDER.get())) {
+                                if (container.getContainerSize() > targetSlot) {
+                                    ItemStack targetStack = container.getItem(targetSlot);
 
-                                if (container.canPlaceItem(targetSlot, thisStack) ||
-                                        (container instanceof WorldlyContainer worldlyContainer)
-                                                && worldlyContainer.canPlaceItemThroughFace(targetSlot, thisStack, null)) {
-                                    if (targetStack.isEmpty()) {
-                                        container.setItem(targetSlot, thisStack.split(1));
+                                    if (container.canPlaceItem(targetSlot, thisStack) ||
+                                            (container instanceof WorldlyContainer worldlyContainer)
+                                                    && worldlyContainer.canPlaceItemThroughFace(targetSlot, thisStack, null)) {
+                                        if (targetStack.isEmpty()) {
+                                            container.setItem(targetSlot, thisStack.split(1));
 
-                                    } else if (targetStack.is(thisStack.getItem())) {
-                                        targetStack.setCount(targetStack.getCount() + 1);
-                                        thisStack.shrink(1);
+                                        } else if (targetStack.is(thisStack.getItem())) {
+                                            targetStack.grow(1);
+                                            thisStack.shrink(1);
+
+                                        }
 
                                     }
-
                                 }
                             }
 
@@ -258,10 +261,21 @@ public class ItemSenderEntity extends SyncedBlockEntity implements MenuProvider 
                                         insertedItem = true;
 
                                     } else if (ItemHandlerHelper.canItemStacksStack(targetStack, thisStack)) {
-                                        int originalSize = thisStack.getCount();
-                                        thisStack = handler.insertItem(targetSlot, thisStack.split(1), false);
-//                                        insertedItem = originalSize < thisStack.getCount();
-                                        insertedItem = true;
+//                                        int originalSize = thisStack.getCount();
+                                        ItemStack newStack = handler.insertItem(targetSlot, thisStack.split(1), false);
+                                        if (newStack.getCount() >= 1) {
+                                            if (thisStack.isEmpty()) {
+                                                be.invItemStackHandler.setStackInSlot(i + 1, newStack);
+
+                                            } else {
+                                                thisStack.grow(1);
+
+                                            }
+                                        } else {
+                                            insertedItem = true;
+
+                                        }
+
 
                                     }
                                 }

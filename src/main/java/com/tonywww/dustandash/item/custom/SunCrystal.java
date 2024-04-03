@@ -35,7 +35,7 @@ public class SunCrystal extends Item {
                     ((ServerLevelData) data).setRainTime(time);
                 }
                 player.getCooldowns().addCooldown(this, 200);
-                stack.setCount(stack.getCount() - 1);
+                stack.shrink(1);
 
             }
 

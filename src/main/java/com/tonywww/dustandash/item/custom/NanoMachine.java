@@ -57,7 +57,7 @@ public class NanoMachine extends Item {
                             }
 
                             if (flag) {
-                                nano.setCount(nano.getCount() - 1);
+                                nano.shrink(1);
                                 player.sendSystemMessage(Component.literal("Agens Tachyon"));
                             }
 
@@ -76,7 +76,7 @@ public class NanoMachine extends Item {
                         default:
                             if (!stack.is(ModTags.Items.NANO_BLACKLIST)) {
                                 stack.setDamageValue(0);
-                                nano.setCount(nano.getCount() - 1);
+                                nano.shrink(1);
                                 player.sendSystemMessage(Component.literal("Item Fixed"));
 
                             }
@@ -102,15 +102,15 @@ public class NanoMachine extends Item {
                 entity.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 1200, 5));
                 entity.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 1200, 2));
 
-                entity.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 6000, 1));
-                entity.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 6000, 2));
+                entity.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 6000, 3));
+                entity.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 6000, 4));
 
                 entity.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 12000, 0));
                 entity.addEffect(new MobEffectInstance(MobEffects.WATER_BREATHING, 12000, 0));
                 entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 12000, 2));
                 entity.addEffect(new MobEffectInstance(MobEffects.JUMP, 12000, 1));
 
-                stack.setCount(stack.getCount() - 1);
+                stack.shrink(1);
             }
 
 
@@ -122,7 +122,7 @@ public class NanoMachine extends Item {
     private void exchange(Player player, ItemStack input, ItemStack output) {
         if (input.getCount() > 0) {
             player.addItem(output);
-            input.setCount(input.getCount() - 1);
+            input.shrink(1);
 
         }
 
@@ -135,7 +135,7 @@ public class NanoMachine extends Item {
 
     @Override
     public int getUseDuration(ItemStack stack) {
-        return 80;
+        return 60;
     }
 
     @Override

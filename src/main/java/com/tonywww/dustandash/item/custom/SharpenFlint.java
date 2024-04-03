@@ -43,7 +43,7 @@ public class SharpenFlint extends Item {
                         player.getZ(),
                         ModItems.BLOODY_FLINT.get().getDefaultInstance()
                 ));
-                item.setCount(item.getCount() - 1);
+                item.shrink(1);
 
 
             }

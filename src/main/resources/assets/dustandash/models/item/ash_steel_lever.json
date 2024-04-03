@@ -2,7 +2,7 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "dustandash:item/gear_box"
+    "layer0": "dustandash:item/ash_steel_lever"
 
   }
 

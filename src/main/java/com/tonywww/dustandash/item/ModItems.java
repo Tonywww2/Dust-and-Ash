@@ -445,6 +445,11 @@ public class ModItems {
                     .stacksTo(32)
             ));
 
+    public static final RegistryObject<Item> ASH_STEEL_HEAVY_PLATE = ITEMS.register("ash_steel_heavy_plate",
+            () -> new Item(new Item.Properties()
+                    .stacksTo(4)
+            ));
+
     public static final RegistryObject<Item> TITANIUM_HEAVY_PLATE = ITEMS.register("titanium_heavy_plate",
             () -> new Item(new Item.Properties()
                     .stacksTo(4)
@@ -498,7 +503,7 @@ public class ModItems {
             ));
 
     // gears
-    public static final RegistryObject<Item> GEAR_BOX = ITEMS.register("gear_box",
+    public static final RegistryObject<Item> DARK_ENERGY_COLLAPSER = ITEMS.register("dark_energy_collapser",
             () -> new Item(new Item.Properties()
                     .stacksTo(2)
             ));
@@ -516,6 +521,41 @@ public class ModItems {
     public static final RegistryObject<Item> ASH_STEEL_GEAR = ITEMS.register("ash_steel_gear",
             () -> new Item(new Item.Properties()
                     .stacksTo(32)
+            ));
+
+    public static final RegistryObject<Item> IRON_STRUCTURAL_COMPONENTS = ITEMS.register("iron_structural_components",
+            () -> new Item(new Item.Properties()
+                    .stacksTo(16)
+            ));
+
+    public static final RegistryObject<Item> ASH_STEEL_STRUCTURAL_COMPONENTS = ITEMS.register("ash_steel_structural_components",
+            () -> new Item(new Item.Properties()
+                    .stacksTo(16)
+            ));
+
+    public static final RegistryObject<Item> ASH_STEEL_CYLINDER = ITEMS.register("ash_steel_cylinder",
+            () -> new Item(new Item.Properties()
+                    .stacksTo(16)
+            ));
+
+    public static final RegistryObject<Item> ASH_STEEL_LEVER = ITEMS.register("ash_steel_lever",
+            () -> new Item(new Item.Properties()
+                    .stacksTo(16)
+            ));
+
+    public static final RegistryObject<Item> REACTION_CHAMBER = ITEMS.register("reaction_chamber",
+            () -> new Item(new Item.Properties()
+                    .stacksTo(16)
+            ));
+
+    public static final RegistryObject<Item> POWER_CONVERTER = ITEMS.register("power_converter",
+            () -> new Item(new Item.Properties()
+                    .stacksTo(16)
+            ));
+
+    public static final RegistryObject<Item> REDSTONE_VACUUM_TUBE = ITEMS.register("redstone_vacuum_tube",
+            () -> new Item(new Item.Properties()
+                    .stacksTo(16)
             ));
 
     // scraps

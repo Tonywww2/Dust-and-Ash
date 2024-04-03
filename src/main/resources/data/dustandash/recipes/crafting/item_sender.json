@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " D ",
+    "BCB",
+    "AEA"
+  ],
+  "key": {
+    "A": {
+      "item": "dustandash:ash_steel_cylinder"
+    },
+    "B": {
+      "item": "dustandash:glass_container"
+    },
+    "C": {
+      "item": "minecraft:ender_pearl"
+    },
+    "D": {
+      "item": "minecraft:lightning_rod"
+    },
+    "E": {
+      "item": "dustandash:ash_steel_structural_components"
+    }
+  },
+  "result": {
+    "item": "dustandash:item_sender",
+    "count": 2
+  }
+}
