@@ -1,9 +1,12 @@
 {
-  "type": "minecraft:smithing",
+  "type": "minecraft:smithing_transform",
   "base": {
     "item": "minecraft:gravel"
   },
   "addition": {
+    "item": "dustandash:earth_dust"
+  },
+  "template": {
     "item": "dustandash:earth_dust"
   },
   "result": {
