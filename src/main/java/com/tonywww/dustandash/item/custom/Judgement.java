@@ -79,6 +79,7 @@ public class Judgement extends PickaxeItem implements GeoItem {
 
             }
             use.stop();
+            triggerAnim(entity, GeoItem.getOrAssignId(stack, (ServerLevel) level), "idle", "idle");
 
         }
         super.releaseUsing(stack, level, entity, tick);
@@ -92,6 +93,7 @@ public class Judgement extends PickaxeItem implements GeoItem {
 
             }
             use.stop();
+            triggerAnim(entity, GeoItem.getOrAssignId(stack, (ServerLevel) level), "idle", "idle");
 
         }
         return super.finishUsingItem(stack, level, entity);

@@ -1,0 +1,11 @@
+{
+  "name": "Milling & Assembly Machine",
+  "icon": "dustandash:milling_machine",
+  "category": "dustandash:dust",
+  "pages": [
+    {
+      "type": "patchouli:crafting",
+      "recipe": "dustandash:crafting/milling_machine"
+    }
+  ]
+}

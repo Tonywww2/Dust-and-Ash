@@ -107,7 +107,7 @@ public class ModItems {
 
     // SP Weapons
     public static final RegistryObject<Item> GALE_OTAIJUTSU = ITEMS.register("gale_otaijutsu",
-            () -> new GaleOtaijutsu(ModItemTier.TITANIUM_ALLOY, 2, -1.0F,
+            () -> new GaleOtaijutsu(ModItemTier.TITANIUM_ALLOY, 2, -1.2F,
                     (new Item.Properties()
                             .fireResistant())
             ));
@@ -131,7 +131,7 @@ public class ModItems {
             ));
 
     public static final RegistryObject<Item> JUDGEMENT = ITEMS.register("judgement",
-            () -> new Judgement(ModItemTier.TITANIUM_ALLOY, 12, -3.2F,
+            () -> new Judgement(ModItemTier.TITANIUM_ALLOY, 17, -3.2F,
                     (new Item.Properties()
                             .fireResistant())
             ));

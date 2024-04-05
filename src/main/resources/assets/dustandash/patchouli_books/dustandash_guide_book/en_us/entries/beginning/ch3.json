@@ -1,0 +1,15 @@
+{
+  "name": "3. Eternal Student",
+  "icon": "minecraft:writable_book",
+  "category": "dustandash:beginning",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Congratulations, here is almost the end, but it can also be a new start. $(l:ash/ionizer)Ionizer$(/l) is the newest machine that can help you explore the future path. It allows you to do"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "dustandash:crafting/ionizer"
+    }
+  ]
+}

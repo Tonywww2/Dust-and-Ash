@@ -38,7 +38,7 @@ public class GaleOtaijutsu extends SwordItem {
         if (!world.isClientSide()) {
             if (entity instanceof LivingEntity) {
 //                int effectLevel = (int) (player.fallDistance * 1.5);
-                int effectLevel = Mth.clamp((int) (player.fallDistance * 1.5), 0, 100);
+                int effectLevel = Mth.clamp((int) (player.fallDistance * 1.75), 0, 100);
 //                if (effectLevel > 100) {
 //                    effectLevel = 100;
 //                }
@@ -46,7 +46,7 @@ public class GaleOtaijutsu extends SwordItem {
 //                    effectLevel = 0;
 //                }
 
-                player.addEffect(new MobEffectInstance(MobEffects.DIG_SPEED, 60, effectLevel));
+                player.addEffect(new MobEffectInstance(MobEffects.DIG_SPEED, 90, effectLevel));
                 player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 300, 1));
                 player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 100, 0));
 

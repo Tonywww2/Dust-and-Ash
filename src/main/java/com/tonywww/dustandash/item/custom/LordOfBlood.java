@@ -97,7 +97,6 @@ public class LordOfBlood extends SwordItem implements GeoItem {
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         if (!level.isClientSide()) {
             if (getCharges(player.getItemInHand(hand)) < 3) {
-                use.stop();
                 triggerAnim(player, GeoItem.getOrAssignId(player.getItemInHand(hand), (ServerLevel) level), "use", "use");
                 player.startUsingItem(hand);
 
@@ -171,6 +170,8 @@ public class LordOfBlood extends SwordItem implements GeoItem {
     public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity entity) {
 
         if (!level.isClientSide()) {
+            use.stop();
+            triggerAnim(entity, GeoItem.getOrAssignId(stack, (ServerLevel) level), "idle", "idle");
 
             float radius = getRadius(stack);
             List<LivingEntity> entities = level.getEntitiesOfClass(LivingEntity.class, getArea(entity.blockPosition(), (int) radius), VALID_ENTITY);
@@ -192,9 +193,9 @@ public class LordOfBlood extends SwordItem implements GeoItem {
                     }
 
 
-                    hurtAllEntities(entities, damageSource, 2);
+                    hurtAllEntities(entities, damageSource, 3);
                     effectAllEntities(entities, new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60, 0), entity);
-                    entity.heal(3);
+                    entity.heal(2);
                 }
                 case 2 -> {
                     if (!level.isClientSide()) {
@@ -210,7 +211,7 @@ public class LordOfBlood extends SwordItem implements GeoItem {
                     hurtAllEntities(entities, damageSource, 4);
                     effectAllEntities(entities, new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 80, 1), entity);
                     effectAllEntities(entities, new MobEffectInstance(MobEffects.WEAKNESS, 60, 0), entity);
-                    entity.heal(4);
+                    entity.heal(3);
                 }
                 case 3 -> {
                     if (!level.isClientSide()) {
@@ -222,9 +223,9 @@ public class LordOfBlood extends SwordItem implements GeoItem {
 
                     }
 
-                    hurtAllEntities(entities, damageSource, 6);
+                    hurtAllEntities(entities, damageSource, 5);
                     effectAllEntities(entities, new MobEffectInstance(MobEffects.WEAKNESS, 60, 1), entity);
-                    entity.heal(5);
+                    entity.heal(4);
 
                 }
                 default -> setCharges(stack, 0);
@@ -320,6 +321,7 @@ public class LordOfBlood extends SwordItem implements GeoItem {
     public void releaseUsing(ItemStack stack, Level level, LivingEntity entity, int time) {
         if (!level.isClientSide()) {
             use.stop();
+            triggerAnim(entity, GeoItem.getOrAssignId(stack, (ServerLevel) level), "idle", "idle");
 
         }
         super.releaseUsing(stack, level, entity, time);
@@ -327,7 +329,7 @@ public class LordOfBlood extends SwordItem implements GeoItem {
 
     @Override
     public int getUseDuration(ItemStack stack) {
-        return 60;
+        return 40;
     }
 
     @Override

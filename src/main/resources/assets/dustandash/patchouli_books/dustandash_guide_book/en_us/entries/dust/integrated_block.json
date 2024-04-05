@@ -1,0 +1,11 @@
+{
+  "name": "Integrated Block",
+  "icon": "dustandash:integrated_block",
+  "category": "dustandash:dust",
+  "pages": [
+    {
+      "type": "patchouli:crafting",
+      "recipe": "dustandash:crafting/integrated_block"
+    }
+  ]
+}
