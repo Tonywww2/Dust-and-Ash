@@ -1,7 +1,7 @@
 package com.tonywww.dustandash.event;
 
 import com.tonywww.dustandash.DustAndAsh;
-import com.tonywww.dustandash.block.network.PacketHandler;
+import com.tonywww.dustandash.network.PacketHandler;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;

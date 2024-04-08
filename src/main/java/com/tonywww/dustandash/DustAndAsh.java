@@ -1,13 +1,12 @@
 package com.tonywww.dustandash;
 
-import com.tonywww.dustandash.block.ModBlocks;
-import com.tonywww.dustandash.config.DustAndAshConfig;
-import com.tonywww.dustandash.entity.ModEntites;
-import com.tonywww.dustandash.item.ModCreativeModTabs;
-import com.tonywww.dustandash.menu.ModContainerMenus;
-import com.tonywww.dustandash.block.entity.ModBlockEntities;
-import com.tonywww.dustandash.data.recipes.ModRecipe;
-import com.tonywww.dustandash.item.ModItems;
+import com.tonywww.dustandash.registeries.ModBlocks;
+import com.tonywww.dustandash.registeries.ModEntites;
+import com.tonywww.dustandash.registeries.ModCreativeModTabs;
+import com.tonywww.dustandash.registeries.ModContainerMenus;
+import com.tonywww.dustandash.registeries.ModBlockEntities;
+import com.tonywww.dustandash.registeries.ModRecipe;
+import com.tonywww.dustandash.registeries.ModItems;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;

@@ -1,9 +1,10 @@
 package com.tonywww.dustandash.block.entity;
 
 import com.tonywww.dustandash.menu.IonizerContainerMenu;
-import com.tonywww.dustandash.menu.IonizerItemHandler;
+import com.tonywww.dustandash.menu.itemhandlers.IonizerItemHandler;
 import com.tonywww.dustandash.data.recipes.IonizerRecipe;
-import com.tonywww.dustandash.item.ModItems;
+import com.tonywww.dustandash.registeries.ModItems;
+import com.tonywww.dustandash.registeries.ModBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
@@ -35,7 +36,7 @@ import javax.annotation.Nullable;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import static com.tonywww.dustandash.config.DustAndAshConfig.ionizerProgressPerTick;
+import static com.tonywww.dustandash.DustAndAshConfig.ionizerProgressPerTick;
 
 public class IonizerEntity extends SyncedBlockEntity implements MenuProvider {
 

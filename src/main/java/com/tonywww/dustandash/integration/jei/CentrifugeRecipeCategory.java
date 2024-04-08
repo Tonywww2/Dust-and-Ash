@@ -1,7 +1,7 @@
 package com.tonywww.dustandash.integration.jei;
 
 import com.tonywww.dustandash.DustAndAsh;
-import com.tonywww.dustandash.block.ModBlocks;
+import com.tonywww.dustandash.registeries.ModBlocks;
 import com.tonywww.dustandash.data.recipes.CentrifugeRecipe;
 import com.tonywww.dustandash.integration.DustAndAshRecipeTypes;
 import mezz.jei.api.constants.VanillaTypes;
@@ -19,7 +19,6 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import org.joml.Matrix4f;
 
 import java.util.Arrays;
 

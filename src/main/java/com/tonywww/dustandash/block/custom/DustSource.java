@@ -1,7 +1,7 @@
 package com.tonywww.dustandash.block.custom;
 
-import com.tonywww.dustandash.block.ModBlocks;
-import com.tonywww.dustandash.util.ModTags;
+import com.tonywww.dustandash.registeries.ModBlocks;
+import com.tonywww.dustandash.tag.ModTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
@@ -11,11 +11,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.core.particles.ParticleTypes;
 
-import java.util.Random;
-
-import static com.tonywww.dustandash.config.DustAndAshConfig.*;
-
-import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
+import static com.tonywww.dustandash.DustAndAshConfig.*;
 
 public class DustSource extends Block {
 

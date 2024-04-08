@@ -1,3 +1,6 @@
 {
-  "parent": "bettercombat:pickaxe"
+  "parent": "bettercombat:pickaxe",
+  "attributes": {
+    "attack_range": 4
+  }
 }

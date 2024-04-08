@@ -1,9 +1,8 @@
 package com.tonywww.dustandash.screen;
 
 import com.tonywww.dustandash.DustAndAsh;
-import com.tonywww.dustandash.block.network.ItemSenderSavePacket;
-import com.tonywww.dustandash.block.network.PacketHandler;
-import com.tonywww.dustandash.menu.AshCollectorContainerMenu;
+import com.tonywww.dustandash.network.ItemSenderSavePacket;
+import com.tonywww.dustandash.network.PacketHandler;
 import com.tonywww.dustandash.menu.ItemSenderContainerMenu;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
@@ -12,8 +11,6 @@ import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraftforge.network.PacketDistributor;
-import net.minecraftforge.network.simple.SimpleChannel;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.function.Predicate;

@@ -1,11 +1,10 @@
 package com.tonywww.dustandash.overlay;
 
 import com.tonywww.dustandash.DustAndAsh;
-import com.tonywww.dustandash.item.ModItems;
-import com.tonywww.dustandash.item.custom.WhiteLightning;
+import com.tonywww.dustandash.registeries.ModItems;
+import com.tonywww.dustandash.item.WhiteLightning;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;

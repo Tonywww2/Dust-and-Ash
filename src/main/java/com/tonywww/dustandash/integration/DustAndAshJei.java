@@ -1,14 +1,14 @@
 package com.tonywww.dustandash.integration;
 
 import com.tonywww.dustandash.DustAndAsh;
-import com.tonywww.dustandash.block.ModBlocks;
+import com.tonywww.dustandash.registeries.ModBlocks;
 import com.tonywww.dustandash.menu.IntegratedBlockContainerMenu;
 import com.tonywww.dustandash.data.recipes.*;
 import com.tonywww.dustandash.integration.jei.CentrifugeRecipeCategory;
 import com.tonywww.dustandash.integration.jei.IntegratedBlockRecipeCategory;
 import com.tonywww.dustandash.integration.jei.IonizerCategory;
 import com.tonywww.dustandash.integration.jei.MillingRecipeCategory;
-import com.tonywww.dustandash.menu.ModContainerMenus;
+import com.tonywww.dustandash.registeries.ModContainerMenus;
 import com.tonywww.dustandash.screen.CentrifugeScreen;
 import com.tonywww.dustandash.screen.IntegratedBlockScreen;
 import com.tonywww.dustandash.screen.IonizerScreen;

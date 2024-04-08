@@ -1,7 +1,7 @@
 package com.tonywww.dustandash.block.custom;
 
 import com.tonywww.dustandash.block.entity.MillingMachineEntity;
-import com.tonywww.dustandash.block.entity.ModBlockEntities;
+import com.tonywww.dustandash.registeries.ModBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Containers;

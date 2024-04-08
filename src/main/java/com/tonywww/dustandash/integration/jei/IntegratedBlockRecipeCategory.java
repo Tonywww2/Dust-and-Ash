@@ -1,7 +1,7 @@
 package com.tonywww.dustandash.integration.jei;
 
 import com.tonywww.dustandash.DustAndAsh;
-import com.tonywww.dustandash.block.ModBlocks;
+import com.tonywww.dustandash.registeries.ModBlocks;
 import com.tonywww.dustandash.data.recipes.IntegratedBlockRecipe;
 import com.tonywww.dustandash.integration.DustAndAshRecipeTypes;
 import mezz.jei.api.constants.VanillaTypes;

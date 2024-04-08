@@ -1,9 +1,10 @@
 package com.tonywww.dustandash.block.entity;
 
 import com.tonywww.dustandash.menu.MillingMachineContainerMenu;
-import com.tonywww.dustandash.menu.MillingMachineItemHandler;
+import com.tonywww.dustandash.menu.itemhandlers.MillingMachineItemHandler;
 import com.tonywww.dustandash.data.recipes.MillingMachineRecipe;
-import com.tonywww.dustandash.util.ModTags;
+import com.tonywww.dustandash.registeries.ModBlockEntities;
+import com.tonywww.dustandash.tag.ModTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;

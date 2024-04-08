@@ -1,8 +1,9 @@
 package com.tonywww.dustandash.block.entity;
 
-import com.tonywww.dustandash.item.ModItems;
+import com.tonywww.dustandash.registeries.ModItems;
 import com.tonywww.dustandash.menu.ItemSenderContainerMenu;
-import com.tonywww.dustandash.menu.ItemSenderItemHandler;
+import com.tonywww.dustandash.menu.itemhandlers.ItemSenderItemHandler;
+import com.tonywww.dustandash.registeries.ModBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;

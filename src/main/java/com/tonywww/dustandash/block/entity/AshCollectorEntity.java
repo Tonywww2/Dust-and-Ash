@@ -1,7 +1,8 @@
 package com.tonywww.dustandash.block.entity;
 
 import com.tonywww.dustandash.menu.AshCollectorContainerMenu;
-import com.tonywww.dustandash.item.ModItems;
+import com.tonywww.dustandash.registeries.ModItems;
+import com.tonywww.dustandash.registeries.ModBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;

@@ -1,7 +1,8 @@
 package com.tonywww.dustandash.menu;
 
-import com.tonywww.dustandash.block.ModBlocks;
+import com.tonywww.dustandash.registeries.ModBlocks;
 import com.tonywww.dustandash.block.entity.IntegratedBlockEntity;
+import com.tonywww.dustandash.registeries.ModContainerMenus;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;

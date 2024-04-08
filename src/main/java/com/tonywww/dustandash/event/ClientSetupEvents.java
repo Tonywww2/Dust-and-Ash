@@ -1,7 +1,7 @@
 package com.tonywww.dustandash.event;
 
-import com.tonywww.dustandash.entity.ModEntites;
-import com.tonywww.dustandash.menu.ModContainerMenus;
+import com.tonywww.dustandash.registeries.ModEntites;
+import com.tonywww.dustandash.registeries.ModContainerMenus;
 import com.tonywww.dustandash.overlay.WhiteLightningOverlay;
 import com.tonywww.dustandash.screen.*;
 import net.minecraft.client.gui.screens.MenuScreens;

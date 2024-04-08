@@ -1,9 +1,10 @@
 package com.tonywww.dustandash.block.entity;
 
 import com.tonywww.dustandash.menu.CentrifugeContainerMenu;
-import com.tonywww.dustandash.menu.CentrifugeItemHandler;
+import com.tonywww.dustandash.menu.itemhandlers.CentrifugeItemHandler;
 import com.tonywww.dustandash.data.recipes.CentrifugeRecipe;
-import com.tonywww.dustandash.util.ModTags;
+import com.tonywww.dustandash.registeries.ModBlockEntities;
+import com.tonywww.dustandash.tag.ModTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
@@ -30,7 +31,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Optional;
 
-import static com.tonywww.dustandash.config.DustAndAshConfig.centrifugeProgressPerTick;
+import static com.tonywww.dustandash.DustAndAshConfig.centrifugeProgressPerTick;
 
 public class CentrifugeEntity extends SyncedBlockEntity implements MenuProvider {
 

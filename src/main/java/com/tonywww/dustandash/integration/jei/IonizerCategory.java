@@ -1,10 +1,10 @@
 package com.tonywww.dustandash.integration.jei;
 
 import com.tonywww.dustandash.DustAndAsh;
-import com.tonywww.dustandash.block.ModBlocks;
+import com.tonywww.dustandash.registeries.ModBlocks;
 import com.tonywww.dustandash.data.recipes.IonizerRecipe;
 import com.tonywww.dustandash.integration.DustAndAshRecipeTypes;
-import com.tonywww.dustandash.item.ModItems;
+import com.tonywww.dustandash.registeries.ModItems;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;

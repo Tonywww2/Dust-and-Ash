@@ -1,10 +1,13 @@
 {
-  "type": "minecraft:smithing",
+  "type": "minecraft:smithing_transform",
   "base": {
     "tag": "forge:sapling"
   },
   "addition": {
     "item": "dustandash:extinguish_dust"
+  },
+  "template": {
+    "item": "dustandash:order_dust"
   },
   "result": {
     "item": "ars_nouveau:purple_archwood_sapling"

@@ -1,9 +1,10 @@
 package com.tonywww.dustandash.block.entity;
 
-import com.tonywww.dustandash.block.ModBlocks;
+import com.tonywww.dustandash.registeries.ModBlockEntities;
+import com.tonywww.dustandash.registeries.ModBlocks;
 import com.tonywww.dustandash.menu.IntegratedBlockContainerMenu;
 import com.tonywww.dustandash.data.recipes.IntegratedBlockRecipe;
-import com.tonywww.dustandash.util.ModTags;
+import com.tonywww.dustandash.tag.ModTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;

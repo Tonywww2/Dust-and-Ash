@@ -1,12 +1,10 @@
 package com.tonywww.dustandash.entity;
 
-import com.tonywww.dustandash.item.ModItems;
-import com.tonywww.dustandash.item.custom.WhiteLightning;
-import net.minecraft.core.BlockPos;
+import com.tonywww.dustandash.registeries.ModItems;
+import com.tonywww.dustandash.item.WhiteLightning;
+import com.tonywww.dustandash.registeries.ModEntites;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
@@ -23,7 +21,7 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraftforge.entity.PartEntity;
 
-import static com.tonywww.dustandash.item.custom.WhiteLightning.PARTICLE_BLUE;
+import static com.tonywww.dustandash.item.WhiteLightning.PARTICLE_BLUE;
 
 public class LightningProjectileEntity extends ThrowableItemProjectile {
 
@@ -53,14 +51,20 @@ public class LightningProjectileEntity extends ThrowableItemProjectile {
             this.level().broadcastEntityEvent(this, (byte) 3);
             Entity entity = result.getEntity();
             Entity owner = this.getOwner();
+
+            boolean living = false;
+
             float targetHealth = 0;
             if (entity instanceof LivingEntity livingEntity) {
                 targetHealth = livingEntity.getHealth();
+
+                living = true;
 
             } else if (entity instanceof PartEntity partEntity) {
                 entity = partEntity.getParent();
                 if (entity instanceof LivingEntity livingEntity) {
                     targetHealth = livingEntity.getHealth();
+                    living = true;
 
                 }
 
@@ -73,7 +77,10 @@ public class LightningProjectileEntity extends ThrowableItemProjectile {
 
             entity.invulnerableTime = 0;
             if (isPowerful) {
-                ((LivingEntity) entity).addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 100, 4));
+                if (living) {
+                    ((LivingEntity) entity).addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 100, 4));
+
+                }
                 ((ServerLevel) this.level()).sendParticles(
                         PARTICLE_BLUE,
                         entity.getX(),

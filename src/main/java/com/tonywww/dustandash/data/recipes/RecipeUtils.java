@@ -2,13 +2,12 @@ package com.tonywww.dustandash.data.recipes;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.tonywww.dustandash.item.ModItems;
+import com.tonywww.dustandash.registeries.ModItems;
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.ShapedRecipe;
-import net.minecraftforge.common.ForgeConfig;
 
 import static net.minecraft.util.GsonHelper.convertToJsonObject;
 
