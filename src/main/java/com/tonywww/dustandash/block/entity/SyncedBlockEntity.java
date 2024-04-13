@@ -14,7 +14,7 @@ import net.minecraft.world.level.block.state.BlockState;
 /**
  * Copy from Farmer's Delight. Simple BlockEntity with networking boilerplate.
  */
-public class SyncedBlockEntity extends BlockEntity {
+ class SyncedBlockEntity extends BlockEntity {
     public SyncedBlockEntity(BlockEntityType<?> tileEntityTypeIn, BlockPos pos, BlockState state) {
         super(tileEntityTypeIn, pos, state);
     }

@@ -37,16 +37,13 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Optional;
 
-public class ItemSenderEntity extends SyncedBlockEntity implements MenuProvider {
+public class ItemSenderEntity extends BasicMachineEntity implements MenuProvider {
     public ItemStackHandler invItemStackHandler;
     private final LazyOptional<ItemStackHandler> handler;
     private final LazyOptional<ItemSenderItemHandler> normalHandler;
     private int[] targetSlots;
     @Nullable
     private BlockPos targetPos;
-
-    private final int GOAL_TICK = 4;
-    private int tickCount;
     protected final ContainerData dataAccess;
 
     public ItemSenderEntity(BlockPos pos, BlockState state) {
@@ -197,11 +194,8 @@ public class ItemSenderEntity extends SyncedBlockEntity implements MenuProvider 
     public static void tick(Level level, BlockPos pos, BlockState state, ItemSenderEntity be) {
 
         if (!level.isClientSide()) {
-            if (be.tickCount < be.GOAL_TICK) {
-                be.tickCount++;
-            } else {
-                // reset
-                be.tickCount = 0;
+            BasicMachineEntity.tick(be, 1);
+            if (BasicMachineEntity.isWorkingTick(be)) {
 
                 // get target pos
                 ItemStack positionSelector = be.invItemStackHandler.getStackInSlot(0);
@@ -215,7 +209,6 @@ public class ItemSenderEntity extends SyncedBlockEntity implements MenuProvider 
                 }
 
                 // send item
-
                 if (be.targetPos != null) {
                     Container container = getContainerAt(level, be.targetPos);
 
@@ -288,7 +281,7 @@ public class ItemSenderEntity extends SyncedBlockEntity implements MenuProvider 
                     }
 
                 }
-
+                BasicMachineEntity.resetTicker(be);
             }
 
 

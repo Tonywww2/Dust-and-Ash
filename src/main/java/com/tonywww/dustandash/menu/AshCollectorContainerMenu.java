@@ -78,7 +78,7 @@ public class AshCollectorContainerMenu extends AbstractContainerMenu {
     }
 
     public boolean shouldWork() {
-        return AshCollectorEntity.shouldWork(tileEntity.getLevel(), tileEntity.getBlockPos(), tileEntity.getBlockState(), (AshCollectorEntity) tileEntity);
+        return AshCollectorEntity.shouldWork(tileEntity.getLevel(), tileEntity.getBlockPos());
     }
 
     private static AshCollectorEntity getTileEntity(final Inventory playerInventory, final FriendlyByteBuf data) {

@@ -18,8 +18,10 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BeaconBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.core.Direction;
@@ -35,23 +37,61 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 
-public class IntegratedBlockEntity extends SyncedBlockEntity implements MenuProvider {
+public class IntegratedBlockEntity extends BasicMachineEntity implements MenuProvider {
 
     public static int radius = 1;
 
     public ItemStackHandler itemStackHandler;
     private LazyOptional<ItemStackHandler> handler;
+    private int currentLevel;
+    private boolean isBeaconOn = false;
 
-    public int currentLevel;
-    private int coolDownTime;
+    protected final ContainerData dataAccess;
 
     public IntegratedBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.INTEGRATED_BLOCK_ENTITY.get(), pos, state);
         this.itemStackHandler = createHandler();
         this.handler = LazyOptional.of(() -> itemStackHandler);
         this.currentLevel = 0;
-        this.coolDownTime = -1;
 
+        this.dataAccess = new ContainerData() {
+            @Override
+            public int get(int index) {
+                switch (index) {
+                    case 0 -> {
+                        return currentLevel;
+                    }
+                    case 1 -> {
+                        return isBeaconOn ? 1 : 0;
+                    }
+                }
+
+                return -1;
+            }
+
+            @Override
+            public void set(int index, int val) {
+                switch (index) {
+                    case 0:
+                        currentLevel = val;
+
+                    case 1:
+                        isBeaconOn = true;
+
+                }
+
+            }
+
+            @Override
+            public int getCount() {
+                return 2;
+            }
+        };
+
+    }
+
+    public int getCurrentLevel() {
+        return currentLevel;
     }
 
     private ItemStackHandler createHandler() {
@@ -154,15 +194,8 @@ public class IntegratedBlockEntity extends SyncedBlockEntity implements MenuProv
         return out;
     }
 
-    public static boolean isBeaconOn(Level level, BlockPos pos) {
-        if (level.getBlockState(pos.below(2)).getBlock() == Blocks.BEACON) {
-            //TODO
-//            BlockState blockState = level.getBlockState(pos.below(2));
-
-            return true;
-
-        }
-        return false;
+    public boolean isBeaconOn() {
+        return isBeaconOn;
     }
 
     @Override
@@ -173,21 +206,20 @@ public class IntegratedBlockEntity extends SyncedBlockEntity implements MenuProv
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory playerInventory, Player playerEntity) {
-        return new IntegratedBlockContainerMenu(id, playerInventory, this);
+        return new IntegratedBlockContainerMenu(id, playerInventory, this, dataAccess);
     }
 
     public static void tick(Level level, BlockPos pos, BlockState state, IntegratedBlockEntity be) {
         if (!level.isClientSide) {
-            if (be.coolDownTime <= 0) {
+            BasicMachineEntity.tick(be, 1);
+
+            if (BasicMachineEntity.isWorkingTick(be)) {
                 be.currentLevel = getStructureLevel(level, pos);
-                be.coolDownTime = 4;
+                be.isBeaconOn = level.getBlockEntity(be.getBlockPos().below(2)) instanceof BeaconBlockEntity;
 
-            }
-
-            craft(level, pos, state, be);
-            float chance = 0.2f;
-            if (level.random.nextDouble() < chance) {
+                craft(level, pos, be);
                 List<ItemEntity> items = level.getEntitiesOfClass(ItemEntity.class, getArea(pos), VALID_ITEM_ENTITY);
+
                 for (ItemEntity item : items) {
                     for (int i = 0; i < be.itemStackHandler.getSlots(); i++) {
                         if (be.itemStackHandler.getStackInSlot(i).getCount() == 0) {
@@ -204,9 +236,10 @@ public class IntegratedBlockEntity extends SyncedBlockEntity implements MenuProv
 
                 }
 
+                BasicMachineEntity.resetTicker(be);
 
             }
-            be.coolDownTime--;
+
 
         }
 
@@ -227,7 +260,7 @@ public class IntegratedBlockEntity extends SyncedBlockEntity implements MenuProv
         return new AABB(blockPos.offset(-radius, -1, -radius), blockPos.offset(1 + radius, 1 + radius, 1 + radius));
     }
 
-    public static void craft(Level level, BlockPos pos, BlockState state, IntegratedBlockEntity be) {
+    public static void craft(Level level, BlockPos pos, IntegratedBlockEntity be) {
         Container inv = new SimpleContainer(be.itemStackHandler.getSlots());
         for (int i = 0; i < be.itemStackHandler.getSlots(); i++) {
             inv.setItem(i, be.itemStackHandler.getStackInSlot(i));
@@ -245,17 +278,17 @@ public class IntegratedBlockEntity extends SyncedBlockEntity implements MenuProv
                     be.itemStackHandler.extractItem(i, 1, false);
 
                 }
-                playParticles(level, pos, getStructureLevel(level, pos));
+                be.playSound();
                 ItemEntity itemEntity = new ItemEntity(
                         level,
                         pos.getX() + 0.5d,
                         pos.getY() + 1d,
-                        pos.getZ()+ 0.5d,
+                        pos.getZ() + 0.5d,
                         output.copy()
                 );
 
                 level.addFreshEntity(itemEntity);
-                if (isBeaconOn(level, pos)) {
+                if (be.isBeaconOn()) {
                     level.addFreshEntity(itemEntity.copy());
                 }
 
@@ -266,22 +299,22 @@ public class IntegratedBlockEntity extends SyncedBlockEntity implements MenuProv
 
     }
 
-    public static void playParticles(Level level, BlockPos pos, int lv) {
-        switch (lv) {
+    public void playSound() {
+        switch (this.currentLevel) {
             case 1:
-                level.playSound(null, pos, SoundEvents.ANVIL_USE, SoundSource.BLOCKS, 1f, 1f);
+                level.playSound(null, this.getBlockPos(), SoundEvents.ANVIL_USE, SoundSource.BLOCKS, 0.5f, 0.5f);
                 break;
 
             case 2:
-                level.playSound(null, pos, SoundEvents.ANVIL_LAND, SoundSource.BLOCKS, 1f, 1f);
+                level.playSound(null, this.getBlockPos(), SoundEvents.ANVIL_LAND, SoundSource.BLOCKS, 0.5f, 0.5f);
                 break;
 
             case 3:
-                level.playSound(null, pos, SoundEvents.IRON_DOOR_OPEN, SoundSource.BLOCKS, 1f, 1f);
+                level.playSound(null, this.getBlockPos(), SoundEvents.IRON_DOOR_OPEN, SoundSource.BLOCKS, 0.5f, 0.5f);
                 break;
 
             default:
-                level.playSound(null, pos, SoundEvents.CHICKEN_EGG, SoundSource.BLOCKS, 1f, 1f);
+                level.playSound(null, this.getBlockPos(), SoundEvents.CHICKEN_EGG, SoundSource.BLOCKS, 0.5f, 0.5f);
                 break;
         }
 

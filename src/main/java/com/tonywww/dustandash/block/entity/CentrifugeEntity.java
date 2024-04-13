@@ -33,7 +33,7 @@ import java.util.Optional;
 
 import static com.tonywww.dustandash.DustAndAshConfig.centrifugeProgressPerTick;
 
-public class CentrifugeEntity extends SyncedBlockEntity implements MenuProvider {
+public class CentrifugeEntity extends BasicMachineEntity implements MenuProvider {
 
     public ItemStackHandler invItemStackHandler;
     private final LazyOptional<ItemStackHandler> handler;
@@ -47,7 +47,7 @@ public class CentrifugeEntity extends SyncedBlockEntity implements MenuProvider 
 
     private NonNullList<ItemStack> nextOutput;
 
-    private double progressPerTick = centrifugeProgressPerTick.get();
+    private int progressPerTick = 4;
 
 
     public CentrifugeEntity(BlockPos pos, BlockState state) {
@@ -59,8 +59,10 @@ public class CentrifugeEntity extends SyncedBlockEntity implements MenuProvider 
         this.inputHandler = LazyOptional.of(() -> new CentrifugeItemHandler(invItemStackHandler, Direction.UP));
         this.outputHandler = LazyOptional.of(() -> new CentrifugeItemHandler(invItemStackHandler, Direction.DOWN));
 
-        currentProgression = -1f;
-        targetProgression = 0;
+        this.currentProgression = -1f;
+        this.targetProgression = 0;
+
+        progressPerTick = centrifugeProgressPerTick.get();
 
         this.dataAccess = new ContainerData() {
             public int get(int pIndex) {
@@ -167,9 +169,15 @@ public class CentrifugeEntity extends SyncedBlockEntity implements MenuProvider 
 
 
     public static void tick(Level level, BlockPos pos, BlockState state, CentrifugeEntity be) {
-        if (!be.getLevel().isClientSide) {
-            if (isReadyForNext(be)) {
-                craft(level, be);
+        if (!level.isClientSide) {
+            BasicMachineEntity.tick(be, be.progressPerTick);
+            if (BasicMachineEntity.isWorkingTick(be)) {
+                if (isReadyForNext(be)) {
+                    craft(level, be);
+
+                }
+
+                BasicMachineEntity.resetTicker(be);
 
             }
             tickProgression(level, pos, be);

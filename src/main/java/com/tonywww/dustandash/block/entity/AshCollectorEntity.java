@@ -28,14 +28,18 @@ import net.minecraftforge.items.ItemStackHandler;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class AshCollectorEntity extends SyncedBlockEntity implements MenuProvider {
+import static com.tonywww.dustandash.DustAndAshConfig.ashCollectorChancePerWorkingTick;
+
+public class AshCollectorEntity extends BasicMachineEntity implements MenuProvider {
 
     public final ItemStackHandler itemStackHandler = createHandler();
     private final LazyOptional<ItemStackHandler> handler = LazyOptional.of(() -> itemStackHandler);
-    private int coolDownTime = -1;
+
+    private static float chancePerWorkingTick = 0.004f;
 
     public AshCollectorEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.ASH_COLLECTOR_ENTITY.get(), pos, state);
+        chancePerWorkingTick = ashCollectorChancePerWorkingTick.get().floatValue();
     }
 
     private ItemStackHandler createHandler() {
@@ -110,28 +114,30 @@ public class AshCollectorEntity extends SyncedBlockEntity implements MenuProvide
         return drops;
     }
 
-//    @Override
     public static void tick(Level level, BlockPos pos, BlockState state, AshCollectorEntity be) {
-        float chance = 0.001f;
         if (level != null && !level.isClientSide) {
-            suckInItem(level, pos, state, be);
+            BasicMachineEntity.tick(be, 1);
+            if (BasicMachineEntity.isWorkingTick(be)) {
+                suckInItem(level, pos, be);
 
-            if (level.random.nextDouble() < chance) {
-                if (shouldWork(level, pos, state, be)) {
-                    ItemStack itemStack = new ItemStack(ModItems.ASH.get());
-                    be.itemStackHandler.insertItem(0, itemStack.copy(), false);
-                    level.playSound(null, pos, SoundEvents.BEE_HURT, SoundSource.BLOCKS, 0.5f, 1f);
-                    be.inventoryChanged();
+                if (level.random.nextDouble() < chancePerWorkingTick) {
+                    if (shouldWork(level, pos)) {
+                        be.itemStackHandler.insertItem(0, new ItemStack(ModItems.ASH.get()), false);
+                        level.playSound(null, pos, SoundEvents.BEE_HURT, SoundSource.BLOCKS, 0.5f, 1f);
+                        be.inventoryChanged();
+
+                    }
 
                 }
-
+                BasicMachineEntity.resetTicker(be);
+                BasicMachineEntity.resetTicker(be);
             }
+
         }
-        be.coolDownTime--;
 
     }
 
-    public static boolean shouldWork(Level level, BlockPos pos, BlockState state, AshCollectorEntity be) {
+    public static boolean shouldWork(Level level, BlockPos pos) {
         if (level.getBlockState(pos.above()).getBlock() instanceof AbstractFurnaceBlock) {
             BlockState block = level.getBlockState(pos.above());
 
@@ -142,14 +148,13 @@ public class AshCollectorEntity extends SyncedBlockEntity implements MenuProvide
 
     }
 
-    private static void suckInItem(Level level, BlockPos pos, BlockState state, AshCollectorEntity be) {
-        if (be.coolDownTime <= 0 && be.itemStackHandler.getStackInSlot(1).getCount() < be.itemStackHandler.getSlotLimit(1)) {
+    private static void suckInItem(Level level, BlockPos pos, AshCollectorEntity be) {
+        if (be.itemStackHandler.getStackInSlot(1).getCount() < be.itemStackHandler.getSlotLimit(1)) {
             if (level.getBlockEntity(pos.above()) instanceof AbstractFurnaceBlockEntity tile) {
                 ItemStack target = tile.getItem(2);
 
                 if (be.itemStackHandler.getStackInSlot(1).isEmpty() || target.getItem() == be.itemStackHandler.getStackInSlot(1).getItem()) {
                     be.itemStackHandler.insertItem(1, tile.removeItem(2, 1), false);
-                    be.coolDownTime = 4;
 
                 }
 

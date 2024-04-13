@@ -11,7 +11,8 @@ public final class DustAndAshConfig {
     public static final ForgeConfigSpec.ConfigValue<Double> dustSourceChancePerBlock;
     public static final ForgeConfigSpec.ConfigValue<Integer> dustSourceHeight;
     public static final ForgeConfigSpec.ConfigValue<Integer> dustSourceRadius;
-    public static final ForgeConfigSpec.ConfigValue<Double> centrifugeProgressPerTick;
+    public static final ForgeConfigSpec.ConfigValue<Double> ashCollectorChancePerWorkingTick;
+    public static final ForgeConfigSpec.ConfigValue<Integer> centrifugeProgressPerTick;
     public static final ForgeConfigSpec.ConfigValue<Double> ionizerProgressPerTick;
     public static final ForgeConfigSpec.ConfigValue<Double> handVacuumSuccessRate;
     public static final ForgeConfigSpec.ConfigValue<Double> ironVacuumConsumeRate;
@@ -34,13 +35,18 @@ public final class DustAndAshConfig {
         dustSourceRadius = BUILDER.comment("\nThe radius of checking below the Dust Source. Range[1, 20] Default: 3")
                 .defineInRange("dustSourceRadius", 3, 1, 20);
 
+        ashCollectorChancePerWorkingTick = BUILDER.comment("\nThe chance of getting an ash in every working tick. Range(0, 1] Default: 0.004")
+                .defineInRange("centrifugeProgressPerTick", 0.004d, 0d, 1d);
+
         centrifugeProgressPerTick = BUILDER.comment("\nThe progress added per random tick. Range[0, 100] Default: 1")
-                .defineInRange("centrifugeProgressPerTick", 1d, 0d, 100d);
+                .defineInRange("centrifugeProgressPerTick", 4, 0, 100);
+
         ionizerProgressPerTick = BUILDER.comment("\nThe progress added per random tick. Range[0, 100] Default: 1")
                 .defineInRange("ionizerProgressPerTick", 1d, 0d, 100d);
 
         handVacuumSuccessRate = BUILDER.comment("\nThe chance of success per use. Range[0, 1] Default: 0.55")
                 .defineInRange("handVacuumSuccessRate", 0.55d, 0, 1);
+
         ironVacuumConsumeRate = BUILDER.comment("\nThe chance of consume a fuel per use. Range[0, 1] Default: 0.35")
                 .defineInRange("ironVacuumConsumeRate", 0.35d, 0, 1);
 
@@ -52,7 +58,6 @@ public final class DustAndAshConfig {
 
         whiteLightningExtraDamage = BUILDER.comment("\nThe Extra Damage of 疾風迅雷. Range[0, MAX_FLOAT] Default: 2")
                 .defineInRange("whiteLightningExtraDamage", 2.0d, 0d, Float.MAX_VALUE);
-
         whiteLightningExtraPercentage = BUILDER.comment("\nThe Extra Percentage Damage of 疾風迅雷. Range[0, 10.0] Default: 0.08")
                 .defineInRange("whiteLightningExtraPercentage", 0.08d, 0d, 10d);
 

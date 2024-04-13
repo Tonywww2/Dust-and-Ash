@@ -6,15 +6,13 @@ import com.tonywww.dustandash.registeries.ModContainerMenus;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.inventory.ContainerLevelAccess;
+import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
-import net.minecraft.world.inventory.Slot;
 
 import java.util.Objects;
 
@@ -24,12 +22,16 @@ public class IntegratedBlockContainerMenu extends AbstractContainerMenu {
     private final ContainerLevelAccess canInteractWithCallable;
     private final IItemHandler playerInventory;
 
-    public IntegratedBlockContainerMenu(int id, Inventory playerInventory, IntegratedBlockEntity tileEntity) {
+    private final ContainerData data;
+
+    public IntegratedBlockContainerMenu(int id, Inventory playerInventory, IntegratedBlockEntity tileEntity, ContainerData data) {
         super(ModContainerMenus.INTEGRATED_BLOCK_CONTAINER.get(), id);
 
         this.tileEntity = tileEntity;
         this.canInteractWithCallable = ContainerLevelAccess.create(tileEntity.getLevel(), tileEntity.getBlockPos());
         this.playerInventory = new InvWrapper(playerInventory);
+
+        this.data = data;
 
         layoutPlayerInventorySlots(8, 86);
 
@@ -44,6 +46,8 @@ public class IntegratedBlockContainerMenu extends AbstractContainerMenu {
                 addSlot(new SlotItemHandler(h, 5, 58, 53));
                 addSlot(new SlotItemHandler(h, 6, 80, 53));
                 addSlot(new SlotItemHandler(h, 7, 102, 53));
+
+                addDataSlots(data);
 
             });
         }
@@ -80,7 +84,7 @@ public class IntegratedBlockContainerMenu extends AbstractContainerMenu {
     public IntegratedBlockContainerMenu(final int id,
                                         final Inventory playerInventory,
                                         final FriendlyByteBuf data) {
-        this(id, playerInventory, getTileEntity(playerInventory, data));
+        this(id, playerInventory, getTileEntity(playerInventory, data), new SimpleContainerData(2));
 
     }
 
@@ -95,22 +99,12 @@ public class IntegratedBlockContainerMenu extends AbstractContainerMenu {
     }
 
     public int getStructureLevel() {
-//        if (tileEntity instanceof IntegratedBlockTile) {
-//            return ((IntegratedBlockTile) tileEntity).getStructureLevel();
-//        } else {
-//            throw new IllegalStateException("Container provider is missing");
-//        }
-        return IntegratedBlockEntity.getStructureLevel(tileEntity.getLevel(), tileEntity.getBlockPos());
+        return data.get(0);
 
     }
 
     public boolean isBeaconOn() {
-//        if (tileEntity instanceof IntegratedBlockTile) {
-//            return ((IntegratedBlockTile) tileEntity).getStructureLevel();
-//        } else {
-//            throw new IllegalStateException("Container provider is missing");
-//        }
-        return IntegratedBlockEntity.isBeaconOn(tileEntity.getLevel(), tileEntity.getBlockPos());
+        return data.get(1) == 1;
 
     }
 

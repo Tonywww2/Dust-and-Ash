@@ -30,7 +30,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Optional;
 
-public class MillingMachineEntity extends SyncedBlockEntity implements MenuProvider {
+public class MillingMachineEntity extends BasicMachineEntity implements MenuProvider {
 
     public ItemStackHandler invItemStackHandler;
     private final LazyOptional<ItemStackHandler> handler;
@@ -137,7 +137,12 @@ public class MillingMachineEntity extends SyncedBlockEntity implements MenuProvi
 
     public static void tick(Level level, BlockPos pos, BlockState state, MillingMachineEntity be) {
         if (!level.isClientSide) {
-            craft(level, pos, be);
+            BasicMachineEntity.tick(be, 1);
+            if (BasicMachineEntity.isWorkingTick(be)) {
+                craft(level, pos, be);
+                BasicMachineEntity.resetTicker(be);
+
+            }
 
         }
 
