@@ -1,0 +1,11 @@
+{
+  "name": "离心机",
+  "icon": "dustandash:centrifuge",
+  "category": "dustandash:ash",
+  "pages": [
+    {
+      "type": "patchouli:crafting",
+      "recipe": "dustandash:crafting/centrifuge"
+    }
+  ]
+}

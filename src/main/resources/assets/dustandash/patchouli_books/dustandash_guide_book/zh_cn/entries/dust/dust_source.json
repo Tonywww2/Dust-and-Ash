@@ -1,0 +1,11 @@
+{
+  "name": "灰尘源",
+  "icon": "dustandash:dust_source",
+  "category": "dustandash:dust",
+  "pages": [
+    {
+      "type": "patchouli:crafting",
+      "recipe": "dustandash:crafting/dust_source"
+    }
+  ]
+}

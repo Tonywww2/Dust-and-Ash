@@ -1,0 +1,32 @@
+{
+  "name": "基础尘",
+  "icon": "dustandash:metal_dust",
+  "category": "dustandash:dust",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "一共有5种基础尘：$(item)Metal Dust$(), $(item)Life Dust$(), $(item)Order Dust$(), $(item)Fire Dust$(), $(item)Earth Dust$(). $(br2)用 $(item)手摇式吸尘器$()可以收集那些较重的尘：$(item)Metal Dust, $(item)Order Dust$() 和 $(item)Earth Dust$()."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "title" : "Heavier Basic Dust",
+      "item": {
+        "tag": "dustandash:lv1_dust"
+      },
+      "text": "较重的尘"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "如果你想收集全部的5种基础尘，你需要一个$(item)吸尘器$()."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "title" : "Lighter Basic Dust",
+      "item": {
+        "tag": "dustandash:lv2_dust"
+      },
+      "text": "较轻的尘"
+    }
+
+  ]
+}

@@ -150,13 +150,13 @@ public class Judgement extends PickaxeItem implements GeoItem {
     }
 
     @Override
-    public AnimatableInstanceCache getAnimatableInstanceCache() {
-        return this.cache;
+    public double getTick(Object itemStack) {
+        return RenderUtils.getCurrentTick();
     }
 
     @Override
-    public double getTick(Object itemStack) {
-        return RenderUtils.getCurrentTick();
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return this.cache;
     }
 
 }

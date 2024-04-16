@@ -1,5 +1,8 @@
 package com.tonywww.dustandash.item;
 
+import com.tonywww.dustandash.gecko.render.GaleOtaijutsuRenderer;
+import com.tonywww.dustandash.gecko.render.LordOfBloodRenderer;
+import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundSetEntityMotionPacket;
@@ -18,17 +21,31 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.client.extensions.common.IClientItemExtensions;
+import software.bernie.geckolib.animatable.GeoItem;
+import software.bernie.geckolib.animatable.SingletonGeoAnimatable;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.*;
+import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.util.GeckoLibUtil;
+import software.bernie.geckolib.util.RenderUtils;
 
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Consumer;
 
 import static com.tonywww.dustandash.DustAndAshConfig.galeOtaijutsuDamageRate;
 
 
-public class GaleOtaijutsu extends SwordItem {
+public class GaleOtaijutsu extends SwordItem implements GeoItem {
+
+    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
+
     public GaleOtaijutsu(Tier pTier, int pAttackDamageModifier, float pAttackSpeedModifier, Properties pProperties) {
         super(pTier, pAttackDamageModifier, pAttackSpeedModifier, pProperties);
+
+        SingletonGeoAnimatable.registerSyncedAnimatable(this);
     }
 
     @Override
@@ -37,14 +54,7 @@ public class GaleOtaijutsu extends SwordItem {
 
         if (!world.isClientSide()) {
             if (entity instanceof LivingEntity) {
-//                int effectLevel = (int) (player.fallDistance * 1.5);
                 int effectLevel = Mth.clamp((int) (player.fallDistance * 1.75), 0, 100);
-//                if (effectLevel > 100) {
-//                    effectLevel = 100;
-//                }
-//                if (effectLevel < 0) {
-//                    effectLevel = 0;
-//                }
 
                 player.addEffect(new MobEffectInstance(MobEffects.DIG_SPEED, 90, effectLevel));
                 player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 300, 1));
@@ -121,4 +131,42 @@ public class GaleOtaijutsu extends SwordItem {
         super.appendHoverText(pStack, pLevel, pTooltip, pFlag);
     }
 
+    @Override
+    public void initializeClient(Consumer<IClientItemExtensions> consumer) {
+        consumer.accept(new IClientItemExtensions() {
+            private GaleOtaijutsuRenderer renderer;
+
+            @Override
+            public BlockEntityWithoutLevelRenderer getCustomRenderer() {
+                if (this.renderer == null)
+                    this.renderer = new GaleOtaijutsuRenderer();
+
+                return this.renderer;
+            }
+        });
+    }
+
+    private PlayState predicate(AnimationState animationState) {
+        animationState.getController().setAnimation(RawAnimation.begin().then("animation.gale_otaijutsu.idle", Animation.LoopType.LOOP));
+        return PlayState.CONTINUE;
+
+    }
+
+    AnimationController<GaleOtaijutsu> idle = new AnimationController<>(this, "idle", 0, this::predicate);
+
+    @Override
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(idle);
+
+    }
+
+    @Override
+    public double getTick(Object itemStack) {
+        return RenderUtils.getCurrentTick();
+    }
+
+    @Override
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return this.cache;
+    }
 }

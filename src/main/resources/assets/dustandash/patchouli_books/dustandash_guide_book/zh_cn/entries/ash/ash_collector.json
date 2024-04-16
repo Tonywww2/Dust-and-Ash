@@ -1,0 +1,11 @@
+{
+  "name": "余烬收集器",
+  "icon": "dustandash:ash_collector",
+  "category": "dustandash:ash",
+  "pages": [
+    {
+      "type": "patchouli:crafting",
+      "recipe": "dustandash:crafting/ash_collector"
+    }
+  ]
+}

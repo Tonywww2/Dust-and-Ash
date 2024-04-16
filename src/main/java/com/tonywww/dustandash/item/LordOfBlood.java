@@ -368,7 +368,6 @@ public class LordOfBlood extends SwordItem implements GeoItem {
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(idle);
-
         controllers.add(use);
 
     }

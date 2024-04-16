@@ -1,0 +1,11 @@
+{
+  "name": "聚合方块",
+  "icon": "dustandash:integrated_block",
+  "category": "dustandash:dust",
+  "pages": [
+    {
+      "type": "patchouli:crafting",
+      "recipe": "dustandash:crafting/integrated_block"
+    }
+  ]
+}

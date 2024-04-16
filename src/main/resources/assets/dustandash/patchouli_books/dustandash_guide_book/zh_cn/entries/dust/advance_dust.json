@@ -1,0 +1,20 @@
+{
+  "name": "进阶尘",
+  "icon": "dustandash:reproduce_dust",
+  "category": "dustandash:dust",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "一共有10种进阶尘： "
+    },
+    {
+      "type": "patchouli:spotlight",
+      "title" : "Advance Dust",
+      "item": {
+        "tag": "dustandash:lv3_dust"
+      },
+      "text": "拥有复杂性质的尘"
+    }
+
+  ]
+}

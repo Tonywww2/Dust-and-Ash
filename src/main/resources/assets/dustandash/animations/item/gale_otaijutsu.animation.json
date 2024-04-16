@@ -1,0 +1,36 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"idle": {
+			"loop": true,
+			"bones": {
+				"bone": {
+					"position": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"bone2": {
+					"position": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"bone3": {
+					"position": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"bone4": {
+					"position": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"bone5": {
+					"position": {
+						"vector": [0, 0, 0]
+					}
+				}
+			}
+		}
+	},
+	"geckolib_format_version": 2
+}
