@@ -1,7 +1,6 @@
 package com.tonywww.dustandash.item;
 
 import com.tonywww.dustandash.gecko.render.GaleOtaijutsuRenderer;
-import com.tonywww.dustandash.gecko.render.LordOfBloodRenderer;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;

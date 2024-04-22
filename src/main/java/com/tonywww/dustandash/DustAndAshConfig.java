@@ -36,7 +36,7 @@ public final class DustAndAshConfig {
                 .defineInRange("dustSourceRadius", 3, 1, 20);
 
         ashCollectorChancePerWorkingTick = BUILDER.comment("\nThe chance of getting an ash in every working tick. Range(0, 1] Default: 0.004")
-                .defineInRange("centrifugeProgressPerTick", 0.004d, 0d, 1d);
+                .defineInRange("ashCollectorChancePerWorkingTick", 0.004d, 0d, 1d);
 
         centrifugeProgressPerTick = BUILDER.comment("\nThe progress added per random tick. Range[0, 100] Default: 1")
                 .defineInRange("centrifugeProgressPerTick", 4, 0, 100);

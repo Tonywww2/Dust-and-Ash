@@ -78,6 +78,7 @@ public class ModCreativeModTabs {
                         pOutput.accept(ModItems.SUNBURN_MEGA_SWORD.get());
                         pOutput.accept(ModItems.WHITE_LIGHTNING.get());
                         pOutput.accept(ModItems.LORD_OF_BLOOD.get());
+                        pOutput.accept(ModItems.ROTTEN_BLADE.get());
                         pOutput.accept(ModItems.JUDGEMENT.get());
 
                     })
