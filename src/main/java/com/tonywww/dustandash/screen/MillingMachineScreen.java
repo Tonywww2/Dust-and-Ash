@@ -36,7 +36,7 @@ public class MillingMachineScreen extends AbstractContainerScreen<MillingMachine
 
         if (!this.menu.isWorkSpaceEmpty()) {
             // Render workspace
-            guiGraphics.blit(GUI, i + 69, j + 1, 0, 173, 97, 82, 256, 320);
+            guiGraphics.blit(GUI, i + 69, j + 1, 0, 173, 100, 86, 256, 320);
 
         }
 
