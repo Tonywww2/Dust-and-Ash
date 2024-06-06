@@ -2,6 +2,7 @@ package com.tonywww.dustandash.registeries;
 
 import com.tonywww.dustandash.DustAndAsh;
 import com.tonywww.dustandash.block.custom.*;
+import com.tonywww.dustandash.block.custom.FissionReactor.*;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.RotatedPillarBlock;
@@ -151,6 +152,40 @@ public class ModBlocks {
                     .copy(Blocks.STONE)
                     .requiresCorrectToolForDrops()
                     .strength(1f, 2f)
+            ));
+
+    // Fission Reactor
+    public static final RegistryObject<Block> FISSION_REACTOR_CONTROLLER = registerBlocks("fission_reactor_controller",
+            () -> new FissionReactorController(BlockBehaviour.Properties
+                    .copy(Blocks.STONE)
+                    .strength(2f, 8f)
+                    .noOcclusion()
+            ));
+
+    public static final RegistryObject<Block> FISSION_REACTOR_CASING = registerBlocks("fission_reactor_casing",
+            () -> new FissionReactorCasing(BlockBehaviour.Properties
+                    .copy(Blocks.STONE)
+                    .strength(2f, 4f)
+            ));
+
+    public static final RegistryObject<Block> FISSION_REACTOR_CONNECTOR = registerBlocks("fission_reactor_connector",
+            () -> new FissionReactorConnector(BlockBehaviour.Properties
+                    .copy(Blocks.STONE)
+                    .strength(2f, 4f)
+                    .noOcclusion()
+            ));
+
+    public static final RegistryObject<Block> FISSION_REACTOR_COOLING_CELL = registerBlocks("fission_reactor_cooling_cell",
+            () -> new FissionReactorCoolingCell(BlockBehaviour.Properties
+                    .copy(Blocks.STONE)
+                    .strength(2f, 4f)
+                    .noOcclusion()
+            ));
+    public static final RegistryObject<Block> FISSION_REACTOR_FUEL_CELL = registerBlocks("fission_reactor_fuel_cell",
+            () -> new FissionReactorFuelCell(BlockBehaviour.Properties
+                    .copy(Blocks.STONE)
+                    .strength(2f, 4f)
+                    .noOcclusion()
             ));
 
 

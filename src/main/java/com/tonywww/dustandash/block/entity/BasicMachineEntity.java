@@ -4,7 +4,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
-class BasicMachineEntity extends SyncedBlockEntity{
+public class BasicMachineEntity extends SyncedBlockEntity{
 
     protected int currentTick = 0;
     protected int tickPerOperation = 4;
