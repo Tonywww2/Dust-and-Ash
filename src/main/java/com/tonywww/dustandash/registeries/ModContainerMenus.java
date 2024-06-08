@@ -31,6 +31,9 @@ public class ModContainerMenus {
     public static final RegistryObject<MenuType<ItemSenderContainerMenu>> ITEM_SENDER_CONTAINER = CONTAINERS.register("item_sender_container",
             () -> IForgeMenuType.create(ItemSenderContainerMenu::new));
 
+    public static final RegistryObject<MenuType<FissionReactorControllerContainerMenu>> FISSION_REACTOR_CONTROLLER_CONTAINER = CONTAINERS.register("fission_reactor_controller_container",
+            () -> IForgeMenuType.create(FissionReactorControllerContainerMenu::new));
+
     public static void register(IEventBus eventBus) {
         CONTAINERS.register(eventBus);
 

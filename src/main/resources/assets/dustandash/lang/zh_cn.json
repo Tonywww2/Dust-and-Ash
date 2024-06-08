@@ -175,6 +175,16 @@
   "screen.dustandash.item_sender_slot_id": "栏位ID",
   "screen.dustandash.item_sender_save": "保存",
 
+  "screen.dustandash.fission_reactor_controller_heat": "热量",
+  "screen.dustandash.fission_reactor_controller_fuel": "燃料",
+  "screen.dustandash.fission_reactor_controller_energy": "能量",
+  "screen.dustandash.fission_reactor_controller_efficiency": "效率",
+  "screen.dustandash.fission_reactor_controller_fuel_cell_count": "燃料单元",
+  "screen.dustandash.fission_reactor_controller_cooling_cell_count": "冷却单元",
+  "screen.dustandash.fission_reactor_controller_neutron": "中子",
+  "screen.dustandash.fission_reactor_controller_radius": "结构半径",
+  "screen.dustandash.fission_reactor_controller_height": "结构高度",
+
   "death.attack.sharpen_flint" : "%1$s 的血流干了......",
 
   "creativetab.dust_tab": "尘与烬：尘",

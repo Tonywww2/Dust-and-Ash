@@ -2,6 +2,7 @@ package com.tonywww.dustandash.registeries;
 
 import com.tonywww.dustandash.DustAndAsh;
 import com.tonywww.dustandash.block.entity.*;
+import com.tonywww.dustandash.block.entity.FissionReactor.FissionReactorControllerEntity;
 import com.tonywww.dustandash.registeries.ModBlocks;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -36,6 +37,10 @@ public class ModBlockEntities {
     public static RegistryObject<BlockEntityType<ItemSenderEntity>> ITEM_SENDER_ENTITY =
             BLOCK_ENTITIES.register("item_sender",
                     () -> BlockEntityType.Builder.of(ItemSenderEntity::new, ModBlocks.ITEM_SENDER.get()).build(null));
+
+    public static RegistryObject<BlockEntityType<FissionReactorControllerEntity>> FISSION_REACTOR_CONTROLLER_ENTITY =
+            BLOCK_ENTITIES.register("fission_reactor_controller",
+                    () -> BlockEntityType.Builder.of(FissionReactorControllerEntity::new, ModBlocks.FISSION_REACTOR_CONTROLLER.get()).build(null));
 
     public static void register(IEventBus eventBus) {
         BLOCK_ENTITIES.register(eventBus);

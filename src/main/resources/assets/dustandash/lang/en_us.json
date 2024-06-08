@@ -175,6 +175,16 @@
   "screen.dustandash.item_sender_slot_id": "Slot ID",
   "screen.dustandash.item_sender_save": "Save",
 
+  "screen.dustandash.fission_reactor_controller_heat": "Heat",
+  "screen.dustandash.fission_reactor_controller_fuel": "Fuel",
+  "screen.dustandash.fission_reactor_controller_energy": "Energy",
+  "screen.dustandash.fission_reactor_controller_efficiency": "Efficiency",
+  "screen.dustandash.fission_reactor_controller_fuel_cell_count": "Fuel Cell(s)",
+  "screen.dustandash.fission_reactor_controller_cooling_cell_count": "Cool Cell(s)",
+  "screen.dustandash.fission_reactor_controller_neutron": "Neutron",
+  "screen.dustandash.fission_reactor_controller_radius": "Radius",
+  "screen.dustandash.fission_reactor_controller_height": "Height",
+
   "death.attack.sharpen_flint" : "%1$s's blood ran dry",
 
   "creativetab.dust_tab": "Dust and Ash: Dust",

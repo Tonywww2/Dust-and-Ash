@@ -25,6 +25,7 @@ public class ClientSetupEvents {
             MenuScreens.register(ModContainerMenus.CENTRIFUGE_CONTAINER.get(), CentrifugeScreen::new);
             MenuScreens.register(ModContainerMenus.IONIZER_CONTAINER.get(), IonizerScreen::new);
             MenuScreens.register(ModContainerMenus.ITEM_SENDER_CONTAINER.get(), ItemSenderScreen::new);
+            MenuScreens.register(ModContainerMenus.FISSION_REACTOR_CONTROLLER_CONTAINER.get(), FissionReactorControllerScreen::new);
 
 
         });
