@@ -14,10 +14,12 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.energy.EnergyStorage;
 import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.Nullable;
 
@@ -26,15 +28,17 @@ import javax.annotation.Nonnull;
 public class FissionReactorControllerEntity extends BasicMachineEntity implements MenuProvider {
 
     public ItemStackHandler invItemStackHandler;
+    public EnergyStorage energyStorage;
     private final LazyOptional<ItemStackHandler> handler;
+    private final LazyOptional<EnergyStorage> energyStorageHandler;
     protected final ContainerData dataAccess;
 
-    static final int MAX_HEAT = 50000;
-    static final int MAX_FUEL = 4000;
-    static final int MAX_ENERGY = 500000000;
-    static final int MAX_RADIUS = 3;
-    static final int MAX_HEIGHT = 7;
-    static final int MAX_NEUTRON = 128;
+    public static final int MAX_HEAT = 50000;
+    public static final int MAX_FUEL = 4000;
+    public static final int MAX_ENERGY = 500000000;
+    public static final int MAX_RADIUS = 3;
+    public static final int MAX_HEIGHT = 7;
+    public static final int MAX_NEUTRON = 128;
 
     private int heat = 0;
     private int fuel = 0;
@@ -49,7 +53,10 @@ public class FissionReactorControllerEntity extends BasicMachineEntity implement
         super(ModBlockEntities.FISSION_REACTOR_CONTROLLER_ENTITY.get(), pos, state);
 
         this.invItemStackHandler = createHandler();
+        this.energyStorage = createEnergyHandler();
         this.handler = LazyOptional.of(() -> invItemStackHandler);
+        this.energyStorageHandler = LazyOptional.of(() -> energyStorage);
+
         this.dataAccess = new ContainerData() {
             @Override
             public int get(int index) {
@@ -142,6 +149,49 @@ public class FissionReactorControllerEntity extends BasicMachineEntity implement
         };
     }
 
+    private EnergyStorage createEnergyHandler() {
+        return new EnergyStorage(MAX_ENERGY) {
+            @Override
+            public int receiveEnergy(int maxReceive, boolean simulate) {
+
+                return 0;
+            }
+
+            @Override
+            public int extractEnergy(int maxExtract, boolean simulate) {
+                int energy = this.getEnergyStored();
+                int diff = Math.min(energy, maxExtract);
+                if (!simulate) {
+                    FissionReactorControllerEntity.this.energy += diff;
+                    if (diff != 0) {
+                        FissionReactorControllerEntity.this.inventoryChanged();
+                    }
+                }
+                return diff;
+            }
+
+            @Override
+            public int getEnergyStored() {
+                return Math.max(0, Math.min(this.getMaxEnergyStored(), FissionReactorControllerEntity.this.energy));
+            }
+
+            @Override
+            public int getMaxEnergyStored() {
+                return FissionReactorControllerEntity.MAX_ENERGY;
+            }
+
+            @Override
+            public boolean canExtract() {
+                return true;
+            }
+
+            @Override
+            public boolean canReceive() {
+                return false;
+            }
+        };
+    }
+
     public NonNullList<ItemStack> getDroppableInventory() {
         NonNullList<ItemStack> drops = NonNullList.create();
         for (int i = 0; i < invItemStackHandler.getSlots(); ++i) {
@@ -150,9 +200,36 @@ public class FissionReactorControllerEntity extends BasicMachineEntity implement
         return drops;
     }
 
+    public static void tick(Level level, BlockPos pos, BlockState state, FissionReactorControllerEntity be) {
+        if (!level.isClientSide) {
+            BasicMachineEntity.tick(be, 1);
+            if (BasicMachineEntity.isWorkingTick(be)) {
+                if (be.checkStructure()) {
+                    double efficiency = 1000000.0;
+                    be.energy = (int) Math.min(FissionReactorControllerEntity.MAX_ENERGY, be.energy + efficiency);
+
+                }
+                BasicMachineEntity.resetTicker(be);
+
+            }
+
+        }
+
+
+    }
+
+    private boolean checkStructure() {
+        return true;
+    }
+
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @javax.annotation.Nullable Direction side) {
+
+        if (!this.remove && cap == ForgeCapabilities.ENERGY) {
+            return this.energyStorageHandler.cast();
+        }
+
         if (!this.remove && cap == ForgeCapabilities.ITEM_HANDLER) {
             return this.handler.cast();
 

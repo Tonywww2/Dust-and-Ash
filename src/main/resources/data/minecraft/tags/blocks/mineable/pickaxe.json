@@ -13,7 +13,12 @@
     "dustandash:integrated_frame_3",
     "dustandash:cooled_magma_block",
     "dustandash:cobblestone_with_moss",
-    "dustandash:item_sender"
+    "dustandash:item_sender",
+    "dustandash:fission_reactor_controller",
+    "dustandash:fission_reactor_casing",
+    "dustandash:fission_reactor_connector",
+    "dustandash:fission_reactor_cooling_cell",
+    "dustandash:fission_reactor_fuel_cell"
 
   ]
 }

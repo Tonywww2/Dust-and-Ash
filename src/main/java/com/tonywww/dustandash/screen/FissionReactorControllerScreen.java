@@ -1,6 +1,7 @@
 package com.tonywww.dustandash.screen;
 
 import com.tonywww.dustandash.DustAndAsh;
+import com.tonywww.dustandash.block.entity.FissionReactor.FissionReactorControllerEntity;
 import com.tonywww.dustandash.menu.FissionReactorControllerContainerMenu;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -33,21 +34,36 @@ public class FissionReactorControllerScreen extends AbstractContainerScreen<Fiss
 
         int i = this.leftPos;
         int j = this.topPos;
-        guiGraphics.blit(GUI, i, j, 0, 0, 196, 192);
+        guiGraphics.blit(GUI, i, j, 0, 0, 197, 192);
+
+        ContainerData data = this.menu.getData();
+
+        double rHeat = (double) data.get(0) / FissionReactorControllerEntity.MAX_HEAT;
+        guiGraphics.blit(GUI, i + 66, j + 4, 0, 193,
+                (int) (127 * rHeat), 9);
+        double rFuel = (double) data.get(1) / FissionReactorControllerEntity.MAX_FUEL;
+        guiGraphics.blit(GUI, i + 66, j + 16, 0, 202,
+                (int) (127 * rFuel), 9);
+        double rEnergy = (double) data.get(2) / FissionReactorControllerEntity.MAX_ENERGY;
+        guiGraphics.blit(GUI, i + 66, j + 28, 0, 211,
+                (int) (127 * rEnergy), 9);
 
     }
 
     @Override
     protected void renderLabels(GuiGraphics guiGraphics, int pX, int pY) {
+        ContainerData data = this.menu.getData();
 
         guiGraphics.drawString(this.font, Component.translatable("screen.dustandash.fission_reactor_controller_heat"),
                 5, 5, 4210752, false);
+
         guiGraphics.drawString(this.font, Component.translatable("screen.dustandash.fission_reactor_controller_fuel"),
                 5, 17, 4210752, false);
+
         guiGraphics.drawString(this.font, Component.translatable("screen.dustandash.fission_reactor_controller_energy"),
                 5, 29, 4210752, false);
-
-        ContainerData data = this.menu.getData();
+        guiGraphics.drawString(this.font, Component.literal(data.get(2) + "/" + FissionReactorControllerEntity.MAX_ENERGY),
+                67, 29, 2550255, false);
 
         guiGraphics.drawString(this.font, Component.translatable("screen.dustandash.fission_reactor_controller_efficiency"),
                 5, 41, 4210752, false);
@@ -55,27 +71,28 @@ public class FissionReactorControllerScreen extends AbstractContainerScreen<Fiss
         guiGraphics.drawString(this.font, Component.translatable("screen.dustandash.fission_reactor_controller_fuel_cell_count"),
                 5, 53, 4210752, false);
         guiGraphics.drawString(this.font, Component.literal(String.valueOf(data.get(6))),
-                68, 53, 4210752, false);
+                68, 53, 2550255, false);
 
         guiGraphics.drawString(this.font, Component.translatable("screen.dustandash.fission_reactor_controller_cooling_cell_count"),
                 5, 65, 4210752, false);
         guiGraphics.drawString(this.font, Component.literal(String.valueOf(data.get(7))),
-                68, 65, 4210752, false);
+                68, 65, 2550255, false);
 
         guiGraphics.drawString(this.font, Component.translatable("screen.dustandash.fission_reactor_controller_neutron"),
                 5, 77, 4210752, false);
         guiGraphics.drawString(this.font, Component.literal(String.valueOf(data.get(5))),
-                68, 77, 4210752, false);
+                68, 77, 2550255, false);
 
         guiGraphics.drawString(this.font, Component.translatable("screen.dustandash.fission_reactor_controller_radius"),
                 101, 41, 4210752, false);
         guiGraphics.drawString(this.font, Component.literal(String.valueOf(data.get(3))),
-                164, 41, 4210752, false);
+                164, 41, 2550255, false);
 
         guiGraphics.drawString(this.font, Component.translatable("screen.dustandash.fission_reactor_controller_height"),
                 101, 53, 4210752, false);
         guiGraphics.drawString(this.font, Component.literal(String.valueOf(data.get(4))),
-                164, 53, 4210752, false);
+                164, 53, 2550255, false);
 
     }
+
 }

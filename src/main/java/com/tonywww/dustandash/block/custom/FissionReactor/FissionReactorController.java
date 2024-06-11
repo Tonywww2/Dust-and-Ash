@@ -1,6 +1,8 @@
 package com.tonywww.dustandash.block.custom.FissionReactor;
 
+import com.tonywww.dustandash.block.entity.CentrifugeEntity;
 import com.tonywww.dustandash.block.entity.FissionReactor.FissionReactorControllerEntity;
+import com.tonywww.dustandash.registeries.ModBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Containers;
@@ -12,6 +14,8 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -102,5 +106,11 @@ public class FissionReactorController extends BaseEntityBlock {
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new FissionReactorControllerEntity(pos, state);
+    }
+
+    @javax.annotation.Nullable
+    @Override
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState blockState, BlockEntityType<T> blockEntityType) {
+        return createTickerHelper(blockEntityType, ModBlockEntities.FISSION_REACTOR_CONTROLLER_ENTITY.get(), FissionReactorControllerEntity::tick);
     }
 }
