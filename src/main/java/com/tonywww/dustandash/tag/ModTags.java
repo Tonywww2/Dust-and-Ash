@@ -10,36 +10,37 @@ import net.minecraft.tags.ItemTags;
 
 public class ModTags {
 
-    public static class Blocks{
+    public static class Blocks {
 
         public static final TagKey<Block> DUST_ABLE = createTag("dust_able");
         public static final TagKey<Block> NOT_DUST_ABLE = createTag("not_dust_able");
+        public static final TagKey<Block> FISSION_REACTOR_WALL = createTag("fission_reactor_wall");
 
-        private static TagKey<Block> createTag(String name){
+        private static TagKey<Block> createTag(String name) {
 
             return BlockTags.create(new ResourceLocation(DustAndAsh.MOD_ID, name));
         }
 
-        private static TagKey<Block> createForgeTag(String name){
+        private static TagKey<Block> createForgeTag(String name) {
 
             return BlockTags.create(new ResourceLocation("forge", name));
         }
 
     }
 
-    public static class Items{
+    public static class Items {
 
         public static final TagKey<Item> CRAFT_MATERIAL = createTag("craft_material");
         public static final TagKey<Item> MILLING_BLACKLIST = createTag("milling_blacklist");
         public static final TagKey<Item> CENTRIFUGE_CATALYST = createTag("centrifuge_catalyst");
         public static final TagKey<Item> NANO_BLACKLIST = createTag("nano_blacklist");
 
-        private static TagKey<Item> createTag(String name){
+        private static TagKey<Item> createTag(String name) {
 
             return ItemTags.create(new ResourceLocation(DustAndAsh.MOD_ID, name));
         }
 
-        private static TagKey<Item> createForgeTag(String name){
+        private static TagKey<Item> createForgeTag(String name) {
 
             return ItemTags.create(new ResourceLocation("forge", name));
         }

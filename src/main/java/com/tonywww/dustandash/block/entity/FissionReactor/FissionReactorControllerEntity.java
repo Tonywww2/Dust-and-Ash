@@ -3,6 +3,7 @@ package com.tonywww.dustandash.block.entity.FissionReactor;
 import com.tonywww.dustandash.block.entity.BasicMachineEntity;
 import com.tonywww.dustandash.menu.FissionReactorControllerContainerMenu;
 import com.tonywww.dustandash.registeries.ModBlockEntities;
+import com.tonywww.dustandash.registeries.ModBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
@@ -15,6 +16,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
@@ -204,7 +206,7 @@ public class FissionReactorControllerEntity extends BasicMachineEntity implement
         if (!level.isClientSide) {
             BasicMachineEntity.tick(be, 1);
             if (BasicMachineEntity.isWorkingTick(be)) {
-                if (be.checkStructure()) {
+                if (be.checkStructure(level, pos)) {
                     double efficiency = 1000000.0;
                     be.energy = (int) Math.min(FissionReactorControllerEntity.MAX_ENERGY, be.energy + efficiency);
 
@@ -218,8 +220,67 @@ public class FissionReactorControllerEntity extends BasicMachineEntity implement
 
     }
 
-    private boolean checkStructure() {
+    private boolean checkStructure(Level level, BlockPos pos) {
+        int r = 1;
+        boolean flagRadius = false;
+        BlockPos curr = pos.below();
+        Block casing = ModBlocks.FISSION_REACTOR_CASING.get();
+
+        for (; r <= MAX_RADIUS; r++) {
+            curr = curr.north();
+            if (level.getBlockState(curr).getBlock() == casing) {
+                flagRadius = true;
+                break;
+
+            }
+
+        }
+        if (!flagRadius) return false;
+
+        int h = 2;
+        boolean flagHeight = false;
+        curr = pos.north(r).below();
+        for (; h <= MAX_HEIGHT; h++) {
+            curr = curr.below();
+            if (checkBlockPos(level, curr, casing)) {
+                flagHeight = true;
+                break;
+
+            }
+        }
+        if (!flagHeight) return false;
+
+        BlockPos s1 = pos.below().north(r).east(r);
+        BlockPos s2 = pos.below(h).south(r).west(r);
+        if (!checkBlockPos(level, s1, casing) || !checkBlockPos(level, s2, casing)) return false;
+
+        BlockPos s11 = s1, s12 = s1, s13 = s1, s21 = s2, s22 = s2, s23 = s2;
+        for (int i = 0; i < r * 2; i++) {
+            s11 = s11.west();
+            s12 = s12.south();
+            s13 = s13.below();
+
+            s21 = s21.north();
+            s22 = s22.east();
+            s23 = s23.above();
+            if (!checkBlockPos(level, s11, casing)
+                    || !checkBlockPos(level, s12, casing)
+                    || !checkBlockPos(level, s13, casing)
+                    || !checkBlockPos(level, s21, casing)
+                    || !checkBlockPos(level, s22, casing)
+                    || !checkBlockPos(level, s23, casing)
+            ) return false;
+
+        }
+
+        this.radius = r;
+        this.height = h;
+
         return true;
+    }
+
+    boolean checkBlockPos(Level level, BlockPos pos, Block block) {
+        return level.getBlockState(pos).getBlock() == block;
     }
 
     @Nonnull
