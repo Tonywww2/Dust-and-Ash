@@ -181,12 +181,21 @@ public class ModBlocks {
                     .strength(2f, 4f)
                     .noOcclusion()
             ));
+
     public static final RegistryObject<Block> FISSION_REACTOR_FUEL_CELL = registerBlocks("fission_reactor_fuel_cell",
             () -> new FissionReactorFuelCell(BlockBehaviour.Properties
                     .copy(Blocks.STONE)
                     .strength(2f, 4f)
                     .noOcclusion()
             ));
+
+    public static final RegistryObject<Block> FISSION_REACTOR_INTERFACE = registerBlocks("fission_reactor_interface",
+            () -> new FissionReactorInterface(BlockBehaviour.Properties
+                    .copy(Blocks.STONE)
+                    .strength(2f, 4f)
+                    .noOcclusion()
+            ));
+
 
 
     private static <T extends Block> RegistryObject<T> registerBlocks(String name, Supplier<T> block) {

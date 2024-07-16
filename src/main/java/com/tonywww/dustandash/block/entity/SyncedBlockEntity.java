@@ -14,7 +14,7 @@ import net.minecraft.world.level.block.state.BlockState;
 /**
  * Copy from Farmer's Delight. Simple BlockEntity with networking boilerplate.
  */
- class SyncedBlockEntity extends BlockEntity {
+public class SyncedBlockEntity extends BlockEntity {
     public SyncedBlockEntity(BlockEntityType<?> tileEntityTypeIn, BlockPos pos, BlockState state) {
         super(tileEntityTypeIn, pos, state);
     }
@@ -35,7 +35,7 @@ import net.minecraft.world.level.block.state.BlockState;
         load(pkt.getTag());
     }
 
-    protected void inventoryChanged() {
+    public void inventoryChanged() {
         super.setChanged();
         if (level != null) {
             level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), Block.UPDATE_CLIENTS);

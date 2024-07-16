@@ -1,8 +1,6 @@
 package com.tonywww.dustandash.block.custom.FissionReactor;
 
-import com.tonywww.dustandash.block.entity.CentrifugeEntity;
-import com.tonywww.dustandash.block.entity.FissionReactor.FissionReactorControllerEntity;
-import com.tonywww.dustandash.registeries.ModBlockEntities;
+import com.tonywww.dustandash.block.entity.FissionReactor.FissionReactorInterfaceEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Containers;
@@ -14,8 +12,6 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityTicker;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -26,14 +22,15 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.Nullable;
 
-public class FissionReactorController extends BaseEntityBlock {
-    public FissionReactorController(Properties properties) {
+public class FissionReactorInterface extends BaseEntityBlock {
+
+    public FissionReactorInterface(Properties properties) {
         super(properties);
     }
 
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
 
-    private static final VoxelShape SHAPE =  Block.box(0, 0, 0, 16, 16, 16);
+    private static final VoxelShape SHAPE = Block.box(0, 0, 0, 16, 16, 16);
 
     @Override
     public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
@@ -75,8 +72,8 @@ public class FissionReactorController extends BaseEntityBlock {
         if (!pLevel.isClientSide) {
             BlockEntity tileEntity = pLevel.getBlockEntity(pPos);
 
-            if (tileEntity instanceof FissionReactorControllerEntity) {
-                NetworkHooks.openScreen((ServerPlayer) pPlayer, (FissionReactorControllerEntity) tileEntity, pPos);
+            if (tileEntity instanceof FissionReactorInterfaceEntity) {
+                NetworkHooks.openScreen((ServerPlayer) pPlayer, (FissionReactorInterfaceEntity) tileEntity, pPos);
             } else {
                 throw new IllegalStateException("Container provider is missing");
             }
@@ -90,8 +87,8 @@ public class FissionReactorController extends BaseEntityBlock {
     public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving) {
         if (!pState.is(pNewState.getBlock())) {
             BlockEntity tileentity = pLevel.getBlockEntity(pPos);
-            if (tileentity instanceof FissionReactorControllerEntity) {
-                FissionReactorControllerEntity tile = (FissionReactorControllerEntity) tileentity;
+            if (tileentity instanceof FissionReactorInterfaceEntity) {
+                FissionReactorInterfaceEntity tile = (FissionReactorInterfaceEntity) tileentity;
                 Containers.dropContents(pLevel, pPos, tile.getDroppableInventory());
                 pLevel.updateNeighbourForOutputSignal(pPos, this);
 
@@ -104,12 +101,7 @@ public class FissionReactorController extends BaseEntityBlock {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new FissionReactorControllerEntity(pos, state);
+        return new FissionReactorInterfaceEntity(pos, state);
     }
 
-    @javax.annotation.Nullable
-    @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState blockState, BlockEntityType<T> blockEntityType) {
-        return createTickerHelper(blockEntityType, ModBlockEntities.FISSION_REACTOR_CONTROLLER_ENTITY.get(), FissionReactorControllerEntity::tick);
-    }
 }

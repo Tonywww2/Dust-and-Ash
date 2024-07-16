@@ -166,6 +166,12 @@ public class ModCreativeModTabs {
 
                         pOutput.accept(ModItems.NANO_MACHINE.get());
 
+                        pOutput.accept(ModItems.BASIC_FUEL.get());
+                        pOutput.accept(ModItems.BASIC_COOLING.get());
+                        pOutput.accept(ModItems.COOLING_TIER_1.get());
+                        pOutput.accept(ModItems.COOLING_TIER_2.get());
+                        pOutput.accept(ModItems.COOLING_TIER_3.get());
+
                     })
                     .build());
 
@@ -197,6 +203,7 @@ public class ModCreativeModTabs {
                         pOutput.accept(ModBlocks.FISSION_REACTOR_CONNECTOR.get());
                         pOutput.accept(ModBlocks.FISSION_REACTOR_COOLING_CELL.get());
                         pOutput.accept(ModBlocks.FISSION_REACTOR_FUEL_CELL.get());
+                        pOutput.accept(ModBlocks.FISSION_REACTOR_INTERFACE.get());
 
                     })
                     .build());

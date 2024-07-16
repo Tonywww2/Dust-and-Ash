@@ -1,6 +1,9 @@
 {
   "variants": {
-    "": {"model": "dustandash:block/fission_reactor_controller"}
+    "facing=north": { "model": "dustandash:block/fission_reactor_controller" },
+    "facing=east": { "model": "dustandash:block/fission_reactor_controller", "y": 90 },
+    "facing=south": { "model": "dustandash:block/fission_reactor_controller", "y": 180 },
+    "facing=west": { "model": "dustandash:block/fission_reactor_controller", "y": 270 }
   }
 
 }

@@ -1,7 +1,9 @@
 {
   "replace": false,
   "values": [
-    "dustandash:nano_machine"
+    "dustandash:nano_machine",
+    "dustandash:basic_fuel",
+    "dustandash:basic_cooling"
   ]
 
 }

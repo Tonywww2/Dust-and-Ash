@@ -132,6 +132,9 @@
   "item.dustandash.forever_dark_crystal": "§0Forever Dark Crystal",
   "item.dustandash.void_crystal": "§mVoid Crystal",
 
+  "item.dustandash.basic_fuel": "Basic Fission Fuel (U-235)",
+  "item.dustandash.basic_cooling": "Basic Fission Cooling Cell",
+
   "block.dustandash.dust_source": "Dust Source",
   "block.dustandash.dust": "Dust",
   "block.dustandash.integrated_block": "Integrated Block",
@@ -157,6 +160,7 @@
   "block.dustandash.fission_reactor_connector": "§dFission Reactor Connector",
   "block.dustandash.fission_reactor_cooling_cell": "§dFission Reactor Cooling Cell",
   "block.dustandash.fission_reactor_fuel_cell": "§dFission Reactor Fuel Cell",
+  "block.dustandash.fission_reactor_interface": "§dFission Reactor Interface",
 
   "container.integrated_block": "Integrated Block",
   "container.ash_collector": "Ash Collector",
@@ -176,7 +180,6 @@
   "screen.dustandash.item_sender_save": "Save",
 
   "screen.dustandash.fission_reactor_controller_heat": "Heat",
-  "screen.dustandash.fission_reactor_controller_fuel": "Fuel",
   "screen.dustandash.fission_reactor_controller_energy": "Energy",
   "screen.dustandash.fission_reactor_controller_efficiency": "Efficiency",
   "screen.dustandash.fission_reactor_controller_fuel_cell_count": "Fuel Cell(s)",
@@ -184,6 +187,9 @@
   "screen.dustandash.fission_reactor_controller_neutron": "Neutron",
   "screen.dustandash.fission_reactor_controller_radius": "Radius",
   "screen.dustandash.fission_reactor_controller_height": "Height",
+  "screen.dustandash.fission_reactor_controller_energy_rate": "Energy Generation Rate",
+
+  "screen.dustandash.fission_reactor_interface": "Fission Reactor Interface",
 
   "death.attack.sharpen_flint" : "%1$s's blood ran dry",
 
@@ -204,6 +210,12 @@
   "tooltip.dustandash.white_lightning": "白い稲妻",
   "tooltip.dustandash.lord_of_blood": "Bloodboon Ritual",
   "tooltip.dustandash.judgement": "Il Giudizio Universale",
+
+  "tooltip.dustandash.maxDurability": "§aMax Durability: ",
+  "tooltip.dustandash.baseHeatRate": "§cBase Heat Rate: ",
+  "tooltip.dustandash.baseNeutronRate": "§eBase Neutron Rate: ",
+  "tooltip.dustandash.idealHeat": "§4Ideal Heat: ",
+  "tooltip.dustandash.baseCoolingRate": "§bBase Cooling Rate: ",
 
   "dustandash.advancements.entry.title": "Dust and Ash",
   "dustandash.advancements.entry.description": "To the time to life, rather than to life in time.",

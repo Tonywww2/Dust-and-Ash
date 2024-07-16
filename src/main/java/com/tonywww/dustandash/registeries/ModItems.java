@@ -2,6 +2,7 @@ package com.tonywww.dustandash.registeries;
 
 import com.tonywww.dustandash.DustAndAsh;
 import com.tonywww.dustandash.item.*;
+import com.tonywww.dustandash.item.FissionReactor.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.Item;
@@ -636,6 +637,36 @@ public class ModItems {
                     .stacksTo(4)
             ));
 
+    // FR Fuel & Cooling
+    public static final RegistryObject<Item> BASIC_FUEL = ITEMS.register("basic_fuel",
+            () -> new BasicFuel(new Item.Properties()
+                    .stacksTo(1)
+                    .durability(12800)
+            ));
+
+    public static final RegistryObject<Item> BASIC_COOLING = ITEMS.register("basic_cooling",
+            () -> new BasicCooling(new Item.Properties()
+                    .stacksTo(1)
+                    .durability(12800)
+            ));
+
+    public static final RegistryObject<Item> COOLING_TIER_1 = ITEMS.register("cooling_tier_1",
+            () -> new CoolingTier1(new Item.Properties()
+                    .stacksTo(1)
+                    .durability(25600)
+            ));
+
+    public static final RegistryObject<Item> COOLING_TIER_2 = ITEMS.register("cooling_tier_2",
+            () -> new CoolingTier2(new Item.Properties()
+                    .stacksTo(1)
+                    .durability(38400)
+            ));
+
+    public static final RegistryObject<Item> COOLING_TIER_3 = ITEMS.register("cooling_tier_3",
+            () -> new CoolingTier3(new Item.Properties()
+                    .stacksTo(1)
+                    .durability(51200)
+            ));
 
     public static void register(IEventBus eventBus) {
 

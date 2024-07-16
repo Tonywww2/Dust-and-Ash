@@ -132,6 +132,9 @@
   "item.dustandash.forever_dark_crystal": "§0永恒黑暗之结晶",
   "item.dustandash.void_crystal": "§m无之结晶",
 
+  "item.dustandash.basic_fuel": "基础裂变燃料（U-235）",
+  "item.dustandash.basic_cooling": "基础裂变冷却剂",
+
   "block.dustandash.dust_source": "灰尘源",
   "block.dustandash.dust": "尘",
   "block.dustandash.integrated_block": "聚合方块",
@@ -157,6 +160,7 @@
   "block.dustandash.fission_reactor_connector": "§d裂变反应堆连接器",
   "block.dustandash.fission_reactor_cooling_cell": "§d裂变反应堆冷却单元",
   "block.dustandash.fission_reactor_fuel_cell": "§d裂变反应堆燃料单元",
+  "block.dustandash.fission_reactor_interface": "§d裂变反应堆接口",
 
   "container.integrated_block": "聚合方块",
   "container.ash_collector": "余烬收集器",
@@ -176,7 +180,6 @@
   "screen.dustandash.item_sender_save": "保存",
 
   "screen.dustandash.fission_reactor_controller_heat": "热量",
-  "screen.dustandash.fission_reactor_controller_fuel": "燃料",
   "screen.dustandash.fission_reactor_controller_energy": "能量",
   "screen.dustandash.fission_reactor_controller_efficiency": "效率",
   "screen.dustandash.fission_reactor_controller_fuel_cell_count": "燃料单元",
@@ -184,6 +187,9 @@
   "screen.dustandash.fission_reactor_controller_neutron": "中子",
   "screen.dustandash.fission_reactor_controller_radius": "结构半径",
   "screen.dustandash.fission_reactor_controller_height": "结构高度",
+  "screen.dustandash.fission_reactor_controller_energy_rate": "能量生产效率",
+
+  "screen.dustandash.fission_reactor_interface": "裂变反应堆接口",
 
   "death.attack.sharpen_flint" : "%1$s 的血流干了......",
 
@@ -204,6 +210,12 @@
   "tooltip.dustandash.white_lightning": "白い稲妻",
   "tooltip.dustandash.lord_of_blood": "授血仪式",
   "tooltip.dustandash.judgement": "Il Giudizio Universale",
+
+  "tooltip.dustandash.maxDurability": "§a最大耐久： ",
+  "tooltip.dustandash.baseHeatRate": "§c基础产热率： ",
+  "tooltip.dustandash.baseNeutronRate": "§e中子含量： ",
+  "tooltip.dustandash.idealHeat": "§4理想热值： ",
+  "tooltip.dustandash.baseCoolingRate": "§b基础冷却率： ",
 
   "dustandash.advancements.entry.title": "尘与烬",
   "dustandash.advancements.entry.description": "「给时光以生命，而不是给生命以时光。」",

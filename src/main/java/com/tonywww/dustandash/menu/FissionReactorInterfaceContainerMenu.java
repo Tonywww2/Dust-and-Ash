@@ -1,12 +1,14 @@
 package com.tonywww.dustandash.menu;
 
-import com.tonywww.dustandash.block.entity.FissionReactor.FissionReactorControllerEntity;
+import com.tonywww.dustandash.block.entity.FissionReactor.FissionReactorInterfaceEntity;
 import com.tonywww.dustandash.registeries.ModBlocks;
 import com.tonywww.dustandash.registeries.ModContainerMenus;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.*;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerLevelAccess;
+import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
@@ -16,38 +18,31 @@ import net.minecraftforge.items.wrapper.InvWrapper;
 
 import java.util.Objects;
 
-public class FissionReactorControllerContainerMenu extends AbstractContainerMenu {
+public class FissionReactorInterfaceContainerMenu extends AbstractContainerMenu {
 
-    private final FissionReactorControllerEntity tileEntity;
+    private final BlockEntity tileEntity;
     private final ContainerLevelAccess canInteractWithCallable;
     private final IItemHandler playerInventory;
 
-    public ContainerData getData() {
-        return data;
-    }
-
-    private final ContainerData data;
-
-    public FissionReactorControllerContainerMenu(int id, Inventory playerInventory, FissionReactorControllerEntity tileEntity, ContainerData data) {
-        super(ModContainerMenus.FISSION_REACTOR_CONTROLLER_CONTAINER.get(), id);
+    public FissionReactorInterfaceContainerMenu(int id, Inventory playerInventory, FissionReactorInterfaceEntity tileEntity) {
+        super(ModContainerMenus.FISSION_REACTOR_INTERFACE_CONTAINER.get(), id);
 
         this.tileEntity = tileEntity;
         this.canInteractWithCallable = ContainerLevelAccess.create(tileEntity.getLevel(), tileEntity.getBlockPos());
         this.playerInventory = new InvWrapper(playerInventory);
-        
-        this.data = data;
 
-        layoutPlayerInventorySlots(3, 117);
+        layoutPlayerInventorySlots(8, 86);
 
         if (tileEntity != null) {
             tileEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(h -> {
-                addSlot(new SlotItemHandler(h, 0, 7, 92));
-
-                addDataSlots(data);
+                addSlot(new SlotItemHandler(h, 0, 66, 21));
+                addSlot(new SlotItemHandler(h, 1, 94, 21));
+                addSlot(new SlotItemHandler(h, 2, 66, 49));
+                addSlot(new SlotItemHandler(h, 3, 94, 49));
 
             });
-
         }
+
 
     }
 
@@ -77,30 +72,21 @@ public class FissionReactorControllerContainerMenu extends AbstractContainerMenu
         addSlotRange(playerInventory, 0, leftCol, topRow, 9, 18);
     }
 
-    public FissionReactorControllerContainerMenu(final int id,
-                                   final Inventory playerInventory,
-                                   final FriendlyByteBuf data) {
-        this(id, playerInventory, getTileEntity(playerInventory, data),  new SimpleContainerData(9));
+    public FissionReactorInterfaceContainerMenu(final int id,
+                                                final Inventory playerInventory,
+                                                final FriendlyByteBuf data) {
+        this(id, playerInventory, getTileEntity(playerInventory, data));
 
     }
 
-    private static FissionReactorControllerEntity getTileEntity(final Inventory playerInventory, final FriendlyByteBuf data) {
+    private static FissionReactorInterfaceEntity getTileEntity(final Inventory playerInventory, final FriendlyByteBuf data) {
         Objects.requireNonNull(playerInventory, "playerInventory cannot be null");
         Objects.requireNonNull(data, "data cannot be null");
         final BlockEntity tileAtPos = playerInventory.player.level().getBlockEntity(data.readBlockPos());
-        if (tileAtPos instanceof FissionReactorControllerEntity) {
-            return (FissionReactorControllerEntity) tileAtPos;
+        if (tileAtPos instanceof FissionReactorInterfaceEntity) {
+            return (FissionReactorInterfaceEntity) tileAtPos;
         }
         throw new IllegalStateException("Tile entity is not correct! " + tileAtPos);
-    }
-
-    public FissionReactorControllerEntity getTileEntity() {
-        return tileEntity;
-    }
-
-    @Override
-    public boolean stillValid(Player pPlayer) {
-        return stillValid(canInteractWithCallable, pPlayer, ModBlocks.FISSION_REACTOR_CONTROLLER.get());
     }
 
     // CREDIT GOES TO: diesieben07 | https://github.com/diesieben07/SevenCommons
@@ -119,7 +105,7 @@ public class FissionReactorControllerContainerMenu extends AbstractContainerMenu
     private static final int TE_INVENTORY_FIRST_SLOT_INDEX = VANILLA_FIRST_SLOT_INDEX + VANILLA_SLOT_COUNT;
 
     // THIS YOU HAVE TO DEFINE!
-    private static final int TE_INVENTORY_SLOT_COUNT = 1;  // must match TileEntityInventoryBasic.NUMBER_OF_SLOTS
+    private static final int TE_INVENTORY_SLOT_COUNT = 4;  // must match TileEntityInventoryBasic.NUMBER_OF_SLOTS
 
     @Override
     public ItemStack quickMoveStack(Player playerIn, int index) {
@@ -152,5 +138,10 @@ public class FissionReactorControllerContainerMenu extends AbstractContainerMenu
         }
         sourceSlot.onTake(playerIn, sourceStack);
         return copyOfSourceStack;
+    }
+
+    @Override
+    public boolean stillValid(Player player) {
+        return stillValid(canInteractWithCallable, player, ModBlocks.FISSION_REACTOR_INTERFACE.get());
     }
 }

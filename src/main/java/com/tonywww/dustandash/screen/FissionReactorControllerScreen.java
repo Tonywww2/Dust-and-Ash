@@ -41,9 +41,11 @@ public class FissionReactorControllerScreen extends AbstractContainerScreen<Fiss
         double rHeat = (double) data.get(0) / FissionReactorControllerEntity.MAX_HEAT;
         guiGraphics.blit(GUI, i + 66, j + 4, 0, 193,
                 (int) (127 * rHeat), 9);
-        double rFuel = (double) data.get(1) / FissionReactorControllerEntity.MAX_FUEL;
+
+        double rNeutron = (double) data.get(5) / FissionReactorControllerEntity.MAX_NEUTRON;
         guiGraphics.blit(GUI, i + 66, j + 16, 0, 202,
-                (int) (127 * rFuel), 9);
+                (int) (127 * rNeutron), 9);
+
         double rEnergy = (double) data.get(2) / FissionReactorControllerEntity.MAX_ENERGY;
         guiGraphics.blit(GUI, i + 66, j + 28, 0, 211,
                 (int) (127 * rEnergy), 9);
@@ -56,9 +58,13 @@ public class FissionReactorControllerScreen extends AbstractContainerScreen<Fiss
 
         guiGraphics.drawString(this.font, Component.translatable("screen.dustandash.fission_reactor_controller_heat"),
                 5, 5, 4210752, false);
+        guiGraphics.drawString(this.font, Component.literal(data.get(0) + "/" + FissionReactorControllerEntity.MAX_HEAT),
+                67, 5, 2550255, false);
 
-        guiGraphics.drawString(this.font, Component.translatable("screen.dustandash.fission_reactor_controller_fuel"),
+        guiGraphics.drawString(this.font, Component.translatable("screen.dustandash.fission_reactor_controller_neutron"),
                 5, 17, 4210752, false);
+        guiGraphics.drawString(this.font, Component.literal(data.get(5) + "/" + FissionReactorControllerEntity.MAX_NEUTRON),
+                67, 17, 2550255, false);
 
         guiGraphics.drawString(this.font, Component.translatable("screen.dustandash.fission_reactor_controller_energy"),
                 5, 29, 4210752, false);
@@ -67,6 +73,8 @@ public class FissionReactorControllerScreen extends AbstractContainerScreen<Fiss
 
         guiGraphics.drawString(this.font, Component.translatable("screen.dustandash.fission_reactor_controller_efficiency"),
                 5, 41, 4210752, false);
+        guiGraphics.drawString(this.font, Component.literal(String.valueOf(data.get(8))),
+                68, 41, 2550255, false);
 
         guiGraphics.drawString(this.font, Component.translatable("screen.dustandash.fission_reactor_controller_fuel_cell_count"),
                 5, 53, 4210752, false);
@@ -78,9 +86,9 @@ public class FissionReactorControllerScreen extends AbstractContainerScreen<Fiss
         guiGraphics.drawString(this.font, Component.literal(String.valueOf(data.get(7))),
                 68, 65, 2550255, false);
 
-        guiGraphics.drawString(this.font, Component.translatable("screen.dustandash.fission_reactor_controller_neutron"),
+        guiGraphics.drawString(this.font, Component.translatable("screen.dustandash.fission_reactor_controller_energy_rate"),
                 5, 77, 4210752, false);
-        guiGraphics.drawString(this.font, Component.literal(String.valueOf(data.get(5))),
+        guiGraphics.drawString(this.font, Component.literal(String.valueOf(data.get(1))),
                 68, 77, 2550255, false);
 
         guiGraphics.drawString(this.font, Component.translatable("screen.dustandash.fission_reactor_controller_radius"),
