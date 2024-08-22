@@ -132,8 +132,19 @@
   "item.dustandash.forever_dark_crystal": "§0永恒黑暗之结晶",
   "item.dustandash.void_crystal": "§m无之结晶",
 
-  "item.dustandash.basic_fuel": "基础裂变燃料（U-235）",
+  "item.dustandash.refined_uranium": "精炼铀",
+
+  "item.dustandash.empty_fuel_container": "空燃料容器",
+  "item.dustandash.u235_fuel": "U-235裂变燃料",
+  "item.dustandash.u235_fuel_metal": "金属灌注-U-235裂变燃料",
+  "item.dustandash.u235_fuel_life": "生命灌注-U-235裂变燃料",
+  "item.dustandash.u235_fuel_order": "秩序灌注-U-235裂变燃料",
+  "item.dustandash.u235_fuel_fire": "燃烧灌注-U-235裂变燃料",
+  "item.dustandash.u235_fuel_earth": "大地灌注-U-235裂变燃料",
   "item.dustandash.basic_cooling": "基础裂变冷却剂",
+  "item.dustandash.cooling_tier_1": "裂变冷却剂 T1",
+  "item.dustandash.cooling_tier_2": "裂变冷却剂 T2",
+  "item.dustandash.cooling_tier_3": "裂变冷却剂 T3",
 
   "block.dustandash.dust_source": "灰尘源",
   "block.dustandash.dust": "尘",

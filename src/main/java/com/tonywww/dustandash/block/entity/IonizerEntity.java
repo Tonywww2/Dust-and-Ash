@@ -54,8 +54,6 @@ public class IonizerEntity extends SyncedBlockEntity implements MenuProvider {
 
     private IonizerRecipe currRecipe;
 
-    private double progressPerTick = ionizerProgressPerTick.get();
-
 
     public IonizerEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.IONIZER_ENTITY.get(), pos, state);
@@ -277,7 +275,7 @@ public class IonizerEntity extends SyncedBlockEntity implements MenuProvider {
 
                     } else {
                         // ticking
-                        be.currentProgression += be.progressPerTick;
+                        be.currentProgression += ionizerProgressPerTick.get();
 
                     }
 

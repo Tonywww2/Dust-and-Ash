@@ -1,8 +1,6 @@
 package com.tonywww.dustandash.registeries;
 
 import com.tonywww.dustandash.DustAndAsh;
-import com.tonywww.dustandash.registeries.ModBlocks;
-import com.tonywww.dustandash.registeries.ModItems;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
@@ -166,7 +164,15 @@ public class ModCreativeModTabs {
 
                         pOutput.accept(ModItems.NANO_MACHINE.get());
 
-                        pOutput.accept(ModItems.BASIC_FUEL.get());
+                        pOutput.accept(ModItems.REFINED_URANIUM.get());
+
+                        pOutput.accept(ModItems.EMPTY_FUEL_CONTAINER.get());
+                        pOutput.accept(ModItems.U235_FUEL.get());
+                        pOutput.accept(ModItems.U235_FUEL_METAL.get());
+                        pOutput.accept(ModItems.U235_FUEL_LIFE.get());
+                        pOutput.accept(ModItems.U235_FUEL_ORDER.get());
+                        pOutput.accept(ModItems.U235_FUEL_FIRE.get());
+                        pOutput.accept(ModItems.U235_FUEL_EARTH.get());
                         pOutput.accept(ModItems.BASIC_COOLING.get());
                         pOutput.accept(ModItems.COOLING_TIER_1.get());
                         pOutput.accept(ModItems.COOLING_TIER_2.get());

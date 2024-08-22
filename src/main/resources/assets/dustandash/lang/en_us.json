@@ -132,8 +132,19 @@
   "item.dustandash.forever_dark_crystal": "§0Forever Dark Crystal",
   "item.dustandash.void_crystal": "§mVoid Crystal",
 
-  "item.dustandash.basic_fuel": "Basic Fission Fuel (U-235)",
+  "item.dustandash.refined_uranium": "Refined Uranium",
+
+  "item.dustandash.empty_fuel_container": "Empty Fuel Container",
+  "item.dustandash.u235_fuel": "U-235 Fission Fuel",
+  "item.dustandash.u235_fuel_metal": "U-235-Metal Fission Fuel",
+  "item.dustandash.u235_fuel_life": "U-235-Life Fission Fuel",
+  "item.dustandash.u235_fuel_order": "U-235-Order Fission Fuel",
+  "item.dustandash.u235_fuel_fire": "U-235-Fire Fission Fuel",
+  "item.dustandash.u235_fuel_earth": "U-235-Earth Fission Fuel",
   "item.dustandash.basic_cooling": "Basic Fission Cooling Cell",
+  "item.dustandash.cooling_tier_1": "Fission Cooling Cell T1",
+  "item.dustandash.cooling_tier_2": "Fission Cooling Cell T2",
+  "item.dustandash.cooling_tier_3": "Fission Cooling Cell T3",
 
   "block.dustandash.dust_source": "Dust Source",
   "block.dustandash.dust": "Dust",

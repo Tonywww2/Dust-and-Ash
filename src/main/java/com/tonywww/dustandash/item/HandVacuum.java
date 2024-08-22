@@ -28,8 +28,6 @@ import java.util.Objects;
 
 public class HandVacuum extends Item {
 
-    private double successRate;
-
     public HandVacuum(Properties properties) {
         super(properties);
     }
@@ -59,10 +57,8 @@ public class HandVacuum extends Item {
 
         if (blockState.getBlock().equals(ModBlocks.DUST.get()) && !playerEntity.getCooldowns().isOnCooldown(this)) {
 
-            successRate = DustAndAshConfig.handVacuumSuccessRate.get();
-
             //successful rate
-            if (world.random.nextDouble() < successRate) {
+            if (world.random.nextDouble() < DustAndAshConfig.handVacuumSuccessRate.get()) {
                 //succeed
                 playerEntity.getCooldowns().addCooldown(this, 15);
                 world.setBlock(blockPos, Blocks.AIR.defaultBlockState(), 2);

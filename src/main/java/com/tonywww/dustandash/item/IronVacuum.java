@@ -31,8 +31,6 @@ import java.util.Objects;
 
 public class IronVacuum extends Item {
 
-    private double consumeRate;
-
     public IronVacuum(Properties properties) {
         super(properties);
     }
@@ -66,13 +64,11 @@ public class IronVacuum extends Item {
         BlockPos blockPos = context.getClickedPos();
         BlockState blockState = world.getBlockState(blockPos);
 
-        consumeRate = DustAndAshConfig.ironVacuumConsumeRate.get();
-
         if (blockState.getBlock().equals(ModBlocks.DUST.get())) {
             for (ItemStack i : playerEntity.inventoryMenu.getItems()) {
                 if (i.getItem() == ModItems.DUST_WITH_ENERGY.get() && i.getCount() > 0) {
                     // going to cost
-                    if (world.random.nextDouble() < consumeRate) {
+                    if (world.random.nextDouble() < DustAndAshConfig.ironVacuumConsumeRate.get()) {
                         i.shrink(1);
 
                     }

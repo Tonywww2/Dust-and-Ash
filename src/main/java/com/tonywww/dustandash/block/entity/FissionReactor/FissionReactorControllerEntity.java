@@ -6,6 +6,7 @@ import com.tonywww.dustandash.item.FissionReactor.FissionReactorFuelUnit;
 import com.tonywww.dustandash.menu.FissionReactorControllerContainerMenu;
 import com.tonywww.dustandash.registeries.ModBlockEntities;
 import com.tonywww.dustandash.registeries.ModBlocks;
+import com.tonywww.dustandash.registeries.ModItems;
 import com.tonywww.dustandash.tag.ModTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -32,6 +33,8 @@ import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
 
+import static com.tonywww.dustandash.DustAndAshConfig.*;
+
 public class FissionReactorControllerEntity extends BasicMachineEntity implements MenuProvider {
 
     public ItemStackHandler invItemStackHandler;
@@ -46,11 +49,6 @@ public class FissionReactorControllerEntity extends BasicMachineEntity implement
     public static final int MAX_HEIGHT = 7;
     public static final int MAX_NEUTRON = 2048;
 
-    public static double minEfficiency = 1;
-    public static double maxEfficiency = 12;
-    public static double efficiencyMultiplayer = 1;
-    public static double neutronToEnergy = 500;
-    public static double idealHeatRate = 0.575;
 
     private double heat = 0;
     private int energy = 0;
@@ -248,19 +246,20 @@ public class FissionReactorControllerEntity extends BasicMachineEntity implement
                             // calculate heat and change heat
                             double deltaHeat = be.calcHeat(level, pos, fuelUnit, coolUnit) - Math.sqrt(be.heat) - 1;
                             be.heat = Math.max(0, be.heat + deltaHeat);
-                            be.efficiency = (int) (Math.max(minEfficiency,
-                                    maxEfficiency - Math.pow(Math.abs(fuelUnit.getIdealHeat() - be.heat), idealHeatRate))
-                                    * efficiencyMultiplayer * be.fuelCellCount);
+                            be.efficiency = (int) (Math.max(fissionReactorMinEfficiency.get(),
+                                    fissionReactorMaxEfficiency.get() -
+                                            ((Math.pow(be.heat - fuelUnit.getIdealHeat(), 2)) / Math.pow(MAX_HEAT, fissionReactorIdealHeatRate.get()))
+                            ) * fissionReactorEfficiencyMultiplayer.get() * be.fuelCellCount);
                             be.neutron += (int) (be.efficiency * fuelUnit.getBaseNeutronRate());
 
                             if (fuel.hurt(be.fuelCellCount, level.getRandom(), null)) {
                                 fuel.shrink(1);
-                                intFace.itemStackHandler.insertItem(2, new ItemStack(Items.CLAY_BALL.asItem()), false).isEmpty();
+                                intFace.itemStackHandler.insertItem(2, new ItemStack(ModItems.EMPTY_FUEL_CONTAINER.get()), false).isEmpty();
 
                             }
                             if (!cool.isEmpty() && cool.hurt(be.coolingCellCount, level.getRandom(), null)) {
                                 cool.shrink(1);
-                                intFace.itemStackHandler.insertItem(3, new ItemStack(Items.DIRT.asItem()), false).isEmpty();
+                                intFace.itemStackHandler.insertItem(3, new ItemStack(ModItems.EMPTY_FUEL_CONTAINER.get()), false).isEmpty();
 
                             }
 
@@ -271,7 +270,7 @@ public class FissionReactorControllerEntity extends BasicMachineEntity implement
 
 
                         if (be.neutron > MAX_NEUTRON / 2) {
-                            be.energyGenerationRate = (int) ((be.neutron - (MAX_NEUTRON / 2d)) * neutronToEnergy);
+                            be.energyGenerationRate = (int) ((be.neutron - (MAX_NEUTRON / 2d)) * fissionReactorNeutronToEnergyRatio.get());
                             be.energy = Math.min(FissionReactorControllerEntity.MAX_ENERGY, be.energy + be.energyGenerationRate);
                             be.neutron = MAX_NEUTRON / 2;
 
@@ -443,12 +442,12 @@ public class FissionReactorControllerEntity extends BasicMachineEntity implement
                 BlockPos p5 = new BlockPos(pos.getX() - r + 1 + i, pos.getY() - h + 1 + j, pos.getZ() - r);
                 BlockPos p6 = new BlockPos(pos.getX() - r + 1 + i, pos.getY() - h + 1 + j, pos.getZ() + r);
 
-                if (!checkTagContains(level, p1, ModTags.Blocks.FISSION_REACTOR_WALL)
-                        || !checkTagContains(level, p2, ModTags.Blocks.FISSION_REACTOR_WALL)
-                        || !checkTagContains(level, p3, ModTags.Blocks.FISSION_REACTOR_WALL)
-                        || !checkTagContains(level, p4, ModTags.Blocks.FISSION_REACTOR_WALL)
-                        || !checkTagContains(level, p5, ModTags.Blocks.FISSION_REACTOR_WALL)
-                        || !checkTagContains(level, p6, ModTags.Blocks.FISSION_REACTOR_WALL)
+                if (checkTagContains(level, p1, ModTags.Blocks.FISSION_REACTOR_WALL)
+                        || checkTagContains(level, p2, ModTags.Blocks.FISSION_REACTOR_WALL)
+                        || checkTagContains(level, p3, ModTags.Blocks.FISSION_REACTOR_WALL)
+                        || checkTagContains(level, p4, ModTags.Blocks.FISSION_REACTOR_WALL)
+                        || checkTagContains(level, p5, ModTags.Blocks.FISSION_REACTOR_WALL)
+                        || checkTagContains(level, p6, ModTags.Blocks.FISSION_REACTOR_WALL)
                 ) return false;
 
             }
@@ -463,7 +462,7 @@ public class FissionReactorControllerEntity extends BasicMachineEntity implement
     }
 
     boolean checkTagContains(Level level, BlockPos pos, TagKey<Block> tag) {
-        return level.getBlockState(pos).is(tag);
+        return !level.getBlockState(pos).is(tag);
     }
 
     @Nonnull

@@ -638,10 +638,50 @@ public class ModItems {
             ));
 
     // FR Fuel & Cooling
-    public static final RegistryObject<Item> BASIC_FUEL = ITEMS.register("basic_fuel",
-            () -> new BasicFuel(new Item.Properties()
+    public static final RegistryObject<Item> REFINED_URANIUM = ITEMS.register("refined_uranium",
+            () -> new Item(new Item.Properties()
+                    .stacksTo(16)
+            ));
+
+    public static final RegistryObject<Item> EMPTY_FUEL_CONTAINER = ITEMS.register("empty_fuel_container",
+            () -> new Item(new Item.Properties()
+                    .stacksTo(16)
+            ));
+
+    public static final RegistryObject<Item> U235_FUEL = ITEMS.register("u235_fuel",
+            () -> new U235Fuel(new Item.Properties()
                     .stacksTo(1)
                     .durability(12800)
+            ));
+
+    public static final RegistryObject<Item> U235_FUEL_METAL = ITEMS.register("u235_fuel_metal",
+            () -> new U235FuelMetal(new Item.Properties()
+                    .stacksTo(1)
+                    .durability(9600)
+            ));
+
+    public static final RegistryObject<Item> U235_FUEL_LIFE = ITEMS.register("u235_fuel_life",
+            () -> new U235FuelLife(new Item.Properties()
+                    .stacksTo(1)
+                    .durability(19200)
+            ));
+
+    public static final RegistryObject<Item> U235_FUEL_ORDER = ITEMS.register("u235_fuel_order",
+            () -> new U235FuelOrder(new Item.Properties()
+                    .stacksTo(1)
+                    .durability(12800)
+            ));
+
+    public static final RegistryObject<Item> U235_FUEL_FIRE = ITEMS.register("u235_fuel_fire",
+            () -> new U235FuelFire(new Item.Properties()
+                    .stacksTo(1)
+                    .durability(12800)
+            ));
+
+    public static final RegistryObject<Item> U235_FUEL_EARTH = ITEMS.register("u235_fuel_earth",
+            () -> new U235FuelEarth(new Item.Properties()
+                    .stacksTo(1)
+                    .durability(16000)
             ));
 
     public static final RegistryObject<Item> BASIC_COOLING = ITEMS.register("basic_cooling",

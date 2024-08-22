@@ -9,7 +9,13 @@ import net.minecraft.world.level.Level;
 import javax.annotation.Nullable;
 import java.util.List;
 
-
+/**
+ * Metal: neutron++, db-
+ * Life: db++
+ * Order: heat--
+ * Fire: heat+, neutron+
+ * Earth: heat+, neutron+, db+
+ */
 public class FissionReactorFuelUnit extends Item {
 
     public double baseHeatRate;

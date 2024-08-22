@@ -15,8 +15,6 @@ import static com.tonywww.dustandash.DustAndAshConfig.*;
 
 public class DustSource extends Block {
 
-    private double chancePerTick;
-    private double chancePerBlock;
     private int height = 1;
     private int radius = 1;
 
@@ -48,13 +46,9 @@ public class DustSource extends Block {
 
     @Override
     public void randomTick(BlockState blockState, ServerLevel world, BlockPos blockPos, RandomSource random) {
-        chancePerTick = dustSourceChancePerTick.get();
-        chancePerBlock = dustSourceChancePerBlock.get();
-        height = dustSourceHeight.get();
-        radius = dustSourceRadius.get();
 
-        if (random.nextDouble() < chancePerTick) {
-            dustCycle(world, blockPos, random, chancePerBlock, height, radius);
+        if (random.nextDouble() < dustSourceChancePerTick.get()) {
+            dustCycle(world, blockPos, random, dustSourceChancePerBlock.get(), dustSourceHeight.get(), dustSourceRadius.get());
 
         }
 

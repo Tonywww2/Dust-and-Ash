@@ -1,0 +1,26 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "ABA",
+        "ACA",
+        "DBD"
+    ],
+    "key": {
+        "A": {
+            "item": "dustandash:refined_uranium"
+        },
+        "B": {
+            "item": "dustandash:metamorphose_dust"
+        },
+        "C": {
+            "item": "dustandash:electron"
+        },
+        "D": {
+            "item": "dustandash:empty_fuel_container"
+        }
+    },
+    "result": {
+        "item": "dustandash:u235_fuel",
+        "count": 1
+    }
+}

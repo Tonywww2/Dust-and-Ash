@@ -2,11 +2,11 @@
   "type": "dustandash:milling",
   "step1": false,
   "pattern": [
-    " #A# ",
+    "##A##",
     "# # #",
     "#   #",
-    "## ##",
-    " ### "
+    "# # #",
+    "#####"
   ],
   "key": {
     "catalyst":
@@ -24,7 +24,7 @@
   },
   "output" : {
     "item": "dustandash:ash_steel_cylinder",
-    "count": 1
+    "count": 3
   }
 
 }

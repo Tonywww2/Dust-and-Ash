@@ -35,11 +35,9 @@ public class AshCollectorEntity extends BasicMachineEntity implements MenuProvid
     public final ItemStackHandler itemStackHandler = createHandler();
     private final LazyOptional<ItemStackHandler> handler = LazyOptional.of(() -> itemStackHandler);
 
-    private static float chancePerWorkingTick = 0.004f;
 
     public AshCollectorEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.ASH_COLLECTOR_ENTITY.get(), pos, state);
-        chancePerWorkingTick = ashCollectorChancePerWorkingTick.get().floatValue();
     }
 
     private ItemStackHandler createHandler() {
@@ -120,7 +118,7 @@ public class AshCollectorEntity extends BasicMachineEntity implements MenuProvid
             if (BasicMachineEntity.isWorkingTick(be)) {
                 suckInItem(level, pos, be);
 
-                if (level.random.nextDouble() < chancePerWorkingTick) {
+                if (level.random.nextDouble() < ashCollectorChancePerWorkingTick.get()) {
                     if (shouldWork(level, pos)) {
                         be.itemStackHandler.insertItem(0, new ItemStack(ModItems.ASH.get()), false);
                         level.playSound(null, pos, SoundEvents.BEE_HURT, SoundSource.BLOCKS, 0.5f, 1f);

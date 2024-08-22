@@ -109,8 +109,8 @@ public class WhiteLightning extends SwordItem {
             }
 
             if (damageFlag) {
-                float damage = (targetHealth * getExtraPercentage(stack)) + (getExtraDamage(stack) * 2);
-                entity.hurt(player.damageSources().indirectMagic(entity, player), damage);
+                double damage = (targetHealth * DustAndAshConfig.whiteLightningExtraPercentage.get()) + (DustAndAshConfig.whiteLightningExtraDamage.get() * 2);
+                entity.hurt(player.damageSources().indirectMagic(entity, player), (float) damage);
                 setAdvCharges(stack, getAdvCharges(stack) - 1);
 //            setAttackCounts(stack, getAttackCounts(stack) + 1);
                 level.playSound(null, player.blockPosition(), SoundEvents.ENDER_DRAGON_FLAP, SoundSource.PLAYERS, 1f, 1f);
@@ -274,32 +274,6 @@ public class WhiteLightning extends SwordItem {
 
         }
         return 0;
-    }
-
-    public static float getExtraDamage(ItemStack stack) {
-        CompoundTag compoundtag = stack.getOrCreateTag();
-        if (compoundtag.contains(EXTRA_DAMAGE_TAG)) {
-            return compoundtag.getFloat(EXTRA_DAMAGE_TAG);
-
-        } else {
-            float dam = DustAndAshConfig.whiteLightningExtraDamage.get().floatValue();
-            compoundtag.putFloat(EXTRA_DAMAGE_TAG, dam);
-            return dam;
-        }
-
-    }
-
-    public static float getExtraPercentage(ItemStack stack) {
-        CompoundTag compoundtag = stack.getOrCreateTag();
-        if (compoundtag.contains(EXTRA_PERCENTAGE_TAG)) {
-            return compoundtag.getFloat(EXTRA_PERCENTAGE_TAG);
-
-        } else {
-            float per = DustAndAshConfig.whiteLightningExtraPercentage.get().floatValue();
-            compoundtag.putFloat(EXTRA_PERCENTAGE_TAG, per);
-            return per;
-        }
-
     }
 
     public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltip, TooltipFlag pFlag) {

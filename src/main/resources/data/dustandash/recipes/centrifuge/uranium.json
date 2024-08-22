@@ -1,0 +1,38 @@
+{
+  "type": "dustandash:centrifuge",
+  "tick": 160,
+  "ingredients": [
+    {
+      "tag": "forge:ingots/uranium"
+    },
+    {
+      "item": "dustandash:glass_container"
+    }
+  ],
+  "outputs": [
+    {
+      "item": "dustandash:metal_dust"
+    },
+    {
+      "item": "dustandash:refined_uranium"
+    },
+    {
+      "item": "dustandash:empty"
+    },
+    {
+      "item": "dustandash:empty"
+    },
+    {
+      "item": "dustandash:empty"
+    },
+    {
+      "item": "dustandash:metal_dust"
+    },
+    {
+      "item": "dustandash:empty"
+    },
+    {
+      "item": "dustandash:empty"
+    }
+  ]
+}

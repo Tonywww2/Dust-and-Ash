@@ -2,7 +2,7 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "dustandash:item/basic_fuel"
+    "layer0": "dustandash:item/u235_fuel_metal"
 
   }
 

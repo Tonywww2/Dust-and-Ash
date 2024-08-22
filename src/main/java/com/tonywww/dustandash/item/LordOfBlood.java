@@ -147,19 +147,6 @@ public class LordOfBlood extends SwordItem implements GeoItem {
         return 0;
     }
 
-    public static float getRadius(ItemStack stack) {
-        CompoundTag compoundtag = stack.getOrCreateTag();
-        if (compoundtag.contains(RADIUS_TAG)) {
-            return compoundtag.getFloat(RADIUS_TAG);
-
-        } else {
-            float radius = DustAndAshConfig.lordOfBloodRadius.get().floatValue();
-            compoundtag.putFloat(RADIUS_TAG, radius);
-            return radius;
-        }
-
-    }
-
     @Override
     public UseAnim getUseAnimation(ItemStack stack) {
 //        return UseAnim.DRINK;
@@ -173,8 +160,8 @@ public class LordOfBlood extends SwordItem implements GeoItem {
             use.stop();
             triggerAnim(entity, GeoItem.getOrAssignId(stack, (ServerLevel) level), "idle", "idle");
 
-            float radius = getRadius(stack);
-            List<LivingEntity> entities = level.getEntitiesOfClass(LivingEntity.class, getArea(entity.blockPosition(), (int) radius), VALID_ENTITY);
+            int radius = DustAndAshConfig.lordOfBloodRadius.get();
+            List<LivingEntity> entities = level.getEntitiesOfClass(LivingEntity.class, getArea(entity.blockPosition(), radius), VALID_ENTITY);
             DamageSource damageSource = level.damageSources().thorns(entity);
 
             setCharges(stack, getCharges(stack) + 1);

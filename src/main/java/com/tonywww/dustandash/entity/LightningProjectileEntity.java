@@ -1,5 +1,6 @@
 package com.tonywww.dustandash.entity;
 
+import com.tonywww.dustandash.DustAndAshConfig;
 import com.tonywww.dustandash.registeries.ModItems;
 import com.tonywww.dustandash.item.WhiteLightning;
 import com.tonywww.dustandash.registeries.ModEntites;
@@ -92,14 +93,13 @@ public class LightningProjectileEntity extends ThrowableItemProjectile {
                         0.5d,
                         0
                 );
-                entity.hurt(owner.damageSources().indirectMagic(entity, owner), targetHealth * WhiteLightning.getExtraPercentage(source));
+                entity.hurt(owner.damageSources().indirectMagic(entity, owner), (float) (targetHealth * DustAndAshConfig.whiteLightningExtraPercentage.get()));
                 entity.invulnerableTime = 0;
 
             }
 
             if (owner instanceof Player player) {
-                float baseDamage = WhiteLightning.getExtraDamage(source) + ((SwordItem) source.getItem()).getDamage();
-                entity.hurt(owner.damageSources().playerAttack(player), baseDamage);
+                entity.hurt(owner.damageSources().playerAttack(player), (float) (DustAndAshConfig.whiteLightningExtraPercentage.get() + ((SwordItem) source.getItem()).getDamage()));
                 entity.invulnerableTime = 0;
 
             }
