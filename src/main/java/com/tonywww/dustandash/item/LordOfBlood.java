@@ -41,7 +41,6 @@ import java.util.function.Predicate;
 public class LordOfBlood extends SwordItem implements GeoItem {
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
-    private static final String RADIUS_TAG = "radius";
     private static final String CHARGES_TAG = "charges";
 
     static final Vector3f COLOR_RED = new Vector3f(1f, 0.1921568f, 0.2039215f);

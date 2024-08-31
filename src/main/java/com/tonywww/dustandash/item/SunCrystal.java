@@ -19,25 +19,15 @@ public class SunCrystal extends Item {
     @Override
     public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand pHand) {
         if (!world.isClientSide) {
-            ItemStack stack = null;
-            if (player.getMainHandItem().getItem() == this) {
-                stack = player.getMainHandItem();
-
-            } else if (player.getOffhandItem().getItem() == this) {
-                stack = player.getOffhandItem();
-
+            ItemStack stack = player.getItemInHand(pHand);
+            LevelData data = world.getLevelData();
+            data.setRaining(false);
+            int time = world.random.nextInt(world.getLevelData().isRaining() ? 12000 : 168000) + 12000;
+            if (data instanceof ServerLevelData) {
+                ((ServerLevelData) data).setRainTime(time);
             }
-            if (stack != null) {
-                LevelData data = world.getLevelData();
-                data.setRaining(false);
-                int time = world.random.nextInt(world.getLevelData().isRaining() ? 12000 : 168000) + 12000;
-                if (data instanceof ServerLevelData) {
-                    ((ServerLevelData) data).setRainTime(time);
-                }
-                player.getCooldowns().addCooldown(this, 200);
-                stack.shrink(1);
-
-            }
+            player.getCooldowns().addCooldown(this, 200);
+            stack.shrink(1);
 
         }
 

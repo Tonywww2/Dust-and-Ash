@@ -352,6 +352,16 @@ public class ModItems {
                     .stacksTo(1)
             ));
 
+    public static final RegistryObject<Item> ROCK_SOLID = ITEMS.register("rock_solid",
+            () -> new RockSolid(new Item.Properties()
+                    .stacksTo(1)
+            ));
+
+    public static final RegistryObject<Item> INDESTRUCTIBLE = ITEMS.register("indestructible",
+            () -> new Indestructible(new Item.Properties()
+                    .stacksTo(1)
+            ));
+
     // normal materials
     public static final RegistryObject<Item> BLOODY_FLINT = ITEMS.register("bloody_flint",
             () -> new Item(new Item.Properties()
@@ -591,7 +601,32 @@ public class ModItems {
                     .stacksTo(64)
             ));
 
-    // Element Crystal
+    // Element Crystal & Gems
+    public static final RegistryObject<Item> METAL_GEM = ITEMS.register("metal_gem",
+            () -> new Item(new Item.Properties()
+                    .stacksTo(16)
+            ));
+
+    public static final RegistryObject<Item> LIFE_GEM = ITEMS.register("life_gem",
+            () -> new Item(new Item.Properties()
+                    .stacksTo(16)
+            ));
+
+    public static final RegistryObject<Item> ORDER_GEM = ITEMS.register("order_gem",
+            () -> new Item(new Item.Properties()
+                    .stacksTo(16)
+            ));
+
+    public static final RegistryObject<Item> FIRE_GEM = ITEMS.register("fire_gem",
+            () -> new Item(new Item.Properties()
+                    .stacksTo(16)
+            ));
+
+    public static final RegistryObject<Item> EARTH_GEM = ITEMS.register("earth_gem",
+            () -> new Item(new Item.Properties()
+                    .stacksTo(16)
+            ));
+
     public static final RegistryObject<Item> WIND_CRYSTAL = ITEMS.register("wind_crystal",
             () -> new Item(new Item.Properties()
                     .stacksTo(4)

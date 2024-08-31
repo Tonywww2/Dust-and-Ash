@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "dustandash:rock_solid",
+    "dustandash:uranium_ingot",
+    "minecraft:stone",
+    "minecraft:iron_ingot",
+    "minecraft:coal_block",
+    "minecraft:netherite_ingot"
+  ]
+
+}

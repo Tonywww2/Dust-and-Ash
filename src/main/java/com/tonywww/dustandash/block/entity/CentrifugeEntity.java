@@ -63,7 +63,7 @@ public class CentrifugeEntity extends BasicMachineEntity implements MenuProvider
 
         this.dataAccess = new ContainerData() {
             public int get(int pIndex) {
-                switch(pIndex) {
+                switch (pIndex) {
                     case 0:
                         return (int) CentrifugeEntity.this.currentProgression;
                     case 1:
@@ -74,7 +74,7 @@ public class CentrifugeEntity extends BasicMachineEntity implements MenuProvider
             }
 
             public void set(int pIndex, int pValue) {
-                switch(pIndex) {
+                switch (pIndex) {
                     case 0:
                         CentrifugeEntity.this.currentProgression = pValue;
                         break;
@@ -178,6 +178,7 @@ public class CentrifugeEntity extends BasicMachineEntity implements MenuProvider
 
             }
             tickProgression(level, pos, be);
+
 
         }
 

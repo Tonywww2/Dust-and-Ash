@@ -30,6 +30,8 @@
   "item.dustandash.nano_machine": "纳米机器",
   "item.dustandash.placeholder": "占位符",
   "item.dustandash.position_selector": "位置选择器",
+  "item.dustandash.rock_solid": "§6§l铜头铁臂",
+  "item.dustandash.indestructible": "§e§l金刚不坏",
 
   "item.dustandash.metal_dust": "金属之尘",
   "item.dustandash.life_dust": "生命之尘",
@@ -122,6 +124,12 @@
   "item.dustandash.carbon_fiber_scrap": "碎屑",
   "item.dustandash.titanium_plate_scrap": "碎屑",
 
+  "item.dustandash.metal_gem": "§l金属宝石",
+  "item.dustandash.life_gem": "§l生命宝石",
+  "item.dustandash.order_gem": "§l秩序宝石",
+  "item.dustandash.fire_gem": "§l燃烧宝石",
+  "item.dustandash.earth_gem": "§l大地宝石",
+
   "item.dustandash.wind_crystal": "§3风之结晶",
   "item.dustandash.fire_crystal": "§c火之结晶",
   "item.dustandash.silver_crystal": "§b银之结晶",
@@ -157,6 +165,7 @@
   "block.dustandash.item_sender": "物品发送器",
 
   "block.dustandash.log_pile": "原木捆",
+  "block.dustandash.smooth_cobblestone": "平滑圆石",
   "block.dustandash.block_of_ash_steel": "烬钢锭",
   "block.dustandash.titanium_sand_block": "钛沙",
   "block.dustandash.integrated_frame_1": "聚合框架-1",
@@ -165,10 +174,10 @@
   "block.dustandash.cooled_magma_block": "冷却的岩浆块",
   "block.dustandash.netherite_mud": "含有下界合金的淤泥",
   "block.dustandash.cobblestone_with_moss": "苔藓复合圆石",
+  "block.dustandash.strengthened_cement": "§l强化水泥",
 
   "block.dustandash.fission_reactor_controller": "§d裂变反应堆控制器",
   "block.dustandash.fission_reactor_casing": "§d裂变反应堆外壳",
-  "block.dustandash.fission_reactor_connector": "§d裂变反应堆连接器",
   "block.dustandash.fission_reactor_cooling_cell": "§d裂变反应堆冷却单元",
   "block.dustandash.fission_reactor_fuel_cell": "§d裂变反应堆燃料单元",
   "block.dustandash.fission_reactor_interface": "§d裂变反应堆接口",
@@ -215,6 +224,8 @@
   "tooltip.dustandash.iron_vacuum": "§7 对着一个 尘 使用以收集资源，需要消耗物品栏内的 注能尘。",
   "tooltip.dustandash.echo_activator": "§7 能将一个 幽匿尖啸体 或 蛋糕 变成完整的 幽匿尖啸体",
   "tooltip.dustandash.nano_machine": "§7 修复副手的物品，微笑 :)\n 或者在副手使用它来获得力量",
+  "tooltip.dustandash.rock_solid": "§7 在短时间内抵挡一定的伤害",
+  "tooltip.dustandash.indestructible": "§7 在一定时间内内变得几乎无敌",
 
   "tooltip.dustandash.gale_otaijutsu": "登龙",
   "tooltip.dustandash.sunburn_mega_sword": "爆裂",

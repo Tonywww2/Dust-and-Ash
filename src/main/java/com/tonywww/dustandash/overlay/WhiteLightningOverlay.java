@@ -19,7 +19,6 @@ public class WhiteLightningOverlay implements IGuiOverlay {
     private static final ResourceLocation HUD = new ResourceLocation(DustAndAsh.MOD_ID, "textures/gui/white_lightning_gui.png");
 
     private WhiteLightningOverlay() {
-
     }
 
     @Override

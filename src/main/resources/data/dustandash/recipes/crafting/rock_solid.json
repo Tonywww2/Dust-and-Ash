@@ -1,0 +1,29 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        " AE",
+        "ADA",
+        "BAC"
+    ],
+    "key": {
+        "A": {
+            "item": "minecraft:cut_copper"
+        },
+        "B": {
+            "item": "dustandash:earth_gem"
+        },
+        "C": {
+            "item": "dustandash:metal_gem"
+        },
+        "D": {
+            "item": "minecraft:golden_apple"
+        },
+        "E": {
+            "item": "minecraft:string"
+        }
+    },
+    "result": {
+        "item": "dustandash:rock_solid",
+        "count": 1
+    }
+}

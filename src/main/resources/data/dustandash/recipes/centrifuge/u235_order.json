@@ -1,0 +1,42 @@
+{
+  "type": "dustandash:centrifuge",
+  "tick": 400,
+  "ingredients": [
+    {
+      "type": "forge:nbt",
+      "item": "dustandash:u235_fuel",
+      "nbt": "{Damage:0}"
+    },
+    {
+      "item": "dustandash:order_gem"
+    }
+  ],
+  "outputs" : [
+    {
+      "item": "dustandash:u235_fuel_order"
+    },
+    {
+      "item": "dustandash:order_dust"
+    },
+    {
+      "item": "dustandash:empty"
+    },
+    {
+      "item": "dustandash:empty"
+    },
+
+    {
+      "item": "dustandash:empty"
+    },
+    {
+      "item": "dustandash:empty"
+    },
+    {
+      "item": "dustandash:empty"
+    },
+    {
+      "item": "dustandash:empty"
+    }
+
+  ]
+}

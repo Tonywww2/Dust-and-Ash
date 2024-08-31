@@ -38,6 +38,9 @@ public final class DustAndAshConfig {
     public static final ForgeConfigSpec.ConfigValue<Double> whiteLightningExtraDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> whiteLightningExtraPercentage;
 
+    public static final ForgeConfigSpec.ConfigValue<Integer> rockSolidCD;
+    public static final ForgeConfigSpec.ConfigValue<Integer> indestructibleCD;
+
     static {
 
         BUILDER.comment("Config for Dust and Ash").push("Machines");
@@ -56,7 +59,7 @@ public final class DustAndAshConfig {
         ashCollectorChancePerWorkingTick = BUILDER.comment("\nThe chance of getting an ash in every working tick. Range(0, 1] Default: 0.004")
                 .defineInRange("ashCollectorChancePerWorkingTick", 0.004d, 0d, 1d);
 
-        centrifugeProgressPerTick = BUILDER.comment("\nThe progress added per random tick. Range[0, 100] Default: 1")
+        centrifugeProgressPerTick = BUILDER.comment("\nThe progress added per random tick. Range[0, 100] Default: 4")
                 .defineInRange("centrifugeProgressPerTick", 4, 0, 100);
 
         ionizerProgressPerTick = BUILDER.comment("\nThe progress added per random tick. Range[0, 100] Default: 1")
@@ -68,14 +71,14 @@ public final class DustAndAshConfig {
         fissionReactorMinEfficiency = BUILDER.comment("\nThe Minimum Efficiency of Fission Reactor. Range[0.1, 1000000] Default: 1")
                 .defineInRange("fissionReactorMinEfficiency", 1d, 0.1d, 1000000d);
 
-        fissionReactorMaxEfficiency = BUILDER.comment("\nThe Maximum Efficiency of Fission Reactor. Range[0.1, 1000000] Default: 12")
-                .defineInRange("fissionReactorMaxEfficiency", 12d, 0.1d, 1000000d);
+        fissionReactorMaxEfficiency = BUILDER.comment("\nThe Maximum Efficiency of Fission Reactor. Range[0.1, 1000000] Default: 14")
+                .defineInRange("fissionReactorMaxEfficiency", 14d, 0.1d, 1000000d);
 
         fissionReactorEfficiencyMultiplayer = BUILDER.comment("\nThe Efficiency Multiplayer of Fission Reactor. Range[0.1, 1000000] Default: 10")
                 .defineInRange("fissionReactorEfficiencyMultiplayer", 10d, 0.1d, 1000000d);
 
-        fissionReactorNeutronToEnergyRatio = BUILDER.comment("\nThe Neutron To EnergyRatio of Fission Reactor. Range[0.1, 1000000] Default: 250")
-                .defineInRange("fissionReactorNeutronToEnergyRatio", 250d, 0.1d, 1000000d);
+        fissionReactorNeutronToEnergyRatio = BUILDER.comment("\nThe Neutron To EnergyRatio of Fission Reactor. Range[0.1, 1000000] Default: 275")
+                .defineInRange("fissionReactorNeutronToEnergyRatio", 275d, 0.1d, 1000000d);
 
         fissionReactorIdealHeatRate = BUILDER.comment("\nThe Ideal Heat Rate of Fission Reactor. Range[0.1, 2] Default: 0.75")
                 .defineInRange("fissionReactorIdealHeatRate", 0.75d, 0.1d, 2d);
@@ -100,6 +103,13 @@ public final class DustAndAshConfig {
                 .defineInRange("whiteLightningExtraDamage", 2.0d, 0d, Float.MAX_VALUE);
         whiteLightningExtraPercentage = BUILDER.comment("\nThe Extra Percentage Damage of 疾風迅雷. Range[0, 10.0] Default: 0.08")
                 .defineInRange("whiteLightningExtraPercentage", 0.08d, 0d, 10d);
+
+        rockSolidCD = BUILDER.comment("\nThe Cool Down of Rock Solid in Tick. Range[0, 10000] Default: 300")
+                .defineInRange("rockSolidCD", 300, 0, 10000);
+        indestructibleCD = BUILDER.comment("\nThe Cool Down of IndestructibleCD in Tick. Range[0, 10000] Default: 300")
+                .defineInRange("indestructibleCD", 300, 0, 10000);
+
+
 
         BUILDER.pop();
         COMMON_CONFIG = BUILDER.build();

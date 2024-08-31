@@ -1,8 +1,0 @@
-{
-  "parent": "block/cube_all",
-  "textures": {
-    "all": "dustandash:block/fission_reactor_connector"
-
-  }
-
-}

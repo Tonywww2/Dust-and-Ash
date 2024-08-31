@@ -1,0 +1,36 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+        {
+            "tag": "forge:gems"
+        },
+        {
+            "item": "dustandash:bowl_with_dust"
+        },
+        {
+            "item": "dustandash:order_dust"
+        },
+        {
+            "item": "dustandash:order_dust"
+        },
+        {
+            "item": "dustandash:order_dust"
+        },
+        {
+            "item": "dustandash:order_dust"
+        },
+        {
+            "item": "dustandash:order_dust"
+        },
+        {
+            "item": "dustandash:order_dust"
+        },
+        {
+            "item": "dustandash:order_dust"
+        }
+    ],
+    "result": {
+        "item": "dustandash:order_gem",
+        "count": 1
+    }
+}

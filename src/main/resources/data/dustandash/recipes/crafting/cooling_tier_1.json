@@ -5,7 +5,10 @@
             "item": "dustandash:basic_cooling"
         },
         {
-            "item": "dustandash:basic_cooling"
+            "item": "minecraft:ice"
+        },
+        {
+            "item": "minecraft:ice"
         }
     ],
     "result": {

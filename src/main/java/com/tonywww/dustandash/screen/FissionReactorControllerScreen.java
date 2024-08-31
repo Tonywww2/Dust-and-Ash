@@ -54,51 +54,50 @@ public class FissionReactorControllerScreen extends AbstractContainerScreen<Fiss
 
     @Override
     protected void renderLabels(GuiGraphics guiGraphics, int pX, int pY) {
-        ContainerData data = this.menu.getData();
 
         guiGraphics.drawString(this.font, Component.translatable("screen.dustandash.fission_reactor_controller_heat"),
                 5, 5, 4210752, false);
-        guiGraphics.drawString(this.font, Component.literal(data.get(0) + "/" + FissionReactorControllerEntity.MAX_HEAT),
+        guiGraphics.drawString(this.font, Component.literal(this.menu.getHeat() + "/" + FissionReactorControllerEntity.MAX_HEAT),
                 67, 5, 2550255, false);
 
         guiGraphics.drawString(this.font, Component.translatable("screen.dustandash.fission_reactor_controller_neutron"),
                 5, 17, 4210752, false);
-        guiGraphics.drawString(this.font, Component.literal(data.get(5) + "/" + FissionReactorControllerEntity.MAX_NEUTRON),
+        guiGraphics.drawString(this.font, Component.literal(this.menu.getNeutron() + "/" + FissionReactorControllerEntity.MAX_NEUTRON),
                 67, 17, 2550255, false);
 
         guiGraphics.drawString(this.font, Component.translatable("screen.dustandash.fission_reactor_controller_energy"),
                 5, 29, 4210752, false);
-        guiGraphics.drawString(this.font, Component.literal(data.get(2) + "/" + FissionReactorControllerEntity.MAX_ENERGY),
+        guiGraphics.drawString(this.font, Component.literal(this.menu.getEnergy() + "/" + FissionReactorControllerEntity.MAX_ENERGY),
                 67, 29, 2550255, false);
 
         guiGraphics.drawString(this.font, Component.translatable("screen.dustandash.fission_reactor_controller_efficiency"),
                 5, 41, 4210752, false);
-        guiGraphics.drawString(this.font, Component.literal(String.valueOf(data.get(8))),
+        guiGraphics.drawString(this.font, Component.literal(String.valueOf(this.menu.getEfficiency())),
                 68, 41, 2550255, false);
 
         guiGraphics.drawString(this.font, Component.translatable("screen.dustandash.fission_reactor_controller_fuel_cell_count"),
                 5, 53, 4210752, false);
-        guiGraphics.drawString(this.font, Component.literal(String.valueOf(data.get(6))),
+        guiGraphics.drawString(this.font, Component.literal(String.valueOf(this.menu.getFuelCellCount())),
                 68, 53, 2550255, false);
 
         guiGraphics.drawString(this.font, Component.translatable("screen.dustandash.fission_reactor_controller_cooling_cell_count"),
                 5, 65, 4210752, false);
-        guiGraphics.drawString(this.font, Component.literal(String.valueOf(data.get(7))),
+        guiGraphics.drawString(this.font, Component.literal(String.valueOf(this.menu.getCoolingCellCount())),
                 68, 65, 2550255, false);
 
         guiGraphics.drawString(this.font, Component.translatable("screen.dustandash.fission_reactor_controller_energy_rate"),
                 5, 77, 4210752, false);
-        guiGraphics.drawString(this.font, Component.literal(String.valueOf(data.get(1))),
+        guiGraphics.drawString(this.font, Component.literal(String.valueOf(this.menu.getEGP())),
                 68, 77, 2550255, false);
 
         guiGraphics.drawString(this.font, Component.translatable("screen.dustandash.fission_reactor_controller_radius"),
                 101, 41, 4210752, false);
-        guiGraphics.drawString(this.font, Component.literal(String.valueOf(data.get(3))),
+        guiGraphics.drawString(this.font, Component.literal(String.valueOf(this.menu.getRadius())),
                 164, 41, 2550255, false);
 
         guiGraphics.drawString(this.font, Component.translatable("screen.dustandash.fission_reactor_controller_height"),
                 101, 53, 4210752, false);
-        guiGraphics.drawString(this.font, Component.literal(String.valueOf(data.get(4))),
+        guiGraphics.drawString(this.font, Component.literal(String.valueOf(this.menu.getHeight())),
                 164, 53, 2550255, false);
 
     }

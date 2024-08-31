@@ -1,0 +1,32 @@
+{
+  "name": "Build a Dustology Fission Reactor",
+  "icon": "dustandash:fission_reactor_controller",
+  "category": "dustandash:fission_reactor",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "To build a Fission Reactor, you need: a $(item)Fission Reactor Controller$(), $(item)Fission Reactor Casing$()s, $(item)Fission Reactor Fuel Cell$(), $(item)Fission Reactor Interface$(), $(item)Fission Reactor Cooling Cell$()(optional, but you may want it) and some fission reactor wall blocks(with tag #dustandash:blocks/fission_reactor_wall, like Grey Stained Glass)"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "You need to use $(item)Fission Reactor Casing$()s to make a frame, which length and width must be odd and equal (Height can be different). Then, design and place $(item)Fission Reactor Cooling Cell$() and $(item)Fission Reactor Fuel Cell$() in it and fill the wall with fission reactor wall block. Finally, Place the $(item)Fission Reactor Controller$() on the top middle of the structure, and place the $(item)Fission Reactor Interface$() on the middle of one of the side walls."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The fuel units and the cooling units can be inserted with the $(item)Fission Reactor Interface$(). You should try to let the heat of the reactor as close to the Ideal Heat of the fuel. You can decrease the heat-increase by placing $(item)Fission Reactor Cooling Cell$() beside $(item)Fission Reactor Fuel Cell$()."
+    },
+    {
+      "type": "patchouli:image",
+      "title" : "Example 1",
+      "images": ["dustandash:patchouli_books/dustandash_guide_book/imgs/fr_example1.png"],
+      "text": "An example of a 2*5 Reactor"
+    },
+    {
+      "type": "patchouli:image",
+      "title" : "Example 2",
+      "images": ["dustandash:patchouli_books/dustandash_guide_book/imgs/fr_example2.png"],
+      "text": "An example of a 1*4 Reactor"
+    }
+
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "name": "Neutron Bombardment",
+  "icon": "dustandash:pure_energy",
+  "category": "dustandash:fission_reactor",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Some items can be placed in the slot of $(item)Fission Reactor Controller$(), and be affected by the neutrons. Once they are full-filled, they can be used to craft other things. "
+    }
+
+  ]
+}

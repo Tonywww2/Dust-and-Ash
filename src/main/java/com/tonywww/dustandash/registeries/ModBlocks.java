@@ -98,6 +98,13 @@ public class ModBlocks {
                     .sound(SoundType.WOOD)
             ));
 
+    public static final RegistryObject<Block> SMOOTH_COBBLESTONE = registerBlocks("smooth_cobblestone",
+            () -> new Block(BlockBehaviour.Properties
+                    .copy(Blocks.STONE)
+                    .requiresCorrectToolForDrops()
+                    .strength(1.5F, 6.0F)
+            ));
+
     public static final RegistryObject<Block> BLOCK_OF_ASH_STEEL = registerBlocks("block_of_ash_steel",
             () -> new Block(BlockBehaviour.Properties
                     .copy(Blocks.STONE)
@@ -154,6 +161,13 @@ public class ModBlocks {
                     .strength(1f, 2f)
             ));
 
+    public static final RegistryObject<Block> STRENGTHENED_CEMENT = registerBlocks("strengthened_cement",
+            () -> new FissionReactorConnector(BlockBehaviour.Properties
+                    .copy(Blocks.STONE)
+                    .strength(2f, 4f)
+                    .noOcclusion()
+            ));
+
     // Fission Reactor
     public static final RegistryObject<Block> FISSION_REACTOR_CONTROLLER = registerBlocks("fission_reactor_controller",
             () -> new FissionReactorController(BlockBehaviour.Properties
@@ -166,13 +180,6 @@ public class ModBlocks {
             () -> new FissionReactorCasing(BlockBehaviour.Properties
                     .copy(Blocks.STONE)
                     .strength(2f, 4f)
-            ));
-
-    public static final RegistryObject<Block> FISSION_REACTOR_CONNECTOR = registerBlocks("fission_reactor_connector",
-            () -> new FissionReactorConnector(BlockBehaviour.Properties
-                    .copy(Blocks.STONE)
-                    .strength(2f, 4f)
-                    .noOcclusion()
             ));
 
     public static final RegistryObject<Block> FISSION_REACTOR_COOLING_CELL = registerBlocks("fission_reactor_cooling_cell",

@@ -18,29 +18,13 @@ public class RainCrystal extends Item {
     @Override
     public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand pHand) {
         if (!world.isClientSide) {
-            ItemStack stack = null;
-            if (player.getMainHandItem().getItem() == this) {
-                stack = player.getMainHandItem();
-
-            } else if (player.getOffhandItem().getItem() == this) {
-                stack = player.getOffhandItem();
-
-            }
-            if (stack != null) {
-                player.getCooldowns().addCooldown(this, 200);
-                world.getLevelData().setRaining(true);
-                stack.shrink(1);
-
-            }
+            ItemStack stack = player.getItemInHand(pHand);
+            player.getCooldowns().addCooldown(this, 200);
+            world.getLevelData().setRaining(true);
+            stack.shrink(1);
 
         }
 
         return super.use(world, player, pHand);
-    }
-
-    @Override
-    public void onUseTick(Level world, LivingEntity entity, ItemStack stack, int pCount) {
-
-        super.onUseTick(world, entity, stack, pCount);
     }
 }

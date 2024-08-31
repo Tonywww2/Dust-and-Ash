@@ -1,0 +1,36 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+        {
+            "tag": "forge:gems"
+        },
+        {
+            "item": "dustandash:bowl_with_dust"
+        },
+        {
+            "item": "dustandash:fire_dust"
+        },
+        {
+            "item": "dustandash:fire_dust"
+        },
+        {
+            "item": "dustandash:fire_dust"
+        },
+        {
+            "item": "dustandash:fire_dust"
+        },
+        {
+            "item": "dustandash:fire_dust"
+        },
+        {
+            "item": "dustandash:fire_dust"
+        },
+        {
+            "item": "dustandash:fire_dust"
+        }
+    ],
+    "result": {
+        "item": "dustandash:fire_gem",
+        "count": 1
+    }
+}

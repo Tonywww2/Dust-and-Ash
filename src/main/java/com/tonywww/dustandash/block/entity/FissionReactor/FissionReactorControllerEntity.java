@@ -1,5 +1,6 @@
 package com.tonywww.dustandash.block.entity.FissionReactor;
 
+import com.google.common.collect.Queues;
 import com.tonywww.dustandash.block.entity.BasicMachineEntity;
 import com.tonywww.dustandash.item.FissionReactor.FissionReactorCoolingUnit;
 import com.tonywww.dustandash.item.FissionReactor.FissionReactorFuelUnit;
@@ -12,6 +13,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.StringTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.MenuProvider;
@@ -20,9 +23,9 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
@@ -33,9 +36,12 @@ import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
 
+import java.util.Queue;
+
 import static com.tonywww.dustandash.DustAndAshConfig.*;
 
 public class FissionReactorControllerEntity extends BasicMachineEntity implements MenuProvider {
+
 
     public ItemStackHandler invItemStackHandler;
     public EnergyStorage energyStorage;
@@ -44,11 +50,13 @@ public class FissionReactorControllerEntity extends BasicMachineEntity implement
     protected final ContainerData dataAccess;
 
     public static final int MAX_HEAT = 50000;
-    public static final int MAX_ENERGY = 500000000;
+    public static final int MAX_ENERGY = 2000000000;
     public static final int MAX_RADIUS = 3;
     public static final int MAX_HEIGHT = 7;
     public static final int MAX_NEUTRON = 2048;
-
+    public static final int MAX_TRANSFER = 400000000;
+    public static final String NEUTRON_TAG = "neutron";
+    public static final int MAX_NEUTRON_FOR_ITEM = 1280;
 
     private double heat = 0;
     private int energy = 0;
@@ -58,7 +66,7 @@ public class FissionReactorControllerEntity extends BasicMachineEntity implement
     private int fuelCellCount = 0;
     private int coolingCellCount = 0;
     private int efficiency = 0;
-    private int energyGenerationRate = 0;
+    private int energyGenerationPerWorkTick = 0;
 
     public FissionReactorControllerEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.FISSION_REACTOR_CONTROLLER_ENTITY.get(), pos, state);
@@ -76,7 +84,7 @@ public class FissionReactorControllerEntity extends BasicMachineEntity implement
                         return (int) heat;
                     }
                     case 1 -> {
-                        return energyGenerationRate;
+                        return energyGenerationPerWorkTick;
                     }
                     case 2 -> {
                         return energy;
@@ -111,7 +119,7 @@ public class FissionReactorControllerEntity extends BasicMachineEntity implement
                         break;
 
                     case 1:
-                        energyGenerationRate = val;
+                        energyGenerationPerWorkTick = val;
                         break;
 
                     case 2:
@@ -194,6 +202,7 @@ public class FissionReactorControllerEntity extends BasicMachineEntity implement
                     }
                 }
                 return diff;
+//                return 0;
             }
 
             @Override
@@ -250,7 +259,7 @@ public class FissionReactorControllerEntity extends BasicMachineEntity implement
                                     fissionReactorMaxEfficiency.get() -
                                             ((Math.pow(be.heat - fuelUnit.getIdealHeat(), 2)) / Math.pow(MAX_HEAT, fissionReactorIdealHeatRate.get()))
                             ) * fissionReactorEfficiencyMultiplayer.get() * be.fuelCellCount);
-                            be.neutron += (int) (be.efficiency * fuelUnit.getBaseNeutronRate());
+                            be.neutron += (int) (be.efficiency * fuelUnit.getBaseNeutronRate() * be.tickPerOperation);
 
                             if (fuel.hurt(be.fuelCellCount, level.getRandom(), null)) {
                                 fuel.shrink(1);
@@ -264,20 +273,20 @@ public class FissionReactorControllerEntity extends BasicMachineEntity implement
                             }
 
                         } else {
-                            be.heat = Math.max(0, be.heat - Math.sqrt(be.heat) - 1);
+                            be.heat = Math.min(Math.max(0, be.heat - Math.sqrt(be.heat) - 1), MAX_HEAT);
 
                         }
 
 
                         if (be.neutron > MAX_NEUTRON / 2) {
-                            be.energyGenerationRate = (int) ((be.neutron - (MAX_NEUTRON / 2d)) * fissionReactorNeutronToEnergyRatio.get());
-                            be.energy = Math.min(FissionReactorControllerEntity.MAX_ENERGY, be.energy + be.energyGenerationRate);
+                            be.energyGenerationPerWorkTick = (int) ((be.neutron - (MAX_NEUTRON / 2d)) * fissionReactorNeutronToEnergyRatio.get());
+                            be.energy = Math.min(FissionReactorControllerEntity.MAX_ENERGY, be.energy + be.energyGenerationPerWorkTick);
                             be.neutron = MAX_NEUTRON / 2;
 
                         }
 
-                        be.inventoryChanged();
                         intFace.inventoryChanged();
+                        be.inventoryChanged();
 
                     }
 
@@ -288,6 +297,8 @@ public class FissionReactorControllerEntity extends BasicMachineEntity implement
                 BasicMachineEntity.resetTicker(be);
 
             }
+            be.neutronBombardment();
+            be.distributeEnergy();
 
         }
 
@@ -457,6 +468,54 @@ public class FissionReactorControllerEntity extends BasicMachineEntity implement
         return true;
     }
 
+    private final Queue<Direction> directionQueue = Queues.newArrayDeque(Direction.Plane.HORIZONTAL);
+
+    private void distributeEnergy() {
+        if (this.energy <= 0) {
+            return;
+        }
+        this.directionQueue.offer(this.directionQueue.remove());
+        for (Direction dir : directionQueue) {
+            BlockEntity be = this.getLevel().getBlockEntity(this.getBlockPos().offset(dir.getNormal()));
+            if (be != null) {
+                be.getCapability(ForgeCapabilities.ENERGY, dir.getOpposite()).ifPresent(e -> {
+                    if (e.canReceive()) {
+                        int diff = e.receiveEnergy(Math.min(MAX_TRANSFER, this.energy), false);
+                        if (diff != 0) {
+                            this.energy -= diff;
+                            this.inventoryChanged();
+                        }
+                    }
+                });
+            }
+
+        }
+    }
+
+    void neutronBombardment() {
+        ItemStack stack = this.invItemStackHandler.getStackInSlot(0);
+        if (stack != null && stack.is(ModTags.Items.NEUTRON_CONTAINER)) {
+            if (this.neutron > 0) {
+                CompoundTag compoundtag = stack.getOrCreateTag();
+                int count = compoundtag.getInt(NEUTRON_TAG);
+                if (count < MAX_NEUTRON_FOR_ITEM) {
+                    compoundtag.putInt(NEUTRON_TAG, ++count);
+                    this.neutron--;
+
+                }
+                ListTag lore = new ListTag();
+                CompoundTag display = new CompoundTag();
+                StringTag text = StringTag.valueOf("{\"text\":\"Neutron: " + count + '/' + MAX_NEUTRON_FOR_ITEM + "\"}");
+
+                display.put("Lore", lore);
+                lore.add(text);
+                compoundtag.put("display", display);
+
+            }
+        }
+
+    }
+
     boolean checkBlockPos(Level level, BlockPos pos, Block block) {
         return level.getBlockState(pos).getBlock() == block;
     }
@@ -482,21 +541,21 @@ public class FissionReactorControllerEntity extends BasicMachineEntity implement
 
     @Override
     public void load(CompoundTag compoundNBT) {
-        invItemStackHandler.deserializeNBT(compoundNBT.getCompound("inv"));
+        this.invItemStackHandler.deserializeNBT(compoundNBT.getCompound("inv"));
 
-        heat = compoundNBT.getDouble("heat");
-        energy = compoundNBT.getInt("energy");
-        neutron = compoundNBT.getInt("neutron");
+        this.heat = compoundNBT.getDouble("heat");
+        this.energy = compoundNBT.getInt("energy");
+        this.neutron = compoundNBT.getInt("neutron");
 
         super.load(compoundNBT);
     }
 
     @Override
     public void saveAdditional(CompoundTag compound) {
-        compound.put("inv", invItemStackHandler.serializeNBT());
-        compound.putDouble("heat", heat);
-        compound.putInt("energy", energy);
-        compound.putInt("neutron", neutron);
+        compound.put("inv", this.invItemStackHandler.serializeNBT());
+        compound.putDouble("heat", this.heat);
+        compound.putInt("energy", this.energy);
+        compound.putInt("neutron", this.neutron);
 
         super.saveAdditional(compound);
     }

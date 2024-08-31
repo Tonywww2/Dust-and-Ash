@@ -22,11 +22,11 @@ public class FissionReactorControllerContainerMenu extends AbstractContainerMenu
     private final ContainerLevelAccess canInteractWithCallable;
     private final IItemHandler playerInventory;
 
+    private final ContainerData data;
+
     public ContainerData getData() {
         return data;
     }
-
-    private final ContainerData data;
 
     public FissionReactorControllerContainerMenu(int id, Inventory playerInventory, FissionReactorControllerEntity tileEntity, ContainerData data) {
         super(ModContainerMenus.FISSION_REACTOR_CONTROLLER_CONTAINER.get(), id);
@@ -50,6 +50,43 @@ public class FissionReactorControllerContainerMenu extends AbstractContainerMenu
         }
 
     }
+
+    public int getHeat() {
+        return data.get(0);
+    }
+
+    public int getEGP() {
+        return data.get(1);
+    }
+
+    public int getEnergy() {
+        return data.get(2);
+    }
+
+    public int getRadius() {
+        return data.get(3);
+    }
+
+    public int getHeight() {
+        return data.get(4);
+    }
+
+    public int getNeutron() {
+        return data.get(5);
+    }
+
+    public int getFuelCellCount() {
+        return data.get(6);
+    }
+
+    public int getCoolingCellCount() {
+        return data.get(7);
+    }
+
+    public int getEfficiency() {
+        return data.get(8);
+    }
+
 
     private int addSlotRange(IItemHandler handler, int index, int x, int y, int amount, int dx) {
         for (int i = 0; i < amount; i++) {

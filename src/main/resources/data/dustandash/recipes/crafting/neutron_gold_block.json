@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "type": "forge:nbt",
+      "item": "minecraft:stone",
+      "nbt": "{neutron:1280, display:{Lore:['{\"text\":\"Neutron: 1280/1280\"}']}}"
+    },
+    {
+      "item": "dustandash:electron"
+    }
+  ],
+  "result": {
+    "item": "minecraft:gold_block",
+    "count": 1
+  }
+}

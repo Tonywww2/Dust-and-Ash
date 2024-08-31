@@ -62,6 +62,12 @@ public class ModCreativeModTabs {
                         pOutput.accept(ModItems.BLOODY_FLINT.get());
                         pOutput.accept(ModItems.BLOODY_FLINT_STICK.get());
 
+                        pOutput.accept(ModItems.METAL_GEM.get());
+                        pOutput.accept(ModItems.LIFE_GEM.get());
+                        pOutput.accept(ModItems.ORDER_GEM.get());
+                        pOutput.accept(ModItems.FIRE_GEM.get());
+                        pOutput.accept(ModItems.EARTH_GEM.get());
+
                         pOutput.accept(ModItems.WIND_CRYSTAL.get());
                         pOutput.accept(ModItems.FIRE_CRYSTAL.get());
                         pOutput.accept(ModItems.SILVER_CRYSTAL.get());
@@ -162,6 +168,8 @@ public class ModCreativeModTabs {
                         pOutput.accept(ModItems.CARBON_FIBER_SCRAP.get());
                         pOutput.accept(ModItems.TITANIUM_PLATE_SCRAP.get());
 
+                        pOutput.accept(ModItems.ROCK_SOLID.get());
+                        pOutput.accept(ModItems.INDESTRUCTIBLE.get());
                         pOutput.accept(ModItems.NANO_MACHINE.get());
 
                         pOutput.accept(ModItems.REFINED_URANIUM.get());
@@ -195,6 +203,8 @@ public class ModCreativeModTabs {
                         pOutput.accept(ModBlocks.IONIZER.get());
                         pOutput.accept(ModBlocks.ITEM_SENDER.get());
                         pOutput.accept(ModBlocks.LOG_PILE.get());
+                        pOutput.accept(ModBlocks.SMOOTH_COBBLESTONE.get());
+
                         pOutput.accept(ModBlocks.BLOCK_OF_ASH_STEEL.get());
                         pOutput.accept(ModBlocks.TITANIUM_SAND_BLOCK.get());
                         pOutput.accept(ModBlocks.INTEGRATED_FRAME_1.get());
@@ -203,10 +213,10 @@ public class ModCreativeModTabs {
                         pOutput.accept(ModBlocks.COOLED_MAGMA_BLOCK.get());
                         pOutput.accept(ModBlocks.NETHERITE_MUD.get());
                         pOutput.accept(ModBlocks.COBBLESTONE_WITH_MOSS.get());
+                        pOutput.accept(ModBlocks.STRENGTHENED_CEMENT.get());
 
                         pOutput.accept(ModBlocks.FISSION_REACTOR_CONTROLLER.get());
                         pOutput.accept(ModBlocks.FISSION_REACTOR_CASING.get());
-                        pOutput.accept(ModBlocks.FISSION_REACTOR_CONNECTOR.get());
                         pOutput.accept(ModBlocks.FISSION_REACTOR_COOLING_CELL.get());
                         pOutput.accept(ModBlocks.FISSION_REACTOR_FUEL_CELL.get());
                         pOutput.accept(ModBlocks.FISSION_REACTOR_INTERFACE.get());

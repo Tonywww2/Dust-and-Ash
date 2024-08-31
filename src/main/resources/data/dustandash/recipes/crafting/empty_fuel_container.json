@@ -1,7 +1,7 @@
 {
     "type": "minecraft:crafting_shaped",
     "pattern": [
-        "A A",
+        "ACA",
         "BBB",
         "ABA"
     ],
@@ -11,10 +11,13 @@
         },
         "B": {
             "item": "minecraft:iron_bars"
+        },
+        "C": {
+            "tag": "forge:glass"
         }
     },
     "result": {
         "item": "dustandash:empty_fuel_container",
-        "count": 2
+        "count": 1
     }
 }
