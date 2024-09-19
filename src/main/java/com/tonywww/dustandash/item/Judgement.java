@@ -28,8 +28,8 @@ import java.util.function.Consumer;
 public class Judgement extends PickaxeItem implements GeoItem {
 
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
-    private final int MAX_CD = 200;
-    private final int MAX_DURATION = 100;
+    private final int MAX_CD = 300;
+    private final int MAX_DURATION = 80;
 
     public Judgement(Tier pTier, int pAttackDamageModifier, float pAttackSpeedModifier, Properties pProperties) {
         super(pTier, pAttackDamageModifier, pAttackSpeedModifier, pProperties);
@@ -66,15 +66,16 @@ public class Judgement extends PickaxeItem implements GeoItem {
                 int cd = MAX_CD;
 
                 if (usedTick < MAX_DURATION * 0.3) {
-                    cd -= MAX_CD * 0.2;
+                    cd -= (int) (MAX_CD * 0.2);
                 }
                 if (usedTick < MAX_DURATION * 0.5) {
-                    cd -= MAX_CD * 0.15;
+                    cd -= (int) (MAX_CD * 0.15);
                 }
                 if (usedTick < MAX_DURATION * 0.7) {
-                    cd -= MAX_CD * 0.1;
+                    cd -= (int) (MAX_CD * 0.1);
                 }
 
+                player.removeEffect(MobEffects.ABSORPTION);
                 player.getCooldowns().addCooldown(this, cd);
 
             }

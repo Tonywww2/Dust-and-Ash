@@ -90,10 +90,6 @@ public class IntegratedBlockEntity extends BasicMachineEntity implements MenuPro
 
     }
 
-    public int getCurrentLevel() {
-        return currentLevel;
-    }
-
     private ItemStackHandler createHandler() {
         return new ItemStackHandler(8) {
             @Override

@@ -77,8 +77,8 @@ public final class DustAndAshConfig {
         fissionReactorEfficiencyMultiplayer = BUILDER.comment("\nThe Efficiency Multiplayer of Fission Reactor. Range[0.1, 1000000] Default: 10")
                 .defineInRange("fissionReactorEfficiencyMultiplayer", 10d, 0.1d, 1000000d);
 
-        fissionReactorNeutronToEnergyRatio = BUILDER.comment("\nThe Neutron To EnergyRatio of Fission Reactor. Range[0.1, 1000000] Default: 275")
-                .defineInRange("fissionReactorNeutronToEnergyRatio", 275d, 0.1d, 1000000d);
+        fissionReactorNeutronToEnergyRatio = BUILDER.comment("\nThe Neutron To EnergyRatio of Fission Reactor. Range[0.1, 1000000] Default: 75")
+                .defineInRange("fissionReactorNeutronToEnergyRatio", 75d, 0.1d, 1000000d);
 
         fissionReactorIdealHeatRate = BUILDER.comment("\nThe Ideal Heat Rate of Fission Reactor. Range[0.1, 2] Default: 0.75")
                 .defineInRange("fissionReactorIdealHeatRate", 0.75d, 0.1d, 2d);

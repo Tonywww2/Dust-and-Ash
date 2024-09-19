@@ -3,7 +3,7 @@
   "tick": 100,
   "ingredients": [
     {
-      "item": "dustandash:ash"
+      "tag": "forge:ash"
     },
     {
       "item": "dustandash:glass_container"

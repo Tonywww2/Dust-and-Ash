@@ -222,8 +222,8 @@ public class ItemSenderEntity extends BasicMachineEntity implements MenuProvider
                                     ItemStack targetStack = container.getItem(targetSlot);
 
                                     if (container.canPlaceItem(targetSlot, thisStack) ||
-                                            (container instanceof WorldlyContainer worldlyContainer)
-                                                    && worldlyContainer.canPlaceItemThroughFace(targetSlot, thisStack, null)) {
+                                            (container instanceof WorldlyContainer worldlyContainer
+                                                    && worldlyContainer.canPlaceItemThroughFace(targetSlot, thisStack, null))) {
                                         if (targetStack.isEmpty()) {
                                             container.setItem(targetSlot, thisStack.split(1));
 

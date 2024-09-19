@@ -6,6 +6,35 @@
     {
       "type": "patchouli:crafting",
       "recipe": "dustandash:crafting/integrated_block"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Integrated Block allows you to make new materials. $(br)All recipes are shaped. $(br)The required Tier of the recipe is shown by different frames in JEI/REI."
+    },
+    {
+      "type": "patchouli:image",
+      "title" : "Tier 1",
+      "images": ["dustandash:patchouli_books/dustandash_guide_book/imgs/integrated_block_1.png"],
+      "text": "Tier 1 substructure of Integrated Block"
+    },
+    {
+      "type": "patchouli:image",
+      "title" : "Tier 2",
+      "images": ["dustandash:patchouli_books/dustandash_guide_book/imgs/integrated_block_2.png"],
+      "text": "Tier 2 substructure of Integrated Block"
+    },
+    {
+      "type": "patchouli:image",
+      "title" : "Tier 3",
+      "images": ["dustandash:patchouli_books/dustandash_guide_book/imgs/integrated_block_3.png"],
+      "text": "Tier 3 substructure of Integrated Block"
+    }
+  ,
+    {
+      "type": "patchouli:image",
+      "title" : "Beacon infusion",
+      "images": ["dustandash:patchouli_books/dustandash_guide_book/imgs/integrated_block_b.png"],
+      "text": "An Integrated Block with beacon, it will double the output. $(br)Available with any Tier."
     }
   ]
 }

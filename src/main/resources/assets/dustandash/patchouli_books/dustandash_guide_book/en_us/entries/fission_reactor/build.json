@@ -20,13 +20,6 @@
       "title" : "Example 1",
       "images": ["dustandash:patchouli_books/dustandash_guide_book/imgs/fr_example1.png"],
       "text": "An example of a 2*5 Reactor"
-    },
-    {
-      "type": "patchouli:image",
-      "title" : "Example 2",
-      "images": ["dustandash:patchouli_books/dustandash_guide_book/imgs/fr_example2.png"],
-      "text": "An example of a 1*4 Reactor"
     }
-
   ]
 }
