@@ -54,7 +54,7 @@ public class WhiteLightning extends SwordItem {
             boolean lightningFlag = false;
             float targetHealth = 0;
 
-            System.out.println(entity.getClass());
+//            System.out.println(entity.getClass());
 
             // normal mode
             if (player.getAttackStrengthScale(0.2f) >= 1) {
@@ -68,6 +68,17 @@ public class WhiteLightning extends SwordItem {
 
                 } else {
                     setAttackCounts(stack, getAttackCounts(stack) + 1);
+                    ((ServerLevel) level).sendParticles(
+                            PARTICLE_BLUE,
+                            entity.getX(),
+                            entity.getY() + 0.5d,
+                            entity.getZ(),
+                            2,
+                            0.5d,
+                            0.5d,
+                            0.5d,
+                            0
+                    );
 
                 }
                 if (getAdvCharges(stack) > 0) {
@@ -91,7 +102,7 @@ public class WhiteLightning extends SwordItem {
                             entity.getX(),
                             entity.getY() + 0.5d,
                             entity.getZ(),
-                            5,
+                            7,
                             0.5d,
                             0.5d,
                             0.5d,
@@ -120,7 +131,7 @@ public class WhiteLightning extends SwordItem {
             }
 
             if (lightningFlag) {
-                List<LivingEntity> entities = level.getEntitiesOfClass(LivingEntity.class, getArea(entity.blockPosition(), (int) 1), VALID_ENTITY);
+                List<LivingEntity> entities = level.getEntitiesOfClass(LivingEntity.class, getArea(entity.blockPosition(),  1), VALID_ENTITY);
                 hurtAllEntities(entities, player.damageSources().indirectMagic(entity, player), 5);
                 level.playSound(null, entity.blockPosition(), SoundEvents.LIGHTNING_BOLT_IMPACT, SoundSource.PLAYERS, 1f, 1f);
                 ((ServerLevel) level).sendParticles(

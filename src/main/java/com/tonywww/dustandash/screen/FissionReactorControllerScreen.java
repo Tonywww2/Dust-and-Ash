@@ -85,11 +85,6 @@ public class FissionReactorControllerScreen extends AbstractContainerScreen<Fiss
         guiGraphics.drawString(this.font, Component.literal(String.valueOf(this.menu.getCoolingCellCount())),
                 68, 65, 2550255, false);
 
-        guiGraphics.drawString(this.font, Component.translatable("screen.dustandash.fission_reactor_controller_energy_rate"),
-                5, 77, 4210752, false);
-        guiGraphics.drawString(this.font, Component.literal(String.valueOf(this.menu.getEGP())),
-                68, 77, 2550255, false);
-
         guiGraphics.drawString(this.font, Component.translatable("screen.dustandash.fission_reactor_controller_radius"),
                 101, 41, 4210752, false);
         guiGraphics.drawString(this.font, Component.literal(String.valueOf(this.menu.getRadius())),

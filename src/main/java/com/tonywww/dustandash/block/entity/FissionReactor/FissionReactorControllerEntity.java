@@ -84,28 +84,22 @@ public class FissionReactorControllerEntity extends BasicMachineEntity implement
                         return (int) heat;
                     }
                     case 1 -> {
-                        return energyGenerationPerWorkTick;
+                        return efficiency;
                     }
                     case 2 -> {
-                        return energy;
-                    }
-                    case 3 -> {
                         return radius;
                     }
-                    case 4 -> {
+                    case 3 -> {
                         return height;
                     }
-                    case 5 -> {
+                    case 4 -> {
                         return neutron;
                     }
-                    case 6 -> {
+                    case 5 -> {
                         return fuelCellCount;
                     }
-                    case 7 -> {
+                    case 6 -> {
                         return coolingCellCount;
-                    }
-                    case 8 -> {
-                        return efficiency;
                     }
                 }
                 return Integer.MIN_VALUE;
@@ -119,35 +113,27 @@ public class FissionReactorControllerEntity extends BasicMachineEntity implement
                         break;
 
                     case 1:
-                        energyGenerationPerWorkTick = val;
+                        efficiency = val;
                         break;
 
                     case 2:
-                        energy = val;
-                        break;
-
-                    case 3:
                         radius = val;
                         break;
 
-                    case 4:
+                    case 3:
                         height = val;
                         break;
 
-                    case 5:
+                    case 4:
                         neutron = val;
                         break;
 
-                    case 6:
+                    case 5:
                         fuelCellCount = val;
                         break;
 
-                    case 7:
+                    case 6:
                         coolingCellCount = val;
-                        break;
-
-                    case 8:
-                        efficiency = val;
                         break;
 
                 }
@@ -156,7 +142,7 @@ public class FissionReactorControllerEntity extends BasicMachineEntity implement
 
             @Override
             public int getCount() {
-                return 9;
+                return 8;
             }
         };
 

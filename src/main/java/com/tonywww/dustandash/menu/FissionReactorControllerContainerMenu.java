@@ -55,36 +55,36 @@ public class FissionReactorControllerContainerMenu extends AbstractContainerMenu
         return data.get(0);
     }
 
-    public int getEGP() {
-        return data.get(1);
-    }
+//    public int getEGP() {
+//        return data.get(1);
+//    }
 
     public int getEnergy() {
-        return data.get(2);
+        return tileEntity.energyStorage.getEnergyStored();
     }
 
     public int getRadius() {
-        return data.get(3);
+        return data.get(2);
     }
 
     public int getHeight() {
-        return data.get(4);
+        return data.get(3);
     }
 
     public int getNeutron() {
-        return data.get(5);
+        return data.get(4);
     }
 
     public int getFuelCellCount() {
-        return data.get(6);
+        return data.get(5);
     }
 
     public int getCoolingCellCount() {
-        return data.get(7);
+        return data.get(6);
     }
 
     public int getEfficiency() {
-        return data.get(8);
+        return data.get(1);
     }
 
 
@@ -117,7 +117,7 @@ public class FissionReactorControllerContainerMenu extends AbstractContainerMenu
     public FissionReactorControllerContainerMenu(final int id,
                                    final Inventory playerInventory,
                                    final FriendlyByteBuf data) {
-        this(id, playerInventory, getTileEntity(playerInventory, data),  new SimpleContainerData(9));
+        this(id, playerInventory, getTileEntity(playerInventory, data),  new SimpleContainerData(7));
 
     }
 

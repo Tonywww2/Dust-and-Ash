@@ -1,6 +1,5 @@
 package com.tonywww.dustandash.item;
 
-import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -55,7 +54,7 @@ public class SunburnMegaSword extends SwordItem {
                 );
                 explosion.explode();
                 entity.invulnerableTime = 0;
-                player.getCooldowns().addCooldown(this, 40);
+                player.getCooldowns().addCooldown(this, 35);
 
             }
         }

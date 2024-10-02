@@ -132,7 +132,7 @@ public class ModItems {
             ));
 
     public static final RegistryObject<Item> ROTTEN_BLADE = ITEMS.register("rotten_blade",
-            () -> new RottenBlade(ModItemTier.TITANIUM_ALLOY, 7, -2.2F,
+            () -> new RottenBlade(ModItemTier.TITANIUM_ALLOY, 6, -2.0F,
                     (new Item.Properties()
                             .fireResistant())
             ));
