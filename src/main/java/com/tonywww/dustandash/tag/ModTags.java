@@ -36,6 +36,8 @@ public class ModTags {
         public static final TagKey<Item> NANO_BLACKLIST = createTag("nano_blacklist");
         public static final TagKey<Item> NEUTRON_CONTAINER = createTag("neutron_container");
 
+        public static final TagKey<Item> ASH = createForgeTag("ash");
+
         private static TagKey<Item> createTag(String name) {
 
             return ItemTags.create(new ResourceLocation(DustAndAsh.MOD_ID, name));

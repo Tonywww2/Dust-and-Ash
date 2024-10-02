@@ -47,9 +47,7 @@ public class FissionReactorInterfaceEntity extends SyncedBlockEntity implements 
             @Override
             public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
                 return (slot == 0 && stack.getItem() instanceof FissionReactorFuelUnit)
-                        || (slot == 1 && stack.getItem() instanceof FissionReactorCoolingUnit)
-                        || slot == 2
-                        || slot == 3;
+                        || (slot == 1 && stack.getItem() instanceof FissionReactorCoolingUnit);
             }
 
             @Override

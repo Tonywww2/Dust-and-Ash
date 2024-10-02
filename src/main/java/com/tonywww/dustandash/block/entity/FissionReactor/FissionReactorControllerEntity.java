@@ -53,7 +53,7 @@ public class FissionReactorControllerEntity extends BasicMachineEntity implement
     public static final int MAX_ENERGY = 2000000000;
     public static final int MAX_RADIUS = 3;
     public static final int MAX_HEIGHT = 7;
-    public static final int MAX_NEUTRON = 2048;
+    public static final int MAX_NEUTRON = 4096;
     public static final int MAX_TRANSFER = 400000000;
     public static final String NEUTRON_TAG = "neutron";
     public static final int MAX_NEUTRON_FOR_ITEM = 1280;
@@ -249,13 +249,22 @@ public class FissionReactorControllerEntity extends BasicMachineEntity implement
 
                             if (fuel.hurt(be.fuelCellCount, level.getRandom(), null)) {
                                 fuel.shrink(1);
-                                intFace.itemStackHandler.insertItem(2, new ItemStack(ModItems.EMPTY_FUEL_CONTAINER.get()), false).isEmpty();
+                                if (intFace.itemStackHandler.getStackInSlot(2).is(ModItems.EMPTY_FUEL_CONTAINER.get())) {
+                                    intFace.itemStackHandler.getStackInSlot(2).grow(1);
+
+                                } else {
+                                    intFace.itemStackHandler.setStackInSlot(2, new ItemStack(ModItems.EMPTY_FUEL_CONTAINER.get()));
+                                }
 
                             }
                             if (!cool.isEmpty() && cool.hurt(be.coolingCellCount, level.getRandom(), null)) {
                                 cool.shrink(1);
-                                intFace.itemStackHandler.insertItem(3, new ItemStack(ModItems.EMPTY_FUEL_CONTAINER.get()), false).isEmpty();
+                                if (intFace.itemStackHandler.getStackInSlot(3).is(ModItems.EMPTY_FUEL_CONTAINER.get())) {
+                                    intFace.itemStackHandler.getStackInSlot(3).grow(1);
 
+                                } else {
+                                    intFace.itemStackHandler.setStackInSlot(2, new ItemStack(ModItems.EMPTY_FUEL_CONTAINER.get()));
+                                }
                             }
 
                         } else {
@@ -265,9 +274,11 @@ public class FissionReactorControllerEntity extends BasicMachineEntity implement
 
 
                         if (be.neutron > MAX_NEUTRON / 2) {
-                            be.energyGenerationPerWorkTick = (int) ((be.neutron - (MAX_NEUTRON / 2d)) * fissionReactorNeutronToEnergyRatio.get());
+                            int usedNeutron = be.neutron - (MAX_NEUTRON / 2);
+                            be.neutron -= usedNeutron;
+
+                            be.energyGenerationPerWorkTick = (int) (usedNeutron * fissionReactorNeutronToEnergyRatio.get());
                             be.energy = Math.min(FissionReactorControllerEntity.MAX_ENERGY, be.energy + be.energyGenerationPerWorkTick);
-                            be.neutron = MAX_NEUTRON / 2;
 
                         }
 

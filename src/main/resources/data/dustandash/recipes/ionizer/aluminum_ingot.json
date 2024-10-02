@@ -29,7 +29,7 @@
       "item": "dustandash:empty"
     },
     {
-      "item": "dustandash:ash"
+      "tag": "forge:ash"
     }
   ],
   "cost": 1,

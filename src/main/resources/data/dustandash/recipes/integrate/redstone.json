@@ -9,13 +9,13 @@
       "item": "dustandash:order_dust"
     },
     {
-      "item": "dustandash:ash"
+      "tag": "forge:ash"
     },
     {
       "item": "dustandash:dust_with_energy"
     },
     {
-      "item": "dustandash:ash"
+      "tag": "forge:ash"
     }
   ],
   "output" : {

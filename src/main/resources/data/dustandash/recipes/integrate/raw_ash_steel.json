@@ -18,13 +18,13 @@
       "item": "minecraft:iron_ingot"
     },
     {
-      "item": "dustandash:ash"
+      "tag": "forge:ash"
     },
     {
       "item": "minecraft:iron_ingot"
     },
     {
-      "item": "dustandash:ash"
+      "tag": "forge:ash"
     }
   ],
   "output" : {

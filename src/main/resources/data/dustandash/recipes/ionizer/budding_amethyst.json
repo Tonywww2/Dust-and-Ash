@@ -23,7 +23,7 @@
       "item": "minecraft:budding_amethyst"
     },
     {
-      "item": "dustandash:ash"
+      "tag": "forge:ash"
     },
     {
       "item": "minecraft:quartz"
