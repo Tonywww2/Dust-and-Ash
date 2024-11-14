@@ -1,6 +1,28 @@
 {
-  "parent": "minecraft:item/handheld",
-  "textures": {
-    "layer0": "dustandash:item/rotten_blade"
-  }
+	"credit": "Made with Blockbench",
+	"parent": "minecraft:item/handheld",
+	"textures": {
+		"layer0": "dustandash:item/rotten_blade"
+	},
+	"display": {
+		"thirdperson_righthand": {
+			"rotation": [-45, -90, 0],
+			"translation": [0, 9.25, 1.75],
+			"scale": [1.5, 1.5, 1.5]
+		},
+		"firstperson_righthand": {
+			"rotation": [-150, -90, -90],
+			"translation": [0, 7.5, -1.5],
+			"scale": [1.5, 1.5, 1.5]
+		},
+		"ground": {
+			"scale": [1.5, 1.5, 1.5]
+		},
+		"gui": {
+			"scale": [1.5, 1.5, 1.5]
+		},
+		"fixed": {
+			"scale": [1.5, 1.5, 1.5]
+		}
+	}
 }

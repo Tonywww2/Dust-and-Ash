@@ -29,8 +29,9 @@ public class Indestructible extends Item {
         if (!level.isClientSide) {
             player.getCooldowns().addCooldown(this, DustAndAshConfig.indestructibleCD.get());
             player.getCooldowns().addCooldown(ModItems.ROCK_SOLID.get(), DustAndAshConfig.rockSolidCD.get());
-            player.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 160, 4));
+            player.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 120, 5));
             player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 160, 3));
+            player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60, 0));
 
             level.playSound(null, player.blockPosition(), SoundEvents.TOTEM_USE, SoundSource.PLAYERS, 1f, 1f);
 

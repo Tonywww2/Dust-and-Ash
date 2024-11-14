@@ -214,6 +214,7 @@ public class ModCreativeModTabs {
                         pOutput.accept(ModBlocks.NETHERITE_MUD.get());
                         pOutput.accept(ModBlocks.COBBLESTONE_WITH_MOSS.get());
                         pOutput.accept(ModBlocks.STRENGTHENED_CEMENT.get());
+                        pOutput.accept(ModBlocks.BRACKET.get());
 
                         pOutput.accept(ModBlocks.FISSION_REACTOR_CONTROLLER.get());
                         pOutput.accept(ModBlocks.FISSION_REACTOR_CASING.get());

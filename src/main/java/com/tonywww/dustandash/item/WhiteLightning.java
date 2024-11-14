@@ -32,8 +32,6 @@ public class WhiteLightning extends SwordItem {
     private static final String ATTACK_COUNTS = "attack_counts";
     private static final String CHARGES_TAG = "charges";
     private static final String ADVANCED_CHARGES_TAG = "advanced_charges";
-    private static final String EXTRA_DAMAGE_TAG = "extra_damage";
-    private static final String EXTRA_PERCENTAGE_TAG = "extra_percentage";
 
     private static final int MAX_CHARGE = 16;
     private static final int ADVANCED_MAX_CHARGE = 10;
@@ -73,7 +71,7 @@ public class WhiteLightning extends SwordItem {
                             entity.getX(),
                             entity.getY() + 0.5d,
                             entity.getZ(),
-                            2,
+                            4,
                             0.5d,
                             0.5d,
                             0.5d,
@@ -137,12 +135,12 @@ public class WhiteLightning extends SwordItem {
                 ((ServerLevel) level).sendParticles(
                         ParticleTypes.SONIC_BOOM,
                         entity.getX(),
-                        entity.getY() + 1.0d,
+                        entity.getY() + 1.25d,
                         entity.getZ(),
-                        16,
-                        0.25,
-                        0.25,
-                        0.25,
+                        8,
+                        0.75,
+                        0.75,
+                        0.75,
                         10
                 );
 
@@ -151,8 +149,7 @@ public class WhiteLightning extends SwordItem {
         }
 
 
-        boolean result = super.onLeftClickEntity(stack, player, entity);
-        return result;
+        return super.onLeftClickEntity(stack, player, entity);
     }
 
     @Override

@@ -29,8 +29,9 @@ public class RockSolid extends Item {
         if (!level.isClientSide) {
             player.getCooldowns().addCooldown(this, DustAndAshConfig.rockSolidCD.get());
             player.getCooldowns().addCooldown(ModItems.INDESTRUCTIBLE.get(), DustAndAshConfig.indestructibleCD.get());
-            player.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 100, 2));
-            player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 100, 0));
+            player.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 100, 3));
+            player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 120, 0));
+            player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 80, 1));
 
             level.playSound(null, player.blockPosition(), SoundEvents.SHIELD_BLOCK, SoundSource.PLAYERS, 1f, 1f);
 

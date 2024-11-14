@@ -20,11 +20,14 @@
       "item": "dustandash:redstone_scrap"
     },
     {
-      "item": "dustandash:crystallize_dust"
+      "item": "dustandash:redstone_scrap"
+    },
+    {
+      "item": "dustandash:redstone_scrap"
     }
   ],
   "result": {
     "item": "minecraft:redstone",
-    "count": 2
+    "count": 1
   }
 }

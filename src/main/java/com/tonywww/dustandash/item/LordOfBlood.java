@@ -315,7 +315,7 @@ public class LordOfBlood extends SwordItem implements GeoItem {
 
     @Override
     public int getUseDuration(ItemStack stack) {
-        return 40;
+        return 30;
     }
 
     @Override

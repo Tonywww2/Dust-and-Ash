@@ -26,11 +26,11 @@
       "item": "dustandash:ash_steel_scrap"
     },
     {
-      "item": "dustandash:crystallize_dust"
+      "item": "dustandash:ash_steel_scrap"
     }
   ],
   "result": {
-    "item": "dustandash:ash_steel_ingot",
+    "item": "dustandash:raw_ash_steel",
     "count": 1
   }
 }

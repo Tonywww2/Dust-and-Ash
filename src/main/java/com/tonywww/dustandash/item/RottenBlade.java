@@ -1,40 +1,143 @@
 package com.tonywww.dustandash.item;
 
-import com.tonywww.dustandash.block.entity.FissionReactor.FissionReactorControllerEntity;
-import net.minecraft.core.BlockPos;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.InteractionResult;
+import net.minecraft.core.particles.DustParticleOptions;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.Tier;
-import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
+import net.minecraft.world.phys.AABB;
+import org.joml.Vector3f;
 
-import java.util.Objects;
+import static com.tonywww.dustandash.DustAndAshConfig.*;
 
 public class RottenBlade extends SwordItem {
+
+    private static String[] ENTITIES;
+
+    public int entitiesSize = 6;
+
+    private static final DustParticleOptions PARTICLE_GREEN = new DustParticleOptions(new Vector3f(0, 1f, 0f), 2.0F);
+
+
     public RottenBlade(Tier pTier, int pAttackDamageModifier, float pAttackSpeedModifier, Properties pProperties) {
         super(pTier, pAttackDamageModifier, pAttackSpeedModifier, pProperties);
+        ENTITIES = new String[entitiesSize];
+        for (int i = 0; i < ENTITIES.length; i++) {
+            ENTITIES[i] = "e" + i;
+        }
     }
 
     @Override
-    public InteractionResult onItemUseFirst(ItemStack stack, UseOnContext context) {
-        Level world = context.getLevel();
+    public boolean onLeftClickEntity(ItemStack stack, Player player, Entity entity) {
+        Level world = player.level();
 
         if (!world.isClientSide) {
-            BlockPos blockPos = context.getClickedPos();
-            Player playerEntity = Objects.requireNonNull(context.getPlayer());
+            if (player.getAttackStrengthScale(0.2f) >= 1) {
+                ServerLevel serverWorld = (ServerLevel) world;
+                CompoundTag tag = stack.getOrCreateTag();
 
-            if (world.getBlockEntity(blockPos) instanceof FissionReactorControllerEntity fissionReactorControllerEntity) {
-                fissionReactorControllerEntity.getCapability(ForgeCapabilities.ENERGY, context.getClickedFace()).ifPresent( e -> {
-                    playerEntity.sendSystemMessage(Component.literal(String.valueOf(e.getEnergyStored())));
+                damageEntityByUUID(player, serverWorld, tag, rottenBladeExtraDamage.get().floatValue());
 
-                });
+                tag.putUUID(ENTITIES[0], entity.getUUID());
+
             }
 
         }
-        return super.onItemUseFirst(stack, context);
+
+        return super.onLeftClickEntity(stack, player, entity);
+    }
+
+    @Override
+    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+
+        if (!level.isClientSide) {
+            ItemStack stack = player.getItemInHand(hand);
+            ServerLevel serverWorld = (ServerLevel) level;
+
+            if (player.isShiftKeyDown()) {
+                AABB region = new AABB(player.blockPosition().north(rottenBladeRadius.get()).east(rottenBladeRadius.get()).above(rottenBladeHeight.get()),
+                        player.blockPosition().south(rottenBladeRadius.get()).west(rottenBladeRadius.get()).below(rottenBladeHeight.get()));
+
+                for (LivingEntity i : serverWorld.getEntitiesOfClass(LivingEntity.class, region)) {
+                    if (i == player) {
+                        i.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 40, 0));
+                        i.addEffect(new MobEffectInstance(MobEffects.POISON, 60, 1));
+                        continue;
+                    }
+                    i.hurt(player.damageSources().indirectMagic(i, player), 8);
+                    i.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 40, 0));
+                    i.addEffect(new MobEffectInstance(MobEffects.WITHER, 80, 3));
+
+                    serverWorld.sendParticles(
+                            PARTICLE_GREEN,
+                            i.getX(),
+                            i.getY() + 0.5d,
+                            i.getZ(),
+                            3,
+                            0.75d,
+                            0.75d,
+                            0.75d,
+                            0
+                    );
+
+                }
+
+                player.getCooldowns().addCooldown(this, 200);
+
+            } else {
+                player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 60, 2));
+                damageEntityByUUID(player, serverWorld, stack.getOrCreateTag(), rottenBladeExtraDamage.get().floatValue() / 2);
+                player.hurt(player.damageSources().indirectMagic(player, player), 3);
+                player.getCooldowns().addCooldown(this, 60);
+
+            }
+
+
+        }
+
+        return super.use(level, player, hand);
+    }
+
+    private void damageEntityByUUID(Player player, ServerLevel serverWorld, CompoundTag tag, float damage) {
+        for (String entityTag : ENTITIES) {
+            if (tag.contains(entityTag)) {
+                Entity entity = serverWorld.getEntity(tag.getUUID(entityTag));
+
+                if (entity != null) {
+                    entity.invulnerableTime = 0;
+                    entity.hurt(player.damageSources().outOfBorder(), damage);
+
+                    serverWorld.sendParticles(
+                            PARTICLE_GREEN,
+                            entity.getX(),
+                            entity.getY() + 0.5d,
+                            entity.getZ(),
+                            6,
+                            0.75d,
+                            0.75d,
+                            0.75d,
+                            0
+                    );
+
+                }
+            }
+
+        }
+
+        for (int i = ENTITIES.length - 1; i > 0; i--) {
+            if (tag.contains(ENTITIES[i - 1])) {
+                tag.putUUID(ENTITIES[i], tag.getUUID(ENTITIES[i - 1]));
+
+            }
+        }
     }
 }

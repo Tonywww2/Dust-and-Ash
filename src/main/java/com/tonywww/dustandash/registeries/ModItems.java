@@ -114,7 +114,7 @@ public class ModItems {
             ));
 
     public static final RegistryObject<Item> SUNBURN_MEGA_SWORD = ITEMS.register("sunburn_mega_sword",
-            () -> new SunburnMegaSword(ModItemTier.TITANIUM_ALLOY, 9, -3.1F,
+            () -> new SunburnMegaSword(ModItemTier.TITANIUM_ALLOY, 10, -3.1F,
                     (new Item.Properties()
                             .fireResistant())
             ));
@@ -132,7 +132,7 @@ public class ModItems {
             ));
 
     public static final RegistryObject<Item> ROTTEN_BLADE = ITEMS.register("rotten_blade",
-            () -> new RottenBlade(ModItemTier.TITANIUM_ALLOY, 6, -2.0F,
+            () -> new RottenBlade(ModItemTier.TITANIUM_ALLOY, 5, -2.0F,
                     (new Item.Properties()
                             .fireResistant())
             ));

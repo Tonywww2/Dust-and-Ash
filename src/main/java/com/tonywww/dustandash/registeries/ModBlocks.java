@@ -168,6 +168,13 @@ public class ModBlocks {
                     .noOcclusion()
             ));
 
+    public static final RegistryObject<Block> BRACKET = registerBlocks("bracket",
+            () -> new Bracket(BlockBehaviour.Properties
+                    .copy(Blocks.IRON_BLOCK)
+                    .strength(2f, 4f)
+                    .noOcclusion()
+            ));
+
     // Fission Reactor
     public static final RegistryObject<Block> FISSION_REACTOR_CONTROLLER = registerBlocks("fission_reactor_controller",
             () -> new FissionReactorController(BlockBehaviour.Properties
