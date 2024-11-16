@@ -182,11 +182,6 @@ public class ItemSenderEntity extends BasicMachineEntity implements MenuProvider
         return targetSlots;
     }
 
-    @Nullable
-    public BlockPos getTargetPos() {
-        return targetPos;
-    }
-
     private static BlockPos arrToBlockPos(int[] arr) {
         return new BlockPos(arr[0], arr[1], arr[2]);
     }
@@ -246,7 +241,7 @@ public class ItemSenderEntity extends BasicMachineEntity implements MenuProvider
 
                             for (int i = 0; i < 4; i++) {
                                 int targetSlot = be.targetSlots[i];
-                                if (targetSlot < handler.getSlots()) {
+                                if (targetSlot >= 0 && targetSlot < handler.getSlots()) {
                                     ItemStack thisStack = be.invItemStackHandler.getStackInSlot(i + 1);
                                     ItemStack targetStack = handler.getStackInSlot(targetSlot);
 
