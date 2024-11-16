@@ -33,7 +33,10 @@ public class IntegratedBlockContainerMenu extends AbstractContainerMenu {
 
         this.data = data;
 
+        // 36: 0-35
         layoutPlayerInventorySlots(8, 86);
+
+        // 8: 36-43
 
         if (tileEntity != null) {
             tileEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(h -> {
@@ -51,7 +54,6 @@ public class IntegratedBlockContainerMenu extends AbstractContainerMenu {
 
             });
         }
-
 
     }
 
@@ -162,5 +164,9 @@ public class IntegratedBlockContainerMenu extends AbstractContainerMenu {
         }
         sourceSlot.onTake(playerIn, sourceStack);
         return copyOfSourceStack;
+    }
+
+    public BlockEntity getTileEntity() {
+        return tileEntity;
     }
 }

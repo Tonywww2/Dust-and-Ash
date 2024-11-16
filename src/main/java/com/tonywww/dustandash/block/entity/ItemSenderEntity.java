@@ -218,7 +218,7 @@ public class ItemSenderEntity extends BasicMachineEntity implements MenuProvider
                             ItemStack thisStack = be.invItemStackHandler.getStackInSlot(i + 1);
 
                             if (!thisStack.is(ModItems.PLACEHOLDER.get())) {
-                                if (container.getContainerSize() > targetSlot) {
+                                if (targetSlot >= 0 && container.getContainerSize() > targetSlot) {
                                     ItemStack targetStack = container.getItem(targetSlot);
 
                                     if (container.canPlaceItem(targetSlot, thisStack) ||

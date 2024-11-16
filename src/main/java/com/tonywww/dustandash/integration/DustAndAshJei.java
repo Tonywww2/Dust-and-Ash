@@ -71,26 +71,6 @@ public class DustAndAshJei implements IModPlugin {
 
         registration.addRecipes(DustAndAshRecipeTypes.IONIZER,
                 rm.getAllRecipesFor(IonizerRecipe.IonizerRecipeType.INSTANCE).stream().toList());
-
-//        registration.addRecipes(rm.getRecipes().stream()
-//                        .filter(r -> r instanceof IntegratedBlockRecipe).collect(Collectors.toList()),
-//                IntegratedBlockRecipeCategory.UID
-//        );
-//
-//        registration.addRecipes(rm.getRecipes().stream()
-//                        .filter(r -> r instanceof MillingMachineRecipe).collect(Collectors.toList()),
-//                MillingRecipeCategory.UID
-//        );
-//
-//        registration.addRecipes(rm.getRecipes().stream()
-//                        .filter(r -> r instanceof CentrifugeRecipe).collect(Collectors.toList()),
-//                CentrifugeRecipeCategory.UID
-//        );
-//
-//        registration.addRecipes(rm.getRecipes().stream()
-//                        .filter(r -> r instanceof IonizerRecipe).collect(Collectors.toList()),
-//                IonizerCategory.UID
-//        );
     }
 
     @Override
@@ -135,6 +115,5 @@ public class DustAndAshJei implements IModPlugin {
         registration.addRecipeTransferHandler(IntegratedBlockContainerMenu.class, ModContainerMenus.INTEGRATED_BLOCK_CONTAINER.get(), DustAndAshRecipeTypes.INTEGRATE, 36, 8, 0, 36);
 
     }
-
 
 }

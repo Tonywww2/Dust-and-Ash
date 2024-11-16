@@ -3,7 +3,6 @@ package com.tonywww.dustandash.integration.jei;
 import com.tonywww.dustandash.DustAndAsh;
 import com.tonywww.dustandash.registeries.ModBlocks;
 import com.tonywww.dustandash.data.recipes.IonizerRecipe;
-import com.tonywww.dustandash.integration.DustAndAshRecipeTypes;
 import com.tonywww.dustandash.registeries.ModItems;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
@@ -23,12 +22,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.LiquidBlock;
 
-import java.util.Arrays;
-
-
 public class IonizerCategory implements IRecipeCategory<IonizerRecipe> {
 
-    public final static ResourceLocation UID = new ResourceLocation(DustAndAsh.MOD_ID, "ionizer");
+    public static final RecipeType<IonizerRecipe> RECIPE_TYPE = RecipeType.create(DustAndAsh.MOD_ID, "ionizer", IonizerRecipe.class);
     public final static ResourceLocation TEXTURE = new ResourceLocation(DustAndAsh.MOD_ID, "textures/gui/ionizer_gui.png");
 
     private final IDrawable bg;
@@ -42,7 +38,7 @@ public class IonizerCategory implements IRecipeCategory<IonizerRecipe> {
 
     @Override
     public RecipeType<IonizerRecipe> getRecipeType() {
-        return DustAndAshRecipeTypes.IONIZER;
+        return RECIPE_TYPE;
     }
 
     @Override
@@ -51,76 +47,24 @@ public class IonizerCategory implements IRecipeCategory<IonizerRecipe> {
     }
 
     @Override
-    public IDrawable getBackground() {
-        return bg;
-    }
-
-    @Override
     public IDrawable getIcon() {
         return icon;
     }
 
-//    @Override
-//    public void setIngredients(IonizerRecipe ionizerRecipe, IIngredients iIngredients) {
-//        NonNullList<Ingredient> in = NonNullList.create();
-//        for (Ingredient i : ionizerRecipe.getIngredients()) {
-//            in.add(i);
-//
-//        }
-//        // in block
-//        ItemStack instance1;
-//        if (ionizerRecipe.getInputBlock() instanceof LiquidBlock) {
-//            LiquidBlock fluidBlock = (LiquidBlock) ionizerRecipe.getInputBlock();
-//            instance1 = FluidUtil.getFilledBucket(new FluidStack(fluidBlock.getFluid(), 1000));
-//
-//        } else {
-//            instance1 = ionizerRecipe.getInputBlock().asItem().getDefaultInstance();
-//
-//        }
-//
-//        if (!instance1.isEmpty() && instance1.getItem() != Items.AIR) {
-//            in.add(Ingredient.of(instance1));
-//
-//        }
-//        iIngredients.setInputIngredients(in);
-//
-//        NonNullList<ItemStack> out = NonNullList.create();
-//        for (ItemStack i : ionizerRecipe.getResultItemStacks()) {
-//            if (!i.isEmpty()) {
-//                out.add(i);
-//            }
-//
-//        }
-//
-//        // out block
-//        ItemStack instance2;
-//        if (ionizerRecipe.getResultBlock() instanceof LiquidBlock) {
-//            LiquidBlock fluidBlock = (LiquidBlock) ionizerRecipe.getResultBlock();
-//            instance2 = FluidUtil.getFilledBucket(new FluidStack(fluidBlock.getFluid(), 1000));
-//
-//        } else {
-//            instance2 = ionizerRecipe.getResultBlock().asItem().getDefaultInstance();
-//
-//        }
-//        if (!instance2.isEmpty() && instance2.getItem() != Items.AIR) {
-//            out.add(instance2);
-//
-//        }
-//        iIngredients.setOutputs(VanillaTypes.ITEM, out);
-//
-//    }
-
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, IonizerRecipe recipe, IFocusGroup focuses) {
+        var level = Minecraft.getInstance().level;
 
-//        IGuiItemStackGroup itemStacks = iRecipeLayout.getItemStacks();
-//        IGuiFluidStackGroup fluidStacks = iRecipeLayout.getFluidStacks();
+        assert level != null;
 
-        builder.addSlot(RecipeIngredientRole.INPUT, 16, 50).addItemStacks(Arrays.asList(recipe.getIngredients().get(0).getItems()));
-        builder.addSlot(RecipeIngredientRole.INPUT, 6, 70).addItemStacks(Arrays.asList(recipe.getIngredients().get(1).getItems()));
-        builder.addSlot(RecipeIngredientRole.INPUT, 26, 70).addItemStacks(Arrays.asList(recipe.getIngredients().get(2).getItems()));
-        builder.addSlot(RecipeIngredientRole.INPUT, 62, 5).addItemStacks(Arrays.asList(recipe.getIngredients().get(3).getItems()));
-        builder.addSlot(RecipeIngredientRole.INPUT, 98, 5).addItemStacks(Arrays.asList(recipe.getIngredients().get(4).getItems()));
+        var inputs = recipe.getIngredients();
+        var outputs = recipe.getResultItemStacks();
+
+        builder.addSlot(RecipeIngredientRole.INPUT, 16, 50).addIngredients(inputs.get(0));
+        builder.addSlot(RecipeIngredientRole.INPUT, 6, 70).addIngredients(inputs.get(1));
+        builder.addSlot(RecipeIngredientRole.INPUT, 26, 70).addIngredients(inputs.get(2));
+        builder.addSlot(RecipeIngredientRole.INPUT, 62, 5).addIngredients(inputs.get(3));
+        builder.addSlot(RecipeIngredientRole.INPUT, 98, 5).addIngredients(inputs.get(4));
 
         if (recipe.getPowerCost() > 0) {
             ItemStack stack = ModItems.ELECTRON.get().getDefaultInstance();
@@ -130,8 +74,7 @@ public class IonizerCategory implements IRecipeCategory<IonizerRecipe> {
         }
 
         // in block
-        if (recipe.getInputBlock() instanceof LiquidBlock) {
-            LiquidBlock fluidBlock = (LiquidBlock) recipe.getInputBlock();
+        if (recipe.getInputBlock() instanceof LiquidBlock fluidBlock) {
             builder.addSlot(RecipeIngredientRole.INPUT, 60, 44).addFluidStack(fluidBlock.getFluid(), 1000);
 
         } else {
@@ -143,14 +86,13 @@ public class IonizerCategory implements IRecipeCategory<IonizerRecipe> {
 
         }
 
-        builder.addSlot(RecipeIngredientRole.OUTPUT, 135, 49).addItemStack(recipe.getResultItemStacks().get(0));
-        builder.addSlot(RecipeIngredientRole.OUTPUT, 155, 49).addItemStack(recipe.getResultItemStacks().get(1));
-        builder.addSlot(RecipeIngredientRole.OUTPUT, 135, 69).addItemStack(recipe.getResultItemStacks().get(2));
-        builder.addSlot(RecipeIngredientRole.OUTPUT, 155, 69).addItemStack(recipe.getResultItemStacks().get(3));
+        builder.addSlot(RecipeIngredientRole.OUTPUT, 135, 49).addItemStack(outputs.get(0));
+        builder.addSlot(RecipeIngredientRole.OUTPUT, 155, 49).addItemStack(outputs.get(1));
+        builder.addSlot(RecipeIngredientRole.OUTPUT, 135, 69).addItemStack(outputs.get(2));
+        builder.addSlot(RecipeIngredientRole.OUTPUT, 155, 69).addItemStack(outputs.get(3));
 
         // out block
-        if (recipe.getResultBlock() instanceof LiquidBlock) {
-            LiquidBlock fluidBlock = (LiquidBlock) recipe.getResultBlock();
+        if (recipe.getResultBlock() instanceof LiquidBlock fluidBlock) {
             builder.addSlot(RecipeIngredientRole.OUTPUT, 101, 43).addFluidStack(fluidBlock.getFluid(), 1000);
 
         } else {
@@ -172,5 +114,10 @@ public class IonizerCategory implements IRecipeCategory<IonizerRecipe> {
         guiGraphics.drawString(font, recipe.getTick() + " ticks", 65, 60, 0xffffff);
         guiGraphics.drawString(font, "Consume", 47, 70, 0xffffff);
         guiGraphics.drawString(font, "Electrodes: " + recipe.isCostElectrodes(), 47, 80, 0xffffff);
+    }
+
+    @Override
+    public IDrawable getBackground() {
+        return bg;
     }
 }

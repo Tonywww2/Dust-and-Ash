@@ -3,7 +3,6 @@ package com.tonywww.dustandash.integration.jei;
 import com.tonywww.dustandash.DustAndAsh;
 import com.tonywww.dustandash.registeries.ModBlocks;
 import com.tonywww.dustandash.data.recipes.IntegratedBlockRecipe;
-import com.tonywww.dustandash.integration.DustAndAshRecipeTypes;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -13,16 +12,15 @@ import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
-import java.util.Arrays;
-
 public class IntegratedBlockRecipeCategory implements IRecipeCategory<IntegratedBlockRecipe> {
 
-    public final static ResourceLocation UID = new ResourceLocation(DustAndAsh.MOD_ID, "integrate");
+    public static final RecipeType<IntegratedBlockRecipe> RECIPE_TYPE = RecipeType.create(DustAndAsh.MOD_ID, "integrate", IntegratedBlockRecipe.class);
     public final static ResourceLocation TEXTURE = new ResourceLocation(DustAndAsh.MOD_ID, "textures/gui/integrated_block_gui.png");
 
     private final IDrawable bg;
@@ -52,7 +50,7 @@ public class IntegratedBlockRecipeCategory implements IRecipeCategory<Integrated
 
     @Override
     public RecipeType<IntegratedBlockRecipe> getRecipeType() {
-        return DustAndAshRecipeTypes.INTEGRATE;
+        return RECIPE_TYPE;
     }
 
     @Override
@@ -72,46 +70,26 @@ public class IntegratedBlockRecipeCategory implements IRecipeCategory<Integrated
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, IntegratedBlockRecipe recipe, IFocusGroup focuses) {
-//        IGuiItemStackGroup itemStacks = iRecipeLayout.getItemStacks();
+        var level = Minecraft.getInstance().level;
 
-        builder.addSlot(RecipeIngredientRole.INPUT, 36, 42).addItemStacks(Arrays.asList(recipe.getIngredients().get(0).getItems()));
-        builder.addSlot(RecipeIngredientRole.INPUT, 124, 42).addItemStacks(Arrays.asList(recipe.getIngredients().get(1).getItems()));
-        builder.addSlot(RecipeIngredientRole.INPUT, 58, 31).addItemStacks(Arrays.asList(recipe.getIngredients().get(2).getItems()));
-        builder.addSlot(RecipeIngredientRole.INPUT, 80, 31).addItemStacks(Arrays.asList(recipe.getIngredients().get(3).getItems()));
-        builder.addSlot(RecipeIngredientRole.INPUT, 102, 31).addItemStacks(Arrays.asList(recipe.getIngredients().get(4).getItems()));
-        builder.addSlot(RecipeIngredientRole.INPUT, 58, 53).addItemStacks(Arrays.asList(recipe.getIngredients().get(5).getItems()));
-        builder.addSlot(RecipeIngredientRole.INPUT, 80, 53).addItemStacks(Arrays.asList(recipe.getIngredients().get(6).getItems()));
-        builder.addSlot(RecipeIngredientRole.INPUT, 102, 53).addItemStacks(Arrays.asList(recipe.getIngredients().get(7).getItems()));
+        assert level != null;
 
-        builder.addSlot(RecipeIngredientRole.OUTPUT, 80, 10).addItemStack(recipe.getResultItem(null));
+        var inputs = recipe.getIngredients();
+        var output = recipe.getResultItem(level.registryAccess());
+
+        builder.addSlot(RecipeIngredientRole.OUTPUT, 80, 10).addItemStack(output);
+
+        builder.addSlot(RecipeIngredientRole.INPUT, 36, 42).addIngredients(inputs.get(0));
+        builder.addSlot(RecipeIngredientRole.INPUT, 124, 42).addIngredients(inputs.get(1));
+
+        builder.addSlot(RecipeIngredientRole.INPUT, 58, 31).addIngredients(inputs.get(2));
+        builder.addSlot(RecipeIngredientRole.INPUT, 80, 31).addIngredients(inputs.get(3));
+        builder.addSlot(RecipeIngredientRole.INPUT, 102, 31).addIngredients(inputs.get(4));
+        builder.addSlot(RecipeIngredientRole.INPUT, 58, 53).addIngredients(inputs.get(5));
+        builder.addSlot(RecipeIngredientRole.INPUT, 80, 53).addIngredients(inputs.get(6));
+        builder.addSlot(RecipeIngredientRole.INPUT, 102, 53).addIngredients(inputs.get(7));
 
     }
-
-//    @Override
-//    public void setIngredients(IntegratedBlockRecipe integratedBlockRecipe, IIngredients iIngredients) {
-//        NonNullList<Ingredient> inputs = NonNullList.create();
-//        for (Ingredient i : integratedBlockRecipe.getIngredients()) {
-//            inputs.add(i);
-//
-//        }
-//        switch (integratedBlockRecipe.getLevel()) {
-//            case 1:
-//                inputs.add(Ingredient.of(ModBlocks.INTEGRATED_FRAME_1.get()));
-//                break;
-//
-//            case 2:
-//                inputs.add(Ingredient.of(ModBlocks.INTEGRATED_FRAME_2.get()));
-//                break;
-//
-//            case 3:
-//                inputs.add(Ingredient.of(ModBlocks.INTEGRATED_FRAME_3.get()));
-//                break;
-//        }
-//
-//        iIngredients.setInputIngredients(inputs);
-//        iIngredients.setOutput(VanillaTypes.ITEM, integratedBlockRecipe.getResultItem());
-//
-//    }
 
     @Override
     public void draw(IntegratedBlockRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
