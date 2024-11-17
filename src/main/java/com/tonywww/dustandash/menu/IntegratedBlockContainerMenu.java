@@ -99,16 +99,16 @@ public class IntegratedBlockContainerMenu extends AbstractContainerMenu {
             itemstack = itemstack1.copy();
 
             if (slotNumber == 0) {
-                if (!this.moveItemStackTo(itemstack1, 9, 45, true)) {
+                if (!this.moveItemStackTo(itemstack1, 8, 44, true)) {
                     return ItemStack.EMPTY;
                 }
 
                 slot.onQuickCraft(itemstack1, itemstack);
-            } else if (slotNumber >= 9 && slotNumber < 45) {
-                if (!this.moveItemStackTo(itemstack1, 0, 9, false)) {
+            } else if (slotNumber >= 8 && slotNumber < 44) {
+                if (!this.moveItemStackTo(itemstack1, 0, 8, false)) {
                     return ItemStack.EMPTY;
                 }
-            } else if (!this.moveItemStackTo(itemstack1, 9, 45, false)) {
+            } else if (!this.moveItemStackTo(itemstack1, 8, 44, false)) {
                 return ItemStack.EMPTY;
             }
 
