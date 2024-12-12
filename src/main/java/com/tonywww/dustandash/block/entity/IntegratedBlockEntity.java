@@ -110,7 +110,6 @@ public class IntegratedBlockEntity extends BasicMachineEntity implements MenuPro
             @Nonnull
             @Override
             public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {
-
                 if (!isItemValid(slot, stack)) {
                     return stack;
                 }
@@ -214,21 +213,8 @@ public class IntegratedBlockEntity extends BasicMachineEntity implements MenuPro
                 be.isBeaconOn = level.getBlockEntity(be.getBlockPos().below(2)) instanceof BeaconBlockEntity;
 
                 craft(level, pos, be);
-                List<ItemEntity> items = level.getEntitiesOfClass(ItemEntity.class, getArea(pos), VALID_ITEM_ENTITY);
-
-                for (ItemEntity item : items) {
-                    for (int i = 0; i < be.itemStackHandler.getSlots(); i++) {
-                        if (be.itemStackHandler.getStackInSlot(i).getCount() == 0) {
-                            be.itemStackHandler.insertItem(i, item.getItem().copy(), false);
-                            item.getItem().shrink(1);
-                            level.playSound(null, pos, SoundEvents.CHICKEN_HURT, SoundSource.BLOCKS, 0.25f, 1f);
-
-                        }
-
-                        if (item.getItem().getCount() == 0) {
-                            break;
-                        }
-                    }
+                if (!level.hasNeighborSignal(pos)) {
+                    collect(level, pos, be);
 
                 }
 
@@ -240,6 +226,26 @@ public class IntegratedBlockEntity extends BasicMachineEntity implements MenuPro
         }
 
 
+    }
+
+    private static void collect(Level level, BlockPos pos, IntegratedBlockEntity be) {
+        List<ItemEntity> items = level.getEntitiesOfClass(ItemEntity.class, getArea(pos), VALID_ITEM_ENTITY);
+
+        for (ItemEntity item : items) {
+            for (int i = 0; i < be.itemStackHandler.getSlots(); i++) {
+                if (be.itemStackHandler.getStackInSlot(i).getCount() == 0) {
+                    be.itemStackHandler.insertItem(i, item.getItem().copy(), false);
+                    item.getItem().shrink(1);
+                    level.playSound(null, pos, SoundEvents.CHICKEN_HURT, SoundSource.BLOCKS, 0.25f, 1f);
+
+                }
+
+                if (item.getItem().getCount() == 0) {
+                    break;
+                }
+            }
+
+        }
     }
 
     // from thermal

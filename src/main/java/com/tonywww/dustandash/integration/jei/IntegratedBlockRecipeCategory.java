@@ -77,17 +77,18 @@ public class IntegratedBlockRecipeCategory implements IRecipeCategory<Integrated
         var inputs = recipe.getIngredients();
         var output = recipe.getResultItem(level.registryAccess());
 
-        builder.addSlot(RecipeIngredientRole.OUTPUT, 80, 10).addItemStack(output);
-
         builder.addSlot(RecipeIngredientRole.INPUT, 36, 42).addIngredients(inputs.get(0));
         builder.addSlot(RecipeIngredientRole.INPUT, 124, 42).addIngredients(inputs.get(1));
 
         builder.addSlot(RecipeIngredientRole.INPUT, 58, 31).addIngredients(inputs.get(2));
         builder.addSlot(RecipeIngredientRole.INPUT, 80, 31).addIngredients(inputs.get(3));
         builder.addSlot(RecipeIngredientRole.INPUT, 102, 31).addIngredients(inputs.get(4));
+
         builder.addSlot(RecipeIngredientRole.INPUT, 58, 53).addIngredients(inputs.get(5));
         builder.addSlot(RecipeIngredientRole.INPUT, 80, 53).addIngredients(inputs.get(6));
         builder.addSlot(RecipeIngredientRole.INPUT, 102, 53).addIngredients(inputs.get(7));
+
+        builder.addSlot(RecipeIngredientRole.OUTPUT, 80, 10).addItemStack(output);
 
     }
 

@@ -223,7 +223,7 @@
   "tooltip.dustandash.hand_vacuum": "§7 Use on a Dust to gain products.",
   "tooltip.dustandash.iron_vacuum": "§7 Use on a Dust to gain products, requires Energized Dust in inventory.",
   "tooltip.dustandash.echo_activator": "§7 Use on a Sculk Shrieker or a Cake to turn it into a full Sculk Shrieker",
-  "tooltip.dustandash.nano_machine": "§7 Fix the item in the off hand, smile :)\n Or consume it in the off hand to gain POWER",
+  "tooltip.dustandash.nano_machine": "§7 Make the item in the off hand unbreakable,\n Or consume it in the off hand to gain POWER",
   "tooltip.dustandash.rock_solid": "§7 Resist damage for a short period of time.",
   "tooltip.dustandash.indestructible": "§7 Become almost invincibility for a medium period of time.",
 
@@ -238,6 +238,8 @@
   "tooltip.dustandash.baseNeutronRate": "§eBase Neutron Rate: ",
   "tooltip.dustandash.idealHeat": "§4Ideal Heat: ",
   "tooltip.dustandash.baseCoolingRate": "§bBase Cooling Rate: ",
+
+  "tooltip.dustandash.item_sender": "Insert a Position Selector with position selected to send item to any container in the same dimension to the specific slots",
 
   "dustandash.advancements.entry.title": "Dust and Ash",
   "dustandash.advancements.entry.description": "To the time to life, rather than to life in time.",

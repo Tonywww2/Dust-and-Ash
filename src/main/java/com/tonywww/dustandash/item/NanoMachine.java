@@ -54,10 +54,9 @@ public class NanoMachine extends Item {
                                 flag = true;
 
                             }
-
                             if (flag) {
                                 nano.shrink(1);
-                                player.sendSystemMessage(Component.literal("Agens Tachyon"));
+                                player.sendSystemMessage(Component.literal("Factors Upgraded"));
                             }
 
                             break;
@@ -74,9 +73,10 @@ public class NanoMachine extends Item {
 
                         default:
                             if (!stack.is(ModTags.Items.NANO_BLACKLIST)) {
-                                stack.setDamageValue(0);
+                                CompoundTag tag = stack.getOrCreateTag();
+                                tag.putBoolean("Unbreakable", true);
                                 nano.shrink(1);
-                                player.sendSystemMessage(Component.literal("Item Fixed"));
+                                player.sendSystemMessage(Component.literal("Immortal"));
 
                             }
                             break;

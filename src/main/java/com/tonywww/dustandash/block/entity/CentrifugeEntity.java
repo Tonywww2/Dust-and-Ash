@@ -200,7 +200,7 @@ public class CentrifugeEntity extends BasicMachineEntity implements MenuProvider
         if (be.currentProgression > be.targetProgression) {
             be.currentProgression = -1f;
             be.targetProgression = 0;
-            be.setOutput(level, pos, be);
+            setOutput(level, pos, be);
 
         }
 
@@ -261,7 +261,7 @@ public class CentrifugeEntity extends BasicMachineEntity implements MenuProvider
             }
 
         }
-        level.playSound(null, pos, SoundEvents.WITCH_DRINK, SoundSource.BLOCKS, 0.5f, 1f);
+        level.playSound(null, pos, SoundEvents.BRUSH_SAND, SoundSource.BLOCKS, 0.5f, 1f);
         be.inventoryChanged();
 
     }

@@ -2,8 +2,16 @@
   "replace": false,
   "values": [
     "dustandash:nano_machine",
-    "dustandash:basic_fuel",
-    "dustandash:basic_cooling"
+    "dustandash:u235_fuel",
+    "u235_fuel_metal",
+    "u235_fuel_life",
+    "u235_fuel_order",
+    "u235_fuel_fire",
+    "u235_fuel_earth",
+    "dustandash:basic_cooling",
+    "cooling_tier_1",
+    "cooling_tier_2",
+    "cooling_tier_3"
   ]
 
 }

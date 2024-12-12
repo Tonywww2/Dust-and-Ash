@@ -9,7 +9,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "Integrated Block allows you to make new materials. $(br)All recipes are shaped. $(br)The required Tier of the recipe is shown by different frames in JEI/REI."
+      "text": "Integrated Block allows you to make new materials. $(br)All recipes are shaped. $(br)The required Tier of the recipe is shown by different frames in JEI/REI. $(br) You can stop the auto collecting by a redstone signal"
     },
     {
       "type": "patchouli:image",

@@ -183,7 +183,11 @@ public class ItemSenderEntity extends BasicMachineEntity implements MenuProvider
     }
 
     private static BlockPos arrToBlockPos(int[] arr) {
-        return new BlockPos(arr[0], arr[1], arr[2]);
+        if (arr != null && arr.length >= 3) {
+            return new BlockPos(arr[0], arr[1], arr[2]);
+        }
+        return null;
+
     }
 
     public static void tick(Level level, BlockPos pos, BlockState state, ItemSenderEntity be) {

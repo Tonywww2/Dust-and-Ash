@@ -10,9 +10,7 @@ import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
-import net.minecraftforge.items.wrapper.InvWrapper;
 
 import java.util.Objects;
 
@@ -29,15 +27,15 @@ public class IntegratedBlockContainerMenu extends AbstractContainerMenu {
         this.data = data;
 
         tileEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(h -> {
-            addSlot(new SlotItemHandler(h, 0, 36, 42));
-            addSlot(new SlotItemHandler(h, 1, 124, 42));
+            addSlot(new ISlotItemHandler(h, 0, 36, 42));
+            addSlot(new ISlotItemHandler(h, 1, 124, 42));
 
-            addSlot(new SlotItemHandler(h, 2, 58, 31));
-            addSlot(new SlotItemHandler(h, 3, 80, 31));
-            addSlot(new SlotItemHandler(h, 4, 102, 31));
-            addSlot(new SlotItemHandler(h, 5, 58, 53));
-            addSlot(new SlotItemHandler(h, 6, 80, 53));
-            addSlot(new SlotItemHandler(h, 7, 102, 53));
+            addSlot(new ISlotItemHandler(h, 2, 58, 31));
+            addSlot(new ISlotItemHandler(h, 3, 80, 31));
+            addSlot(new ISlotItemHandler(h, 4, 102, 31));
+            addSlot(new ISlotItemHandler(h, 5, 58, 53));
+            addSlot(new ISlotItemHandler(h, 6, 80, 53));
+            addSlot(new ISlotItemHandler(h, 7, 102, 53));
 
             addDataSlots(data);
 

@@ -112,7 +112,8 @@ public class DustAndAshJei implements IModPlugin {
 
     @Override
     public void registerRecipeTransferHandlers(IRecipeTransferRegistration registration) {
-//        registration.addRecipeTransferHandler(IntegratedBlockContainerMenu.class, ModContainerMenus.INTEGRATED_BLOCK_CONTAINER.get(), DustAndAshRecipeTypes.INTEGRATE, 0, 8, 8, 36);
+        registration.addRecipeTransferHandler(IntegratedBlockContainerMenu.class, ModContainerMenus.INTEGRATED_BLOCK_CONTAINER.get(), DustAndAshRecipeTypes.INTEGRATE, 0, 8, 8, 36);
+//        registration.addRecipeTransferHandler(IntegratedBlockContainerMenu.class, ModContainerMenus.INTEGRATED_BLOCK_CONTAINER.get(), DustAndAshRecipeTypes.INTEGRATE, 8, 36, 0, 8);
 
     }
 

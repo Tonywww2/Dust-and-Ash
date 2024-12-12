@@ -46,8 +46,11 @@ public class PositionSelector extends Item {
             CompoundTag compoundtag = pStack.getTag();
             if (compoundtag != null) {
                 int[] arr = compoundtag.getIntArray("position");
-                pTooltip.add(Component.literal(arr[0] + ", " + arr[1] + ", " + arr[2]));
-                pTooltip.add(pLevel.getBlockState(new BlockPos(arr[0], arr[1], arr[2])).getBlock().getName());
+                if (arr != null && arr.length >= 3) {
+                    pTooltip.add(Component.literal(arr[0] + ", " + arr[1] + ", " + arr[2]));
+                    pTooltip.add(pLevel.getBlockState(new BlockPos(arr[0], arr[1], arr[2])).getBlock().getName());
+
+                }
 
             }
 
