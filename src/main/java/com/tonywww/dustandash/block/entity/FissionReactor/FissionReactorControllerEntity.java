@@ -41,8 +41,6 @@ import java.util.Queue;
 import static com.tonywww.dustandash.DustAndAshConfig.*;
 
 public class FissionReactorControllerEntity extends BasicMachineEntity implements MenuProvider {
-
-
     public ItemStackHandler invItemStackHandler;
     public EnergyStorage energyStorage;
     private final LazyOptional<ItemStackHandler> handler;
@@ -142,7 +140,7 @@ public class FissionReactorControllerEntity extends BasicMachineEntity implement
 
             @Override
             public int getCount() {
-                return 8;
+                return 7;
             }
         };
 
@@ -550,6 +548,7 @@ public class FissionReactorControllerEntity extends BasicMachineEntity implement
     @Override
     public void saveAdditional(CompoundTag compound) {
         compound.put("inv", this.invItemStackHandler.serializeNBT());
+
         compound.putDouble("heat", this.heat);
         compound.putInt("energy", this.energy);
         compound.putInt("neutron", this.neutron);
