@@ -1,6 +1,7 @@
 package com.tonywww.dustandash.integration.jei;
 
 import com.tonywww.dustandash.DustAndAsh;
+import com.tonywww.dustandash.integration.DustAndAshRecipeTypes;
 import com.tonywww.dustandash.registeries.ModBlocks;
 import com.tonywww.dustandash.data.recipes.IntegratedBlockRecipe;
 import mezz.jei.api.constants.VanillaTypes;
@@ -20,7 +21,7 @@ import net.minecraft.world.item.ItemStack;
 
 public class IntegratedBlockRecipeCategory implements IRecipeCategory<IntegratedBlockRecipe> {
 
-    public static final RecipeType<IntegratedBlockRecipe> RECIPE_TYPE = RecipeType.create(DustAndAsh.MOD_ID, "integrate", IntegratedBlockRecipe.class);
+//    public static final RecipeType<IntegratedBlockRecipe> RECIPE_TYPE = RecipeType.create(DustAndAsh.MOD_ID, "integrate", IntegratedBlockRecipe.class);
     public final static ResourceLocation TEXTURE = new ResourceLocation(DustAndAsh.MOD_ID, "textures/gui/integrated_block_gui.png");
 
     private final IDrawable bg;
@@ -50,7 +51,7 @@ public class IntegratedBlockRecipeCategory implements IRecipeCategory<Integrated
 
     @Override
     public RecipeType<IntegratedBlockRecipe> getRecipeType() {
-        return RECIPE_TYPE;
+        return DustAndAshRecipeTypes.INTEGRATE;
     }
 
     @Override

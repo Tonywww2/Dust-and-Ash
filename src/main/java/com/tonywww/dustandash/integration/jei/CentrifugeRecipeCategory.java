@@ -1,6 +1,7 @@
 package com.tonywww.dustandash.integration.jei;
 
 import com.tonywww.dustandash.DustAndAsh;
+import com.tonywww.dustandash.integration.DustAndAshRecipeTypes;
 import com.tonywww.dustandash.registeries.ModBlocks;
 import com.tonywww.dustandash.data.recipes.CentrifugeRecipe;
 import mezz.jei.api.constants.VanillaTypes;
@@ -22,7 +23,7 @@ import net.minecraft.world.item.ItemStack;
 
 public class CentrifugeRecipeCategory implements IRecipeCategory<CentrifugeRecipe> {
 
-    public static final RecipeType<CentrifugeRecipe> RECIPE_TYPE = RecipeType.create(DustAndAsh.MOD_ID, "centrifuge", CentrifugeRecipe.class);
+//    public static final RecipeType<CentrifugeRecipe> RECIPE_TYPE = RecipeType.create(DustAndAsh.MOD_ID, "centrifuge", CentrifugeRecipe.class);
     public final static ResourceLocation TEXTURE = new ResourceLocation(DustAndAsh.MOD_ID, "textures/gui/centrifuge_gui.png");
 
     private final IDrawable bg;
@@ -35,7 +36,7 @@ public class CentrifugeRecipeCategory implements IRecipeCategory<CentrifugeRecip
 
     @Override
     public RecipeType<CentrifugeRecipe> getRecipeType() {
-        return RECIPE_TYPE;
+        return DustAndAshRecipeTypes.CENTRIFUGE;
     }
 
     @Override

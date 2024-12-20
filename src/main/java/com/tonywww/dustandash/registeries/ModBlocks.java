@@ -162,7 +162,7 @@ public class ModBlocks {
             ));
 
     public static final RegistryObject<Block> STRENGTHENED_CEMENT = registerBlocks("strengthened_cement",
-            () -> new FissionReactorConnector(BlockBehaviour.Properties
+            () -> new Block(BlockBehaviour.Properties
                     .copy(Blocks.STONE)
                     .strength(2f, 4f)
                     .noOcclusion()
@@ -184,20 +184,20 @@ public class ModBlocks {
             ));
 
     public static final RegistryObject<Block> FISSION_REACTOR_CASING = registerBlocks("fission_reactor_casing",
-            () -> new FissionReactorCasing(BlockBehaviour.Properties
+            () -> new Block(BlockBehaviour.Properties
                     .copy(Blocks.STONE)
                     .strength(2f, 4f)
             ));
 
     public static final RegistryObject<Block> FISSION_REACTOR_COOLING_CELL = registerBlocks("fission_reactor_cooling_cell",
-            () -> new FissionReactorCoolingCell(BlockBehaviour.Properties
+            () -> new Block(BlockBehaviour.Properties
                     .copy(Blocks.STONE)
                     .strength(2f, 4f)
                     .noOcclusion()
             ));
 
     public static final RegistryObject<Block> FISSION_REACTOR_FUEL_CELL = registerBlocks("fission_reactor_fuel_cell",
-            () -> new FissionReactorFuelCell(BlockBehaviour.Properties
+            () -> new Block(BlockBehaviour.Properties
                     .copy(Blocks.STONE)
                     .strength(2f, 4f)
                     .noOcclusion()

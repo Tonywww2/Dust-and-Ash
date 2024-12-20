@@ -1,6 +1,7 @@
 package com.tonywww.dustandash.integration.jei;
 
 import com.tonywww.dustandash.DustAndAsh;
+import com.tonywww.dustandash.integration.DustAndAshRecipeTypes;
 import com.tonywww.dustandash.registeries.ModBlocks;
 import com.tonywww.dustandash.data.recipes.IonizerRecipe;
 import com.tonywww.dustandash.registeries.ModItems;
@@ -24,7 +25,7 @@ import net.minecraft.world.level.block.LiquidBlock;
 
 public class IonizerCategory implements IRecipeCategory<IonizerRecipe> {
 
-    public static final RecipeType<IonizerRecipe> RECIPE_TYPE = RecipeType.create(DustAndAsh.MOD_ID, "ionizer", IonizerRecipe.class);
+//    public static final RecipeType<IonizerRecipe> RECIPE_TYPE = RecipeType.create(DustAndAsh.MOD_ID, "ionizer", IonizerRecipe.class);
     public final static ResourceLocation TEXTURE = new ResourceLocation(DustAndAsh.MOD_ID, "textures/gui/ionizer_gui.png");
 
     private final IDrawable bg;
@@ -38,7 +39,7 @@ public class IonizerCategory implements IRecipeCategory<IonizerRecipe> {
 
     @Override
     public RecipeType<IonizerRecipe> getRecipeType() {
-        return RECIPE_TYPE;
+        return DustAndAshRecipeTypes.IONIZER;
     }
 
     @Override

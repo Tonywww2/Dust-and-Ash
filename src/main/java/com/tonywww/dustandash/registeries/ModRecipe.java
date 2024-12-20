@@ -20,14 +20,6 @@ public class ModRecipe {
 
     }
 
-//    public static RecipeType<IntegratedBlockRecipe> INTEGRATE_RECIPE = new IntegratedBlockRecipe.IntegrateRecipeType();
-//
-//    public static RecipeType<MillingMachineRecipe> MILLING_RECIPE = new MillingMachineRecipe.MillingRecipeType();
-//
-//    public static RecipeType<CentrifugeRecipe> CENTRIFUGE_RECIPE = new CentrifugeRecipe.CentrifugeRecipeType();
-//
-//    public static RecipeType<IonizerRecipe> IONIZER_RECIPE = new IonizerRecipe.IonizerRecipeType();
-
     public static final RegistryObject<IntegratedBlockRecipe.Serializer> INTEGRATE_SERIALIZER =
             RECIPE_TYPE.register("integrate", () -> IntegratedBlockRecipe.Serializer.INSTANCE);
 

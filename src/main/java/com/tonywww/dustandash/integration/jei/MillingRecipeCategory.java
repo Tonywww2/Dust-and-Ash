@@ -1,6 +1,7 @@
 package com.tonywww.dustandash.integration.jei;
 
 import com.tonywww.dustandash.DustAndAsh;
+import com.tonywww.dustandash.integration.DustAndAshRecipeTypes;
 import com.tonywww.dustandash.registeries.ModBlocks;
 import com.tonywww.dustandash.data.recipes.MillingMachineRecipe;
 import mezz.jei.api.constants.VanillaTypes;
@@ -21,7 +22,7 @@ import net.minecraft.world.item.ItemStack;
 
 public class MillingRecipeCategory implements IRecipeCategory<MillingMachineRecipe> {
 
-    public static final RecipeType<MillingMachineRecipe> RECIPE_TYPE = RecipeType.create(DustAndAsh.MOD_ID, "milling", MillingMachineRecipe.class);
+//    public static final RecipeType<MillingMachineRecipe> RECIPE_TYPE = RecipeType.create(DustAndAsh.MOD_ID, "milling", MillingMachineRecipe.class);
     public final static ResourceLocation TEXTURE = new ResourceLocation(DustAndAsh.MOD_ID, "textures/gui/milling_machine_jei.png");
 
     private final IDrawable bg;
@@ -37,7 +38,7 @@ public class MillingRecipeCategory implements IRecipeCategory<MillingMachineReci
 
     @Override
     public RecipeType<MillingMachineRecipe> getRecipeType() {
-        return RECIPE_TYPE;
+        return DustAndAshRecipeTypes.MILLING;
     }
 
     @Override
