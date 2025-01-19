@@ -44,12 +44,12 @@ public class NanoMachine extends Item {
                             int redLV = factors.getCompound(1).getInt("level");
 
                             boolean flag = false;
-                            if (blueLV < 5) {
+                            if (blueLV < 7) {
                                 factors.getCompound(0).putInt("level", blueLV + 1);
                                 flag = true;
 
                             }
-                            if (redLV < 3) {
+                            if (redLV < 5) {
                                 factors.getCompound(1).putInt("level", redLV + 1);
                                 flag = true;
 
@@ -98,16 +98,16 @@ public class NanoMachine extends Item {
     public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity entity) {
         if (!level.isClientSide()) {
             if (stack.getCount() > 0) {
-                entity.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 1200, 5));
-                entity.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 1200, 2));
+                entity.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 2400, 10));
+                entity.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 2400, 4));
 
-                entity.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 6000, 3));
-                entity.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 6000, 4));
+                entity.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 12000, 3));
+                entity.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 12000, 8));
 
-                entity.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 12000, 0));
-                entity.addEffect(new MobEffectInstance(MobEffects.WATER_BREATHING, 12000, 0));
-                entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 12000, 2));
-                entity.addEffect(new MobEffectInstance(MobEffects.JUMP, 12000, 1));
+                entity.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 24000, 0));
+                entity.addEffect(new MobEffectInstance(MobEffects.WATER_BREATHING, 24000, 0));
+                entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 24000, 2));
+                entity.addEffect(new MobEffectInstance(MobEffects.JUMP, 24000, 1));
 
                 stack.shrink(1);
             }
