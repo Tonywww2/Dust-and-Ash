@@ -1,6 +1,14 @@
 {
   "replace": false,
   "values": [
-    "dustandash:ash"
+    "dustandash:ash",
+    {
+      "id": "embers:ash",
+      "required": false
+    },
+    {
+      "id": "forestry:ash",
+      "required": false
+    }
   ]
 }

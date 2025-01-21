@@ -1,0 +1,26 @@
+{
+  "type": "forge:conditional",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "ars_nouveau"
+    }
+  ],
+  "recipes": [
+    {
+      "type": "minecraft:smithing_transform",
+      "base": {
+        "tag": "forge:sapling"
+      },
+      "addition": {
+        "item": "dustandash:reproduce_dust"
+      },
+      "template": {
+        "item": "dustandash:order_dust"
+      },
+      "result": {
+        "item": "ars_nouveau:green_archwood_sapling"
+      }
+    }
+  ]
+}
