@@ -27,6 +27,9 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.function.Predicate;
 
+import static com.tonywww.dustandash.DustAndAshConfig.rottenBladeCDCheck;
+import static com.tonywww.dustandash.DustAndAshConfig.whiteLightningCDCheck;
+
 public class WhiteLightning extends SwordItem {
 
     private static final String ATTACK_COUNTS = "attack_counts";
@@ -55,7 +58,7 @@ public class WhiteLightning extends SwordItem {
 //            System.out.println(entity.getClass());
 
             // normal mode
-            if (player.getAttackStrengthScale(0.2f) >= 1) {
+            if (!whiteLightningCDCheck.get() || player.getAttackStrengthScale(0.2f) >= 1) {
                 if (getAttackCounts(stack) >= 2) {
                     setAttackCounts(stack, getAttackCounts(stack) - 2);
                     setCharges(stack, getCharges(stack) + 2);

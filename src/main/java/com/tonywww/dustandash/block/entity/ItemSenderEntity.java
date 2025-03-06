@@ -231,7 +231,8 @@ public class ItemSenderEntity extends BasicMachineEntity implements MenuProvider
                                             thisStack.shrink(1);
 
                                         }
-
+                                        container.setChanged();
+                                        be.inventoryChanged();
                                     }
                                 }
                             }

@@ -37,6 +37,9 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
+import static com.tonywww.dustandash.DustAndAshConfig.lordOfBloodCDCheck;
+import static com.tonywww.dustandash.DustAndAshConfig.rottenBladeCDCheck;
+
 
 public class LordOfBlood extends SwordItem implements GeoItem {
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
@@ -61,7 +64,7 @@ public class LordOfBlood extends SwordItem implements GeoItem {
         boolean result = super.onLeftClickEntity(stack, player, entity);
 
         if (!level.isClientSide()) {
-            if (player.getAttackStrengthScale(0.1f) >= 1) {
+            if (!lordOfBloodCDCheck.get() || player.getAttackStrengthScale(0.1f) >= 1) {
                 player.heal(2.0f);
 
             }
@@ -167,7 +170,6 @@ public class LordOfBlood extends SwordItem implements GeoItem {
             int curStacks = getCharges(stack);
             switch (curStacks) {
                 case 1 -> {
-
                     if (!level.isClientSide()) {
                         level.playSound(null, entity.blockPosition(), SoundEvents.WARDEN_ROAR, SoundSource.PLAYERS, 1f, 1f);
 
@@ -181,7 +183,7 @@ public class LordOfBlood extends SwordItem implements GeoItem {
 
                     hurtAllEntities(entities, damageSource, 3);
                     effectAllEntities(entities, new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60, 0), entity);
-                    entity.heal(2);
+                    entity.heal(2.0f);
                 }
                 case 2 -> {
                     if (!level.isClientSide()) {
@@ -197,7 +199,7 @@ public class LordOfBlood extends SwordItem implements GeoItem {
                     hurtAllEntities(entities, damageSource, 4);
                     effectAllEntities(entities, new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 80, 1), entity);
                     effectAllEntities(entities, new MobEffectInstance(MobEffects.WEAKNESS, 60, 0), entity);
-                    entity.heal(3);
+                    entity.heal(3.0f);
                 }
                 case 3 -> {
                     if (!level.isClientSide()) {
@@ -211,7 +213,7 @@ public class LordOfBlood extends SwordItem implements GeoItem {
 
                     hurtAllEntities(entities, damageSource, 5);
                     effectAllEntities(entities, new MobEffectInstance(MobEffects.WEAKNESS, 60, 1), entity);
-                    entity.heal(4);
+                    entity.heal(4.0f);
 
                 }
                 default -> setCharges(stack, 0);

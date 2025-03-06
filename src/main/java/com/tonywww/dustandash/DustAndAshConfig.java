@@ -34,13 +34,16 @@ public final class DustAndAshConfig {
     public static final ForgeConfigSpec.ConfigValue<Double> galeOtaijutsuDamageRate;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> lordOfBloodRadius;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> lordOfBloodCDCheck;
 
     public static final ForgeConfigSpec.ConfigValue<Double> whiteLightningExtraDamage;
     public static final ForgeConfigSpec.ConfigValue<Double> whiteLightningExtraPercentage;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> whiteLightningCDCheck;
 
     public static final ForgeConfigSpec.ConfigValue<Double> rottenBladeExtraDamage;
     public static final ForgeConfigSpec.ConfigValue<Integer> rottenBladeRadius;
     public static final ForgeConfigSpec.ConfigValue<Integer> rottenBladeHeight;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> rottenBladeCDCheck;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> rockSolidCD;
     public static final ForgeConfigSpec.ConfigValue<Integer> indestructibleCD;
@@ -102,11 +105,15 @@ public final class DustAndAshConfig {
 
         lordOfBloodRadius = BUILDER.comment("\nThe Radius of Lord Of Blood. Range[4, 32] Default: 12")
                 .defineInRange("lordOfBloodRadius", 12, 4, 32);
+        lordOfBloodCDCheck = BUILDER.comment("\nEnable attack cd check of Lord Of Blood.")
+                .define("lordOfBloodCDCheck", true);
 
         whiteLightningExtraPercentage = BUILDER.comment("\nThe Extra Percentage Damage of 疾風迅雷. Range[0, 10.0] Default: 0.08")
                 .defineInRange("whiteLightningExtraPercentage", 0.08d, 0d, 10d);
         whiteLightningExtraDamage = BUILDER.comment("\nThe Extra Damage of 疾風迅雷. Range[0, MAX_FLOAT] Default: 2")
                 .defineInRange("whiteLightningExtraDamage", 2.0d, 0d, Float.MAX_VALUE);
+        whiteLightningCDCheck = BUILDER.comment("\nEnable attack cd check of 疾風迅雷.")
+                .define("whiteLightningCDCheck", true);
 
         rottenBladeExtraDamage = BUILDER.comment("\nThe Extra Damage of Rotten Blade. Range[0, MAX_FLOAT] Default: 5")
                 .defineInRange("rottenBladeExtraDamage", 5.0d, 0d, Float.MAX_VALUE);
@@ -114,6 +121,8 @@ public final class DustAndAshConfig {
                 .defineInRange("rottenBladeRadius", 9, 0, 32);
         rottenBladeHeight = BUILDER.comment("\nThe Height of Rotten Blade. Range[0, 32] Default: 5")
                 .defineInRange("rottenBladeHeight", 5, 0, 32);
+        rottenBladeCDCheck = BUILDER.comment("\nEnable attack cd check of Rotten Blade.")
+                .define("rottenBladeCDCheck", true);
 
         rockSolidCD = BUILDER.comment("\nThe Cool Down of Rock Solid in Tick. Range[0, 10000] Default: 300")
                 .defineInRange("rockSolidCD", 300, 0, 10000);

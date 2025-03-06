@@ -41,7 +41,7 @@ public class RottenBlade extends SwordItem {
         Level world = player.level();
 
         if (!world.isClientSide) {
-            if (player.getAttackStrengthScale(0.2f) >= 1) {
+            if (!rottenBladeCDCheck.get() || player.getAttackStrengthScale(0.2f) >= 1) {
                 ServerLevel serverWorld = (ServerLevel) world;
                 CompoundTag tag = stack.getOrCreateTag();
 
