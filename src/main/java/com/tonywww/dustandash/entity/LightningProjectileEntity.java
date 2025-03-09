@@ -99,7 +99,7 @@ public class LightningProjectileEntity extends ThrowableItemProjectile {
             }
 
             if (owner instanceof Player player) {
-                entity.hurt(owner.damageSources().playerAttack(player), (float) (DustAndAshConfig.whiteLightningExtraPercentage.get() + ((SwordItem) source.getItem()).getDamage()));
+                entity.hurt(owner.damageSources().playerAttack(player), (float) (DustAndAshConfig.whiteLightningExtraDamage.get() + ((SwordItem) source.getItem()).getDamage()));
                 entity.invulnerableTime = 0;
 
             }

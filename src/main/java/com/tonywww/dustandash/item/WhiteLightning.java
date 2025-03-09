@@ -95,7 +95,6 @@ public class WhiteLightning extends SwordItem {
 
                         }
 
-
                     }
 
                     ((ServerLevel) level).sendParticles(
@@ -124,7 +123,6 @@ public class WhiteLightning extends SwordItem {
                 double damage = (targetHealth * DustAndAshConfig.whiteLightningExtraPercentage.get()) + (DustAndAshConfig.whiteLightningExtraDamage.get() * 2);
                 entity.hurt(player.damageSources().indirectMagic(entity, player), (float) damage);
                 setAdvCharges(stack, getAdvCharges(stack) - 1);
-//            setAttackCounts(stack, getAttackCounts(stack) + 1);
                 level.playSound(null, player.blockPosition(), SoundEvents.ENDER_DRAGON_FLAP, SoundSource.PLAYERS, 1f, 1f);
 
                 entity.invulnerableTime = 0;
@@ -132,7 +130,7 @@ public class WhiteLightning extends SwordItem {
             }
 
             if (lightningFlag) {
-                List<LivingEntity> entities = level.getEntitiesOfClass(LivingEntity.class, getArea(entity.blockPosition(),  1), VALID_ENTITY);
+                List<LivingEntity> entities = level.getEntitiesOfClass(LivingEntity.class, getArea(entity.blockPosition(), 1), VALID_ENTITY);
                 hurtAllEntities(entities, player.damageSources().indirectMagic(entity, player), 5);
                 level.playSound(null, entity.blockPosition(), SoundEvents.LIGHTNING_BOLT_IMPACT, SoundSource.PLAYERS, 1f, 1f);
                 ((ServerLevel) level).sendParticles(
