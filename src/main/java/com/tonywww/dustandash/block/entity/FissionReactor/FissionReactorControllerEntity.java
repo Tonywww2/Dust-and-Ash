@@ -500,6 +500,7 @@ public class FissionReactorControllerEntity extends BasicMachineEntity implement
                 }
                 ListTag lore = new ListTag();
                 CompoundTag display = new CompoundTag();
+                // TODO: need to be improved in future
                 StringTag text = StringTag.valueOf("{\"text\":\"Neutron: " + count + '/' + MAX_NEUTRON_FOR_ITEM + "\"}");
 
                 display.put("Lore", lore);
