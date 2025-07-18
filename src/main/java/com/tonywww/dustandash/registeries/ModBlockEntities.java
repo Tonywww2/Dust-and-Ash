@@ -4,7 +4,6 @@ import com.tonywww.dustandash.DustAndAsh;
 import com.tonywww.dustandash.block.entity.*;
 import com.tonywww.dustandash.block.entity.FissionReactor.FissionReactorControllerEntity;
 import com.tonywww.dustandash.block.entity.FissionReactor.FissionReactorInterfaceEntity;
-import com.tonywww.dustandash.registeries.ModBlocks;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.RegistryObject;

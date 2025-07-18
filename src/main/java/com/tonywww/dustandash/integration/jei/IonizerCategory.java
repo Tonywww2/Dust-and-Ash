@@ -25,7 +25,7 @@ import net.minecraft.world.level.block.LiquidBlock;
 
 public class IonizerCategory implements IRecipeCategory<IonizerRecipe> {
 
-//    public static final RecipeType<IonizerRecipe> RECIPE_TYPE = RecipeType.create(DustAndAsh.MOD_ID, "ionizer", IonizerRecipe.class);
+    //    public static final RecipeType<IonizerRecipe> RECIPE_TYPE = RecipeType.create(DustAndAsh.MOD_ID, "ionizer", IonizerRecipe.class);
     public final static ResourceLocation TEXTURE = new ResourceLocation(DustAndAsh.MOD_ID, "textures/gui/ionizer_gui.png");
 
     private final IDrawable bg;
@@ -113,8 +113,8 @@ public class IonizerCategory implements IRecipeCategory<IonizerRecipe> {
         Font font = Minecraft.getInstance().font;
 
         guiGraphics.drawString(font, recipe.getTick() + " ticks", 65, 60, 0xffffff);
-        guiGraphics.drawString(font, "Consume", 47, 70, 0xffffff);
-        guiGraphics.drawString(font, "Electrodes: " + recipe.isCostElectrodes(), 47, 80, 0xffffff);
+        guiGraphics.drawString(font, Component.translatable("jei.dustandash.ionizer_consume_1"), 47, 70, 0xffffff);
+        guiGraphics.drawString(font, Component.translatable("jei.dustandash.ionizer_consume_2").append(String.valueOf(recipe.isCostElectrodes())), 47, 80, 0xffffff);
     }
 
     @Override

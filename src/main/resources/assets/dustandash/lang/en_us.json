@@ -213,6 +213,9 @@
 
   "death.attack.sharpen_flint" : "%1$s's blood ran dry",
 
+  "jei.dustandash.ionizer_consume_1" : "Consume",
+  "jei.dustandash.ionizer_consume_2" : "Electrodes: ",
+
   "creativetab.dust_tab": "Dust and Ash: Dust",
   "creativetab.ash_tab": "Dust and Ash: Ash",
   "creativetab.blocks_tab": "Dust and Ash: Blocks",

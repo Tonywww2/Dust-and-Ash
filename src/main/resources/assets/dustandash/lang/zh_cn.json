@@ -213,6 +213,9 @@
 
   "death.attack.sharpen_flint" : "%1$s 的血流干了......",
 
+  "jei.dustandash.ionizer_consume_1" : " ",
+  "jei.dustandash.ionizer_consume_2" : "消耗电极：",
+
   "creativetab.dust_tab": "尘与烬：尘",
   "creativetab.ash_tab": "尘与烬：烬",
   "creativetab.blocks_tab": "尘与烬：方块",
