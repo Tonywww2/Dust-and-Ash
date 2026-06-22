@@ -1,6 +1,7 @@
 package com.tonywww.dustandash.item;
 
 import com.tonywww.dustandash.gecko.render.JudgementRenderer;
+import com.tonywww.dustandash.tag.ModTags;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -13,6 +14,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
+import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.animatable.GeoItem;
 import software.bernie.geckolib.animatable.SingletonGeoAnimatable;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
@@ -23,13 +25,14 @@ import software.bernie.geckolib.util.RenderUtils;
 
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Consumer;
 
 public class Judgement extends PickaxeItem implements GeoItem {
 
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
     private final int MAX_CD = 300;
-    private final int MAX_DURATION = 80;
+    private final int MAX_DURATION = 40;
 
     public Judgement(Tier pTier, int pAttackDamageModifier, float pAttackSpeedModifier, Properties pProperties) {
         super(pTier, pAttackDamageModifier, pAttackSpeedModifier, pProperties);
@@ -87,10 +90,29 @@ public class Judgement extends PickaxeItem implements GeoItem {
     }
 
     @Override
-    public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity entity) {
+    public @NotNull ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity entity) {
         if (!level.isClientSide()) {
             if (entity instanceof Player player) {
                 player.getCooldowns().addCooldown(this, MAX_CD);
+                AtomicReference<Double> totalHP = new AtomicReference<>(0d);
+                List<LivingEntity> entities = level.getEntitiesOfClass(LivingEntity.class, player.getBoundingBox().inflate(7), (livingEntity) -> {
+                    if (livingEntity.getType().is(ModTags.EntityTypes.JUDGEMENT_BLACKLIST))
+                        return false;
+                    if ((livingEntity.isAlliedTo(player) || player.isAlliedTo(livingEntity)) && livingEntity != player)
+                        return false;
+                    totalHP.updateAndGet(v -> (v + livingEntity.getHealth()));
+                    return true;
+                });
+
+                double targetHp = totalHP.get() / entities.size();
+
+                entities.forEach((livingEntity -> {
+                    float health = livingEntity.getHealth();
+                    if (health > targetHp)
+                        livingEntity.hurt(player.damageSources().playerAttack(player), (float) (health - targetHp));
+                    else
+                        livingEntity.heal((float) (targetHp - health));
+                }));
 
             }
             use.stop();

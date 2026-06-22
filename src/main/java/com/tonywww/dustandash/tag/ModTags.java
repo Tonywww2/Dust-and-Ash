@@ -1,8 +1,11 @@
 package com.tonywww.dustandash.tag;
 
 import com.tonywww.dustandash.DustAndAsh;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.item.Item;
 import net.minecraft.tags.BlockTags;
@@ -48,6 +51,20 @@ public class ModTags {
             return ItemTags.create(new ResourceLocation("forge", name));
         }
 
+    }
+
+    public static class EntityTypes {
+        public static final TagKey<EntityType<?>> JUDGEMENT_BLACKLIST = createTag("judgement_blacklist");
+
+        private static TagKey<EntityType<?>> createTag(String name) {
+
+            return TagKey.create(Registries.ENTITY_TYPE, new ResourceLocation(DustAndAsh.MOD_ID, name));
+        }
+
+        private static TagKey<EntityType<?>> createForgeTag(String name) {
+
+            return TagKey.create(Registries.ENTITY_TYPE, new ResourceLocation("forge", name));
+        }
     }
 
 }
