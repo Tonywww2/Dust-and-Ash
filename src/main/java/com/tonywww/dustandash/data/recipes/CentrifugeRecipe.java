@@ -115,7 +115,7 @@ public class CentrifugeRecipe implements Recipe<Container> {
     public static class Serializer implements RecipeSerializer<CentrifugeRecipe> {
 
         public static final Serializer INSTANCE = new Serializer();
-        public static final ResourceLocation ID = new ResourceLocation(DustAndAsh.MOD_ID, "centrifuge");
+        public static final ResourceLocation ID = DustAndAsh.prefix("centrifuge");
 
         @Override
         public CentrifugeRecipe fromJson(ResourceLocation pRecipeId, JsonObject json) {

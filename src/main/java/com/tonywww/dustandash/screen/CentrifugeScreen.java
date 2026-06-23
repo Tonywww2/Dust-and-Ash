@@ -10,7 +10,7 @@ import net.minecraft.world.entity.player.Inventory;
 
 public class CentrifugeScreen extends AbstractContainerScreen<CentrifugeContainerMenu> {
 
-    private final ResourceLocation GUI = new ResourceLocation(DustAndAsh.MOD_ID, "textures/gui/centrifuge_gui.png");
+    private final ResourceLocation GUI = DustAndAsh.prefix("textures/gui/centrifuge_gui.png");
 
     public CentrifugeScreen(CentrifugeContainerMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
         super(pMenu, pPlayerInventory, pTitle);

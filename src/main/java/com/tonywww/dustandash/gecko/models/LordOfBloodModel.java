@@ -8,16 +8,16 @@ import software.bernie.geckolib.model.GeoModel;
 public class LordOfBloodModel extends GeoModel<LordOfBlood> {
     @Override
     public ResourceLocation getModelResource(LordOfBlood animatable) {
-        return new ResourceLocation(DustAndAsh.MOD_ID, "geo/item/lord_of_blood.geo.json");
+        return DustAndAsh.prefix("geo/item/lord_of_blood.geo.json");
     }
 
     @Override
     public ResourceLocation getTextureResource(LordOfBlood animatable) {
-        return new ResourceLocation(DustAndAsh.MOD_ID, "textures/item/lord_of_blood.png");
+        return DustAndAsh.prefix("textures/item/lord_of_blood.png");
     }
 
     @Override
     public ResourceLocation getAnimationResource(LordOfBlood animatable) {
-        return new ResourceLocation(DustAndAsh.MOD_ID, "animations/item/lord_of_blood.animation.json");
+        return DustAndAsh.prefix("animations/item/lord_of_blood.animation.json");
     }
 }

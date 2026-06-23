@@ -2,6 +2,10 @@ package com.tonywww.dustandash.event;
 
 import com.tonywww.dustandash.registeries.ModEntites;
 import com.tonywww.dustandash.registeries.ModContainerMenus;
+import com.tonywww.dustandash.cthulhu.client.CthulhuGraphemeOverlay;
+import com.tonywww.dustandash.cthulhu.client.CthulhuHintOverlay;
+import com.tonywww.dustandash.cthulhu.client.CthulhuPhaseOverlay;
+import com.tonywww.dustandash.cthulhu.client.CthulhuTextEntityRenderer;
 import com.tonywww.dustandash.overlay.WhiteLightningOverlay;
 import com.tonywww.dustandash.screen.*;
 import net.minecraft.client.gui.screens.MenuScreens;
@@ -32,12 +36,20 @@ public class ClientSetupEvents {
         });
 
         EntityRenderers.register(ModEntites.LIGHTNING_BULLET.get(), ThrownItemRenderer::new);
+        EntityRenderers.register(ModEntites.CTHULHU_BOSS_PHASE1.get(), CthulhuTextEntityRenderer::new);
+        EntityRenderers.register(ModEntites.CTHULHU_PILLAR.get(), CthulhuTextEntityRenderer::new);
+        EntityRenderers.register(ModEntites.CTHULHU_STORM_GOLEM.get(), CthulhuTextEntityRenderer::new);
+        EntityRenderers.register(ModEntites.CTHULHU_GRAPHEME.get(), CthulhuTextEntityRenderer::new);
+        EntityRenderers.register(ModEntites.CTHULHU_LAW_FIELD.get(), CthulhuTextEntityRenderer::new);
 
     }
 
     @SubscribeEvent
     public static void registerGuiOverlay(RegisterGuiOverlaysEvent event) {
         event.registerBelowAll("dustandash.white_lightning", WhiteLightningOverlay.INSTANCE);
+        event.registerBelowAll("dustandash.cthulhu_phase", CthulhuPhaseOverlay.INSTANCE);
+        event.registerBelowAll("dustandash.cthulhu_graphemes", CthulhuGraphemeOverlay.INSTANCE);
+        event.registerBelowAll("dustandash.cthulhu_hints", CthulhuHintOverlay.INSTANCE);
 
     }
 }

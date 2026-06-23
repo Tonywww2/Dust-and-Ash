@@ -22,7 +22,7 @@ import net.minecraft.world.item.ItemStack;
 public class IntegratedBlockRecipeCategory implements IRecipeCategory<IntegratedBlockRecipe> {
 
 //    public static final RecipeType<IntegratedBlockRecipe> RECIPE_TYPE = RecipeType.create(DustAndAsh.MOD_ID, "integrate", IntegratedBlockRecipe.class);
-    public final static ResourceLocation TEXTURE = new ResourceLocation(DustAndAsh.MOD_ID, "textures/gui/integrated_block_gui.png");
+    public final static ResourceLocation TEXTURE = DustAndAsh.prefix("textures/gui/integrated_block_gui.png");
 
     private final IDrawable bg;
     private final IDrawable icon;

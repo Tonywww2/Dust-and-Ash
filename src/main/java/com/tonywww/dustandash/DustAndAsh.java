@@ -7,6 +7,7 @@ import com.tonywww.dustandash.registeries.ModContainerMenus;
 import com.tonywww.dustandash.registeries.ModBlockEntities;
 import com.tonywww.dustandash.registeries.ModRecipe;
 import com.tonywww.dustandash.registeries.ModItems;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -29,6 +30,12 @@ public class DustAndAsh {
 
     public static final String MOD_ID = "dustandash";
 
+    @SuppressWarnings("removal")
+    public static ResourceLocation prefix(String path) {
+        return new ResourceLocation(DustAndAsh.MOD_ID, path);
+    }
+
+    @SuppressWarnings("removal")
     public DustAndAsh() {
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
 

@@ -10,7 +10,7 @@ import net.minecraft.resources.ResourceLocation;
 
 public class IonizerScreen extends AbstractContainerScreen<IonizerContainerMenu> {
 
-    private final ResourceLocation GUI = new ResourceLocation(DustAndAsh.MOD_ID, "textures/gui/ionizer_gui.png");
+    private final ResourceLocation GUI = DustAndAsh.prefix("textures/gui/ionizer_gui.png");
 
     public IonizerScreen(IonizerContainerMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
         super(pMenu, pPlayerInventory, pTitle);

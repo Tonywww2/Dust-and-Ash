@@ -26,7 +26,7 @@ import net.minecraft.world.level.block.LiquidBlock;
 public class IonizerCategory implements IRecipeCategory<IonizerRecipe> {
 
     //    public static final RecipeType<IonizerRecipe> RECIPE_TYPE = RecipeType.create(DustAndAsh.MOD_ID, "ionizer", IonizerRecipe.class);
-    public final static ResourceLocation TEXTURE = new ResourceLocation(DustAndAsh.MOD_ID, "textures/gui/ionizer_gui.png");
+    public final static ResourceLocation TEXTURE = DustAndAsh.prefix("textures/gui/ionizer_gui.png");
 
     private final IDrawable bg;
     private final IDrawable icon;

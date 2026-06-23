@@ -16,7 +16,7 @@ public class WhiteLightningOverlay implements IGuiOverlay {
 
     public static final WhiteLightningOverlay INSTANCE = new WhiteLightningOverlay();
     private final Minecraft minecraft = Minecraft.getInstance();
-    private static final ResourceLocation HUD = new ResourceLocation(DustAndAsh.MOD_ID, "textures/gui/white_lightning_gui.png");
+    private static final ResourceLocation HUD = DustAndAsh.prefix("textures/gui/white_lightning_gui.png");
 
     private WhiteLightningOverlay() {
     }

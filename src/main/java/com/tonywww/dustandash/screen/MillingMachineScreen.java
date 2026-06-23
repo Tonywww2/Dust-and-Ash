@@ -10,7 +10,7 @@ import net.minecraft.world.entity.player.Inventory;
 
 public class MillingMachineScreen extends AbstractContainerScreen<MillingMachineContainerMenu> {
 
-    private final ResourceLocation GUI = new ResourceLocation(DustAndAsh.MOD_ID, "textures/gui/milling_machine_gui.png");
+    private final ResourceLocation GUI = DustAndAsh.prefix("textures/gui/milling_machine_gui.png");
 
     public MillingMachineScreen(MillingMachineContainerMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
         super(pMenu, pPlayerInventory, pTitle);

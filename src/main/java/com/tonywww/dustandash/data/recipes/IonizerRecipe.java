@@ -143,7 +143,7 @@ public class IonizerRecipe implements Recipe<Container> {
     public static class Serializer implements RecipeSerializer<IonizerRecipe> {
 
         public static final Serializer INSTANCE = new Serializer();
-        public static final ResourceLocation ID = new ResourceLocation(DustAndAsh.MOD_ID, "ionizer");
+        public static final ResourceLocation ID = DustAndAsh.prefix("ionizer");
 
         @Override
         public IonizerRecipe fromJson(ResourceLocation pRecipeId, JsonObject json) {

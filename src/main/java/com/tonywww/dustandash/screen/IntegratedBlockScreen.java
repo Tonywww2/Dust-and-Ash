@@ -10,7 +10,7 @@ import net.minecraft.world.entity.player.Inventory;
 
 public class IntegratedBlockScreen extends AbstractContainerScreen<IntegratedBlockContainerMenu> {
 
-    private final ResourceLocation GUI = new ResourceLocation(DustAndAsh.MOD_ID, "textures/gui/integrated_block_gui.png");
+    private final ResourceLocation GUI = DustAndAsh.prefix("textures/gui/integrated_block_gui.png");
 
     public IntegratedBlockScreen(IntegratedBlockContainerMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
         super(pMenu, pPlayerInventory, pTitle);

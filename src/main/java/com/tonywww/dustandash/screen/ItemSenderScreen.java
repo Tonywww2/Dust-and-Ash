@@ -19,7 +19,7 @@ import static java.lang.Integer.parseInt;
 
 public class ItemSenderScreen extends AbstractContainerScreen<ItemSenderContainerMenu> {
 
-    private final ResourceLocation GUI = new ResourceLocation(DustAndAsh.MOD_ID, "textures/gui/item_sender_gui.png");
+    private final ResourceLocation GUI = DustAndAsh.prefix("textures/gui/item_sender_gui.png");
 
     private final Component SLOT_ID = Component.translatable("screen.dustandash.item_sender_slot_id");
     private final Component SAVE_TEXT = Component.translatable("screen.dustandash.item_sender_save");

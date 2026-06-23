@@ -10,7 +10,7 @@ import net.minecraft.world.entity.player.Inventory;
 
 public class AshCollectorScreen extends AbstractContainerScreen<AshCollectorContainerMenu> {
 
-    private final ResourceLocation GUI = new ResourceLocation(DustAndAsh.MOD_ID, "textures/gui/ash_collector_gui.png");
+    private final ResourceLocation GUI = DustAndAsh.prefix("textures/gui/ash_collector_gui.png");
 
     public AshCollectorScreen(AshCollectorContainerMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
         super(pMenu, pPlayerInventory, pTitle);

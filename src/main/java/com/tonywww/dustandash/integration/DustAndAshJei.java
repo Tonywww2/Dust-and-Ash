@@ -32,7 +32,7 @@ import java.util.Objects;
 @SuppressWarnings("unused")
 public class DustAndAshJei implements IModPlugin {
 
-    private static final ResourceLocation PID = new ResourceLocation(DustAndAsh.MOD_ID, "jei_plugin");
+    private static final ResourceLocation PID = DustAndAsh.prefix("jei_plugin");
     private static final Minecraft MC = Minecraft.getInstance();
 
     @Override

@@ -48,6 +48,20 @@ public final class DustAndAshConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> rockSolidCD;
     public static final ForgeConfigSpec.ConfigValue<Integer> indestructibleCD;
 
+    // Cthulhu Boss Fight
+    public static final ForgeConfigSpec.ConfigValue<Integer> cthulhuMaxDeathsBeforeBanish;
+    public static final ForgeConfigSpec.ConfigValue<String> cthulhuBanishAltDim;
+    public static final ForgeConfigSpec.ConfigValue<Integer> cthulhuBanishNetherY;
+    public static final ForgeConfigSpec.ConfigValue<String> cthulhuPhase3FallbackLetters;
+    public static final ForgeConfigSpec.ConfigValue<Double> cthulhuVitalityDrainPercent;
+    public static final ForgeConfigSpec.ConfigValue<Double> cthulhuSoulWitherPerMissing;
+    public static final ForgeConfigSpec.ConfigValue<Double> cthulhuSoulWitherMax;
+    public static final ForgeConfigSpec.ConfigValue<Double> cthulhuSoulRecoveryPerSleep;
+    public static final ForgeConfigSpec.ConfigValue<Integer> cthulhuPillarOutputWindowTicks;
+    public static final ForgeConfigSpec.ConfigValue<Integer> cthulhuPillarInvulTicks;
+    public static final ForgeConfigSpec.ConfigValue<Integer> cthulhuGlobalTypeCooldownTicks;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> cthulhuLockBlockInteractionsDuringFight;
+
     static {
 
         BUILDER.comment("Config for Dust and Ash").push("Machines");
@@ -130,6 +144,35 @@ public final class DustAndAshConfig {
                 .defineInRange("indestructibleCD", 300, 0, 10000);
 
 
+
+        BUILDER.pop();
+
+        BUILDER.comment("Cthulhu Boss Fight").push("Cthulhu Boss Fight");
+
+        cthulhuMaxDeathsBeforeBanish = BUILDER.comment("\nDeaths before a participant is banished. Range[1, 100] Default: 3")
+                .defineInRange("maxDeathsBeforeBanish", 3, 1, 100);
+        cthulhuBanishAltDim = BUILDER.comment("\nFallback dimension id used when overworld is the fight dimension. Default: minecraft:the_nether")
+                .define("banishAltDim", "minecraft:the_nether");
+        cthulhuBanishNetherY = BUILDER.comment("\nNether fallback Y coordinate for banished players. Range[-64, 320] Default: 130")
+                .defineInRange("banishNetherY", 130, -64, 320);
+        cthulhuPhase3FallbackLetters = BUILDER.comment("\nFallback letters granted when entering phase 3. Default: REALITY")
+                .define("phase3FallbackLetters", "REALITY");
+        cthulhuVitalityDrainPercent = BUILDER.comment("\nVitality drain percent per erosion pulse. Range[0, 0.95] Default: 0.02")
+                .defineInRange("vitalityDrainPercent", 0.02d, 0.0d, 0.95d);
+        cthulhuSoulWitherPerMissing = BUILDER.comment("\nSoul wither percent per missing letter sacrifice. Range[0, 0.95] Default: 0.05")
+                .defineInRange("soulWitherPerMissing", 0.05d, 0.0d, 0.95d);
+        cthulhuSoulWitherMax = BUILDER.comment("\nMaximum soul wither percent. Range[0, 0.95] Default: 0.95")
+                .defineInRange("soulWitherMax", 0.95d, 0.0d, 0.95d);
+        cthulhuSoulRecoveryPerSleep = BUILDER.comment("\nSoul wither recovery per sleep. Range[0, 0.95] Default: 0.05")
+                .defineInRange("soulRecoveryPerSleep", 0.05d, 0.0d, 0.95d);
+        cthulhuPillarOutputWindowTicks = BUILDER.comment("\nContinuous pillar damage window in ticks. Range[1, 200] Default: 3")
+                .defineInRange("pillarOutputWindowTicks", 3, 1, 200);
+        cthulhuPillarInvulTicks = BUILDER.comment("\nPillar custom invulnerability after the output window. Range[0, 200] Default: 15")
+                .defineInRange("pillarInvulTicks", 15, 0, 200);
+        cthulhuGlobalTypeCooldownTicks = BUILDER.comment("\nGlobal law-word typing cooldown in ticks. Range[0, 200] Default: 20")
+                .defineInRange("globalTypeCooldownTicks", 20, 0, 200);
+        cthulhuLockBlockInteractionsDuringFight = BUILDER.comment("\nPrevent block breaking and placing while a fight is active in the dimension.")
+                .define("lockBlockInteractionsDuringFight", true);
 
         BUILDER.pop();
         COMMON_CONFIG = BUILDER.build();

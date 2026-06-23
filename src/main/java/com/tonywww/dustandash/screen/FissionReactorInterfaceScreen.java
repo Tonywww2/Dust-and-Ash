@@ -10,7 +10,7 @@ import net.minecraft.world.entity.player.Inventory;
 
 public class FissionReactorInterfaceScreen extends AbstractContainerScreen<FissionReactorInterfaceContainerMenu> {
 
-    private final ResourceLocation GUI = new ResourceLocation(DustAndAsh.MOD_ID, "textures/gui/fission_reactor_interface_gui.png");
+    private final ResourceLocation GUI = DustAndAsh.prefix("textures/gui/fission_reactor_interface_gui.png");
 
     public FissionReactorInterfaceScreen(FissionReactorInterfaceContainerMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
         super(pMenu, pPlayerInventory, pTitle);

@@ -21,7 +21,7 @@ public class ModTags {
 
         private static TagKey<Block> createTag(String name) {
 
-            return BlockTags.create(new ResourceLocation(DustAndAsh.MOD_ID, name));
+            return BlockTags.create(DustAndAsh.prefix(name));
         }
 
         private static TagKey<Block> createForgeTag(String name) {
@@ -43,7 +43,7 @@ public class ModTags {
 
         private static TagKey<Item> createTag(String name) {
 
-            return ItemTags.create(new ResourceLocation(DustAndAsh.MOD_ID, name));
+            return ItemTags.create(DustAndAsh.prefix(name));
         }
 
         private static TagKey<Item> createForgeTag(String name) {
@@ -58,7 +58,7 @@ public class ModTags {
 
         private static TagKey<EntityType<?>> createTag(String name) {
 
-            return TagKey.create(Registries.ENTITY_TYPE, new ResourceLocation(DustAndAsh.MOD_ID, name));
+            return TagKey.create(Registries.ENTITY_TYPE, DustAndAsh.prefix(name));
         }
 
         private static TagKey<EntityType<?>> createForgeTag(String name) {

@@ -104,7 +104,7 @@ public class IntegratedBlockRecipe implements Recipe<Container> {
     public static class Serializer implements RecipeSerializer<IntegratedBlockRecipe> {
 
         public static final Serializer INSTANCE = new Serializer();
-        public static final ResourceLocation ID = new ResourceLocation(DustAndAsh.MOD_ID, "integrate");
+        public static final ResourceLocation ID = DustAndAsh.prefix("integrate");
 
         @Override
         public IntegratedBlockRecipe fromJson(ResourceLocation pRecipeId, JsonObject json) {
