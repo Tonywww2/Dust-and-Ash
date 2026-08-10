@@ -1,10 +1,11 @@
 package com.tonywww.dustandash.block.entity;
 
+import com.tonywww.dustandash.DustAndAshConfig;
 import com.tonywww.dustandash.menu.IonizerContainerMenu;
-import com.tonywww.dustandash.menu.itemhandlers.IonizerItemHandler;
+import com.tonywww.dustandash.menu.itemhandlers.RestrictedItemHandler;
 import com.tonywww.dustandash.data.recipes.IonizerRecipe;
-import com.tonywww.dustandash.registeries.ModItems;
-import com.tonywww.dustandash.registeries.ModBlockEntities;
+import com.tonywww.dustandash.registry.DAAItems;
+import com.tonywww.dustandash.registry.DAABlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
@@ -14,12 +15,12 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Container;
 import net.minecraft.world.MenuProvider;
-import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -34,16 +35,15 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import java.util.Optional;
-import java.util.concurrent.atomic.AtomicBoolean;
 
-import static com.tonywww.dustandash.DustAndAshConfig.ionizerProgressPerTick;
-
-public class IonizerEntity extends SyncedBlockEntity implements MenuProvider {
+public class IonizerEntity extends SyncedBlockEntity implements MenuProvider, DroppableInventory {
 
     public ItemStackHandler invItemStackHandler;
-    private final LazyOptional<ItemStackHandler> handler;
-    private final LazyOptional<IonizerItemHandler> electrodeHandler;
-    private final LazyOptional<IonizerItemHandler> inputHandler;
+    private final ManagedCapability<ItemStackHandler> handler;
+    private final ManagedCapability<RestrictedItemHandler> electrodeHandler;
+    private final ManagedCapability<RestrictedItemHandler> inputHandler;
+    private final Container recipeInput;
+    private final RecipeManager.CachedCheck<Container, IonizerRecipe> recipeCheck;
 
     private float currentProgression;
     private int targetProgression;
@@ -56,13 +56,17 @@ public class IonizerEntity extends SyncedBlockEntity implements MenuProvider {
 
 
     public IonizerEntity(BlockPos pos, BlockState state) {
-        super(ModBlockEntities.IONIZER_ENTITY.get(), pos, state);
+        super(DAABlockEntities.IONIZER_ENTITY.get(), pos, state);
 
         this.invItemStackHandler = createInputsHandler();
 
-        this.handler = LazyOptional.of(() -> invItemStackHandler);
-        this.electrodeHandler = LazyOptional.of(() -> new IonizerItemHandler(invItemStackHandler, Direction.UP));
-        this.inputHandler = LazyOptional.of(() -> new IonizerItemHandler(invItemStackHandler, Direction.NORTH));
+        this.handler = managedCapability(() -> invItemStackHandler);
+        this.electrodeHandler = managedCapability(() -> new RestrictedItemHandler(invItemStackHandler,
+            slot -> slot >= 4, slot -> false));
+        this.inputHandler = managedCapability(() -> new RestrictedItemHandler(invItemStackHandler,
+            slot -> slot < 4, slot -> false));
+        this.recipeInput = new ItemHandlerContainerView(this.invItemStackHandler);
+        this.recipeCheck = RecipeManager.createCheck(IonizerRecipe.IonizerRecipeType.INSTANCE);
 
         currentProgression = -1f;
         targetProgression = 0;
@@ -120,10 +124,10 @@ public class IonizerEntity extends SyncedBlockEntity implements MenuProvider {
             @Override
             public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
                 if (slot == 0) {
-                    return ModItems.ELECTRON.get().equals(stack.getItem());
+                    return DAAItems.ELECTRON.get().equals(stack.getItem());
                 }
 
-                return !ModItems.ELECTRON.get().equals(stack.getItem());
+                return !DAAItems.ELECTRON.get().equals(stack.getItem());
 
             }
 
@@ -156,13 +160,13 @@ public class IonizerEntity extends SyncedBlockEntity implements MenuProvider {
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
         if (!this.remove && cap == ForgeCapabilities.ITEM_HANDLER) {
             if (side == null) {
-                return this.handler.cast();
+                return this.handler.get().cast();
             }
             if (side == Direction.UP) {
-                return this.electrodeHandler.cast();
+                return this.electrodeHandler.get().cast();
             }
             if (side == Direction.NORTH || side == Direction.EAST || side == Direction.SOUTH || side == Direction.WEST) {
-                return this.inputHandler.cast();
+                return this.inputHandler.get().cast();
             }
 
         }
@@ -180,12 +184,9 @@ public class IonizerEntity extends SyncedBlockEntity implements MenuProvider {
         return new IonizerContainerMenu(id, playerInventory, this, dataAccess);
     }
 
-    public NonNullList<ItemStack> getDroppableInventory() {
-        NonNullList<ItemStack> drops = NonNullList.create();
-        for (int i = 0; i < invItemStackHandler.getSlots(); ++i) {
-            drops.add(invItemStackHandler.getStackInSlot(i));
-        }
-        return drops;
+    @Override
+    public ItemStackHandler getInventory() {
+        return this.invItemStackHandler;
     }
 
     public static void tick(Level level, BlockPos pos, BlockState state, IonizerEntity be) {
@@ -208,90 +209,62 @@ public class IonizerEntity extends SyncedBlockEntity implements MenuProvider {
     }
 
     public static void craft(Level level, BlockPos pos, IonizerEntity be) {
-        // 0 power 1-3 items 4-5 electrode
-        Container inv = new SimpleContainer(be.invItemStackHandler.getSlots());
-        for (int i = 0; i < be.invItemStackHandler.getSlots(); i++) {
-            inv.setItem(i, be.invItemStackHandler.getStackInSlot(i));
-
-        }
-
-        Optional<IonizerRecipe> recipe = level.getRecipeManager().getRecipeFor(IonizerRecipe.IonizerRecipeType.INSTANCE, inv, level);
-
-        AtomicBoolean present = new AtomicBoolean(false);
-        recipe.ifPresent(iRecipe -> {
-
-            boolean isFullFluid = true;
-
-            if (be.below.getBlock() instanceof LiquidBlock) {
-//                LiquidBlock fluidBlock = (LiquidBlock) be.below.getBlock();
-                if (be.below.getValue(LiquidBlock.LEVEL) > 0) {
-                    isFullFluid = false;
-
-                }
-
-            }
-            if (isFullFluid && be.below.getBlock() == iRecipe.getInputBlock()) {
-                present.set(true);
-
-                if (be.currRecipe == null || be.currRecipe.getId() != iRecipe.getId()) {
-                    be.currRecipe = iRecipe;
-                    be.currentProgression = 1;
-                    be.targetProgression = iRecipe.getTick();
-
-                } else if (be.currRecipe.getId() == iRecipe.getId()) {
-                    // complete crafting
-                    if (be.currentProgression >= be.targetProgression) {
-                        be.invItemStackHandler.extractItem(0, be.currRecipe.getPowerCost(), false);
-                        be.invItemStackHandler.extractItem(1, 1, false);
-                        be.invItemStackHandler.extractItem(2, 1, false);
-                        be.invItemStackHandler.extractItem(3, 1, false);
-
-                        if (be.currRecipe.isCostElectrodes()) {
-                            be.invItemStackHandler.extractItem(4, 1, false);
-                            be.invItemStackHandler.extractItem(5, 1, false);
-
-                        }
-
-                        // replace below
-                        level.setBlock(pos.below(), be.currRecipe.getResultBlock().defaultBlockState(), 2);
-                        level.updateNeighborsAt(pos.below(), be.currRecipe.getResultBlock());
-
-                        // summon result
-                        for (ItemStack i : be.currRecipe.getResultItemStacks()) {
-                            ItemEntity itemEntity = new ItemEntity(
-                                    level,
-                                    pos.getX() + 0.5f,
-                                    pos.getY() - 0.5f,
-                                    pos.getZ() + 0.5f,
-                                    i.copy()
-                            );
-                            level.addFreshEntity(itemEntity);
-
-                        }
-
-                        be.currentProgression = -1;
-                        be.currRecipe = null;
-                        level.playSound(null, pos, SoundEvents.EXPERIENCE_ORB_PICKUP, SoundSource.BLOCKS, 0.5f, 1f);
-
-                    } else {
-                        // ticking
-                        be.currentProgression += ionizerProgressPerTick.get();
-
-                    }
-
-                }
-                be.inventoryChanged();
-            }
-
-        });
-
-        // reset
-        if (!present.get()) {
+        Optional<IonizerRecipe> recipe = be.recipeCheck.getRecipeFor(be.recipeInput, level);
+        if (recipe.isEmpty()) {
             be.currentProgression = -1;
             be.targetProgression = 0;
             be.currRecipe = null;
+            return;
+        }
+
+        IonizerRecipe ionizerRecipe = recipe.get();
+        boolean fullFluidBlock = !(be.below.getBlock() instanceof LiquidBlock)
+                || be.below.getValue(LiquidBlock.LEVEL) == 0;
+        if (!fullFluidBlock || be.below.getBlock() != ionizerRecipe.getInputBlock()) {
+            be.currentProgression = -1;
+            be.targetProgression = 0;
+            be.currRecipe = null;
+            return;
+        }
+
+        if (be.currRecipe == null || !be.currRecipe.getId().equals(ionizerRecipe.getId())) {
+            be.currRecipe = ionizerRecipe;
+            be.currentProgression = 1;
+            be.targetProgression = ionizerRecipe.getTick();
+        } else if (be.currentProgression >= be.targetProgression) {
+            be.invItemStackHandler.extractItem(0, be.currRecipe.getPowerCost(), false);
+            be.invItemStackHandler.extractItem(1, 1, false);
+            be.invItemStackHandler.extractItem(2, 1, false);
+            be.invItemStackHandler.extractItem(3, 1, false);
+
+            if (be.currRecipe.isCostElectrodes()) {
+                be.invItemStackHandler.extractItem(4, 1, false);
+                be.invItemStackHandler.extractItem(5, 1, false);
+            }
+
+            level.setBlock(pos.below(), be.currRecipe.getResultBlock().defaultBlockState(), 2);
+            level.updateNeighborsAt(pos.below(), be.currRecipe.getResultBlock());
+
+            for (ItemStack output : be.currRecipe.getResultItemStacks()) {
+                if (!output.isEmpty()) {
+                    level.addFreshEntity(new ItemEntity(
+                            level,
+                            pos.getX() + 0.5f,
+                            pos.getY() - 0.5f,
+                            pos.getZ() + 0.5f,
+                            output.copy()
+                    ));
+                }
+            }
+
+            be.currentProgression = -1;
+            be.currRecipe = null;
+            level.playSound(null, pos, SoundEvents.EXPERIENCE_ORB_PICKUP, SoundSource.BLOCKS, 0.5f, 1f);
+        } else {
+            be.currentProgression += DustAndAshConfig.MACHINES.ionizerProgressPerTick.get();
 
         }
+        be.inventoryChanged();
 
     }
 

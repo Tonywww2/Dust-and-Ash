@@ -1,9 +1,9 @@
 package com.tonywww.dustandash.block.entity;
 
 import com.tonywww.dustandash.menu.MillingMachineContainerMenu;
-import com.tonywww.dustandash.menu.itemhandlers.MillingMachineItemHandler;
+import com.tonywww.dustandash.menu.itemhandlers.RestrictedItemHandler;
 import com.tonywww.dustandash.data.recipes.MillingMachineRecipe;
-import com.tonywww.dustandash.registeries.ModBlockEntities;
+import com.tonywww.dustandash.registry.DAABlockEntities;
 import com.tonywww.dustandash.tag.ModTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -13,10 +13,10 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Container;
 import net.minecraft.world.MenuProvider;
-import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.entity.player.Player;
@@ -30,23 +30,30 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Optional;
 
-public class MillingMachineEntity extends BasicMachineEntity implements MenuProvider {
+public class MillingMachineEntity extends BasicMachineEntity implements MenuProvider, DroppableInventory {
 
     public ItemStackHandler invItemStackHandler;
-    private final LazyOptional<ItemStackHandler> handler;
-    private final LazyOptional<MillingMachineItemHandler> inputHandler;
-    private final LazyOptional<MillingMachineItemHandler> outputHandler;
-    private final LazyOptional<MillingMachineItemHandler> workspaceHandler;
+    private final ManagedCapability<ItemStackHandler> handler;
+    private final ManagedCapability<RestrictedItemHandler> inputHandler;
+    private final ManagedCapability<RestrictedItemHandler> outputHandler;
+    private final ManagedCapability<RestrictedItemHandler> workspaceHandler;
+    private final Container recipeInput;
+    private final RecipeManager.CachedCheck<Container, MillingMachineRecipe> recipeCheck;
 
     public MillingMachineEntity(BlockPos pos, BlockState state) {
-        super(ModBlockEntities.MILLING_MACHINE_ENTITY.get(), pos, state);
+        super(DAABlockEntities.MILLING_MACHINE_ENTITY.get(), pos, state);
 
         this.invItemStackHandler = createInputsHandler();
 
-        this.handler = LazyOptional.of(() -> invItemStackHandler);
-        this.inputHandler = LazyOptional.of(() -> new MillingMachineItemHandler(invItemStackHandler, Direction.UP));
-        this.outputHandler = LazyOptional.of(() -> new MillingMachineItemHandler(invItemStackHandler, Direction.DOWN));
-        this.workspaceHandler = LazyOptional.of(() -> new MillingMachineItemHandler(invItemStackHandler, Direction.NORTH));
+        this.handler = managedCapability(() -> invItemStackHandler);
+        this.inputHandler = managedCapability(() -> new RestrictedItemHandler(invItemStackHandler,
+            slot -> slot < 2, slot -> false));
+        this.outputHandler = managedCapability(() -> new RestrictedItemHandler(invItemStackHandler,
+            slot -> false, slot -> slot == 2));
+        this.workspaceHandler = managedCapability(() -> new RestrictedItemHandler(invItemStackHandler,
+            slot -> slot > 2, slot -> slot > 2));
+        this.recipeInput = new ItemHandlerContainerView(this.invItemStackHandler);
+        this.recipeCheck = RecipeManager.createCheck(MillingMachineRecipe.MillingRecipeType.INSTANCE);
 
     }
 
@@ -101,15 +108,15 @@ public class MillingMachineEntity extends BasicMachineEntity implements MenuProv
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
         if (!this.remove && cap == ForgeCapabilities.ITEM_HANDLER) {
             if (side == null) {
-                return this.handler.cast();
+                return this.handler.get().cast();
             }
             if (side == Direction.UP) {
-                return this.inputHandler.cast();
+                return this.inputHandler.get().cast();
             }
             if (side == Direction.DOWN) {
-                return this.outputHandler.cast();
+                return this.outputHandler.get().cast();
             } else {
-                return this.workspaceHandler.cast();
+                return this.workspaceHandler.get().cast();
             }
 
         }
@@ -127,20 +134,16 @@ public class MillingMachineEntity extends BasicMachineEntity implements MenuProv
         return new MillingMachineContainerMenu(id, playerInventory, this);
     }
 
-    public NonNullList<ItemStack> getDroppableInventory() {
-        NonNullList<ItemStack> drops = NonNullList.create();
-        for (int i = 0; i < invItemStackHandler.getSlots(); ++i) {
-            drops.add(invItemStackHandler.getStackInSlot(i));
-        }
-        return drops;
+    @Override
+    public ItemStackHandler getInventory() {
+        return this.invItemStackHandler;
     }
 
     public static void tick(Level level, BlockPos pos, BlockState state, MillingMachineEntity be) {
         if (!level.isClientSide) {
-            BasicMachineEntity.tick(be, 1);
-            if (BasicMachineEntity.isWorkingTick(be)) {
+            if (be.advanceWorkCycle(1)) {
                 craft(level, pos, be);
-                BasicMachineEntity.resetTicker(be);
+                be.resetWorkCycle();
 
             }
 
@@ -151,13 +154,7 @@ public class MillingMachineEntity extends BasicMachineEntity implements MenuProv
 
 
     public static void craft(Level level, BlockPos pos, MillingMachineEntity be) {
-        Container inv = new SimpleContainer(be.invItemStackHandler.getSlots());
-        for (int i = 0; i < be.invItemStackHandler.getSlots(); i++) {
-            inv.setItem(i, be.invItemStackHandler.getStackInSlot(i));
-
-        }
-
-        Optional<MillingMachineRecipe> recipe = level.getRecipeManager().getRecipeFor(MillingMachineRecipe.MillingRecipeType.INSTANCE, inv, level);
+        Optional<MillingMachineRecipe> recipe = be.recipeCheck.getRecipeFor(be.recipeInput, level);
 
         recipe.ifPresent(iRecipe -> {
             ItemStack output = iRecipe.getResultItem(null);

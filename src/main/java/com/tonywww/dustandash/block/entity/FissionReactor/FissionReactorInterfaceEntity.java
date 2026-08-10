@@ -1,10 +1,11 @@
 package com.tonywww.dustandash.block.entity.FissionReactor;
 
 import com.tonywww.dustandash.block.entity.SyncedBlockEntity;
+import com.tonywww.dustandash.block.entity.DroppableInventory;
 import com.tonywww.dustandash.item.FissionReactor.FissionReactorCoolingUnit;
 import com.tonywww.dustandash.item.FissionReactor.FissionReactorFuelUnit;
 import com.tonywww.dustandash.menu.FissionReactorInterfaceContainerMenu;
-import com.tonywww.dustandash.registeries.ModBlockEntities;
+import com.tonywww.dustandash.registry.DAABlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
@@ -24,21 +25,22 @@ import net.minecraftforge.items.ItemStackHandler;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class FissionReactorInterfaceEntity extends SyncedBlockEntity implements MenuProvider {
+public class FissionReactorInterfaceEntity extends SyncedBlockEntity implements MenuProvider, DroppableInventory {
+    public static final int FUEL_INPUT_SLOT = 0;
+    public static final int COOLING_INPUT_SLOT = 1;
+    public static final int FUEL_OUTPUT_SLOT = 2;
+    public static final int COOLING_OUTPUT_SLOT = 3;
+    public static final int SLOT_COUNT = 4;
 
     public final ItemStackHandler itemStackHandler = createHandler();
-    private final LazyOptional<ItemStackHandler> handler = LazyOptional.of(() -> itemStackHandler);
+    private final ManagedCapability<ItemStackHandler> handler = managedCapability(() -> itemStackHandler);
 
     public FissionReactorInterfaceEntity(BlockPos pos, BlockState state) {
-        super(ModBlockEntities.FISSION_REACTOR_INTERFACE_ENTITY.get(), pos, state);
+        super(DAABlockEntities.FISSION_REACTOR_INTERFACE_ENTITY.get(), pos, state);
     }
 
-    // 0: fuel
-    // 1: cooling
-    // 2: fuel out
-    // 3: cooling out
     private ItemStackHandler createHandler() {
-        return new ItemStackHandler(4) {
+        return new ItemStackHandler(SLOT_COUNT) {
             @Override
             protected void onContentsChanged(int slot) {
                 inventoryChanged();
@@ -46,8 +48,8 @@ public class FissionReactorInterfaceEntity extends SyncedBlockEntity implements 
 
             @Override
             public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
-                return (slot == 0 && stack.getItem() instanceof FissionReactorFuelUnit)
-                        || (slot == 1 && stack.getItem() instanceof FissionReactorCoolingUnit);
+                return (slot == FUEL_INPUT_SLOT && stack.getItem() instanceof FissionReactorFuelUnit)
+                    || (slot == COOLING_INPUT_SLOT && stack.getItem() instanceof FissionReactorCoolingUnit);
             }
 
             @Override
@@ -72,7 +74,7 @@ public class FissionReactorInterfaceEntity extends SyncedBlockEntity implements 
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
         if (cap == ForgeCapabilities.ITEM_HANDLER) {
-            return this.handler.cast();
+            return this.handler.get().cast();
 
         }
         return super.getCapability(cap, side);
@@ -101,11 +103,8 @@ public class FissionReactorInterfaceEntity extends SyncedBlockEntity implements 
         return new FissionReactorInterfaceContainerMenu(id, playerInventory, this);
     }
 
-    public NonNullList<ItemStack> getDroppableInventory() {
-        NonNullList<ItemStack> drops = NonNullList.create();
-        for (int i = 0; i < itemStackHandler.getSlots(); ++i) {
-            drops.add(itemStackHandler.getStackInSlot(i));
-        }
-        return drops;
+    @Override
+    public ItemStackHandler getInventory() {
+        return this.itemStackHandler;
     }
 }

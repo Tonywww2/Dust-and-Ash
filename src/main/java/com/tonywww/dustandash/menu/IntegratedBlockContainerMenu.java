@@ -1,8 +1,8 @@
 package com.tonywww.dustandash.menu;
 
-import com.tonywww.dustandash.registeries.ModBlocks;
+import com.tonywww.dustandash.registry.DAABlocks;
 import com.tonywww.dustandash.block.entity.IntegratedBlockEntity;
-import com.tonywww.dustandash.registeries.ModContainerMenus;
+import com.tonywww.dustandash.registry.DAAContainerMenus;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -21,7 +21,7 @@ public class IntegratedBlockContainerMenu extends AbstractContainerMenu {
     private final ContainerData data;
 
     public IntegratedBlockContainerMenu(int id, Inventory playerInventory, IntegratedBlockEntity tileEntity, ContainerData data) {
-        super(ModContainerMenus.INTEGRATED_BLOCK_CONTAINER.get(), id);
+        super(DAAContainerMenus.INTEGRATED_BLOCK_CONTAINER.get(), id);
         this.canInteractWithCallable = ContainerLevelAccess.create(tileEntity.getLevel(), tileEntity.getBlockPos());
 
         this.data = data;
@@ -84,7 +84,7 @@ public class IntegratedBlockContainerMenu extends AbstractContainerMenu {
 
     @Override
     public boolean stillValid(Player pPlayer) {
-        return stillValid(canInteractWithCallable, pPlayer, ModBlocks.INTEGRATED_BLOCK.get());
+        return stillValid(canInteractWithCallable, pPlayer, DAABlocks.INTEGRATED_BLOCK.get());
     }
 
     @Override

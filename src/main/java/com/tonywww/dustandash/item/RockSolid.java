@@ -1,7 +1,7 @@
 package com.tonywww.dustandash.item;
 
 import com.tonywww.dustandash.DustAndAshConfig;
-import com.tonywww.dustandash.registeries.ModItems;
+import com.tonywww.dustandash.registry.DAAItems;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -27,8 +27,8 @@ public class RockSolid extends Item {
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
 
         if (!level.isClientSide) {
-            player.getCooldowns().addCooldown(this, DustAndAshConfig.rockSolidCD.get());
-            player.getCooldowns().addCooldown(ModItems.INDESTRUCTIBLE.get(), DustAndAshConfig.indestructibleCD.get());
+            player.getCooldowns().addCooldown(this, DustAndAshConfig.TOOLS.rockSolidCooldown.get());
+            player.getCooldowns().addCooldown(DAAItems.INDESTRUCTIBLE.get(), DustAndAshConfig.TOOLS.indestructibleCooldown.get());
             player.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 100, 3));
             player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 120, 0));
             player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 80, 1));

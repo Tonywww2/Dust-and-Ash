@@ -8,7 +8,6 @@ import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.inventory.ContainerData;
 
 public class FissionReactorControllerScreen extends AbstractContainerScreen<FissionReactorControllerContainerMenu> {
 
@@ -36,17 +35,15 @@ public class FissionReactorControllerScreen extends AbstractContainerScreen<Fiss
         int j = this.topPos;
         guiGraphics.blit(GUI, i, j, 0, 0, 197, 192);
 
-        ContainerData data = this.menu.getData();
-
-        double rHeat = (double) data.get(0) / FissionReactorControllerEntity.MAX_HEAT;
+        double rHeat = (double) this.menu.getHeat() / FissionReactorControllerEntity.MAX_HEAT;
         guiGraphics.blit(GUI, i + 66, j + 4, 0, 193,
                 (int) (127 * rHeat), 9);
 
-        double rNeutron = (double) data.get(5) / FissionReactorControllerEntity.MAX_NEUTRON;
+        double rNeutron = (double) this.menu.getNeutron() / FissionReactorControllerEntity.MAX_NEUTRON;
         guiGraphics.blit(GUI, i + 66, j + 16, 0, 202,
                 (int) (127 * rNeutron), 9);
 
-        double rEnergy = (double) data.get(2) / FissionReactorControllerEntity.MAX_ENERGY;
+        double rEnergy = (double) this.menu.getEnergy() / FissionReactorControllerEntity.MAX_ENERGY;
         guiGraphics.blit(GUI, i + 66, j + 28, 0, 211,
                 (int) (127 * rEnergy), 9);
 

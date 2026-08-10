@@ -27,9 +27,6 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.function.Predicate;
 
-import static com.tonywww.dustandash.DustAndAshConfig.rottenBladeCDCheck;
-import static com.tonywww.dustandash.DustAndAshConfig.whiteLightningCDCheck;
-
 public class WhiteLightning extends SwordItem {
 
     private static final String ATTACK_COUNTS = "attack_counts";
@@ -55,10 +52,9 @@ public class WhiteLightning extends SwordItem {
             boolean lightningFlag = false;
             float targetHealth = 0;
 
-//            System.out.println(entity.getClass());
-
             // normal mode
-            if (!whiteLightningCDCheck.get() || player.getAttackStrengthScale(0.2f) >= 1) {
+            if (!DustAndAshConfig.WEAPONS.whiteLightningCooldownCheck.get()
+                    || player.getAttackStrengthScale(0.2f) >= 1) {
                 if (getAttackCounts(stack) >= 2) {
                     setAttackCounts(stack, getAttackCounts(stack) - 2);
                     setCharges(stack, getCharges(stack) + 2);
@@ -120,7 +116,8 @@ public class WhiteLightning extends SwordItem {
             }
 
             if (damageFlag) {
-                double damage = (targetHealth * DustAndAshConfig.whiteLightningExtraPercentage.get()) + (DustAndAshConfig.whiteLightningExtraDamage.get() * 2);
+                double damage = (targetHealth * DustAndAshConfig.WEAPONS.whiteLightningExtraPercentage.get())
+                    + (DustAndAshConfig.WEAPONS.whiteLightningExtraDamage.get() * 2);
                 entity.hurt(player.damageSources().indirectMagic(entity, player), (float) damage);
                 setAdvCharges(stack, getAdvCharges(stack) - 1);
                 level.playSound(null, player.blockPosition(), SoundEvents.ENDER_DRAGON_FLAP, SoundSource.PLAYERS, 1f, 1f);

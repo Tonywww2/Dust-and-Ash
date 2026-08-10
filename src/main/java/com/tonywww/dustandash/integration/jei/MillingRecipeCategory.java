@@ -2,7 +2,7 @@ package com.tonywww.dustandash.integration.jei;
 
 import com.tonywww.dustandash.DustAndAsh;
 import com.tonywww.dustandash.integration.DustAndAshRecipeTypes;
-import com.tonywww.dustandash.registeries.ModBlocks;
+import com.tonywww.dustandash.registry.DAABlocks;
 import com.tonywww.dustandash.data.recipes.MillingMachineRecipe;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
@@ -31,7 +31,7 @@ public class MillingRecipeCategory implements IRecipeCategory<MillingMachineReci
 
     public MillingRecipeCategory(IGuiHelper helper) {
         this.bg = helper.createDrawable(TEXTURE, 0, 0, 176, 85);
-        this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModBlocks.MILLING_MACHINE.get()));
+        this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(DAABlocks.MILLING_MACHINE.get()));
 
         this.wp = helper.createDrawable(TEXTURE, 0, 173, 97, 82);
     }
@@ -43,7 +43,7 @@ public class MillingRecipeCategory implements IRecipeCategory<MillingMachineReci
 
     @Override
     public Component getTitle() {
-        return ModBlocks.MILLING_MACHINE.get().getName();
+        return DAABlocks.MILLING_MACHINE.get().getName();
     }
 
     @Override
@@ -55,8 +55,9 @@ public class MillingRecipeCategory implements IRecipeCategory<MillingMachineReci
     public void setRecipe(IRecipeLayoutBuilder builder, MillingMachineRecipe recipe, IFocusGroup focuses) {
 
         var level = Minecraft.getInstance().level;
-
-        assert level != null;
+        if (level == null) {
+            return;
+        }
 
         var inputs = recipe.getIngredients();
         var output = recipe.getResultItem(level.registryAccess());

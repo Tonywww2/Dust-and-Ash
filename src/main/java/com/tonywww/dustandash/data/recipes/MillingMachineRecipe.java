@@ -3,9 +3,9 @@ package com.tonywww.dustandash.data.recipes;
 import com.google.common.collect.Maps;
 import com.google.gson.*;
 import com.tonywww.dustandash.DustAndAsh;
-import com.tonywww.dustandash.registeries.ModBlocks;
-import com.tonywww.dustandash.registeries.ModItems;
-import com.tonywww.dustandash.registeries.ModRecipe;
+import com.tonywww.dustandash.registry.DAABlocks;
+import com.tonywww.dustandash.registry.DAAItems;
+import com.tonywww.dustandash.registry.DAARecipe;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
@@ -61,7 +61,7 @@ public class MillingMachineRecipe implements Recipe<Container> {
         } else {
             // otherwise
             // check slot 1
-            if ((recipeItems.get(0).test(ModItems.EMPTY.get().getDefaultInstance()) && inv.getItem(1).isEmpty()) ||
+            if ((recipeItems.get(0).test(DAAItems.EMPTY.get().getDefaultInstance()) && inv.getItem(1).isEmpty()) ||
                     !recipeItems.get(0).test(inv.getItem(1))) {
                 return false;
             }
@@ -69,7 +69,7 @@ public class MillingMachineRecipe implements Recipe<Container> {
             // check workspace
             for (int i = 1; i < MAX_SLOTS; i++) {
                 ItemStack itemStack = inv.getItem(i + 2);
-                if ((recipeItems.get(i).test(ModItems.EMPTY.get().getDefaultInstance()) && itemStack.isEmpty()) ||
+                if ((recipeItems.get(i).test(DAAItems.EMPTY.get().getDefaultInstance()) && itemStack.isEmpty()) ||
                         !recipeItems.get(i).test(itemStack)) {
                     return false;
                 }
@@ -84,7 +84,7 @@ public class MillingMachineRecipe implements Recipe<Container> {
 
     @Override
     public ItemStack assemble(Container pInv, RegistryAccess pRegistryAccess) {
-        return null;
+        return ItemStack.EMPTY;
     }
 
     @Override
@@ -104,7 +104,7 @@ public class MillingMachineRecipe implements Recipe<Container> {
 
     @Override
     public RecipeSerializer<?> getSerializer() {
-        return ModRecipe.MILLING_SERIALIZER.get();
+        return DAARecipe.MILLING_SERIALIZER.get();
     }
 
     @Override
@@ -113,7 +113,7 @@ public class MillingMachineRecipe implements Recipe<Container> {
     }
 
     public ItemStack getIcon() {
-        return new ItemStack(ModBlocks.MILLING_MACHINE.get());
+        return new ItemStack(DAABlocks.MILLING_MACHINE.get());
     }
 
     public boolean isStep1() {
@@ -123,6 +123,11 @@ public class MillingMachineRecipe implements Recipe<Container> {
     @Override
     public RecipeType<?> getType() {
         return MillingRecipeType.INSTANCE;
+    }
+
+    @Override
+    public boolean isSpecial() {
+        return true;
     }
 
     public static class MillingRecipeType implements RecipeType<MillingMachineRecipe> {
@@ -139,7 +144,6 @@ public class MillingMachineRecipe implements Recipe<Container> {
 
         @Override
         public MillingMachineRecipe fromJson(ResourceLocation pRecipeId, JsonObject json) {
-//            System.out.println(pRecipeId + " start from json");
             ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "output"));
 
             boolean step1 = GsonHelper.getAsBoolean(json, "step1");
@@ -147,20 +151,36 @@ public class MillingMachineRecipe implements Recipe<Container> {
 
             if (step1) {
                 JsonArray ingredients = GsonHelper.getAsJsonArray(json, "ingredients");
+                if (ingredients.size() != 1) {
+                    throw new JsonSyntaxException("Milling recipe " + pRecipeId
+                            + " step1 requires exactly one ingredient");
+                }
                 Ingredient temp = Ingredient.fromJson(ingredients.get(0));
                 inputs.set(0, temp);
 
             } else {
                 Map<String, Ingredient> map = keyFromJson(GsonHelper.getAsJsonObject(json, "key"));
                 JsonArray jArray = GsonHelper.getAsJsonArray(json, "pattern");
+                if (jArray.size() != MAX_HEIGHT) {
+                    throw new JsonSyntaxException("Milling recipe " + pRecipeId + " requires exactly "
+                            + MAX_HEIGHT + " pattern rows");
+                }
 
                 String[] astring = new String[jArray.size()];
                 for (int i = 0; i < astring.length; ++i) {
                     astring[i] = GsonHelper.convertToString(jArray.get(i), "pattern[" + i + "]");
+                    if (astring[i].length() != MAX_WIDTH) {
+                        throw new JsonSyntaxException("Milling recipe " + pRecipeId + " pattern row " + i
+                                + " must contain exactly " + MAX_WIDTH + " symbols");
+                    }
 
                 }
 
-                inputs.set(0, map.get(CATALYST));
+                Ingredient catalyst = map.get(CATALYST);
+                if (catalyst == null) {
+                    throw new JsonSyntaxException("Milling recipe " + pRecipeId + " is missing catalyst key");
+                }
+                inputs.set(0, catalyst);
 
                 for (int i = 0; i < 5; i++) {
                     String temp = astring[i];
@@ -201,29 +221,14 @@ public class MillingMachineRecipe implements Recipe<Container> {
         @Nullable
         @Override
         public MillingMachineRecipe fromNetwork(ResourceLocation pRecipeId, FriendlyByteBuf pBuffer) {
-//            System.out.println(pRecipeId + " start from network");
-            NonNullList<Ingredient> inputs = NonNullList.withSize(MAX_SLOTS, Ingredient.of(ModItems.EMPTY.get()));
-            // 1 readBoolean
+            NonNullList<Ingredient> inputs = NonNullList.withSize(MAX_SLOTS, Ingredient.of(DAAItems.EMPTY.get()));
             boolean step1 = pBuffer.readBoolean();
             if (step1) {
-                // 2 1 fromNetwork
-                Ingredient temp = Ingredient.fromNetwork(pBuffer);
-                inputs.set(0, temp);
-
+                inputs.set(0, Ingredient.fromNetwork(pBuffer));
             } else {
-                // 01 readVarInt
-                int inputSize = pBuffer.readVarInt();
-                for (int i = 0; i < inputSize; i++) {
-                    // 2 2 fromNetwork
-                    Ingredient temp = Ingredient.fromNetwork(pBuffer);
-                    inputs.set(i, temp);
-
-
-                }
-
+                inputs = RecipeIo.readIngredients(pBuffer, pRecipeId, "ingredients", MAX_SLOTS);
             }
 
-            // 3 readItem
             ItemStack output = pBuffer.readItem();
 
             return new MillingMachineRecipe(pRecipeId, output, inputs, step1);
@@ -231,51 +236,16 @@ public class MillingMachineRecipe implements Recipe<Container> {
 
         @Override
         public void toNetwork(FriendlyByteBuf pBuffer, MillingMachineRecipe pRecipe) {
-//            System.out.println(pRecipe.id + " start to network");
-            // 1 writeBoolean
             pBuffer.writeBoolean(pRecipe.isStep1());
 
             if (pRecipe.isStep1()) {
-                // 2 1 toNetwork
                 pRecipe.getIngredients().get(0).toNetwork(pBuffer);
-
             } else {
-                // 01 writeVarInt
-                pBuffer.writeVarInt(pRecipe.getIngredients().size());
-                for (Ingredient i : pRecipe.getIngredients()) {
-                    // 2 2 toNetwork
-                    i.toNetwork(pBuffer);
-
-                }
-
+                RecipeIo.writeIngredients(pBuffer, pRecipe.getIngredients());
             }
 
-            // 3 writeItem
             pBuffer.writeItemStack(pRecipe.getResultItem(null), false);
-
         }
-
-
-//        @Override
-//        public RecipeSerializer<?> setRegistryName(ResourceLocation name) {
-//            return INSTANCE;
-//        }
-//
-//        @org.jetbrains.annotations.Nullable
-//        @Override
-//        public ResourceLocation getRegistryName() {
-//            return ID;
-//        }
-//
-//        @Override
-//        public Class<RecipeSerializer<?>> getRegistryType() {
-//            return Serializer.castClass(RecipeSerializer.class);
-//        }
-//
-//        private static <G> Class<G> castClass(Class<?> cls) {
-//            return (Class<G>) cls;
-//        }
-
     }
 
 

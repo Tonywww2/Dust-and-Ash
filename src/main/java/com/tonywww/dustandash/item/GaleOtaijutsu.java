@@ -1,5 +1,6 @@
 package com.tonywww.dustandash.item;
 
+import com.tonywww.dustandash.DustAndAshConfig;
 import com.tonywww.dustandash.gecko.render.GaleOtaijutsuRenderer;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.core.particles.ParticleTypes;
@@ -34,9 +35,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.function.Consumer;
 
-import static com.tonywww.dustandash.DustAndAshConfig.galeOtaijutsuDamageRate;
-
-
 public class GaleOtaijutsu extends SwordItem implements GeoItem {
 
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
@@ -63,7 +61,8 @@ public class GaleOtaijutsu extends SwordItem implements GeoItem {
 
             }
 
-            float extraDamage = (float) ((player.fallDistance + 1) * galeOtaijutsuDamageRate.get());
+                float extraDamage = (float) ((player.fallDistance + 1)
+                    * DustAndAshConfig.WEAPONS.galeOtaijutsuDamageRate.get());
             entity.hurt(player.damageSources().playerAttack(player), extraDamage);
             entity.invulnerableTime = 0;
             player.resetFallDistance();

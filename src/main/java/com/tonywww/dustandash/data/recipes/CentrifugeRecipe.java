@@ -1,11 +1,9 @@
 package com.tonywww.dustandash.data.recipes;
 
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.tonywww.dustandash.DustAndAsh;
-import com.tonywww.dustandash.registeries.ModBlocks;
-import com.tonywww.dustandash.registeries.ModItems;
-import com.tonywww.dustandash.registeries.ModRecipe;
+import com.tonywww.dustandash.registry.DAABlocks;
+import com.tonywww.dustandash.registry.DAARecipe;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
@@ -20,8 +18,6 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.level.Level;
 
 import javax.annotation.Nullable;
-
-import static com.tonywww.dustandash.data.recipes.RecipeUtils.itemsFromJson;
 
 public class CentrifugeRecipe implements Recipe<Container> {
 
@@ -47,8 +43,6 @@ public class CentrifugeRecipe implements Recipe<Container> {
         for (int i = 0; i < MAX_SLOTS; i++) {
             ItemStack itemStack = inv.getItem(i);
             if (!recipeItems.get(i).test(itemStack)) {
-//                if (!(recipeItems.get(i).test(RecipeUtils.EMPTY) && itemStack.isEmpty())
-//                        || !recipeItems.get(i).test(itemStack)) {
                 return false;
 
             }
@@ -61,7 +55,7 @@ public class CentrifugeRecipe implements Recipe<Container> {
 
     @Override
     public ItemStack assemble(Container pInv, RegistryAccess pRegistryAccess) {
-        return null;
+        return ItemStack.EMPTY;
     }
 
     @Override
@@ -85,7 +79,7 @@ public class CentrifugeRecipe implements Recipe<Container> {
 
     @Override
     public RecipeSerializer<?> getSerializer() {
-        return ModRecipe.CENTRIFUGE_SERIALIZER.get();
+        return DAARecipe.CENTRIFUGE_SERIALIZER.get();
     }
 
     @Override
@@ -94,12 +88,17 @@ public class CentrifugeRecipe implements Recipe<Container> {
     }
 
     @Override
+    public boolean isSpecial() {
+        return true;
+    }
+
+    @Override
     public NonNullList<Ingredient> getIngredients() {
         return recipeItems;
     }
 
     public ItemStack getIcon() {
-        return new ItemStack(ModBlocks.CENTRIFUGE.get());
+        return new ItemStack(DAABlocks.CENTRIFUGE.get());
     }
 
     public int getTick() {
@@ -119,36 +118,9 @@ public class CentrifugeRecipe implements Recipe<Container> {
 
         @Override
         public CentrifugeRecipe fromJson(ResourceLocation pRecipeId, JsonObject json) {
-//            System.out.println(pRecipeId + " start from json");
-//            JsonArray ingredients = GsonHelper.getAsJsonArray(json, "ingredients");
             int tick = GsonHelper.getAsInt(json, "tick");
-            JsonArray outputArr = GsonHelper.getAsJsonArray(json, "outputs");
-
-//            NonNullList<Ingredient> inputs = NonNullList.withSize(MAX_SLOTS, Ingredient.EMPTY);
-//            NonNullList<ItemStack> outputs = NonNullList.withSize(OUTPUT_SLOTS, ItemStack.EMPTY);
-            NonNullList<Ingredient> inputs = itemsFromJson(GsonHelper.getAsJsonArray(json, "ingredients"), MAX_SLOTS);
-            NonNullList<ItemStack> outputs = NonNullList.withSize(OUTPUT_SLOTS, ItemStack.EMPTY);
-
-
-//            for (int i = 0; i < ingredients.size(); i++) {
-//                Ingredient temp = Ingredient.fromJson(ingredients.get(i));
-//
-//                if (temp.getItems()[0].getItem() != ModItems.EMPTY.get()) {
-//                    inputs.set(i, temp);
-//
-//                }
-//
-//            }
-
-            for (int i = 0; i < outputs.size(); i++) {
-                ItemStack temp = Ingredient.fromJson(outputArr.get(i)).getItems()[0];
-
-                if (temp.getItem() != ModItems.EMPTY.get()) {
-                    outputs.set(i, temp);
-
-                }
-
-            }
+            NonNullList<Ingredient> inputs = RecipeIo.readIngredients(json, pRecipeId, "ingredients", MAX_SLOTS, true);
+            NonNullList<ItemStack> outputs = RecipeIo.readOutputs(json, pRecipeId, "outputs", OUTPUT_SLOTS, true);
 
             return new CentrifugeRecipe(pRecipeId, outputs, inputs, tick);
         }
@@ -157,76 +129,18 @@ public class CentrifugeRecipe implements Recipe<Container> {
         @Nullable
         @Override
         public CentrifugeRecipe fromNetwork(ResourceLocation pRecipeId, FriendlyByteBuf pBuffer) {
-//            System.out.println(pRecipeId + " start from network");
-            // 3 readInt
             int tick = pBuffer.readInt();
-            // 01 readVarInt
-            int inputSize = pBuffer.readVarInt();
-            NonNullList<Ingredient> inputs = NonNullList.withSize(MAX_SLOTS, Ingredient.EMPTY);
-            for (int i = 0; i < inputSize; i++) {
-                // 1 fromNetwork
-                Ingredient temp = Ingredient.fromNetwork(pBuffer);
-                inputs.set(i, temp);
-
-            }
-
-            // 02 readVarInt
-            int outputSize = pBuffer.readVarInt();
-            NonNullList<ItemStack> output = NonNullList.withSize(OUTPUT_SLOTS, ItemStack.EMPTY);
-            for (int i = 0; i < outputSize; i++) {
-                // 2 readItem
-                ItemStack temp = pBuffer.readItem();
-                output.set(i, temp);
-
-            }
+            NonNullList<Ingredient> inputs = RecipeIo.readIngredients(pBuffer, pRecipeId, "ingredients", MAX_SLOTS);
+            NonNullList<ItemStack> output = RecipeIo.readOutputs(pBuffer, pRecipeId, "outputs", OUTPUT_SLOTS);
 
             return new CentrifugeRecipe(pRecipeId, output, inputs, tick);
         }
 
         @Override
         public void toNetwork(FriendlyByteBuf pBuffer, CentrifugeRecipe pRecipe) {
-//            System.out.println(pRecipe.id + " start to network");
-            // 3 writeInt
             pBuffer.writeInt(pRecipe.getTick());
-
-            // 01 writeVarInt
-            pBuffer.writeVarInt(pRecipe.getIngredients().size());
-
-            for (Ingredient i : pRecipe.getIngredients()) {
-                // 1 toNetwork
-                i.toNetwork(pBuffer);
-
-            }
-
-            // 02 writeVarInt
-            pBuffer.writeVarInt(pRecipe.getResultItemStacks().size());
-
-            for (ItemStack i : pRecipe.getResultItemStacks()) {
-                // 2 writeItem
-                pBuffer.writeItemStack(i, false);
-
-            }
-
+            RecipeIo.writeIngredients(pBuffer, pRecipe.getIngredients());
+            RecipeIo.writeOutputs(pBuffer, pRecipe.getResultItemStacks());
         }
-
-//        @Override
-//        public RecipeSerializer<?> setRegistryName(ResourceLocation name) {
-//            return INSTANCE;
-//        }
-//
-//        @org.jetbrains.annotations.Nullable
-//        @Override
-//        public ResourceLocation getRegistryName() {
-//            return ID;
-//        }
-//
-//        @Override
-//        public Class<RecipeSerializer<?>> getRegistryType() {
-//            return Serializer.castClass(RecipeSerializer.class);
-//        }
-//
-//        private static <G> Class<G> castClass(Class<?> cls) {
-//            return (Class<G>) cls;
-//        }
     }
 }

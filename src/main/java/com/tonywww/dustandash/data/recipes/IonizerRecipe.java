@@ -2,10 +2,11 @@ package com.tonywww.dustandash.data.recipes;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonSyntaxException;
 import com.tonywww.dustandash.DustAndAsh;
-import com.tonywww.dustandash.registeries.ModBlocks;
-import com.tonywww.dustandash.registeries.ModItems;
-import com.tonywww.dustandash.registeries.ModRecipe;
+import com.tonywww.dustandash.registry.DAABlocks;
+import com.tonywww.dustandash.registry.DAAItems;
+import com.tonywww.dustandash.registry.DAARecipe;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
@@ -22,8 +23,7 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
-
-import static com.tonywww.dustandash.data.recipes.RecipeUtils.itemsFromJson;
+import java.util.Objects;
 
 public class IonizerRecipe implements Recipe<Container> {
 
@@ -41,15 +41,21 @@ public class IonizerRecipe implements Recipe<Container> {
     public static final int OUTPUT_SLOTS = 4;
 
     public IonizerRecipe(ResourceLocation id, NonNullList<Ingredient> recipeItems, Block inputBlock, NonNullList<ItemStack> output, int powerCost, int tick, boolean costElectrodes, Block outputBlock) {
-        this.id = id;
-        this.recipeItems = recipeItems;
-        this.inputBlock = inputBlock;
-        this.outputItemStacks = output;
+        this.id = Objects.requireNonNull(id, "id");
+        this.recipeItems = Objects.requireNonNull(recipeItems, "recipeItems");
+        this.inputBlock = Objects.requireNonNull(inputBlock, "inputBlock");
+        this.outputItemStacks = Objects.requireNonNull(output, "output");
         this.powerCost = powerCost;
         this.tick = tick;
         this.costElectrodes = costElectrodes;
-        this.outputBlock = outputBlock;
+        this.outputBlock = Objects.requireNonNull(outputBlock, "outputBlock");
 
+        if (recipeItems.size() != MAX_SLOTS) {
+            throw new IllegalArgumentException("Ionizer recipe requires exactly " + MAX_SLOTS + " ingredients");
+        }
+        if (output.size() != OUTPUT_SLOTS) {
+            throw new IllegalArgumentException("Ionizer recipe requires exactly " + OUTPUT_SLOTS + " outputs");
+        }
     }
 
 
@@ -59,7 +65,7 @@ public class IonizerRecipe implements Recipe<Container> {
         if (inv.getItem(0).getCount() >= powerCost) {
             for (int i = 1; i <= 5; i++) {
                 ItemStack itemStack = inv.getItem(i);
-                if (recipeItems.get(i - 1).test(ModItems.EMPTY.get().getDefaultInstance()) && itemStack.isEmpty()
+                if (recipeItems.get(i - 1).test(DAAItems.EMPTY.get().getDefaultInstance()) && itemStack.isEmpty()
                         || !recipeItems.get(i - 1).test(itemStack)) {
                     return false;
                 }
@@ -74,7 +80,7 @@ public class IonizerRecipe implements Recipe<Container> {
 
     @Override
     public ItemStack assemble(Container pInv, RegistryAccess pRegistryAccess) {
-        return null;
+        return ItemStack.EMPTY;
     }
 
     @Override
@@ -114,7 +120,7 @@ public class IonizerRecipe implements Recipe<Container> {
 
     @Override
     public RecipeSerializer<?> getSerializer() {
-        return ModRecipe.IONIZER_SERIALIZER.get();
+        return DAARecipe.IONIZER_SERIALIZER.get();
     }
 
     @Override
@@ -123,12 +129,17 @@ public class IonizerRecipe implements Recipe<Container> {
     }
 
     @Override
+    public boolean isSpecial() {
+        return true;
+    }
+
+    @Override
     public NonNullList<Ingredient> getIngredients() {
         return recipeItems;
     }
 
     public ItemStack getIcon() {
-        return new ItemStack(ModBlocks.CENTRIFUGE.get());
+        return new ItemStack(DAABlocks.IONIZER.get());
     }
 
     public int getTick() {
@@ -147,149 +158,74 @@ public class IonizerRecipe implements Recipe<Container> {
 
         @Override
         public IonizerRecipe fromJson(ResourceLocation pRecipeId, JsonObject json) {
-//            System.out.println(pRecipeId + " start from json");
-//            JsonArray ingredients = GsonHelper.getAsJsonArray(json, "ingredients");
-            ResourceLocation inputBlockStr = new ResourceLocation(GsonHelper.getAsString(json, "inputBlock"));
-
-            JsonArray outputArr = GsonHelper.getAsJsonArray(json, "outputs");
             int cost = GsonHelper.getAsInt(json, "cost");
             int tick = GsonHelper.getAsInt(json, "tick");
             boolean costElectrodes = GsonHelper.getAsBoolean(json, "costElectrodes");
-            ResourceLocation outputBlockStr = new ResourceLocation(GsonHelper.getAsString(json, "outputBlock"));
+            Block inputBlock = readRequiredBlock(pRecipeId, json, "inputBlock");
+            Block outputBlock = readRequiredBlock(pRecipeId, json, "outputBlock");
 
-//            NonNullList<Ingredient> inputs = NonNullList.withSize(MAX_SLOTS, Ingredient.EMPTY);
-            NonNullList<Ingredient> inputs = itemsFromJson(GsonHelper.getAsJsonArray(json, "ingredients"), MAX_SLOTS);
-            Block inputBlock = null;
-
-            NonNullList<ItemStack> outputs = NonNullList.withSize(OUTPUT_SLOTS, ItemStack.EMPTY);
-            Block outputBlock = null;
-
-
-//            for (int i = 0; i < ingredients.size(); i++) {
-//                Ingredient temp = Ingredient.fromJson(ingredients.get(i));
-//
-//                if (temp.getItems()[0].getItem() != ModItems.EMPTY.get()) {
-//                    inputs.set(i, temp);
-//
-//                }
-//
-//            }
-
-            if (inputBlockStr != ModItems.EMPTY.getId()) {
-                inputBlock = ForgeRegistries.BLOCKS.getValue(inputBlockStr);
-
-            }
-
-            for (int i = 0; i < outputs.size(); i++) {
-                ItemStack temp = Ingredient.fromJson(outputArr.get(i)).getItems()[0];
-
-                if (temp.getItem() != ModItems.EMPTY.get()) {
-                    outputs.set(i, temp);
-
-                }
-
-            }
-
-            if (outputBlockStr != ModItems.EMPTY.getId()) {
-                outputBlock = ForgeRegistries.BLOCKS.getValue(outputBlockStr);
-
-            }
+            NonNullList<Ingredient> inputs = RecipeIo.readIngredients(json, pRecipeId, "ingredients", MAX_SLOTS, true);
+            NonNullList<ItemStack> outputs = RecipeIo.readOutputs(json, pRecipeId, "outputs", OUTPUT_SLOTS, true);
 
             return new IonizerRecipe(pRecipeId, inputs, inputBlock, outputs, cost, tick, costElectrodes, outputBlock);
+        }
+
+        private static Block readRequiredBlock(ResourceLocation recipeId, JsonObject json, String field) {
+            ResourceLocation blockId = new ResourceLocation(GsonHelper.getAsString(json, field));
+            Block block = ForgeRegistries.BLOCKS.getValue(blockId);
+            if (block == null) {
+                throw new JsonSyntaxException("Ionizer recipe " + recipeId + " references unknown " + field
+                        + " " + blockId);
+            }
+            return block;
         }
 
         @Nullable
         @Override
         public IonizerRecipe fromNetwork(ResourceLocation pRecipeId, FriendlyByteBuf pBuffer) {
-            System.out.println(pRecipeId + " start from network");
-            // 1 ingredients
-            int inputSize = pBuffer.readVarInt();
-            NonNullList<Ingredient> inputs = NonNullList.withSize(MAX_SLOTS, Ingredient.EMPTY);
-            for (int i = 0; i < inputSize; i++) {
-                // 1 1 fromNetwork
-                Ingredient temp = Ingredient.fromNetwork(pBuffer);
-                inputs.set(i, temp);
+            NonNullList<Ingredient> inputs = RecipeIo.readIngredients(pBuffer, pRecipeId, "ingredients", MAX_SLOTS);
 
-            }
-            // 2 inputBlock
-            Block inputBlock = ForgeRegistries.BLOCKS.getValue(pBuffer.readResourceLocation());
-            System.out.println("inputBlock: " + inputBlock);
+            Block inputBlock = readRequiredBlock(pRecipeId, "inputBlock", pBuffer.readResourceLocation());
 
-            // 3 outputs
-            int outputSize = pBuffer.readVarInt();
-            NonNullList<ItemStack> outputs = NonNullList.withSize(OUTPUT_SLOTS, ItemStack.EMPTY);
-            for (int i = 0; i < outputSize; i++) {
-                // 3 1 readItem
-                ItemStack temp = pBuffer.readItem();
-                outputs.set(i, temp);
+            NonNullList<ItemStack> outputs = RecipeIo.readOutputs(pBuffer, pRecipeId, "outputs", OUTPUT_SLOTS);
 
-            }
-
-            // 4 tick
             int tick = pBuffer.readVarInt();
-            // 5 cost
             int cost = pBuffer.readVarInt();
-            // 5.5
             boolean costElectrodes = pBuffer.readBoolean();
-
-            // 6 outputBlock
-            Block outputBlock = ForgeRegistries.BLOCKS.getValue(pBuffer.readResourceLocation());
-            System.out.println("outputBlock: " + outputBlock);
+            Block outputBlock = readRequiredBlock(pRecipeId, "outputBlock", pBuffer.readResourceLocation());
 
             return new IonizerRecipe(pRecipeId, inputs, inputBlock, outputs, cost, tick, costElectrodes, outputBlock);
         }
 
         @Override
         public void toNetwork(FriendlyByteBuf pBuffer, IonizerRecipe pRecipe) {
-//            System.out.println(pRecipe.id + " start to network");
-            // 1 ingredients
-            pBuffer.writeVarInt(pRecipe.getIngredients().size());
-            for (Ingredient i : pRecipe.getIngredients()) {
-                // 1 1 toNetwork
-                i.toNetwork(pBuffer);
-            }
-            // 2 inputBlock
-//            pBuffer.writeResourceLocation(pRecipe.inputBlock.getRegistryName());
-            pBuffer.writeResourceLocation(ForgeRegistries.BLOCKS.getKey(pRecipe.inputBlock));
+            RecipeIo.writeIngredients(pBuffer, pRecipe.getIngredients());
 
-            // 3 outputs
-            pBuffer.writeVarInt(pRecipe.getResultItemStacks().size());
-            for (ItemStack i : pRecipe.getResultItemStacks()) {
-                // 3 1 writeItem
-                pBuffer.writeItemStack(i, false);
-            }
+            pBuffer.writeResourceLocation(getBlockId(pRecipe.id, "inputBlock", pRecipe.inputBlock));
 
-            // 4 tick
+            RecipeIo.writeOutputs(pBuffer, pRecipe.getResultItemStacks());
+
             pBuffer.writeVarInt(pRecipe.tick);
-            // 5 cost
             pBuffer.writeVarInt(pRecipe.powerCost);
-            // 5.5 costElectrodes
             pBuffer.writeBoolean(pRecipe.costElectrodes);
-
-            // 6 outputBlock
-//            pBuffer.writeResourceLocation(pRecipe.outputBlock.getRegistryName());
-            pBuffer.writeResourceLocation(ForgeRegistries.BLOCKS.getKey(pRecipe.outputBlock));
-
+            pBuffer.writeResourceLocation(getBlockId(pRecipe.id, "outputBlock", pRecipe.outputBlock));
         }
 
-//        @Override
-//        public RecipeSerializer<?> setRegistryName(ResourceLocation name) {
-//            return INSTANCE;
-//        }
-//
-//        @org.jetbrains.annotations.Nullable
-//        @Override
-//        public ResourceLocation getRegistryName() {
-//            return ID;
-//        }
-//
-//        @Override
-//        public Class<RecipeSerializer<?>> getRegistryType() {
-//            return Serializer.castClass(RecipeSerializer.class);
-//        }
-//
-//        private static <G> Class<G> castClass(Class<?> cls) {
-//            return (Class<G>) cls;
-//        }
+        private static Block readRequiredBlock(ResourceLocation recipeId, String field, ResourceLocation blockId) {
+            Block block = ForgeRegistries.BLOCKS.getValue(blockId);
+            if (block == null) {
+                throw new IllegalArgumentException("Ionizer recipe " + recipeId
+                        + " network payload references unknown " + field + " " + blockId);
+            }
+            return block;
+        }
+
+        private static ResourceLocation getBlockId(ResourceLocation recipeId, String field, Block block) {
+            ResourceLocation blockId = ForgeRegistries.BLOCKS.getKey(block);
+            if (blockId == null) {
+                throw new IllegalStateException("Ionizer recipe " + recipeId + " has unregistered " + field);
+            }
+            return blockId;
+        }
     }
 }

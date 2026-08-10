@@ -13,35 +13,13 @@ public class BasicMachineEntity extends SyncedBlockEntity{
         super(tileEntityTypeIn, pos, state);
     }
 
-    /**
-     * Should be only use on server side
-     *
-     * @param be
-     * @param tick
-     */
-    public static void tick(BasicMachineEntity be, int tick) {
-        be.currentTick += tick;
-
+    protected final boolean advanceWorkCycle(int ticks) {
+        this.currentTick += ticks;
+        return this.currentTick >= this.tickPerOperation;
     }
 
-    /**
-     * Should be only use on server side
-     *
-     * @param be
-     * @return
-     */
-    public static boolean isWorkingTick(BasicMachineEntity be) {
-        return be.currentTick >= be.tickPerOperation;
-    }
-
-    /**
-     * Should be only use on server side, in the end of the working tick
-     *
-     * @param be
-     */
-    public static void resetTicker(BasicMachineEntity be) {
-        be.currentTick = 0;
-
+    protected final void resetWorkCycle() {
+        this.currentTick = 0;
     }
 
 }

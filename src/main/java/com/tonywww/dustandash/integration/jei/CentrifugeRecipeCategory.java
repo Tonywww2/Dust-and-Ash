@@ -2,7 +2,7 @@ package com.tonywww.dustandash.integration.jei;
 
 import com.tonywww.dustandash.DustAndAsh;
 import com.tonywww.dustandash.integration.DustAndAshRecipeTypes;
-import com.tonywww.dustandash.registeries.ModBlocks;
+import com.tonywww.dustandash.registry.DAABlocks;
 import com.tonywww.dustandash.data.recipes.CentrifugeRecipe;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
@@ -31,7 +31,7 @@ public class CentrifugeRecipeCategory implements IRecipeCategory<CentrifugeRecip
 
     public CentrifugeRecipeCategory(IGuiHelper helper) {
         this.bg = helper.createDrawable(TEXTURE, 0, 0, 176, 85);
-        this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModBlocks.CENTRIFUGE.get()));
+        this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(DAABlocks.CENTRIFUGE.get()));
     }
 
     @Override
@@ -41,7 +41,7 @@ public class CentrifugeRecipeCategory implements IRecipeCategory<CentrifugeRecip
 
     @Override
     public Component getTitle() {
-        return ModBlocks.CENTRIFUGE.get().getName();
+        return DAABlocks.CENTRIFUGE.get().getName();
     }
 
     @Override
@@ -56,11 +56,6 @@ public class CentrifugeRecipeCategory implements IRecipeCategory<CentrifugeRecip
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, CentrifugeRecipe recipe, IFocusGroup focusGroup) {
-
-        var level = Minecraft.getInstance().level;
-
-        assert level != null;
-
         var inputs = recipe.getIngredients();
         var outputs = recipe.getResultItemStacks();
 

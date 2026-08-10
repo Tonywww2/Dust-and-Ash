@@ -2,9 +2,9 @@ package com.tonywww.dustandash.data.recipes;
 
 import com.google.gson.JsonObject;
 import com.tonywww.dustandash.DustAndAsh;
-import com.tonywww.dustandash.registeries.ModBlocks;
-import com.tonywww.dustandash.registeries.ModItems;
-import com.tonywww.dustandash.registeries.ModRecipe;
+import com.tonywww.dustandash.registry.DAABlocks;
+import com.tonywww.dustandash.registry.DAAItems;
+import com.tonywww.dustandash.registry.DAARecipe;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
@@ -16,8 +16,6 @@ import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 
 import javax.annotation.Nullable;
-
-import static com.tonywww.dustandash.data.recipes.RecipeUtils.itemsFromJson;
 
 public class IntegratedBlockRecipe implements Recipe<Container> {
 
@@ -41,7 +39,7 @@ public class IntegratedBlockRecipe implements Recipe<Container> {
     public boolean matches(Container inv, Level pLevel) {
         for (int i = 0; i < MAX_SLOTS; i++) {
             ItemStack itemStack = inv.getItem(i);
-            if ((recipeItems.get(i).test(ModItems.EMPTY.get().getDefaultInstance()) && itemStack.isEmpty()) ||
+            if ((recipeItems.get(i).test(DAAItems.EMPTY.get().getDefaultInstance()) && itemStack.isEmpty()) ||
                     !recipeItems.get(i).test(itemStack)) {
                 return false;
             }
@@ -74,7 +72,7 @@ public class IntegratedBlockRecipe implements Recipe<Container> {
 
     @Override
     public RecipeSerializer<?> getSerializer() {
-        return ModRecipe.INTEGRATE_SERIALIZER.get();
+        return DAARecipe.INTEGRATE_SERIALIZER.get();
     }
 
     @Override
@@ -83,12 +81,17 @@ public class IntegratedBlockRecipe implements Recipe<Container> {
     }
 
     @Override
+    public boolean isSpecial() {
+        return true;
+    }
+
+    @Override
     public NonNullList<Ingredient> getIngredients() {
         return recipeItems;
     }
 
     public ItemStack getIcon() {
-        return new ItemStack(ModBlocks.INTEGRATED_BLOCK.get());
+        return new ItemStack(DAABlocks.INTEGRATED_BLOCK.get());
     }
 
     public int getLevel() {
@@ -108,24 +111,9 @@ public class IntegratedBlockRecipe implements Recipe<Container> {
 
         @Override
         public IntegratedBlockRecipe fromJson(ResourceLocation pRecipeId, JsonObject json) {
-//            System.out.println(pRecipeId + " start from json");
             ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "output"));
-
-//            JsonArray ingredients = GsonHelper.getAsJsonArray(json, "ingredients");
-//            NonNullList<Ingredient> inputs = NonNullList.withSize(MAX_SLOTS, Ingredient.EMPTY);
-            NonNullList<Ingredient> inputs = itemsFromJson(GsonHelper.getAsJsonArray(json, "ingredients"), MAX_SLOTS);
-
+            NonNullList<Ingredient> inputs = RecipeIo.readIngredients(json, pRecipeId, "ingredients", MAX_SLOTS, false);
             int lv = GsonHelper.getAsInt(json, "level");
-
-//            for (int i = 0; i < ingredients.size(); i++) {
-//                Ingredient temp = Ingredient.fromJson(ingredients.get(i));
-//
-//                if (!ingredients.isEmpty() && temp.getItems()[0].getItem() != ModItems.EMPTY.get()) {
-//                    inputs.set(i, temp);
-//
-//                }
-//
-//            }
 
             return new IntegratedBlockRecipe(pRecipeId, inputs, output, lv);
         }
@@ -133,21 +121,8 @@ public class IntegratedBlockRecipe implements Recipe<Container> {
         @Nullable
         @Override
         public IntegratedBlockRecipe fromNetwork(ResourceLocation pRecipeId, FriendlyByteBuf pBuffer) {
-//            System.out.println(pRecipeId + " start from network");
-            // 2 readInt
             int lv = pBuffer.readInt();
-
-            // 01 readVarInt
-            int inputSize = pBuffer.readVarInt();
-
-            NonNullList<Ingredient> inputs = NonNullList.withSize(MAX_SLOTS, Ingredient.EMPTY);
-            for (int i = 0; i < inputSize; i++) {
-                // 1 fromNetwork
-                Ingredient temp = Ingredient.fromNetwork(pBuffer);
-                inputs.set(i, temp);
-
-            }
-            // 3 readItem
+            NonNullList<Ingredient> inputs = RecipeIo.readIngredients(pBuffer, pRecipeId, "ingredients", MAX_SLOTS);
             ItemStack output = pBuffer.readItem();
 
             return new IntegratedBlockRecipe(pRecipeId, inputs, output, lv);
@@ -155,41 +130,9 @@ public class IntegratedBlockRecipe implements Recipe<Container> {
 
         @Override
         public void toNetwork(FriendlyByteBuf pBuffer, IntegratedBlockRecipe pRecipe) {
-//            System.out.println(pRecipe.id + " start to network");
-            // 2 writeInt
             pBuffer.writeInt(pRecipe.getLevel());
-
-            // 01 writeVarInt
-            pBuffer.writeVarInt(pRecipe.getIngredients().size());
-
-            for (Ingredient i : pRecipe.getIngredients()) {
-                // 1 toNetwork
-                i.toNetwork(pBuffer);
-
-            }
-            // 3 writeItem
+            RecipeIo.writeIngredients(pBuffer, pRecipe.getIngredients());
             pBuffer.writeItemStack(pRecipe.getResultItem(null), false);
-
         }
-
-//        @Override
-//        public RecipeSerializer<?> setRegistryName(ResourceLocation name) {
-//            return INSTANCE;
-//        }
-//
-//        @org.jetbrains.annotations.Nullable
-//        @Override
-//        public ResourceLocation getRegistryName() {
-//            return ID;
-//        }
-//
-//        @Override
-//        public Class<RecipeSerializer<?>> getRegistryType() {
-//            return Serializer.castClass(RecipeSerializer.class);
-//        }
-//
-//        private static <G> Class<G> castClass(Class<?> cls) {
-//            return (Class<G>) cls;
-//        }
     }
 }

@@ -1,9 +1,9 @@
 package com.tonywww.dustandash.block.entity;
 
-import com.tonywww.dustandash.registeries.ModItems;
+import com.tonywww.dustandash.registry.DAAItems;
 import com.tonywww.dustandash.menu.ItemSenderContainerMenu;
-import com.tonywww.dustandash.menu.itemhandlers.ItemSenderItemHandler;
-import com.tonywww.dustandash.registeries.ModBlockEntities;
+import com.tonywww.dustandash.menu.itemhandlers.RestrictedItemHandler;
+import com.tonywww.dustandash.registry.DAABlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
@@ -28,32 +28,35 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.Arrays;
 import java.util.Optional;
 
-public class ItemSenderEntity extends BasicMachineEntity implements MenuProvider {
+public class ItemSenderEntity extends BasicMachineEntity implements MenuProvider, DroppableInventory {
+    public static final int TARGET_SLOT_COUNT = 4;
+
     public ItemStackHandler invItemStackHandler;
-    private final LazyOptional<ItemStackHandler> handler;
-    private final LazyOptional<ItemSenderItemHandler> normalHandler;
+    private final ManagedCapability<ItemStackHandler> handler;
+    private final ManagedCapability<RestrictedItemHandler> normalHandler;
     private int[] targetSlots;
     @Nullable
     private BlockPos targetPos;
     protected final ContainerData dataAccess;
 
     public ItemSenderEntity(BlockPos pos, BlockState state) {
-        super(ModBlockEntities.ITEM_SENDER_ENTITY.get(), pos, state);
+        super(DAABlockEntities.ITEM_SENDER_ENTITY.get(), pos, state);
 
         this.invItemStackHandler = createHandler();
-        this.handler = LazyOptional.of(() -> invItemStackHandler);
-        this.normalHandler = LazyOptional.of(() -> new ItemSenderItemHandler(invItemStackHandler, null));
+        this.handler = managedCapability(() -> invItemStackHandler);
+        this.normalHandler = managedCapability(() -> new RestrictedItemHandler(invItemStackHandler,
+            slot -> slot != 0, slot -> slot != 0));
 
-        this.targetSlots = new int[4];
+        this.targetSlots = new int[TARGET_SLOT_COUNT];
         this.dataAccess = new ContainerData() {
             @Override
             public int get(int index) {
@@ -76,16 +79,13 @@ public class ItemSenderEntity extends BasicMachineEntity implements MenuProvider
 
             @Override
             public void set(int index, int val) {
+                if (targetPos == null) {
+                    return;
+                }
                 switch (index) {
-                    case 0:
-                        targetPos.offset(val - targetPos.getX(), 0, 0);
-
-                    case 1:
-                        targetPos.offset(0, val - targetPos.getY(), 0);
-
-                    case 2:
-                        targetPos.offset(0, 0, val - targetPos.getZ());
-
+                    case 0 -> targetPos = new BlockPos(val, targetPos.getY(), targetPos.getZ());
+                    case 1 -> targetPos = new BlockPos(targetPos.getX(), val, targetPos.getZ());
+                    case 2 -> targetPos = new BlockPos(targetPos.getX(), targetPos.getY(), val);
                 }
 
             }
@@ -109,7 +109,7 @@ public class ItemSenderEntity extends BasicMachineEntity implements MenuProvider
 
             @Override
             public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
-                return slot != 0 || stack.is(ModItems.POSITION_SELECTOR.get());
+                return slot != 0 || stack.is(DAAItems.POSITION_SELECTOR.get());
             }
 
             @Override
@@ -138,7 +138,10 @@ public class ItemSenderEntity extends BasicMachineEntity implements MenuProvider
     @Override
     public void load(CompoundTag compoundNBT) {
         invItemStackHandler.deserializeNBT(compoundNBT.getCompound("inv"));
-        targetSlots = compoundNBT.getIntArray("target_slots");
+        int[] savedTargetSlots = compoundNBT.getIntArray("target_slots");
+        targetSlots = savedTargetSlots.length == TARGET_SLOT_COUNT
+            ? Arrays.copyOf(savedTargetSlots, TARGET_SLOT_COUNT)
+            : new int[TARGET_SLOT_COUNT];
         super.load(compoundNBT);
     }
 
@@ -154,32 +157,32 @@ public class ItemSenderEntity extends BasicMachineEntity implements MenuProvider
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @javax.annotation.Nullable Direction side) {
         if (!this.remove && cap == ForgeCapabilities.ITEM_HANDLER) {
             if (side == null) {
-                return this.handler.cast();
+                return this.handler.get().cast();
             }
-            return this.normalHandler.cast();
+            return this.normalHandler.get().cast();
 
         }
         return super.getCapability(cap, side);
     }
 
-    public NonNullList<ItemStack> getDroppableInventory() {
-        NonNullList<ItemStack> drops = NonNullList.create();
-        for (int i = 0; i < invItemStackHandler.getSlots(); ++i) {
-            drops.add(invItemStackHandler.getStackInSlot(i));
-        }
-        return drops;
+    @Override
+    public ItemStackHandler getInventory() {
+        return this.invItemStackHandler;
     }
 
     public void setTargetSlots(byte[] arr) {
-        for (int i = 0; i < this.targetSlots.length; i++) {
-            this.targetSlots[i] = arr[i];
-
+        if (arr.length != TARGET_SLOT_COUNT) {
+            throw new IllegalArgumentException("Item sender requires exactly " + TARGET_SLOT_COUNT + " target slots");
         }
+        for (int i = 0; i < TARGET_SLOT_COUNT; i++) {
+            this.targetSlots[i] = arr[i];
+        }
+        setChanged();
 
     }
 
     public int[] getTargetSlots() {
-        return targetSlots;
+        return Arrays.copyOf(targetSlots, targetSlots.length);
     }
 
     private static BlockPos arrToBlockPos(int[] arr) {
@@ -193,8 +196,7 @@ public class ItemSenderEntity extends BasicMachineEntity implements MenuProvider
     public static void tick(Level level, BlockPos pos, BlockState state, ItemSenderEntity be) {
 
         if (!level.isClientSide()) {
-            BasicMachineEntity.tick(be, 1);
-            if (BasicMachineEntity.isWorkingTick(be)) {
+            if (be.advanceWorkCycle(1)) {
 
                 // get target pos
                 ItemStack positionSelector = be.invItemStackHandler.getStackInSlot(0);
@@ -216,23 +218,25 @@ public class ItemSenderEntity extends BasicMachineEntity implements MenuProvider
                             int targetSlot = be.targetSlots[i];
                             ItemStack thisStack = be.invItemStackHandler.getStackInSlot(i + 1);
 
-                            if (!thisStack.is(ModItems.PLACEHOLDER.get())) {
+                            if (!thisStack.is(DAAItems.PLACEHOLDER.get())) {
                                 if (targetSlot >= 0 && container.getContainerSize() > targetSlot) {
                                     ItemStack targetStack = container.getItem(targetSlot);
 
                                     if (container.canPlaceItem(targetSlot, thisStack) ||
                                             (container instanceof WorldlyContainer worldlyContainer
                                                     && worldlyContainer.canPlaceItemThroughFace(targetSlot, thisStack, null))) {
-                                        if (targetStack.isEmpty()) {
-                                            container.setItem(targetSlot, thisStack.split(1));
-
-                                        } else if (targetStack.is(thisStack.getItem())) {
-                                            targetStack.grow(1);
+                                        if (canMoveOneItem(container, targetStack, thisStack)) {
+                                            if (targetStack.isEmpty()) {
+                                                ItemStack moved = thisStack.copy();
+                                                moved.setCount(1);
+                                                container.setItem(targetSlot, moved);
+                                            } else {
+                                                targetStack.grow(1);
+                                            }
                                             thisStack.shrink(1);
-
+                                            container.setChanged();
+                                            be.inventoryChanged();
                                         }
-                                        container.setChanged();
-                                        be.inventoryChanged();
                                     }
                                 }
                             }
@@ -248,28 +252,14 @@ public class ItemSenderEntity extends BasicMachineEntity implements MenuProvider
                                 int targetSlot = be.targetSlots[i];
                                 if (targetSlot >= 0 && targetSlot < handler.getSlots()) {
                                     ItemStack thisStack = be.invItemStackHandler.getStackInSlot(i + 1);
-                                    ItemStack targetStack = handler.getStackInSlot(targetSlot);
-
-                                    if (targetStack.isEmpty()) {
-                                        handler.insertItem(targetSlot, thisStack.split(1), false);
-                                        insertedItem = true;
-
-                                    } else if (ItemHandlerHelper.canItemStacksStack(targetStack, thisStack)) {
-//                                        int originalSize = thisStack.getCount();
-                                        ItemStack newStack = handler.insertItem(targetSlot, thisStack.split(1), false);
-                                        if (newStack.getCount() >= 1) {
-                                            if (thisStack.isEmpty()) {
-                                                be.invItemStackHandler.setStackInSlot(i + 1, newStack);
-
-                                            } else {
-                                                thisStack.grow(1);
-
-                                            }
-                                        } else {
+                                    if (!thisStack.isEmpty()) {
+                                        ItemStack offered = thisStack.copy();
+                                        offered.setCount(1);
+                                        ItemStack remainder = handler.insertItem(targetSlot, offered, false);
+                                        if (remainder.isEmpty()) {
+                                            thisStack.shrink(1);
                                             insertedItem = true;
-
                                         }
-
 
                                     }
                                 }
@@ -281,12 +271,26 @@ public class ItemSenderEntity extends BasicMachineEntity implements MenuProvider
                     }
 
                 }
-                BasicMachineEntity.resetTicker(be);
+                be.resetWorkCycle();
             }
 
 
         }
 
+    }
+
+    private static boolean canMoveOneItem(Container container, ItemStack targetStack, ItemStack sourceStack) {
+        if (sourceStack.isEmpty()) {
+            return false;
+        }
+        if (targetStack.isEmpty()) {
+            return Math.min(container.getMaxStackSize(), sourceStack.getMaxStackSize()) > 0;
+        }
+        if (!ItemStack.isSameItemSameTags(targetStack, sourceStack)) {
+            return false;
+        }
+        int maxStackSize = Math.min(container.getMaxStackSize(), targetStack.getMaxStackSize());
+        return targetStack.getCount() < maxStackSize;
     }
 
     public static Optional<Pair<IItemHandler, Object>> getItemHandler(Level worldIn, BlockPos blockpos) {

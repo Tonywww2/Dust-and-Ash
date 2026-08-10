@@ -1,9 +1,9 @@
 package com.tonywww.dustandash.entity;
 
 import com.tonywww.dustandash.DustAndAshConfig;
-import com.tonywww.dustandash.registeries.ModItems;
+import com.tonywww.dustandash.registry.DAAItems;
 import com.tonywww.dustandash.item.WhiteLightning;
-import com.tonywww.dustandash.registeries.ModEntites;
+import com.tonywww.dustandash.registry.DAAEntities;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -34,11 +34,11 @@ public class LightningProjectileEntity extends ThrowableItemProjectile {
     }
 
     public LightningProjectileEntity(Level level) {
-        super(ModEntites.LIGHTNING_BULLET.get(), level);
+        super(DAAEntities.LIGHTNING_BULLET.get(), level);
     }
 
     public LightningProjectileEntity(Level level, LivingEntity livingEntity, ItemStack source, boolean isPowerful) {
-        super(ModEntites.LIGHTNING_BULLET.get(), livingEntity, level);
+        super(DAAEntities.LIGHTNING_BULLET.get(), livingEntity, level);
         this.source = source;
         this.isPowerful = isPowerful;
         this.setNoGravity(true);
@@ -72,7 +72,7 @@ public class LightningProjectileEntity extends ThrowableItemProjectile {
             }
 
             if (source == null || source.isEmpty()) {
-                source = ModItems.WHITE_LIGHTNING.get().getDefaultInstance();
+                source = DAAItems.WHITE_LIGHTNING.get().getDefaultInstance();
 
             }
 
@@ -93,13 +93,16 @@ public class LightningProjectileEntity extends ThrowableItemProjectile {
                         0.5d,
                         0
                 );
-                entity.hurt(owner.damageSources().indirectMagic(entity, owner), (float) (targetHealth * DustAndAshConfig.whiteLightningExtraPercentage.get()));
+                entity.hurt(owner.damageSources().indirectMagic(entity, owner),
+                    (float) (targetHealth * DustAndAshConfig.WEAPONS.whiteLightningExtraPercentage.get()));
                 entity.invulnerableTime = 0;
 
             }
 
             if (owner instanceof Player player) {
-                entity.hurt(owner.damageSources().playerAttack(player), (float) (DustAndAshConfig.whiteLightningExtraDamage.get() + ((SwordItem) source.getItem()).getDamage()));
+                entity.hurt(owner.damageSources().playerAttack(player),
+                    (float) (DustAndAshConfig.WEAPONS.whiteLightningExtraDamage.get()
+                        + ((SwordItem) source.getItem()).getDamage()));
                 entity.invulnerableTime = 0;
 
             }
@@ -137,6 +140,6 @@ public class LightningProjectileEntity extends ThrowableItemProjectile {
 
     @Override
     protected Item getDefaultItem() {
-        return ModItems.EMPTY.get();
+        return DAAItems.EMPTY.get();
     }
 }

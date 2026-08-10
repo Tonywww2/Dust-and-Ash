@@ -1,8 +1,8 @@
 package com.tonywww.dustandash.item;
 
-import com.tonywww.dustandash.registeries.ModBlocks;
+import com.tonywww.dustandash.registry.DAABlocks;
 import com.tonywww.dustandash.DustAndAshConfig;
-import com.tonywww.dustandash.registeries.ModItems;
+import com.tonywww.dustandash.registry.DAAItems;
 import com.tonywww.dustandash.loottables.ModLootTables;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -64,11 +64,11 @@ public class IronVacuum extends Item {
         BlockPos blockPos = context.getClickedPos();
         BlockState blockState = world.getBlockState(blockPos);
 
-        if (blockState.getBlock().equals(ModBlocks.DUST.get())) {
+        if (blockState.getBlock().equals(DAABlocks.DUST.get())) {
             for (ItemStack i : playerEntity.inventoryMenu.getItems()) {
-                if (i.getItem() == ModItems.DUST_WITH_ENERGY.get() && i.getCount() > 0) {
+                if (i.getItem() == DAAItems.DUST_WITH_ENERGY.get() && i.getCount() > 0) {
                     // going to cost
-                    if (world.random.nextDouble() < DustAndAshConfig.ironVacuumConsumeRate.get()) {
+                    if (world.random.nextDouble() < DustAndAshConfig.TOOLS.ironVacuumConsumeRate.get()) {
                         i.shrink(1);
 
                     }

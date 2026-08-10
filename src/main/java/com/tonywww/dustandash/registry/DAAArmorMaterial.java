@@ -1,7 +1,7 @@
-package com.tonywww.dustandash.registeries;
+package com.tonywww.dustandash.registry;
 
 import com.tonywww.dustandash.DustAndAsh;
-import com.tonywww.dustandash.registeries.ModItems;
+import com.tonywww.dustandash.registry.DAAItems;
 import net.minecraft.Util;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.LazyLoadedValue;
@@ -15,7 +15,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import java.util.EnumMap;
 import java.util.function.Supplier;
 
-public enum ModArmorMaterial implements ArmorMaterial {
+public enum DAAArmorMaterial implements ArmorMaterial {
 
     ASH_STEEL("ash_steel", 30, Util.make(new EnumMap<>(ArmorItem.Type.class), (arr) -> {
         arr.put(ArmorItem.Type.BOOTS, 4);
@@ -23,7 +23,7 @@ public enum ModArmorMaterial implements ArmorMaterial {
         arr.put(ArmorItem.Type.LEGGINGS, 7);
         arr.put(ArmorItem.Type.HELMET, 4);
     }), 18, SoundEvents.ARMOR_EQUIP_IRON, 2.0F, 0.15F, () -> {
-        return Ingredient.of(ModItems.ASH_STEEL_INGOT.get());
+        return Ingredient.of(DAAItems.ASH_STEEL_INGOT.get());
     }),
     TITANIUM("titanium", 37, Util.make(new EnumMap<>(ArmorItem.Type.class), (arr) -> {
         arr.put(ArmorItem.Type.BOOTS, 4);
@@ -31,7 +31,7 @@ public enum ModArmorMaterial implements ArmorMaterial {
         arr.put(ArmorItem.Type.CHESTPLATE, 7);
         arr.put(ArmorItem.Type.HELMET, 4);
     }), 22, SoundEvents.ARMOR_EQUIP_NETHERITE, 4.25F, 0.25F, () -> {
-        return Ingredient.of(ModItems.TITANIUM_INGOT.get());
+        return Ingredient.of(DAAItems.TITANIUM_INGOT.get());
     })
     ;
 
@@ -50,7 +50,7 @@ public enum ModArmorMaterial implements ArmorMaterial {
     private final float knockbackResistance;
     private final LazyLoadedValue<Ingredient> repairIngredient;
 
-    private ModArmorMaterial(String pName, int pDurabilityMultiplier, EnumMap<ArmorItem.Type, Integer> protectionFunctionForType, int pEnchantmentValue, SoundEvent pSound, float pToughness, float pKnockbackResistance, Supplier<Ingredient> pRepairIngredient) {
+    private DAAArmorMaterial(String pName, int pDurabilityMultiplier, EnumMap<ArmorItem.Type, Integer> protectionFunctionForType, int pEnchantmentValue, SoundEvent pSound, float pToughness, float pKnockbackResistance, Supplier<Ingredient> pRepairIngredient) {
         this.name = pName;
         this.durabilityMultiplier = pDurabilityMultiplier;
         this.protectionFunctionForType = protectionFunctionForType;

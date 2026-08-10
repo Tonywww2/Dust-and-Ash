@@ -37,10 +37,6 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
-import static com.tonywww.dustandash.DustAndAshConfig.lordOfBloodCDCheck;
-import static com.tonywww.dustandash.DustAndAshConfig.rottenBladeCDCheck;
-
-
 public class LordOfBlood extends SwordItem implements GeoItem {
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
@@ -64,7 +60,8 @@ public class LordOfBlood extends SwordItem implements GeoItem {
         boolean result = super.onLeftClickEntity(stack, player, entity);
 
         if (!level.isClientSide()) {
-            if (!lordOfBloodCDCheck.get() || player.getAttackStrengthScale(0.1f) >= 1) {
+                if (!DustAndAshConfig.WEAPONS.lordOfBloodCooldownCheck.get()
+                    || player.getAttackStrengthScale(0.1f) >= 1) {
                 player.heal(2.0f);
 
             }
@@ -162,7 +159,7 @@ public class LordOfBlood extends SwordItem implements GeoItem {
             use.stop();
             triggerAnim(entity, GeoItem.getOrAssignId(stack, (ServerLevel) level), "idle", "idle");
 
-            int radius = DustAndAshConfig.lordOfBloodRadius.get();
+            int radius = DustAndAshConfig.WEAPONS.lordOfBloodRadius.get();
             List<LivingEntity> entities = level.getEntitiesOfClass(LivingEntity.class, getArea(entity.blockPosition(), radius), VALID_ENTITY);
             DamageSource damageSource = level.damageSources().thorns(entity);
 

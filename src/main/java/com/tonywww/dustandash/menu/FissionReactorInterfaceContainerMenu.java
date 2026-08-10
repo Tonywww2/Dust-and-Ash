@@ -1,147 +1,30 @@
 package com.tonywww.dustandash.menu;
 
 import com.tonywww.dustandash.block.entity.FissionReactor.FissionReactorInterfaceEntity;
-import com.tonywww.dustandash.registeries.ModBlocks;
-import com.tonywww.dustandash.registeries.ModContainerMenus;
+import com.tonywww.dustandash.registry.DAABlocks;
+import com.tonywww.dustandash.registry.DAAContainerMenus;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.inventory.ContainerLevelAccess;
-import net.minecraft.world.inventory.Slot;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
-import net.minecraftforge.items.wrapper.InvWrapper;
 
-import java.util.Objects;
-
-public class FissionReactorInterfaceContainerMenu extends AbstractContainerMenu {
-
-    private final BlockEntity tileEntity;
-    private final ContainerLevelAccess canInteractWithCallable;
-    private final IItemHandler playerInventory;
+public class FissionReactorInterfaceContainerMenu extends AbstractMachineMenu<FissionReactorInterfaceEntity> {
 
     public FissionReactorInterfaceContainerMenu(int id, Inventory playerInventory, FissionReactorInterfaceEntity tileEntity) {
-        super(ModContainerMenus.FISSION_REACTOR_INTERFACE_CONTAINER.get(), id);
-
-        this.tileEntity = tileEntity;
-        this.canInteractWithCallable = ContainerLevelAccess.create(tileEntity.getLevel(), tileEntity.getBlockPos());
-        this.playerInventory = new InvWrapper(playerInventory);
-
-        layoutPlayerInventorySlots(8, 86);
-
-        if (tileEntity != null) {
-            tileEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(h -> {
-                addSlot(new SlotItemHandler(h, 0, 66, 21));
-                addSlot(new SlotItemHandler(h, 1, 94, 21));
-                addSlot(new SlotItemHandler(h, 2, 66, 49));
-                addSlot(new SlotItemHandler(h, 3, 94, 49));
-
-            });
-        }
-
-
-    }
-
-    private int addSlotRange(IItemHandler handler, int index, int x, int y, int amount, int dx) {
-        for (int i = 0; i < amount; i++) {
-            addSlot(new SlotItemHandler(handler, index, x, y));
-            x += dx;
-            index++;
-        }
-
-        return index;
-    }
-
-    private int addSlotBox(IItemHandler handler, int index, int x, int y, int horAmount, int dx, int verAmount, int dy) {
-        for (int j = 0; j < verAmount; j++) {
-            index = addSlotRange(handler, index, x, y, horAmount, dx);
-            y += dy;
-        }
-
-        return index;
-    }
-
-    private void layoutPlayerInventorySlots(int leftCol, int topRow) {
-        addSlotBox(playerInventory, 9, leftCol, topRow, 9, 18, 3, 18);
-
-        topRow += 58;
-        addSlotRange(playerInventory, 0, leftCol, topRow, 9, 18);
+        super(DAAContainerMenus.FISSION_REACTOR_INTERFACE_CONTAINER.get(), id, playerInventory, tileEntity,
+                DAABlocks.FISSION_REACTOR_INTERFACE.get(), 4, 8, 86);
+        tileEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(handler -> {
+            addSlot(new SlotItemHandler(handler, 0, 66, 21));
+            addSlot(new SlotItemHandler(handler, 1, 94, 21));
+            addSlot(new SlotItemHandler(handler, 2, 66, 49));
+            addSlot(new SlotItemHandler(handler, 3, 94, 49));
+        });
     }
 
     public FissionReactorInterfaceContainerMenu(final int id,
                                                 final Inventory playerInventory,
                                                 final FriendlyByteBuf data) {
-        this(id, playerInventory, getTileEntity(playerInventory, data));
-
-    }
-
-    private static FissionReactorInterfaceEntity getTileEntity(final Inventory playerInventory, final FriendlyByteBuf data) {
-        Objects.requireNonNull(playerInventory, "playerInventory cannot be null");
-        Objects.requireNonNull(data, "data cannot be null");
-        final BlockEntity tileAtPos = playerInventory.player.level().getBlockEntity(data.readBlockPos());
-        if (tileAtPos instanceof FissionReactorInterfaceEntity) {
-            return (FissionReactorInterfaceEntity) tileAtPos;
-        }
-        throw new IllegalStateException("Tile entity is not correct! " + tileAtPos);
-    }
-
-    // CREDIT GOES TO: diesieben07 | https://github.com/diesieben07/SevenCommons
-    // must assign a slot number to each of the slots used by the GUI.
-    // For this container, we can see both the tile inventory's slots as well as the player inventory slots and the hotbar.
-    // Each time we add a Slot to the container, it automatically increases the slotIndex, which means
-    //  0 - 8 = hotbar slots (which will map to the InventoryPlayer slot numbers 0 - 8)
-    //  9 - 35 = player inventory slots (which map to the InventoryPlayer slot numbers 9 - 35)
-    //  36 - 44 = TileInventory slots, which map to our TileEntity slot numbers 0 - 8)
-    private static final int HOTBAR_SLOT_COUNT = 9;
-    private static final int PLAYER_INVENTORY_ROW_COUNT = 3;
-    private static final int PLAYER_INVENTORY_COLUMN_COUNT = 9;
-    private static final int PLAYER_INVENTORY_SLOT_COUNT = PLAYER_INVENTORY_COLUMN_COUNT * PLAYER_INVENTORY_ROW_COUNT;
-    private static final int VANILLA_SLOT_COUNT = HOTBAR_SLOT_COUNT + PLAYER_INVENTORY_SLOT_COUNT;
-    private static final int VANILLA_FIRST_SLOT_INDEX = 0;
-    private static final int TE_INVENTORY_FIRST_SLOT_INDEX = VANILLA_FIRST_SLOT_INDEX + VANILLA_SLOT_COUNT;
-
-    // THIS YOU HAVE TO DEFINE!
-    private static final int TE_INVENTORY_SLOT_COUNT = 4;  // must match TileEntityInventoryBasic.NUMBER_OF_SLOTS
-
-    @Override
-    public ItemStack quickMoveStack(Player playerIn, int index) {
-        Slot sourceSlot = slots.get(index);
-        if (sourceSlot == null || !sourceSlot.hasItem()) return ItemStack.EMPTY;  //EMPTY_ITEM
-        ItemStack sourceStack = sourceSlot.getItem();
-        ItemStack copyOfSourceStack = sourceStack.copy();
-
-        // Check if the slot clicked is one of the vanilla container slots
-        if (index < VANILLA_FIRST_SLOT_INDEX + VANILLA_SLOT_COUNT) {
-            // This is a vanilla container slot so merge the stack into the tile inventory
-            if (!moveItemStackTo(sourceStack, TE_INVENTORY_FIRST_SLOT_INDEX, TE_INVENTORY_FIRST_SLOT_INDEX
-                    + TE_INVENTORY_SLOT_COUNT, false)) {
-                return ItemStack.EMPTY;  // EMPTY_ITEM
-            }
-        } else if (index < TE_INVENTORY_FIRST_SLOT_INDEX + TE_INVENTORY_SLOT_COUNT) {
-            // This is a TE slot so merge the stack into the players inventory
-            if (!moveItemStackTo(sourceStack, VANILLA_FIRST_SLOT_INDEX, VANILLA_FIRST_SLOT_INDEX + VANILLA_SLOT_COUNT, false)) {
-                return ItemStack.EMPTY;
-            }
-        } else {
-            System.out.println("Invalid slotIndex:" + index);
-            return ItemStack.EMPTY;
-        }
-        // If stack size == 0 (the entire stack was moved) set slot contents to null
-        if (sourceStack.getCount() == 0) {
-            sourceSlot.set(ItemStack.EMPTY);
-        } else {
-            sourceSlot.setChanged();
-        }
-        sourceSlot.onTake(playerIn, sourceStack);
-        return copyOfSourceStack;
-    }
-
-    @Override
-    public boolean stillValid(Player player) {
-        return stillValid(canInteractWithCallable, player, ModBlocks.FISSION_REACTOR_INTERFACE.get());
+        this(id, playerInventory,
+                readBlockEntity(playerInventory, data, FissionReactorInterfaceEntity.class));
     }
 }

@@ -7,11 +7,13 @@ import net.minecraftforge.network.simple.SimpleChannel;
 
 public class PacketHandler {
 
+    private static final String PROTOCOL_VERSION = "1";
+
     public static final SimpleChannel INSTANCE = NetworkRegistry.ChannelBuilder.named(
             new ResourceLocation(DustAndAsh.MOD_ID, "main"))
-            .serverAcceptedVersions(s -> true)
-            .clientAcceptedVersions(s -> true)
-            .networkProtocolVersion(()-> NetworkConstants.NETVERSION)
+            .serverAcceptedVersions(PROTOCOL_VERSION::equals)
+            .clientAcceptedVersions(PROTOCOL_VERSION::equals)
+            .networkProtocolVersion(() -> PROTOCOL_VERSION)
             .simpleChannel();
 
 

@@ -1,8 +1,9 @@
 package com.tonywww.dustandash.block.entity;
 
+import com.tonywww.dustandash.DustAndAshConfig;
 import com.tonywww.dustandash.menu.AshCollectorContainerMenu;
-import com.tonywww.dustandash.registeries.ModItems;
-import com.tonywww.dustandash.registeries.ModBlockEntities;
+import com.tonywww.dustandash.registry.DAAItems;
+import com.tonywww.dustandash.registry.DAABlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
@@ -28,16 +29,14 @@ import net.minecraftforge.items.ItemStackHandler;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import static com.tonywww.dustandash.DustAndAshConfig.ashCollectorChancePerWorkingTick;
-
-public class AshCollectorEntity extends BasicMachineEntity implements MenuProvider {
+public class AshCollectorEntity extends BasicMachineEntity implements MenuProvider, DroppableInventory {
 
     public final ItemStackHandler itemStackHandler = createHandler();
-    private final LazyOptional<ItemStackHandler> handler = LazyOptional.of(() -> itemStackHandler);
+    private final ManagedCapability<ItemStackHandler> handler = managedCapability(() -> itemStackHandler);
 
 
     public AshCollectorEntity(BlockPos pos, BlockState state) {
-        super(ModBlockEntities.ASH_COLLECTOR_ENTITY.get(), pos, state);
+        super(DAABlockEntities.ASH_COLLECTOR_ENTITY.get(), pos, state);
     }
 
     private ItemStackHandler createHandler() {
@@ -49,7 +48,7 @@ public class AshCollectorEntity extends BasicMachineEntity implements MenuProvid
 
             @Override
             public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
-                return (slot == 0 && stack.getItem() == ModItems.ASH.get()) ||
+                return (slot == 0 && stack.getItem() == DAAItems.ASH.get()) ||
                         (slot == 1);
             }
 
@@ -75,7 +74,7 @@ public class AshCollectorEntity extends BasicMachineEntity implements MenuProvid
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
         if (cap == ForgeCapabilities.ITEM_HANDLER) {
-            return this.handler.cast();
+            return this.handler.get().cast();
 
         }
         return super.getCapability(cap, side);
@@ -104,31 +103,26 @@ public class AshCollectorEntity extends BasicMachineEntity implements MenuProvid
         return new AshCollectorContainerMenu(id, playerInventory, this);
     }
 
-    public NonNullList<ItemStack> getDroppableInventory() {
-        NonNullList<ItemStack> drops = NonNullList.create();
-        for (int i = 0; i < itemStackHandler.getSlots(); ++i) {
-            drops.add(itemStackHandler.getStackInSlot(i));
-        }
-        return drops;
+    @Override
+    public ItemStackHandler getInventory() {
+        return this.itemStackHandler;
     }
 
     public static void tick(Level level, BlockPos pos, BlockState state, AshCollectorEntity be) {
         if (level != null && !level.isClientSide) {
-            BasicMachineEntity.tick(be, 1);
-            if (BasicMachineEntity.isWorkingTick(be)) {
+            if (be.advanceWorkCycle(1)) {
                 suckInItem(level, pos, be);
 
-                if (level.random.nextDouble() < ashCollectorChancePerWorkingTick.get()) {
+                if (level.random.nextDouble() < DustAndAshConfig.MACHINES.ashCollectorChancePerWorkingTick.get()) {
                     if (shouldWork(level, pos)) {
-                        be.itemStackHandler.insertItem(0, new ItemStack(ModItems.ASH.get()), false);
+                        be.itemStackHandler.insertItem(0, new ItemStack(DAAItems.ASH.get()), false);
                         level.playSound(null, pos, SoundEvents.BEE_HURT, SoundSource.BLOCKS, 0.5f, 1f);
                         be.inventoryChanged();
 
                     }
 
                 }
-                BasicMachineEntity.resetTicker(be);
-                BasicMachineEntity.resetTicker(be);
+                be.resetWorkCycle();
             }
 
         }

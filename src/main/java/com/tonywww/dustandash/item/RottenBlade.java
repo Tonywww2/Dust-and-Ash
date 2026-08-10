@@ -1,5 +1,6 @@
 package com.tonywww.dustandash.item;
 
+import com.tonywww.dustandash.DustAndAshConfig;
 import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
@@ -16,8 +17,6 @@ import net.minecraft.world.item.Tier;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import org.joml.Vector3f;
-
-import static com.tonywww.dustandash.DustAndAshConfig.*;
 
 public class RottenBlade extends SwordItem {
 
@@ -41,11 +40,13 @@ public class RottenBlade extends SwordItem {
         Level world = player.level();
 
         if (!world.isClientSide) {
-            if (!rottenBladeCDCheck.get() || player.getAttackStrengthScale(0.2f) >= 1) {
+                if (!DustAndAshConfig.WEAPONS.rottenBladeCooldownCheck.get()
+                    || player.getAttackStrengthScale(0.2f) >= 1) {
                 ServerLevel serverWorld = (ServerLevel) world;
                 CompoundTag tag = stack.getOrCreateTag();
 
-                damageEntityByUUID(player, serverWorld, tag, rottenBladeExtraDamage.get().floatValue());
+                damageEntityByUUID(player, serverWorld, tag,
+                    DustAndAshConfig.WEAPONS.rottenBladeExtraDamage.get().floatValue());
 
                 tag.putUUID(ENTITIES[0], entity.getUUID());
 
@@ -64,8 +65,10 @@ public class RottenBlade extends SwordItem {
             ServerLevel serverWorld = (ServerLevel) level;
 
             if (player.isShiftKeyDown()) {
-                AABB region = new AABB(player.blockPosition().north(rottenBladeRadius.get()).east(rottenBladeRadius.get()).above(rottenBladeHeight.get()),
-                        player.blockPosition().south(rottenBladeRadius.get()).west(rottenBladeRadius.get()).below(rottenBladeHeight.get()));
+                int radius = DustAndAshConfig.WEAPONS.rottenBladeRadius.get();
+                int height = DustAndAshConfig.WEAPONS.rottenBladeHeight.get();
+                AABB region = new AABB(player.blockPosition().north(radius).east(radius).above(height),
+                    player.blockPosition().south(radius).west(radius).below(height));
 
                 for (LivingEntity i : serverWorld.getEntitiesOfClass(LivingEntity.class, region)) {
                     if (i == player) {
@@ -95,7 +98,8 @@ public class RottenBlade extends SwordItem {
 
             } else {
                 player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 60, 2));
-                damageEntityByUUID(player, serverWorld, stack.getOrCreateTag(), rottenBladeExtraDamage.get().floatValue() / 2);
+                damageEntityByUUID(player, serverWorld, stack.getOrCreateTag(),
+                    DustAndAshConfig.WEAPONS.rottenBladeExtraDamage.get().floatValue() / 2);
                 player.hurt(player.damageSources().indirectMagic(player, player), 3);
                 player.getCooldowns().addCooldown(this, 60);
 

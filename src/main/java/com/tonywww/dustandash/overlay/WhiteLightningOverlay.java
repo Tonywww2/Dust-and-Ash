@@ -1,7 +1,7 @@
 package com.tonywww.dustandash.overlay;
 
 import com.tonywww.dustandash.DustAndAsh;
-import com.tonywww.dustandash.registeries.ModItems;
+import com.tonywww.dustandash.registry.DAAItems;
 import com.tonywww.dustandash.item.WhiteLightning;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -28,7 +28,7 @@ public class WhiteLightningOverlay implements IGuiOverlay {
 
         if (player.isSpectator()) return;
 
-        if (player.getItemInHand(InteractionHand.MAIN_HAND).is(ModItems.WHITE_LIGHTNING.get())) {
+        if (player.getItemInHand(InteractionHand.MAIN_HAND).is(DAAItems.WHITE_LIGHTNING.get())) {
             ItemStack stack = player.getItemInHand(InteractionHand.MAIN_HAND);
 
             int stacks = WhiteLightning.getCharges(stack);

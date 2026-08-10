@@ -1,6 +1,7 @@
 package com.tonywww.dustandash.block.custom;
 
-import com.tonywww.dustandash.registeries.ModBlocks;
+import com.tonywww.dustandash.DustAndAshConfig;
+import com.tonywww.dustandash.registry.DAABlocks;
 import com.tonywww.dustandash.tag.ModTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -10,8 +11,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.core.particles.ParticleTypes;
-
-import static com.tonywww.dustandash.DustAndAshConfig.*;
 
 public class DustSource extends Block {
 
@@ -47,8 +46,11 @@ public class DustSource extends Block {
     @Override
     public void randomTick(BlockState blockState, ServerLevel world, BlockPos blockPos, RandomSource random) {
 
-        if (random.nextDouble() < dustSourceChancePerTick.get()) {
-            dustCycle(world, blockPos, random, dustSourceChancePerBlock.get(), dustSourceHeight.get(), dustSourceRadius.get());
+        if (random.nextDouble() < DustAndAshConfig.MACHINES.dustSourceChancePerTick.get()) {
+            dustCycle(world, blockPos, random,
+                    DustAndAshConfig.MACHINES.dustSourceChancePerBlock.get(),
+                    DustAndAshConfig.MACHINES.dustSourceHeight.get(),
+                    DustAndAshConfig.MACHINES.dustSourceRadius.get());
 
         }
 
@@ -83,8 +85,8 @@ public class DustSource extends Block {
 
                     if (currentUpperBlock.is(Blocks.AIR) && currentBlock.is(ModTags.Blocks.DUST_ABLE) && !currentBlock.is(ModTags.Blocks.NOT_DUST_ABLE)) {
                         if (random.nextDouble() < chancePerBlock) {
-                            world.setBlock(currentUpperPos, ModBlocks.DUST.get().defaultBlockState(), 2);
-                            world.updateNeighborsAt(currentUpperPos, ModBlocks.DUST.get());
+                            world.setBlock(currentUpperPos, DAABlocks.DUST.get().defaultBlockState(), 2);
+                            world.updateNeighborsAt(currentUpperPos, DAABlocks.DUST.get());
 
                         }
 

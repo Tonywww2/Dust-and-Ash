@@ -2,7 +2,7 @@ package com.tonywww.dustandash.integration.jei;
 
 import com.tonywww.dustandash.DustAndAsh;
 import com.tonywww.dustandash.integration.DustAndAshRecipeTypes;
-import com.tonywww.dustandash.registeries.ModBlocks;
+import com.tonywww.dustandash.registry.DAABlocks;
 import com.tonywww.dustandash.data.recipes.IntegratedBlockRecipe;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
@@ -35,7 +35,7 @@ public class IntegratedBlockRecipeCategory implements IRecipeCategory<Integrated
 
     public IntegratedBlockRecipeCategory(IGuiHelper helper) {
         this.bg = helper.createDrawable(TEXTURE, 0, 0, 176, 85);
-        this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModBlocks.INTEGRATED_BLOCK.get()));
+        this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(DAABlocks.INTEGRATED_BLOCK.get()));
 
         this.lv11 = helper.createDrawable(TEXTURE, 176, 0, 9, 9);
         this.lv12 = helper.createDrawable(TEXTURE, 179, 0, 9, 9);
@@ -56,7 +56,7 @@ public class IntegratedBlockRecipeCategory implements IRecipeCategory<Integrated
 
     @Override
     public Component getTitle() {
-        return ModBlocks.INTEGRATED_BLOCK.get().getName();
+        return DAABlocks.INTEGRATED_BLOCK.get().getName();
     }
 
     @Override
@@ -72,8 +72,9 @@ public class IntegratedBlockRecipeCategory implements IRecipeCategory<Integrated
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, IntegratedBlockRecipe recipe, IFocusGroup focuses) {
         var level = Minecraft.getInstance().level;
-
-        assert level != null;
+        if (level == null) {
+            return;
+        }
 
         var inputs = recipe.getIngredients();
         var output = recipe.getResultItem(level.registryAccess());

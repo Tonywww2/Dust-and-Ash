@@ -1,4 +1,4 @@
-package com.tonywww.dustandash.registeries;
+package com.tonywww.dustandash.registry;
 
 import com.tonywww.dustandash.DustAndAsh;
 import com.tonywww.dustandash.menu.*;
@@ -9,7 +9,7 @@ import net.minecraftforge.registries.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
-public class ModContainerMenus {
+public class DAAContainerMenus {
 
     public static DeferredRegister<MenuType<?>> CONTAINERS = DeferredRegister.create(ForgeRegistries.MENU_TYPES, DustAndAsh.MOD_ID);
 

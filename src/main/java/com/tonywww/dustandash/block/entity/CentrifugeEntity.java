@@ -1,9 +1,10 @@
 package com.tonywww.dustandash.block.entity;
 
+import com.tonywww.dustandash.DustAndAshConfig;
 import com.tonywww.dustandash.menu.CentrifugeContainerMenu;
-import com.tonywww.dustandash.menu.itemhandlers.CentrifugeItemHandler;
+import com.tonywww.dustandash.menu.itemhandlers.RestrictedItemHandler;
 import com.tonywww.dustandash.data.recipes.CentrifugeRecipe;
-import com.tonywww.dustandash.registeries.ModBlockEntities;
+import com.tonywww.dustandash.registry.DAABlockEntities;
 import com.tonywww.dustandash.tag.ModTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -14,11 +15,11 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Container;
 import net.minecraft.world.MenuProvider;
-import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.entity.player.Player;
@@ -31,14 +32,14 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Optional;
 
-import static com.tonywww.dustandash.DustAndAshConfig.centrifugeProgressPerTick;
-
-public class CentrifugeEntity extends BasicMachineEntity implements MenuProvider {
+public class CentrifugeEntity extends BasicMachineEntity implements MenuProvider, DroppableInventory {
 
     public ItemStackHandler invItemStackHandler;
-    private final LazyOptional<ItemStackHandler> handler;
-    private final LazyOptional<CentrifugeItemHandler> inputHandler;
-    private final LazyOptional<CentrifugeItemHandler> outputHandler;
+    private final ManagedCapability<ItemStackHandler> handler;
+    private final ManagedCapability<RestrictedItemHandler> inputHandler;
+    private final ManagedCapability<RestrictedItemHandler> outputHandler;
+    private final Container recipeInput;
+    private final RecipeManager.CachedCheck<Container, CentrifugeRecipe> recipeCheck;
 
     private float currentProgression;
     private int targetProgression;
@@ -49,13 +50,17 @@ public class CentrifugeEntity extends BasicMachineEntity implements MenuProvider
 
 
     public CentrifugeEntity(BlockPos pos, BlockState state) {
-        super(ModBlockEntities.CENTRIFUGE_ENTITY.get(), pos, state);
+        super(DAABlockEntities.CENTRIFUGE_ENTITY.get(), pos, state);
 
         this.invItemStackHandler = createInputsHandler();
 
-        this.handler = LazyOptional.of(() -> invItemStackHandler);
-        this.inputHandler = LazyOptional.of(() -> new CentrifugeItemHandler(invItemStackHandler, Direction.UP));
-        this.outputHandler = LazyOptional.of(() -> new CentrifugeItemHandler(invItemStackHandler, Direction.DOWN));
+        this.handler = managedCapability(() -> invItemStackHandler);
+        this.inputHandler = managedCapability(() -> new RestrictedItemHandler(invItemStackHandler,
+            slot -> slot < 2, slot -> false));
+        this.outputHandler = managedCapability(() -> new RestrictedItemHandler(invItemStackHandler,
+            slot -> false, slot -> slot >= 2));
+        this.recipeInput = new ItemHandlerContainerView(this.invItemStackHandler);
+        this.recipeCheck = RecipeManager.createCheck(CentrifugeRecipe.CentrifugeRecipeType.INSTANCE);
 
         this.currentProgression = -1f;
         this.targetProgression = 0;
@@ -140,13 +145,13 @@ public class CentrifugeEntity extends BasicMachineEntity implements MenuProvider
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
         if (!this.remove && cap == ForgeCapabilities.ITEM_HANDLER) {
             if (side == null) {
-                return this.handler.cast();
+                return this.handler.get().cast();
             }
             if (side == Direction.UP) {
-                return this.inputHandler.cast();
+                return this.inputHandler.get().cast();
             }
             if (side == Direction.DOWN) {
-                return this.outputHandler.cast();
+                return this.outputHandler.get().cast();
             }
 
         }
@@ -167,14 +172,13 @@ public class CentrifugeEntity extends BasicMachineEntity implements MenuProvider
 
     public static void tick(Level level, BlockPos pos, BlockState state, CentrifugeEntity be) {
         if (!level.isClientSide) {
-            BasicMachineEntity.tick(be, centrifugeProgressPerTick.get());
-            if (BasicMachineEntity.isWorkingTick(be)) {
+            if (be.advanceWorkCycle(DustAndAshConfig.MACHINES.centrifugeProgressPerTick.get())) {
                 if (isReadyForNext(be)) {
                     craft(level, be);
 
                 }
 
-                BasicMachineEntity.resetTicker(be);
+                be.resetWorkCycle();
 
             }
             tickProgression(level, pos, be);
@@ -184,17 +188,14 @@ public class CentrifugeEntity extends BasicMachineEntity implements MenuProvider
 
     }
 
-    public NonNullList<ItemStack> getDroppableInventory() {
-        NonNullList<ItemStack> drops = NonNullList.create();
-        for (int i = 0; i < invItemStackHandler.getSlots(); ++i) {
-            drops.add(invItemStackHandler.getStackInSlot(i));
-        }
-        return drops;
+    @Override
+    public ItemStackHandler getInventory() {
+        return this.invItemStackHandler;
     }
 
     private static void tickProgression(Level level, BlockPos pos, CentrifugeEntity be) {
         if (be.currentProgression >= 1) {
-            be.currentProgression += centrifugeProgressPerTick.get();
+            be.currentProgression += DustAndAshConfig.MACHINES.centrifugeProgressPerTick.get();
 
         }
         if (be.currentProgression > be.targetProgression) {
@@ -231,13 +232,7 @@ public class CentrifugeEntity extends BasicMachineEntity implements MenuProvider
     }
 
     public static void craft(Level level, CentrifugeEntity be) {
-        Container inv = new SimpleContainer(be.invItemStackHandler.getSlots());
-        for (int i = 0; i < be.invItemStackHandler.getSlots(); i++) {
-            inv.setItem(i, be.invItemStackHandler.getStackInSlot(i));
-
-        }
-
-        Optional<CentrifugeRecipe> recipe = level.getRecipeManager().getRecipeFor(CentrifugeRecipe.CentrifugeRecipeType.INSTANCE, inv, level);
+        Optional<CentrifugeRecipe> recipe = be.recipeCheck.getRecipeFor(be.recipeInput, level);
 
         recipe.ifPresent(iRecipe -> {
             be.invItemStackHandler.extractItem(0, 1, false);
@@ -245,7 +240,7 @@ public class CentrifugeEntity extends BasicMachineEntity implements MenuProvider
             be.nextOutput = iRecipe.getResultItemStacks();
 
             be.currentProgression = 1;
-            be.targetProgression = recipe.get().getTick();
+            be.targetProgression = iRecipe.getTick();
 
             be.inventoryChanged();
         });
@@ -255,7 +250,7 @@ public class CentrifugeEntity extends BasicMachineEntity implements MenuProvider
     public static void setOutput(Level level, BlockPos pos, CentrifugeEntity be) {
         for (int i = 2; i <= 9; i++) {
             ItemStack temp = be.nextOutput.get(i - 2);
-            if (temp != ItemStack.EMPTY) {
+            if (!temp.isEmpty()) {
                 be.invItemStackHandler.setStackInSlot(i, temp.copy());
 
             }

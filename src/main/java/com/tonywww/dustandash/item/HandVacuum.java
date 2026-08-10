@@ -1,6 +1,6 @@
 package com.tonywww.dustandash.item;
 
-import com.tonywww.dustandash.registeries.ModBlocks;
+import com.tonywww.dustandash.registry.DAABlocks;
 import com.tonywww.dustandash.DustAndAshConfig;
 import com.tonywww.dustandash.loottables.ModLootTables;
 import net.minecraft.core.BlockPos;
@@ -55,10 +55,10 @@ public class HandVacuum extends Item {
         BlockPos blockPos = context.getClickedPos();
         BlockState blockState = world.getBlockState(blockPos);
 
-        if (blockState.getBlock().equals(ModBlocks.DUST.get()) && !playerEntity.getCooldowns().isOnCooldown(this)) {
+        if (blockState.getBlock().equals(DAABlocks.DUST.get()) && !playerEntity.getCooldowns().isOnCooldown(this)) {
 
             //successful rate
-            if (world.random.nextDouble() < DustAndAshConfig.handVacuumSuccessRate.get()) {
+            if (world.random.nextDouble() < DustAndAshConfig.TOOLS.handVacuumSuccessRate.get()) {
                 //succeed
                 playerEntity.getCooldowns().addCooldown(this, 15);
                 world.setBlock(blockPos, Blocks.AIR.defaultBlockState(), 2);

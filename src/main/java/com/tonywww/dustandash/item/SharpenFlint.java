@@ -1,6 +1,6 @@
 package com.tonywww.dustandash.item;
 
-import com.tonywww.dustandash.registeries.ModItems;
+import com.tonywww.dustandash.registry.DAAItems;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
@@ -41,7 +41,7 @@ public class SharpenFlint extends Item {
                         player.getX(),
                         player.getY(),
                         player.getZ(),
-                        ModItems.BLOODY_FLINT.get().getDefaultInstance()
+                        DAAItems.BLOODY_FLINT.get().getDefaultInstance()
                 ));
                 item.shrink(1);
 

@@ -1,22 +1,20 @@
 package com.tonywww.dustandash.block.entity.FissionReactor;
 
 import com.google.common.collect.Queues;
+import com.tonywww.dustandash.DustAndAshConfig;
 import com.tonywww.dustandash.block.entity.BasicMachineEntity;
+import com.tonywww.dustandash.block.entity.DroppableInventory;
 import com.tonywww.dustandash.item.FissionReactor.FissionReactorCoolingUnit;
 import com.tonywww.dustandash.item.FissionReactor.FissionReactorFuelUnit;
 import com.tonywww.dustandash.menu.FissionReactorControllerContainerMenu;
-import com.tonywww.dustandash.registeries.ModBlockEntities;
-import com.tonywww.dustandash.registeries.ModBlocks;
-import com.tonywww.dustandash.registeries.ModItems;
+import com.tonywww.dustandash.registry.DAABlockEntities;
+import com.tonywww.dustandash.registry.DAAItems;
 import com.tonywww.dustandash.tag.ModTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.StringTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.tags.TagKey;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -24,7 +22,6 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
@@ -38,13 +35,11 @@ import javax.annotation.Nonnull;
 
 import java.util.Queue;
 
-import static com.tonywww.dustandash.DustAndAshConfig.*;
-
-public class FissionReactorControllerEntity extends BasicMachineEntity implements MenuProvider {
+public class FissionReactorControllerEntity extends BasicMachineEntity implements MenuProvider, DroppableInventory {
     public ItemStackHandler invItemStackHandler;
     public EnergyStorage energyStorage;
-    private final LazyOptional<ItemStackHandler> handler;
-    private final LazyOptional<EnergyStorage> energyStorageHandler;
+    private final ManagedCapability<ItemStackHandler> handler;
+    private final ManagedCapability<EnergyStorage> energyStorageHandler;
     protected final ContainerData dataAccess;
 
     public static final int MAX_HEAT = 50000;
@@ -55,6 +50,16 @@ public class FissionReactorControllerEntity extends BasicMachineEntity implement
     public static final int MAX_TRANSFER = 400000000;
     public static final String NEUTRON_TAG = "neutron";
     public static final int MAX_NEUTRON_FOR_ITEM = 1280;
+
+    public static final int DATA_HEAT = 0;
+    public static final int DATA_EFFICIENCY = 1;
+    public static final int DATA_RADIUS = 2;
+    public static final int DATA_HEIGHT = 3;
+    public static final int DATA_NEUTRON = 4;
+    public static final int DATA_FUEL_CELL_COUNT = 5;
+    public static final int DATA_COOLING_CELL_COUNT = 6;
+    public static final int DATA_ENERGY = 7;
+    public static final int DATA_COUNT = 8;
 
     private double heat = 0;
     private int energy = 0;
@@ -67,37 +72,40 @@ public class FissionReactorControllerEntity extends BasicMachineEntity implement
     private int energyGenerationPerWorkTick = 0;
 
     public FissionReactorControllerEntity(BlockPos pos, BlockState state) {
-        super(ModBlockEntities.FISSION_REACTOR_CONTROLLER_ENTITY.get(), pos, state);
+        super(DAABlockEntities.FISSION_REACTOR_CONTROLLER_ENTITY.get(), pos, state);
 
         this.invItemStackHandler = createHandler();
         this.energyStorage = createEnergyHandler();
-        this.handler = LazyOptional.of(() -> invItemStackHandler);
-        this.energyStorageHandler = LazyOptional.of(() -> energyStorage);
+        this.handler = managedCapability(() -> invItemStackHandler);
+        this.energyStorageHandler = managedCapability(() -> energyStorage);
 
         this.dataAccess = new ContainerData() {
             @Override
             public int get(int index) {
                 switch (index) {
-                    case 0 -> {
+                    case DATA_HEAT -> {
                         return (int) heat;
                     }
-                    case 1 -> {
+                    case DATA_EFFICIENCY -> {
                         return efficiency;
                     }
-                    case 2 -> {
+                    case DATA_RADIUS -> {
                         return radius;
                     }
-                    case 3 -> {
+                    case DATA_HEIGHT -> {
                         return height;
                     }
-                    case 4 -> {
+                    case DATA_NEUTRON -> {
                         return neutron;
                     }
-                    case 5 -> {
+                    case DATA_FUEL_CELL_COUNT -> {
                         return fuelCellCount;
                     }
-                    case 6 -> {
+                    case DATA_COOLING_CELL_COUNT -> {
                         return coolingCellCount;
+                    }
+                    case DATA_ENERGY -> {
+                        return energy;
                     }
                 }
                 return Integer.MIN_VALUE;
@@ -106,32 +114,36 @@ public class FissionReactorControllerEntity extends BasicMachineEntity implement
             @Override
             public void set(int index, int val) {
                 switch (index) {
-                    case 0:
+                    case DATA_HEAT:
                         heat = val;
                         break;
 
-                    case 1:
+                    case DATA_EFFICIENCY:
                         efficiency = val;
                         break;
 
-                    case 2:
+                    case DATA_RADIUS:
                         radius = val;
                         break;
 
-                    case 3:
+                    case DATA_HEIGHT:
                         height = val;
                         break;
 
-                    case 4:
+                    case DATA_NEUTRON:
                         neutron = val;
                         break;
 
-                    case 5:
+                    case DATA_FUEL_CELL_COUNT:
                         fuelCellCount = val;
                         break;
 
-                    case 6:
+                    case DATA_COOLING_CELL_COUNT:
                         coolingCellCount = val;
+                        break;
+
+                    case DATA_ENERGY:
+                        energy = val;
                         break;
 
                 }
@@ -140,7 +152,7 @@ public class FissionReactorControllerEntity extends BasicMachineEntity implement
 
             @Override
             public int getCount() {
-                return 7;
+                return DATA_COUNT;
             }
         };
 
@@ -180,7 +192,7 @@ public class FissionReactorControllerEntity extends BasicMachineEntity implement
                 int energy = this.getEnergyStored();
                 int diff = Math.min(energy, maxExtract);
                 if (!simulate) {
-                    FissionReactorControllerEntity.this.energy += diff;
+                    FissionReactorControllerEntity.this.energy -= diff;
                     if (diff != 0) {
                         FissionReactorControllerEntity.this.inventoryChanged();
                     }
@@ -211,85 +223,29 @@ public class FissionReactorControllerEntity extends BasicMachineEntity implement
         };
     }
 
-    public NonNullList<ItemStack> getDroppableInventory() {
-        NonNullList<ItemStack> drops = NonNullList.create();
-        for (int i = 0; i < invItemStackHandler.getSlots(); ++i) {
-            drops.add(invItemStackHandler.getStackInSlot(i));
-        }
-        return drops;
+    @Override
+    public ItemStackHandler getInventory() {
+        return this.invItemStackHandler;
     }
 
     public static void tick(Level level, BlockPos pos, BlockState state, FissionReactorControllerEntity be) {
         if (!level.isClientSide) {
-            BasicMachineEntity.tick(be, 1);
-            if (BasicMachineEntity.isWorkingTick(be)) {
-                // check structure
-                if (be.checkStructure(level, pos)) {
-                    // find the interface
-                    FissionReactorInterfaceEntity intFace = be.findInterface(level, pos);
-                    if (intFace != null) {
-                        ItemStack fuel = intFace.itemStackHandler.getStackInSlot(0);
-                        ItemStack cool = intFace.itemStackHandler.getStackInSlot(1);
-                        if (!fuel.isEmpty() && fuel.getItem() instanceof FissionReactorFuelUnit fuelUnit) {
-                            // fuel available
-                            FissionReactorCoolingUnit coolUnit = null;
-                            if (!cool.isEmpty() && cool.getItem() instanceof FissionReactorCoolingUnit) {
-                                coolUnit = (FissionReactorCoolingUnit) cool.getItem();
-                            }
-                            // calculate heat and change heat
-                            double deltaHeat = be.calcHeat(level, pos, fuelUnit, coolUnit) - Math.sqrt(be.heat) - 1;
-                            be.heat = Math.max(0, be.heat + deltaHeat);
-                            be.efficiency = (int) (Math.max(fissionReactorMinEfficiency.get(),
-                                    fissionReactorMaxEfficiency.get() -
-                                            ((Math.pow(be.heat - fuelUnit.getIdealHeat(), 2)) / Math.pow(MAX_HEAT, fissionReactorIdealHeatRate.get()))
-                            ) * fissionReactorEfficiencyMultiplayer.get() * be.fuelCellCount);
-                            be.neutron += (int) (be.efficiency * fuelUnit.getBaseNeutronRate() * be.tickPerOperation);
+            if (be.advanceWorkCycle(1)) {
+                var structure = ReactorStructureScanner.scan(level, pos, MAX_RADIUS, MAX_HEIGHT);
+                if (structure.isPresent()) {
+                    ReactorStructureSnapshot snapshot = structure.get();
+                    be.radius = snapshot.radius();
+                    be.height = snapshot.height();
 
-                            if (fuel.hurt(be.fuelCellCount, level.getRandom(), null)) {
-                                fuel.shrink(1);
-                                if (intFace.itemStackHandler.getStackInSlot(2).is(ModItems.EMPTY_FUEL_CONTAINER.get())) {
-                                    intFace.itemStackHandler.getStackInSlot(2).grow(1);
-
-                                } else {
-                                    intFace.itemStackHandler.setStackInSlot(2, new ItemStack(ModItems.EMPTY_FUEL_CONTAINER.get()));
-                                }
-
-                            }
-                            if (!cool.isEmpty() && cool.hurt(be.coolingCellCount, level.getRandom(), null)) {
-                                cool.shrink(1);
-                                if (intFace.itemStackHandler.getStackInSlot(3).is(ModItems.EMPTY_FUEL_CONTAINER.get())) {
-                                    intFace.itemStackHandler.getStackInSlot(3).grow(1);
-
-                                } else {
-                                    intFace.itemStackHandler.setStackInSlot(2, new ItemStack(ModItems.EMPTY_FUEL_CONTAINER.get()));
-                                }
-                            }
-
-                        } else {
-                            be.heat = Math.min(Math.max(0, be.heat - Math.sqrt(be.heat) - 1), MAX_HEAT);
-
-                        }
-
-
-                        if (be.neutron > MAX_NEUTRON / 2) {
-                            int usedNeutron = be.neutron - (MAX_NEUTRON / 2);
-                            be.neutron -= usedNeutron;
-
-                            be.energyGenerationPerWorkTick = (int) (usedNeutron * fissionReactorNeutronToEnergyRatio.get());
-                            be.energy = Math.min(FissionReactorControllerEntity.MAX_ENERGY, be.energy + be.energyGenerationPerWorkTick);
-
-                        }
-
-                        intFace.inventoryChanged();
-                        be.inventoryChanged();
-
+                    if (snapshot.interfacePos() != null
+                            && level.getBlockEntity(snapshot.interfacePos()) instanceof FissionReactorInterfaceEntity intFace) {
+                        be.runReactorCycle(level, pos, snapshot, intFace);
                     }
-
                 } else {
                     be.radius = 0;
                     be.height = 0;
                 }
-                BasicMachineEntity.resetTicker(be);
+                be.resetWorkCycle();
 
             }
             be.neutronBombardment();
@@ -300,224 +256,93 @@ public class FissionReactorControllerEntity extends BasicMachineEntity implement
 
     }
 
-    private double calcHeat(Level level, BlockPos pos, FissionReactorFuelUnit fuel, FissionReactorCoolingUnit cool) {
-        double totalHeat = 0;
-        this.fuelCellCount = 0;
-        this.coolingCellCount = 0;
-        for (int i = 2; i < this.height; i++) {
-            for (int j = 0; j < this.radius * 2 - 1; j++) {
-                for (int k = 0; k < this.radius * 2 - 1; k++) {
-                    BlockPos p = new BlockPos(pos.getX() - this.radius + 1 + j, pos.getY() - i, pos.getZ() - this.radius + 1 + k);
-                    if (checkBlockPos(level, p, ModBlocks.FISSION_REACTOR_FUEL_CELL.get())) {
-                        this.fuelCellCount++;
-                        int surCoolCells = 0;
-                        int surFuelCells = 0;
+    private void runReactorCycle(Level level, BlockPos pos, ReactorStructureSnapshot structure,
+                                 FissionReactorInterfaceEntity intFace) {
+        ItemStack fuel = intFace.itemStackHandler.getStackInSlot(FissionReactorInterfaceEntity.FUEL_INPUT_SLOT);
+        ItemStack cooling = intFace.itemStackHandler.getStackInSlot(FissionReactorInterfaceEntity.COOLING_INPUT_SLOT);
 
-                        if (level.getBlockState(p.north()).getBlock() == ModBlocks.FISSION_REACTOR_COOLING_CELL.get())
-                            surCoolCells++;
-                        if (level.getBlockState(p.north()).getBlock() == ModBlocks.FISSION_REACTOR_FUEL_CELL.get())
-                            surFuelCells++;
+        if (!fuel.isEmpty() && fuel.getItem() instanceof FissionReactorFuelUnit fuelUnit) {
+            FissionReactorCoolingUnit coolingUnit = cooling.getItem() instanceof FissionReactorCoolingUnit unit
+                    ? unit
+                    : null;
+            ReactorCoreSnapshot core = ReactorStructureScanner.scanCore(level, pos, structure);
+            ReactorPhysicsEngine.FueledStep step = ReactorPhysicsEngine.calculateFueledStep(
+                    core,
+                    fuelUnit,
+                    coolingUnit,
+                    this.heat,
+                    this.neutron,
+                    this.tickPerOperation,
+                    DustAndAshConfig.REACTOR.minimumEfficiency.get(),
+                    DustAndAshConfig.REACTOR.maximumEfficiency.get(),
+                    DustAndAshConfig.REACTOR.efficiencyMultiplier.get(),
+                    DustAndAshConfig.REACTOR.idealHeatRate.get(),
+                    MAX_HEAT
+            );
+            this.heat = step.heat();
+            this.efficiency = step.efficiency();
+            this.neutron = step.neutron();
+            this.fuelCellCount = step.fuelCellCount();
+            this.coolingCellCount = step.coolingCellCount();
 
-                        if (level.getBlockState(p.east()).getBlock() == ModBlocks.FISSION_REACTOR_COOLING_CELL.get())
-                            surCoolCells++;
-                        if (level.getBlockState(p.east()).getBlock() == ModBlocks.FISSION_REACTOR_FUEL_CELL.get())
-                            surFuelCells++;
-
-                        if (level.getBlockState(p.south()).getBlock() == ModBlocks.FISSION_REACTOR_COOLING_CELL.get())
-                            surCoolCells++;
-                        if (level.getBlockState(p.south()).getBlock() == ModBlocks.FISSION_REACTOR_FUEL_CELL.get())
-                            surFuelCells++;
-
-                        if (level.getBlockState(p.west()).getBlock() == ModBlocks.FISSION_REACTOR_COOLING_CELL.get())
-                            surCoolCells++;
-                        if (level.getBlockState(p.west()).getBlock() == ModBlocks.FISSION_REACTOR_FUEL_CELL.get())
-                            surFuelCells++;
-
-                        if (level.getBlockState(p.above()).getBlock() == ModBlocks.FISSION_REACTOR_COOLING_CELL.get())
-                            surCoolCells++;
-                        if (level.getBlockState(p.above()).getBlock() == ModBlocks.FISSION_REACTOR_FUEL_CELL.get())
-                            surFuelCells++;
-
-                        if (level.getBlockState(p.below()).getBlock() == ModBlocks.FISSION_REACTOR_COOLING_CELL.get())
-                            surCoolCells++;
-                        if (level.getBlockState(p.below()).getBlock() == ModBlocks.FISSION_REACTOR_FUEL_CELL.get())
-                            surFuelCells++;
-
-                        double coolRate = 1;
-                        if (cool != null) coolRate = cool.getBaseCoolingRate();
-
-                        double thisHeat = fuel.getBaseHeatRate() * Math.sqrt((surFuelCells + 1) / ((surCoolCells + 1) * coolRate));
-
-                        totalHeat += thisHeat;
-
-                    } else if (checkBlockPos(level, p, ModBlocks.FISSION_REACTOR_COOLING_CELL.get())) {
-                        this.coolingCellCount++;
-                    }
-
-                }
-
-            }
+            ReactorConsumableService.damageAndRecycle(
+                    fuel,
+                    this.fuelCellCount,
+                    level.getRandom(),
+                    intFace.itemStackHandler,
+                    FissionReactorInterfaceEntity.FUEL_OUTPUT_SLOT,
+                    DAAItems.EMPTY_FUEL_CONTAINER.get()
+            );
+            ReactorConsumableService.damageAndRecycle(
+                    cooling,
+                    this.coolingCellCount,
+                    level.getRandom(),
+                    intFace.itemStackHandler,
+                    FissionReactorInterfaceEntity.COOLING_OUTPUT_SLOT,
+                    DAAItems.EMPTY_FUEL_CONTAINER.get()
+            );
+        } else {
+            this.heat = ReactorPhysicsEngine.coolDown(this.heat, MAX_HEAT);
         }
 
-//        System.out.println(this.fuelCellCount);
-//        System.out.println(this.coolingCellCount);
-
-        return totalHeat;
-
-    }
-
-    private FissionReactorInterfaceEntity findInterface(Level level, BlockPos pos) {
-        FissionReactorInterfaceEntity out = null;
-        BlockPos p = pos.below((this.height / 2) + 1);
-        if (level.getBlockEntity(p.north(this.radius + 1)) instanceof FissionReactorInterfaceEntity entity) {
-            out = entity;
-        } else if (level.getBlockEntity(p.east(this.radius + 1)) instanceof FissionReactorInterfaceEntity entity) {
-            out = entity;
-        } else if (level.getBlockEntity(p.south(this.radius + 1)) instanceof FissionReactorInterfaceEntity entity) {
-            out = entity;
-        } else if (level.getBlockEntity(p.west(this.radius + 1)) instanceof FissionReactorInterfaceEntity entity) {
-            out = entity;
-        }
-        return out;
-    }
-
-    private boolean checkStructure(Level level, BlockPos pos) {
-        int r = 1;
-        boolean flagRadius = false;
-        BlockPos curr = pos.below();
-        Block casing = ModBlocks.FISSION_REACTOR_CASING.get();
-
-        for (; r <= MAX_RADIUS; r++) {
-            curr = curr.north();
-            if (level.getBlockState(curr).getBlock() == casing) {
-                flagRadius = true;
-                break;
-
-            }
-
-        }
-        if (!flagRadius) return false;
-
-        int h = 2;
-        boolean flagHeight = false;
-        curr = pos.north(r).below();
-        for (; h <= MAX_HEIGHT; h++) {
-            curr = curr.below();
-            if (checkBlockPos(level, curr, casing)) {
-                flagHeight = true;
-                break;
-
-            }
-        }
-        if (!flagHeight) return false;
-
-        BlockPos s1 = pos.below().north(r).east(r);
-        BlockPos s2 = pos.below(h).south(r).west(r);
-        if (!checkBlockPos(level, s1, casing) || !checkBlockPos(level, s2, casing)) return false;
-
-        BlockPos s11 = s1, s12 = s1, s13 = s1, s21 = s2, s22 = s2, s23 = s2;
-        for (int i = 0; i < r * 2; i++) {
-            s11 = s11.west();
-            s12 = s12.south();
-            s13 = s13.below();
-
-            s21 = s21.north();
-            s22 = s22.east();
-            s23 = s23.above();
-            if (!checkBlockPos(level, s11, casing)
-                    || !checkBlockPos(level, s12, casing)
-                    || !checkBlockPos(level, s13, casing)
-                    || !checkBlockPos(level, s21, casing)
-                    || !checkBlockPos(level, s22, casing)
-                    || !checkBlockPos(level, s23, casing)
-            ) return false;
-
+        if (this.neutron > MAX_NEUTRON / 2) {
+            ReactorPhysicsEngine.EnergyStep energyStep = ReactorPhysicsEngine.convertExcessNeutrons(
+                    this.neutron,
+                    this.energy,
+                    MAX_NEUTRON,
+                    MAX_ENERGY,
+                    DustAndAshConfig.REACTOR.neutronToEnergyRatio.get()
+            );
+            this.neutron = energyStep.neutron();
+            this.energy = energyStep.energy();
+            this.energyGenerationPerWorkTick = energyStep.generatedEnergy();
         }
 
-        this.radius = r;
-        this.height = h;
-
-        for (int i = 0; i < r * 2 - 1; i++) {
-            for (int j = 0; j < r * 2 - 1; j++) {
-                BlockPos p1 = new BlockPos(pos.getX() - r + 1 + i, pos.getY() - 1, pos.getZ() - r + 1 + j);
-                BlockPos p2 = new BlockPos(pos.getX() - r + 1 + i, pos.getY() - h, pos.getZ() - r + 1 + j);
-
-                BlockPos p3 = new BlockPos(pos.getX() - r, pos.getY() - h + 1 + j, pos.getZ() - r + 1 + i);
-                BlockPos p4 = new BlockPos(pos.getX() + r, pos.getY() - h + 1 + j, pos.getZ() - r + 1 + i);
-
-                BlockPos p5 = new BlockPos(pos.getX() - r + 1 + i, pos.getY() - h + 1 + j, pos.getZ() - r);
-                BlockPos p6 = new BlockPos(pos.getX() - r + 1 + i, pos.getY() - h + 1 + j, pos.getZ() + r);
-
-                if (checkTagContains(level, p1, ModTags.Blocks.FISSION_REACTOR_WALL)
-                        || checkTagContains(level, p2, ModTags.Blocks.FISSION_REACTOR_WALL)
-                        || checkTagContains(level, p3, ModTags.Blocks.FISSION_REACTOR_WALL)
-                        || checkTagContains(level, p4, ModTags.Blocks.FISSION_REACTOR_WALL)
-                        || checkTagContains(level, p5, ModTags.Blocks.FISSION_REACTOR_WALL)
-                        || checkTagContains(level, p6, ModTags.Blocks.FISSION_REACTOR_WALL)
-                ) return false;
-
-            }
-
-        }
-
-        return true;
+        intFace.inventoryChanged();
+        inventoryChanged();
     }
 
     private final Queue<Direction> directionQueue = Queues.newArrayDeque(Direction.Plane.HORIZONTAL);
 
     private void distributeEnergy() {
-        if (this.energy <= 0) {
+        if (this.energy <= 0 || this.level == null) {
             return;
         }
-        this.directionQueue.offer(this.directionQueue.remove());
-        for (Direction dir : directionQueue) {
-            BlockEntity be = this.getLevel().getBlockEntity(this.getBlockPos().offset(dir.getNormal()));
-            if (be != null) {
-                be.getCapability(ForgeCapabilities.ENERGY, dir.getOpposite()).ifPresent(e -> {
-                    if (e.canReceive()) {
-                        int diff = e.receiveEnergy(Math.min(MAX_TRANSFER, this.energy), false);
-                        if (diff != 0) {
-                            this.energy -= diff;
-                            this.inventoryChanged();
-                        }
-                    }
-                });
-            }
-
+        int remainingEnergy = ReactorEnergyDistributor.distribute(
+                this.level, this.worldPosition, this.directionQueue, this.energy, MAX_TRANSFER);
+        if (remainingEnergy != this.energy) {
+            this.energy = remainingEnergy;
+            inventoryChanged();
         }
     }
 
     void neutronBombardment() {
         ItemStack stack = this.invItemStackHandler.getStackInSlot(0);
-        if (stack != null && stack.is(ModTags.Items.NEUTRON_CONTAINER)) {
-            if (this.neutron > 0) {
-                CompoundTag compoundtag = stack.getOrCreateTag();
-                int count = compoundtag.getInt(NEUTRON_TAG);
-                if (count < MAX_NEUTRON_FOR_ITEM) {
-                    compoundtag.putInt(NEUTRON_TAG, ++count);
-                    this.neutron--;
-
-                }
-                ListTag lore = new ListTag();
-                CompoundTag display = new CompoundTag();
-                // TODO: need to be improved in future
-                StringTag text = StringTag.valueOf("{\"text\":\"Neutron: " + count + '/' + MAX_NEUTRON_FOR_ITEM + "\"}");
-
-                display.put("Lore", lore);
-                lore.add(text);
-                compoundtag.put("display", display);
-
-            }
+        if (this.neutron > 0 && stack.is(ModTags.Items.NEUTRON_CONTAINER)
+                && NeutronContainerUpdater.absorbOne(stack, NEUTRON_TAG, MAX_NEUTRON_FOR_ITEM)) {
+            this.neutron--;
+            inventoryChanged();
         }
-
-    }
-
-    boolean checkBlockPos(Level level, BlockPos pos, Block block) {
-        return level.getBlockState(pos).getBlock() == block;
-    }
-
-    boolean checkTagContains(Level level, BlockPos pos, TagKey<Block> tag) {
-        return !level.getBlockState(pos).is(tag);
     }
 
     @Nonnull
@@ -525,11 +350,11 @@ public class FissionReactorControllerEntity extends BasicMachineEntity implement
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @javax.annotation.Nullable Direction side) {
 
         if (!this.remove && cap == ForgeCapabilities.ENERGY) {
-            return this.energyStorageHandler.cast();
+            return this.energyStorageHandler.get().cast();
         }
 
         if (!this.remove && cap == ForgeCapabilities.ITEM_HANDLER) {
-            return this.handler.cast();
+            return this.handler.get().cast();
 
         }
         return super.getCapability(cap, side);

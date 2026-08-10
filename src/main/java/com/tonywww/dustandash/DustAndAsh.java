@@ -1,21 +1,9 @@
 package com.tonywww.dustandash;
 
-import com.tonywww.dustandash.registeries.ModBlocks;
-import com.tonywww.dustandash.registeries.ModEntites;
-import com.tonywww.dustandash.registeries.ModCreativeModTabs;
-import com.tonywww.dustandash.registeries.ModContainerMenus;
-import com.tonywww.dustandash.registeries.ModBlockEntities;
-import com.tonywww.dustandash.registeries.ModRecipe;
-import com.tonywww.dustandash.registeries.ModItems;
-import net.minecraftforge.common.MinecraftForge;
+import com.tonywww.dustandash.bootstrap.CommonBootstrap;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.fml.loading.FMLEnvironment;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -30,35 +18,8 @@ public class DustAndAsh {
     public static final String MOD_ID = "dustandash";
 
     public DustAndAsh() {
-        IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
-
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, DustAndAshConfig.COMMON_CONFIG);
-
-        ModCreativeModTabs.register(eventBus);
-
-        ModItems.register(eventBus);
-
-        ModBlocks.register(eventBus);
-
-        ModBlockEntities.register(eventBus);
-
-        ModEntites.register(eventBus);
-
-        ModContainerMenus.register(eventBus);
-
-        ModRecipe.register(eventBus);
-
-
-        // Register the setup method for modloading
-        eventBus.addListener(this::setup);
-
-        // Register ourselves for server and other game events we are interested in
-        MinecraftForge.EVENT_BUS.register(this);
-    }
-
-    private void setup(final FMLCommonSetupEvent event) {
-        LOGGER.info("Dust and Ash >> {}", ModBlocks.INTEGRATED_BLOCK.get());
-
+        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+        CommonBootstrap.initialize(modEventBus);
     }
 
     public static Logger getLogger() {

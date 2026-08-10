@@ -1,14 +1,14 @@
 package com.tonywww.dustandash.integration;
 
 import com.tonywww.dustandash.DustAndAsh;
-import com.tonywww.dustandash.registeries.ModBlocks;
+import com.tonywww.dustandash.registry.DAABlocks;
 import com.tonywww.dustandash.menu.IntegratedBlockContainerMenu;
 import com.tonywww.dustandash.data.recipes.*;
 import com.tonywww.dustandash.integration.jei.CentrifugeRecipeCategory;
 import com.tonywww.dustandash.integration.jei.IntegratedBlockRecipeCategory;
 import com.tonywww.dustandash.integration.jei.IonizerCategory;
 import com.tonywww.dustandash.integration.jei.MillingRecipeCategory;
-import com.tonywww.dustandash.registeries.ModContainerMenus;
+import com.tonywww.dustandash.registry.DAAContainerMenus;
 import com.tonywww.dustandash.screen.CentrifugeScreen;
 import com.tonywww.dustandash.screen.IntegratedBlockScreen;
 import com.tonywww.dustandash.screen.IonizerScreen;
@@ -76,22 +76,22 @@ public class DustAndAshJei implements IModPlugin {
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
         registration.addRecipeCatalyst(
-                new ItemStack(ModBlocks.INTEGRATED_BLOCK.get()),
+                new ItemStack(DAABlocks.INTEGRATED_BLOCK.get()),
                 DustAndAshRecipeTypes.INTEGRATE
         );
 
         registration.addRecipeCatalyst(
-                new ItemStack(ModBlocks.MILLING_MACHINE.get()),
+                new ItemStack(DAABlocks.MILLING_MACHINE.get()),
                 DustAndAshRecipeTypes.MILLING
         );
 
         registration.addRecipeCatalyst(
-                new ItemStack(ModBlocks.CENTRIFUGE.get()),
+                new ItemStack(DAABlocks.CENTRIFUGE.get()),
                 DustAndAshRecipeTypes.CENTRIFUGE
         );
 
         registration.addRecipeCatalyst(
-                new ItemStack(ModBlocks.IONIZER.get()),
+                new ItemStack(DAABlocks.IONIZER.get()),
                 DustAndAshRecipeTypes.IONIZER
         );
 
@@ -112,8 +112,8 @@ public class DustAndAshJei implements IModPlugin {
 
     @Override
     public void registerRecipeTransferHandlers(IRecipeTransferRegistration registration) {
-        registration.addRecipeTransferHandler(IntegratedBlockContainerMenu.class, ModContainerMenus.INTEGRATED_BLOCK_CONTAINER.get(), DustAndAshRecipeTypes.INTEGRATE, 0, 8, 8, 36);
-//        registration.addRecipeTransferHandler(IntegratedBlockContainerMenu.class, ModContainerMenus.INTEGRATED_BLOCK_CONTAINER.get(), DustAndAshRecipeTypes.INTEGRATE, 8, 36, 0, 8);
+        registration.addRecipeTransferHandler(IntegratedBlockContainerMenu.class, DAAContainerMenus.INTEGRATED_BLOCK_CONTAINER.get(), DustAndAshRecipeTypes.INTEGRATE, 0, 8, 8, 36);
+//        registration.addRecipeTransferHandler(IntegratedBlockContainerMenu.class, DAAContainerMenus.INTEGRATED_BLOCK_CONTAINER.get(), DustAndAshRecipeTypes.INTEGRATE, 8, 36, 0, 8);
 
     }
 

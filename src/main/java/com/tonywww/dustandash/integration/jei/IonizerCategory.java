@@ -2,9 +2,9 @@ package com.tonywww.dustandash.integration.jei;
 
 import com.tonywww.dustandash.DustAndAsh;
 import com.tonywww.dustandash.integration.DustAndAshRecipeTypes;
-import com.tonywww.dustandash.registeries.ModBlocks;
+import com.tonywww.dustandash.registry.DAABlocks;
 import com.tonywww.dustandash.data.recipes.IonizerRecipe;
-import com.tonywww.dustandash.registeries.ModItems;
+import com.tonywww.dustandash.registry.DAAItems;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -33,7 +33,7 @@ public class IonizerCategory implements IRecipeCategory<IonizerRecipe> {
 
     public IonizerCategory(IGuiHelper helper) {
         this.bg = helper.createDrawable(TEXTURE, 0, 0, 176, 90);
-        this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModBlocks.IONIZER.get()));
+        this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(DAABlocks.IONIZER.get()));
 
     }
 
@@ -44,7 +44,7 @@ public class IonizerCategory implements IRecipeCategory<IonizerRecipe> {
 
     @Override
     public Component getTitle() {
-        return ModBlocks.IONIZER.get().getName();
+        return DAABlocks.IONIZER.get().getName();
     }
 
     @Override
@@ -54,10 +54,6 @@ public class IonizerCategory implements IRecipeCategory<IonizerRecipe> {
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, IonizerRecipe recipe, IFocusGroup focuses) {
-        var level = Minecraft.getInstance().level;
-
-        assert level != null;
-
         var inputs = recipe.getIngredients();
         var outputs = recipe.getResultItemStacks();
 
@@ -68,7 +64,7 @@ public class IonizerCategory implements IRecipeCategory<IonizerRecipe> {
         builder.addSlot(RecipeIngredientRole.INPUT, 98, 5).addIngredients(inputs.get(4));
 
         if (recipe.getPowerCost() > 0) {
-            ItemStack stack = ModItems.ELECTRON.get().getDefaultInstance();
+            ItemStack stack = DAAItems.ELECTRON.get().getDefaultInstance();
             stack.setCount(recipe.getPowerCost());
             builder.addSlot(RecipeIngredientRole.INPUT, 16, 30).addItemStack(stack);
 

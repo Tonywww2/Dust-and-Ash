@@ -104,15 +104,17 @@ public class Judgement extends PickaxeItem implements GeoItem {
                     return true;
                 });
 
-                double targetHp = totalHP.get() / entities.size();
+                if (!entities.isEmpty()) {
+                    double targetHp = totalHP.get() / entities.size();
 
-                entities.forEach((livingEntity -> {
-                    float health = livingEntity.getHealth();
-                    if (health > targetHp)
-                        livingEntity.hurt(player.damageSources().playerAttack(player), (float) (health - targetHp));
-                    else
-                        livingEntity.heal((float) (targetHp - health));
-                }));
+                    entities.forEach((livingEntity -> {
+                        float health = livingEntity.getHealth();
+                        if (health > targetHp)
+                            livingEntity.hurt(player.damageSources().playerAttack(player), (float) (health - targetHp));
+                        else
+                            livingEntity.heal((float) (targetHp - health));
+                    }));
+                }
 
             }
             use.stop();

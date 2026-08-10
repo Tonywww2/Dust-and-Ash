@@ -1,7 +1,7 @@
 package com.tonywww.dustandash.block.entity;
 
-import com.tonywww.dustandash.registeries.ModBlockEntities;
-import com.tonywww.dustandash.registeries.ModBlocks;
+import com.tonywww.dustandash.registry.DAABlockEntities;
+import com.tonywww.dustandash.registry.DAABlocks;
 import com.tonywww.dustandash.menu.IntegratedBlockContainerMenu;
 import com.tonywww.dustandash.data.recipes.IntegratedBlockRecipe;
 import com.tonywww.dustandash.tag.ModTags;
@@ -13,13 +13,13 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Container;
 import net.minecraft.world.MenuProvider;
-import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BeaconBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -37,21 +37,25 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 
-public class IntegratedBlockEntity extends BasicMachineEntity implements MenuProvider {
+public class IntegratedBlockEntity extends BasicMachineEntity implements MenuProvider, DroppableInventory {
 
     public static int radius = 1;
 
     public ItemStackHandler itemStackHandler;
-    private LazyOptional<ItemStackHandler> handler;
+    private final ManagedCapability<ItemStackHandler> handler;
+    private final Container recipeInput;
+    private final RecipeManager.CachedCheck<Container, IntegratedBlockRecipe> recipeCheck;
     private int currentLevel;
     private boolean isBeaconOn = false;
 
     protected final ContainerData dataAccess;
 
     public IntegratedBlockEntity(BlockPos pos, BlockState state) {
-        super(ModBlockEntities.INTEGRATED_BLOCK_ENTITY.get(), pos, state);
+        super(DAABlockEntities.INTEGRATED_BLOCK_ENTITY.get(), pos, state);
         this.itemStackHandler = createHandler();
-        this.handler = LazyOptional.of(() -> itemStackHandler);
+        this.handler = managedCapability(() -> itemStackHandler);
+        this.recipeInput = new ItemHandlerContainerView(this.itemStackHandler);
+        this.recipeCheck = RecipeManager.createCheck(IntegratedBlockRecipe.IntegrateRecipeType.INSTANCE);
         this.currentLevel = 0;
 
         this.dataAccess = new ContainerData() {
@@ -72,12 +76,8 @@ public class IntegratedBlockEntity extends BasicMachineEntity implements MenuPro
             @Override
             public void set(int index, int val) {
                 switch (index) {
-                    case 0:
-                        currentLevel = val;
-
-                    case 1:
-                        isBeaconOn = true;
-
+                    case 0 -> currentLevel = val;
+                    case 1 -> isBeaconOn = val == 1;
                 }
 
             }
@@ -136,19 +136,16 @@ public class IntegratedBlockEntity extends BasicMachineEntity implements MenuPro
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
         if (!this.remove && cap == ForgeCapabilities.ITEM_HANDLER) {
             if (side == null || side == Direction.DOWN) {
-                return this.handler.cast();
+                return this.handler.get().cast();
 
             }
         }
         return super.getCapability(cap, side);
     }
 
-    public NonNullList<ItemStack> getDroppableInventory() {
-        NonNullList<ItemStack> drops = NonNullList.create();
-        for (int i = 0; i < itemStackHandler.getSlots(); ++i) {
-            drops.add(itemStackHandler.getStackInSlot(i));
-        }
-        return drops;
+    @Override
+    public ItemStackHandler getInventory() {
+        return this.itemStackHandler;
     }
 
     /**
@@ -159,26 +156,26 @@ public class IntegratedBlockEntity extends BasicMachineEntity implements MenuPro
     public static int getStructureLevel(Level level, BlockPos pos) {
         int out = 0;
         if (
-                level.getBlockState(pos.north()).getBlock() == ModBlocks.INTEGRATED_FRAME_1.get() &&
-                        level.getBlockState(pos.east()).getBlock() == ModBlocks.INTEGRATED_FRAME_1.get() &&
-                        level.getBlockState(pos.south()).getBlock() == ModBlocks.INTEGRATED_FRAME_1.get() &&
-                        level.getBlockState(pos.west()).getBlock() == ModBlocks.INTEGRATED_FRAME_1.get()
+                level.getBlockState(pos.north()).getBlock() == DAABlocks.INTEGRATED_FRAME_1.get() &&
+                        level.getBlockState(pos.east()).getBlock() == DAABlocks.INTEGRATED_FRAME_1.get() &&
+                        level.getBlockState(pos.south()).getBlock() == DAABlocks.INTEGRATED_FRAME_1.get() &&
+                        level.getBlockState(pos.west()).getBlock() == DAABlocks.INTEGRATED_FRAME_1.get()
         ) {
             out++;
 
             if (
-                    level.getBlockState(pos.north().east()).getBlock() == ModBlocks.INTEGRATED_FRAME_2.get() &&
-                            level.getBlockState(pos.north().west()).getBlock() == ModBlocks.INTEGRATED_FRAME_2.get() &&
-                            level.getBlockState(pos.south().east()).getBlock() == ModBlocks.INTEGRATED_FRAME_2.get() &&
-                            level.getBlockState(pos.south().west()).getBlock() == ModBlocks.INTEGRATED_FRAME_2.get()
+                    level.getBlockState(pos.north().east()).getBlock() == DAABlocks.INTEGRATED_FRAME_2.get() &&
+                            level.getBlockState(pos.north().west()).getBlock() == DAABlocks.INTEGRATED_FRAME_2.get() &&
+                            level.getBlockState(pos.south().east()).getBlock() == DAABlocks.INTEGRATED_FRAME_2.get() &&
+                            level.getBlockState(pos.south().west()).getBlock() == DAABlocks.INTEGRATED_FRAME_2.get()
             ) {
                 out++;
 
                 if (
-                        level.getBlockState(pos.north(2)).getBlock() == ModBlocks.INTEGRATED_FRAME_3.get() &&
-                                level.getBlockState(pos.east(2)).getBlock() == ModBlocks.INTEGRATED_FRAME_3.get() &&
-                                level.getBlockState(pos.south(2)).getBlock() == ModBlocks.INTEGRATED_FRAME_3.get() &&
-                                level.getBlockState(pos.west(2)).getBlock() == ModBlocks.INTEGRATED_FRAME_3.get()
+                        level.getBlockState(pos.north(2)).getBlock() == DAABlocks.INTEGRATED_FRAME_3.get() &&
+                                level.getBlockState(pos.east(2)).getBlock() == DAABlocks.INTEGRATED_FRAME_3.get() &&
+                                level.getBlockState(pos.south(2)).getBlock() == DAABlocks.INTEGRATED_FRAME_3.get() &&
+                                level.getBlockState(pos.west(2)).getBlock() == DAABlocks.INTEGRATED_FRAME_3.get()
                 ) {
                     out++;
                 }
@@ -206,9 +203,7 @@ public class IntegratedBlockEntity extends BasicMachineEntity implements MenuPro
 
     public static void tick(Level level, BlockPos pos, BlockState state, IntegratedBlockEntity be) {
         if (!level.isClientSide) {
-            BasicMachineEntity.tick(be, 1);
-
-            if (BasicMachineEntity.isWorkingTick(be)) {
+            if (be.advanceWorkCycle(1)) {
                 be.currentLevel = getStructureLevel(level, pos);
                 be.isBeaconOn = level.getBlockEntity(be.getBlockPos().below(2)) instanceof BeaconBlockEntity;
 
@@ -218,7 +213,7 @@ public class IntegratedBlockEntity extends BasicMachineEntity implements MenuPro
 
                 }
 
-                BasicMachineEntity.resetTicker(be);
+                be.resetWorkCycle();
 
             }
 
@@ -263,13 +258,7 @@ public class IntegratedBlockEntity extends BasicMachineEntity implements MenuPro
     }
 
     public static void craft(Level level, BlockPos pos, IntegratedBlockEntity be) {
-        Container inv = new SimpleContainer(be.itemStackHandler.getSlots());
-        for (int i = 0; i < be.itemStackHandler.getSlots(); i++) {
-            inv.setItem(i, be.itemStackHandler.getStackInSlot(i));
-
-        }
-
-        Optional<IntegratedBlockRecipe> recipe = level.getRecipeManager().getRecipeFor(IntegratedBlockRecipe.IntegrateRecipeType.INSTANCE, inv, level);
+        Optional<IntegratedBlockRecipe> recipe = be.recipeCheck.getRecipeFor(be.recipeInput, level);
 
         recipe.ifPresent(iRecipe -> {
             ItemStack output = iRecipe.getResultItem(null);

@@ -1,7 +1,7 @@
 package com.tonywww.dustandash.item;
 
 import com.tonywww.dustandash.DustAndAshConfig;
-import com.tonywww.dustandash.registeries.ModItems;
+import com.tonywww.dustandash.registry.DAAItems;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -27,8 +27,8 @@ public class Indestructible extends Item {
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
 
         if (!level.isClientSide) {
-            player.getCooldowns().addCooldown(this, DustAndAshConfig.indestructibleCD.get());
-            player.getCooldowns().addCooldown(ModItems.ROCK_SOLID.get(), DustAndAshConfig.rockSolidCD.get());
+            player.getCooldowns().addCooldown(this, DustAndAshConfig.TOOLS.indestructibleCooldown.get());
+            player.getCooldowns().addCooldown(DAAItems.ROCK_SOLID.get(), DustAndAshConfig.TOOLS.rockSolidCooldown.get());
             player.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 120, 5));
             player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 160, 3));
             player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60, 0));

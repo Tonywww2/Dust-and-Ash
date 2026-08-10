@@ -1,20 +1,20 @@
-package com.tonywww.dustandash.registeries;
+package com.tonywww.dustandash.registry;
 
-import com.tonywww.dustandash.registeries.ModItems;
+import com.tonywww.dustandash.registry.DAAItems;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.util.LazyLoadedValue;
 import net.minecraft.world.item.Tier;
 import java.util.function.Supplier;
 
-public enum ModItemTier implements Tier {
+public enum DAAItemTier implements Tier {
     FLINT(0, 48, 3.0F, 1.0F, 20, () -> {
-        return Ingredient.of(ModItems.BLOODY_FLINT.get());
+        return Ingredient.of(DAAItems.BLOODY_FLINT.get());
     }),
     ASH_STEEL(4, 1280, 9.5F, 3.5F, 18, () -> {
-        return Ingredient.of(ModItems.ASH_STEEL_INGOT.get());
+        return Ingredient.of(DAAItems.ASH_STEEL_INGOT.get());
     }),
     TITANIUM_ALLOY(5, 3280, 12.5F, 6.0F, 28, () -> {
-        return Ingredient.of(ModItems.TITANIUM_INGOT.get());
+        return Ingredient.of(DAAItems.TITANIUM_INGOT.get());
     })
     ;
 
@@ -25,7 +25,7 @@ public enum ModItemTier implements Tier {
     private final int enchantmentValue;
     private final LazyLoadedValue<Ingredient> repairIngredient;
 
-    private ModItemTier(int pLevel, int pUses, float pSpeed, float pDamage, int pEnchantmentValue, Supplier<Ingredient> pRepairIngredient) {
+    private DAAItemTier(int pLevel, int pUses, float pSpeed, float pDamage, int pEnchantmentValue, Supplier<Ingredient> pRepairIngredient) {
         this.level = pLevel;
         this.uses = pUses;
         this.speed = pSpeed;

@@ -1,4 +1,4 @@
-package com.tonywww.dustandash.registeries;
+package com.tonywww.dustandash.registry;
 
 import com.tonywww.dustandash.DustAndAsh;
 import com.tonywww.dustandash.entity.LightningProjectileEntity;
@@ -9,7 +9,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
-public class ModEntites {
+public class DAAEntities {
 
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPES =
             DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, DustAndAsh.MOD_ID);

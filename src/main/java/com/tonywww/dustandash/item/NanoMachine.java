@@ -35,7 +35,7 @@ public class NanoMachine extends Item {
                 ItemStack stack = player.getItemInHand(InteractionHand.OFF_HAND);
                 String name = ForgeRegistries.ITEMS.getKey(stack.getItem()).toString();
 
-                if (!stack.isEmpty() & stack.getCount() > 0 && nano.getCount() > 0) {
+                if (!stack.isEmpty() && stack.getCount() > 0 && nano.getCount() > 0) {
                     switch (name) {
                         case "umapyoi:uma_factor_item":
                             CompoundTag compoundtag = stack.getOrCreateTag();
