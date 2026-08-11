@@ -1,11 +1,11 @@
 {
-  "name": "Making Lava",
+  "name": "制作岩浆",
   "icon": "minecraft:lava_bucket",
   "category": "dustandash:dust",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "一位尘学家发明了一种制作岩浆的方法：$(br) 1. 制作一个$(item)注能圆石$()$(br) 2. 用$(item)锻造台$()做一个$(item)桶装注能圆石$()$(br) 3. 把它放入$(item)熔炉$()"
+      "text": "岩浆可以通过固定的三步流程制成：$(br)1. 制作$(item)注能圆石$()。$(br)2. 使用$(item)锻造台$()将它装入$(item)桶装注能圆石$()。$(br)3. 在$(item)熔炉$()中熔炼装满的桶。"
     },
     {
       "type": "patchouli:crafting",

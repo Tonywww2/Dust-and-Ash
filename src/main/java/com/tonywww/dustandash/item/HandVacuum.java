@@ -107,7 +107,6 @@ public class HandVacuum extends Item {
     @Override
     public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltip, TooltipFlag pFlag) {
 
-        pTooltip.add(Component.translatable("tooltip.dustandash.hand_vacuum"));
 
         super.appendHoverText(pStack, pLevel, pTooltip, pFlag);
     }

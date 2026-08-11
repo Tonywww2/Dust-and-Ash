@@ -5,15 +5,15 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "一共有10种进阶尘： "
+      "text": "目前共有十种进阶尘。与五种基础尘不同，它们分别对应更具体的过程：生长、传承、变化、结晶、渗出、灭亡、吸收、熔炼、堵塞与撕裂。"
     },
     {
       "type": "patchouli:spotlight",
-      "title" : "Advance Dust",
+      "title" : "进阶尘",
       "item": {
         "tag": "dustandash:lv3_dust"
       },
-      "text": "拥有复杂性质的尘"
+      "text": "当配方需要某种特定变化，而不是基础元素时，便会使用这些尘。"
     }
 
   ]

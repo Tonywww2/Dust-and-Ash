@@ -1,0 +1,11 @@
+{
+  "name": "中子轰击",
+  "icon": "dustandash:pure_energy",
+  "category": "dustandash:fission_reactor",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "能够容纳中子的物品可以放入$(item)裂变反应堆控制器$()。反应堆工作时，中子轰击会逐步为其中的物品充能。$(br2)充满后，容器可以作为后续合成的材料。"
+    }
+  ]
+}

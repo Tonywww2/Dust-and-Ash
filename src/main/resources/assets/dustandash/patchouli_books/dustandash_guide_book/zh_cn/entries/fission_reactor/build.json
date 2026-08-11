@@ -1,0 +1,25 @@
+{
+  "name": "建造裂变反应堆",
+  "icon": "dustandash:fission_reactor_controller",
+  "category": "dustandash:fission_reactor",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "反应堆需要一个$(item)裂变反应堆控制器$()、外壳框架、至少一个$(item)裂变反应堆燃料单元$()、一个$(item)裂变反应堆接口$()、有效墙体方块，以及按需设置的$(item)裂变反应堆冷却单元$()。$(br2)有效墙体属于$(item)#dustandash:fission_reactor_wall$()；灰色染色玻璃便是其中一种。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "使用外壳搭建水平边长相等且为奇数的方形框架；高度可以不同。在内部放置燃料单元与冷却单元，再用有效墙体封闭各面。$(br2)控制器必须位于顶面中央；接口则放在任一侧墙中央。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "燃料与冷却剂从接口装入。反应堆效率取决于热量是否接近燃料的理想热值。$(br2)冷却单元与燃料单元相邻时，会降低热量增长。装填之前，应先安排好内部结构。"
+    },
+    {
+      "type": "patchouli:image",
+      "title": "结构示例",
+      "images": ["dustandash:patchouli_books/dustandash_guide_book/imgs/fr_example1.png"],
+      "text": "一种可用的反应堆剖面。高度与内部排列可以改变，但框架规则不会改变。"
+    }
+  ]
+}

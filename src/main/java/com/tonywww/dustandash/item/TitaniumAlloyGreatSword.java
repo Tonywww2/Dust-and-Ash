@@ -35,7 +35,6 @@ public class TitaniumAlloyGreatSword extends SwordItem {
     @Override
     public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltip, TooltipFlag pFlag) {
 
-        pTooltip.add(Component.translatable("tooltip.dustandash.titanium_alloy_great_sword"));
 
         super.appendHoverText(pStack, pLevel, pTooltip, pFlag);
     }

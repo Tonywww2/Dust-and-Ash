@@ -5,27 +5,27 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "There is five kinds of Basic Dusts: $(item)Metal Dust$(), $(item)Life Dust$(), $(item)Order Dust$(), $(item)Fire Dust$(), $(item)Earth Dust$(). $(br2)With $(item)Hand Vacuum$(), you will only be able to collect the Heavier Dust: $(item)Metal Dust, $(item)Order Dust$() and $(item)Earth Dust$()."
+      "text": "There are five Basic Dusts: $(item)Metal Dust$(), $(item)Life Dust$(), $(item)Order Dust$(), $(item)Fire Dust$() and $(item)Earth Dust$().$(br2)The $(item)Hand Vacuum$() recovers only the heavier group: Metal, Order and Earth."
     },
     {
       "type": "patchouli:spotlight",
-      "title" : "Heavier Basic Dust",
+      "title" : "Heavier Dusts",
       "item": {
         "tag": "dustandash:lv1_dust"
       },
-      "text": "The Heavier Dust."
+      "text": "Metal, Order and Earth Dust can be recovered by either vacuum."
     },
     {
       "type": "patchouli:text",
-      "text": "To collect all kinds of Basic Dust, you need a $(item)Iron Vacuum$()."
+      "text": "Life and Fire Dust belong to the lighter group. Recovering all five Basic Dusts requires an $(item)Iron Vacuum$() powered by Energized Dust."
     },
     {
       "type": "patchouli:spotlight",
-      "title" : "Lighter Basic Dust",
+      "title" : "Lighter Dusts",
       "item": {
         "tag": "dustandash:lv2_dust"
       },
-      "text": "The Lighter Dust."
+      "text": "Life and Fire Dust require the Iron Vacuum."
     }
 
   ]

@@ -43,7 +43,6 @@ public class Indestructible extends Item {
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> pTooltip, TooltipFlag pFlag) {
 
-        pTooltip.add(Component.translatable("tooltip.dustandash.indestructible"));
 
         super.appendHoverText(stack, level, pTooltip, pFlag);
     }

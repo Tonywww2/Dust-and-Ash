@@ -1,11 +1,11 @@
 {
-  "name": "2. Getting to the Origin",
+  "name": "2. 分离与烬",
   "icon": "minecraft:writable_book",
   "category": "dustandash:beginning",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "With the basic understanding of Dustology, you are able to enter a new stage and explore a new topic: Ashology. $(br2)A $(l:ash/centrifuge)Centrifuge$(/l) would be very useful for you. It provides you a new way to get dust by isolating some materials. Also, some advanced materials requires $(l:ash/centrifuge)Centrifuge$(/l). $(br)Finally, upgrade your $(l:dust/integrated_block)Integrated Block$(/l) to the final level, you would be able to create almost everything with it. "
+      "text": "烬与尘从此不再只是残余物，也成为加工过程的输入。$(br2)$(l:ash/centrifuge)离心机$(/l)能把材料分离成尘与其他组分，数种高阶加工也必须依靠它。$(br)三级框架会使$(l:dust/integrated_block)聚合方块$(/l)达到现有的最高层级。"
     },
     {
       "type": "patchouli:crafting",

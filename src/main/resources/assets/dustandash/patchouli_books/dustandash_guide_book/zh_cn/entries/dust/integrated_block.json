@@ -1,5 +1,5 @@
 {
-  "name": "Integrated Block",
+  "name": "聚合方块",
   "icon": "dustandash:integrated_block",
   "category": "dustandash:dust",
   "pages": [
@@ -9,32 +9,32 @@
     },
     {
       "type": "patchouli:text",
-      "text": "Integrated Block allows you to make new materials. $(br)All recipes are shaped. $(br)The required Tier of the recipe is shown by different frames in JEI/REI. $(br) You can stop the auto collecting by a redstone signal"
+      "text": "聚合方块会依照固定槽位重新组合材料。每个配方都有最低框架层级，配方显示中会标明所需层级。$(br2)机器会自动收集附近可用的材料。红石信号会停止收集，但不会关闭合成过程。"
     },
     {
       "type": "patchouli:image",
-      "title" : "Tier 1",
+      "title" : "一级框架",
       "images": ["dustandash:patchouli_books/dustandash_guide_book/imgs/integrated_block_1.png"],
-      "text": "Tier 1 substructure of Integrated Block"
+      "text": "第一层框架会扩展聚合方块能够执行的配方。"
     },
     {
       "type": "patchouli:image",
-      "title" : "Tier 2",
+      "title" : "二级框架",
       "images": ["dustandash:patchouli_books/dustandash_guide_book/imgs/integrated_block_2.png"],
-      "text": "Tier 2 substructure of Integrated Block"
+      "text": "第二层框架能够承载更复杂的材料组合。"
     },
     {
       "type": "patchouli:image",
-      "title" : "Tier 3",
+      "title" : "三级框架",
       "images": ["dustandash:patchouli_books/dustandash_guide_book/imgs/integrated_block_3.png"],
-      "text": "Tier 3 substructure of Integrated Block"
+      "text": "第三层框架是现有的最高层级。"
     }
   ,
     {
       "type": "patchouli:image",
-      "title" : "Beacon infusion",
+      "title" : "信标辅助",
       "images": ["dustandash:patchouli_books/dustandash_guide_book/imgs/integrated_block_b.png"],
-      "text": "An Integrated Block with beacon, it will double the output. $(br)Available with any Tier."
+      "text": "在聚合方块下方两格放置信标后，每次完成配方都会额外产生一份相同产物。$(br)所有框架层级都能获得这一效果。"
     }
   ]
 }

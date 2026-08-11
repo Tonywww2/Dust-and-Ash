@@ -1,11 +1,11 @@
 {
-  "name": "3. Eternal Student",
+  "name": "3. Exchange Under Power",
   "icon": "minecraft:writable_book",
   "category": "dustandash:beginning",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Congratulations, here is almost the end, but it can also be a new start. $(l:ash/ionizer)Ionizer$(/l) is the newest machine that can help you explore the future path. It allows you to do"
+      "text": "The $(l:ash/ionizer)Ionizer$(/l) is the final machine in this introductory path.$(br2)It consumes power to exchange materials and, for some recipes, the block beneath the machine. The result may include both items and a changed block.$(br2)From this point onward, progress depends on the recipes and materials already uncovered."
     },
     {
       "type": "patchouli:crafting",

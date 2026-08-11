@@ -124,7 +124,6 @@ public class GaleOtaijutsu extends SwordItem implements GeoItem {
     @Override
     public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltip, TooltipFlag pFlag) {
 
-        pTooltip.add(Component.translatable("tooltip.dustandash.gale_otaijutsu"));
 
         super.appendHoverText(pStack, pLevel, pTooltip, pFlag);
     }

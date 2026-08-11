@@ -1,19 +1,19 @@
 {
-  "name": "Advance Dust",
+  "name": "Advanced Dust",
   "icon": "dustandash:reproduce_dust",
   "category": "dustandash:dust",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "There is ten kinds of Advance Dusts: "
+      "text": "Ten Advanced Dusts are currently known. Unlike the five Basic Dusts, each describes a more specific process: reproduction, inheritance, metamorphosis, crystallization, seepage, extinguishing, absorption, smelting, blocking or laceration."
     },
     {
       "type": "patchouli:spotlight",
-      "title" : "Advance Dust",
+      "title" : "Advanced Dusts",
       "item": {
         "tag": "dustandash:lv3_dust"
       },
-      "text": "The Dust with complexer identity. "
+      "text": "These Dusts are used where a recipe requires a particular transformation rather than a basic element."
     }
 
   ]

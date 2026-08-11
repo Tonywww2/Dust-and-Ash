@@ -1,11 +1,11 @@
 {
-  "name": "3. Eternal Student",
+  "name": "3. 供能下的交换",
   "icon": "minecraft:writable_book",
   "category": "dustandash:beginning",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Congratulations, here is almost the end, but it can also be a new start. $(l:ash/ionizer)Ionizer$(/l) is the newest machine that can help you explore the future path. It allows you to do"
+      "text": "$(l:ash/ionizer)万用电解机$(/l)是这条入门流程中的最后一台机器。$(br2)它消耗能量来交换材料；部分配方还会改变机器下方的方块。加工结果可以同时包含物品与新的方块。$(br2)此后的道路，取决于已经发现的配方与材料。"
     },
     {
       "type": "patchouli:crafting",

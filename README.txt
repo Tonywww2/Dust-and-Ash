@@ -1,6 +1,9 @@
 Dust and Ash for 1.20.1
 https://www.curseforge.com/minecraft/mc-mods/dust-and-ash
 
+Dust settles and ash remains. Gather elemental Dust, refine alloys, build
+processing machines, and control a modular fission reactor.
+
 Build layout
 ------------
 

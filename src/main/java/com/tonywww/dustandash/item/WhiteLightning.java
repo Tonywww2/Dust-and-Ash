@@ -284,7 +284,6 @@ public class WhiteLightning extends SwordItem {
 
     public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltip, TooltipFlag pFlag) {
 
-        pTooltip.add(Component.translatable("tooltip.dustandash.white_lightning"));
 
         super.appendHoverText(pStack, pLevel, pTooltip, pFlag);
     }

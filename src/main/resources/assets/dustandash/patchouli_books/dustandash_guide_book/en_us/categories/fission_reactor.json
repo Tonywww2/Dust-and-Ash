@@ -1,5 +1,5 @@
 {
     "name": "Fission Reactor",
-    "description": "Not pure scientific, but added Dustology.",
+    "description": "A controlled structure for heat, neutrons, fuel and energy.",
     "icon": "dustandash:fission_reactor_controller"
 }

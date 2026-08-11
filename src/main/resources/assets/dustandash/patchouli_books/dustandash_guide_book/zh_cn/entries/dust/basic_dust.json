@@ -5,27 +5,27 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "一共有5种基础尘：$(item)Metal Dust$(), $(item)Life Dust$(), $(item)Order Dust$(), $(item)Fire Dust$(), $(item)Earth Dust$(). $(br2)用 $(item)手摇式吸尘器$()可以收集那些较重的尘：$(item)Metal Dust, $(item)Order Dust$() 和 $(item)Earth Dust$()."
+      "text": "基础尘共有五种：$(item)金属之尘$()、$(item)生命之尘$()、$(item)秩序之尘$()、$(item)燃烧之尘$()与$(item)大地之尘$()。$(br2)$(item)手摇式吸尘器$()只能取得较重的一组：金属、秩序与大地。"
     },
     {
       "type": "patchouli:spotlight",
-      "title" : "Heavier Basic Dust",
+      "title" : "较重的尘",
       "item": {
         "tag": "dustandash:lv1_dust"
       },
-      "text": "较重的尘"
+      "text": "金属、秩序与大地之尘可以由两种吸尘器取得。"
     },
     {
       "type": "patchouli:text",
-      "text": "如果你想收集全部的5种基础尘，你需要一个$(item)吸尘器$()."
+      "text": "生命与燃烧之尘属于较轻的一组。若要取得全部五种基础尘，需要以注能尘驱动的$(item)吸尘器$()。"
     },
     {
       "type": "patchouli:spotlight",
-      "title" : "Lighter Basic Dust",
+      "title" : "较轻的尘",
       "item": {
         "tag": "dustandash:lv2_dust"
       },
-      "text": "较轻的尘"
+      "text": "生命与燃烧之尘必须使用吸尘器取得。"
     }
 
   ]

@@ -27,6 +27,7 @@ public final class LightStaffRenderer extends EntityRenderer<LightStaffEntity> {
             MultiBufferSource bufferSource,
             int packedLight) {
         poseStack.pushPose();
+        poseStack.scale(1.5f, 1.5f, 1.5f);
         VertexConsumer consumer = bufferSource.getBuffer(RenderType.lightning());
         Matrix4f matrix = poseStack.last().pose();
         renderBeam(matrix, consumer, 0.11f, 0f, 3.9f, 255, 225, 112, 210);

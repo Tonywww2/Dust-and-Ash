@@ -17,6 +17,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.LightLayer;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -195,7 +196,12 @@ public final class CurioCombatEvents {
     }
 
     private static int brightness(LivingEntity entity) {
-        return entity.level().getMaxLocalRawBrightness(entity.blockPosition());
+        int blockLight = entity.level().getBrightness(LightLayer.BLOCK, entity.blockPosition());
+        int skyLight = Math.max(
+                0,
+                entity.level().getBrightness(LightLayer.SKY, entity.blockPosition())
+                        - entity.level().getSkyDarken());
+        return Math.max(blockLight, skyLight);
     }
 
     private static boolean isEquipped(LivingEntity entity, net.minecraft.world.item.Item item) {

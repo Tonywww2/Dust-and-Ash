@@ -9,32 +9,32 @@
     },
     {
       "type": "patchouli:text",
-      "text": "Integrated Block allows you to make new materials. $(br)All recipes are shaped. $(br)The required Tier of the recipe is shown by different frames in JEI/REI. $(br) You can stop the auto collecting by a redstone signal"
+      "text": "The Integrated Block recombines ingredients placed in fixed slots. Each recipe requires a minimum frame tier, shown with the recipe display.$(br2)Nearby valid materials are collected automatically. A redstone signal stops this collection without disabling the crafting process."
     },
     {
       "type": "patchouli:image",
-      "title" : "Tier 1",
+      "title" : "Tier 1 Frame",
       "images": ["dustandash:patchouli_books/dustandash_guide_book/imgs/integrated_block_1.png"],
-      "text": "Tier 1 substructure of Integrated Block"
+      "text": "The first frame extends the range of recipes the block can perform."
     },
     {
       "type": "patchouli:image",
-      "title" : "Tier 2",
+      "title" : "Tier 2 Frame",
       "images": ["dustandash:patchouli_books/dustandash_guide_book/imgs/integrated_block_2.png"],
-      "text": "Tier 2 substructure of Integrated Block"
+      "text": "The second frame supports more complex combinations."
     },
     {
       "type": "patchouli:image",
-      "title" : "Tier 3",
+      "title" : "Tier 3 Frame",
       "images": ["dustandash:patchouli_books/dustandash_guide_book/imgs/integrated_block_3.png"],
-      "text": "Tier 3 substructure of Integrated Block"
+      "text": "The third frame is the current highest tier."
     }
   ,
     {
       "type": "patchouli:image",
-      "title" : "Beacon infusion",
+      "title" : "Beacon Assistance",
       "images": ["dustandash:patchouli_books/dustandash_guide_book/imgs/integrated_block_b.png"],
-      "text": "An Integrated Block with beacon, it will double the output. $(br)Available with any Tier."
+      "text": "A Beacon positioned two blocks below the Integrated Block causes each completed recipe to produce a second copy.$(br)This works with every frame tier."
     }
   ]
 }

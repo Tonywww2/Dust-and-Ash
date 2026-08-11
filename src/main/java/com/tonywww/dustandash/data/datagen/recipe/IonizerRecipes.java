@@ -416,7 +416,7 @@ public final class IonizerRecipes {
                 .output(DAAItems.EMPTY.get())
                 .output(DAAItems.EMPTY.get())
                 .outputBlock(Blocks.OBSIDIAN)
-                .cost(128)
+                .cost(64)
                 .tick(12800)
                 .costElectrodes(true)
                 .save(writer, "ionizer/void_ring");

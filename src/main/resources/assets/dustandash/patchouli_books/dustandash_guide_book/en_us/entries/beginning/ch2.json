@@ -1,11 +1,11 @@
 {
-  "name": "2. Getting to the Origin",
+  "name": "2. Separation and Ash",
   "icon": "minecraft:writable_book",
   "category": "dustandash:beginning",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "With the basic understanding of Dustology, you are able to enter a new stage and explore a new topic: Ashology. $(br2)A $(l:ash/centrifuge)Centrifuge$(/l) would be very useful for you. It provides you a new way to get dust by isolating some materials. Also, some advanced materials requires $(l:ash/centrifuge)Centrifuge$(/l). $(br)Finally, upgrade your $(l:dust/integrated_block)Integrated Block$(/l) to the final level, you would be able to create almost everything with it. "
+      "text": "Ash and Dust now become inputs rather than simple remains.$(br2)The $(l:ash/centrifuge)Centrifuge$(/l) separates materials into Dust and other components, and is required by several advanced processes.$(br)A Tier 3 frame brings the $(l:dust/integrated_block)Integrated Block$(/l) to its current highest level."
     },
     {
       "type": "patchouli:crafting",

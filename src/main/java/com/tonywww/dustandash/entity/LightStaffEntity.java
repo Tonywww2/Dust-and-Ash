@@ -30,10 +30,13 @@ public final class LightStaffEntity extends Entity {
             LightStaffEntity.class, EntityDataSerializers.FLOAT);
     private static final EntityDataAccessor<Integer> FALL_TICKS = SynchedEntityData.defineId(
             LightStaffEntity.class, EntityDataSerializers.INT);
+        private static final EntityDataAccessor<Boolean> IMPACTED = SynchedEntityData.defineId(
+            LightStaffEntity.class, EntityDataSerializers.BOOLEAN);
 
     private UUID ownerUuid;
     private UUID primaryTargetUuid;
     private float attackDamage;
+        private int impactTicks;
 
     public LightStaffEntity(EntityType<? extends LightStaffEntity> entityType, Level level) {
         super(entityType, level);
@@ -59,18 +62,31 @@ public final class LightStaffEntity extends Entity {
         this.entityData.define(START_Y, 0f);
         this.entityData.define(IMPACT_Y, 0f);
         this.entityData.define(FALL_TICKS, 1);
+        this.entityData.define(IMPACTED, false);
     }
 
     @Override
     public void tick() {
         super.tick();
         int fallTicks = Math.max(1, this.entityData.get(FALL_TICKS));
-        float progress = Mth.clamp((float) this.tickCount / fallTicks, 0f, 1f);
+        boolean impacted = this.entityData.get(IMPACTED);
+        float progress = impacted ? 1f : Mth.clamp((float) this.tickCount / fallTicks, 0f, 1f);
         double y = Mth.lerp(progress, this.entityData.get(START_Y), this.entityData.get(IMPACT_Y));
         this.setPos(this.getX(), y, this.getZ());
 
-        if (!this.level().isClientSide() && this.tickCount >= fallTicks) {
+        if (this.level().isClientSide()) {
+            return;
+        }
+        if (!impacted && this.tickCount >= fallTicks) {
+            this.entityData.set(IMPACTED, true);
             this.impact((ServerLevel) this.level());
+            if (DustAndAshConfig.CURIOS.lightStaffImpactLingerTicks.get() == 0) {
+                this.discard();
+            }
+            return;
+        }
+        if (impacted
+                && ++this.impactTicks >= DustAndAshConfig.CURIOS.lightStaffImpactLingerTicks.get()) {
             this.discard();
         }
     }
@@ -140,7 +156,9 @@ public final class LightStaffEntity extends Entity {
         this.entityData.set(START_Y, tag.getFloat("StartY"));
         this.entityData.set(IMPACT_Y, tag.getFloat("ImpactY"));
         this.entityData.set(FALL_TICKS, Math.max(1, tag.getInt("FallTicks")));
+        this.entityData.set(IMPACTED, tag.getBoolean("Impacted"));
         this.attackDamage = tag.getFloat("AttackDamage");
+        this.impactTicks = Math.max(0, tag.getInt("ImpactTicks"));
     }
 
     @Override
@@ -154,7 +172,9 @@ public final class LightStaffEntity extends Entity {
         tag.putFloat("StartY", this.entityData.get(START_Y));
         tag.putFloat("ImpactY", this.entityData.get(IMPACT_Y));
         tag.putInt("FallTicks", this.entityData.get(FALL_TICKS));
+        tag.putBoolean("Impacted", this.entityData.get(IMPACTED));
         tag.putFloat("AttackDamage", this.attackDamage);
+        tag.putInt("ImpactTicks", this.impactTicks);
     }
 
     @Override

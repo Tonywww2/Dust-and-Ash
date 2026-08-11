@@ -53,7 +53,6 @@ public class EchoActivator extends Item {
     @Override
     public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltip, TooltipFlag pFlag) {
 
-        pTooltip.add(Component.translatable("tooltip.dustandash.echo_activator"));
 
         super.appendHoverText(pStack, pLevel, pTooltip, pFlag);
     }

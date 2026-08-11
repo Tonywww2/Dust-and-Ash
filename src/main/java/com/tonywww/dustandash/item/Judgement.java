@@ -23,7 +23,6 @@ public class Judgement extends Item implements ICurioItem {
     @Override
     public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltip, TooltipFlag pFlag) {
 
-        pTooltip.add(Component.translatable("tooltip.dustandash.judgement"));
 
         super.appendHoverText(pStack, pLevel, pTooltip, pFlag);
     }

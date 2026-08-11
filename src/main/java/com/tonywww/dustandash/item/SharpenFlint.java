@@ -57,7 +57,6 @@ public class SharpenFlint extends Item {
     @Override
     public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltip, TooltipFlag pFlag) {
 
-        pTooltip.add(Component.translatable("tooltip.dustandash.sharpen_flint"));
 
         super.appendHoverText(pStack, pLevel, pTooltip, pFlag);
     }

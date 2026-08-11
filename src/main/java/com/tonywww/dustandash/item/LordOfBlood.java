@@ -320,7 +320,6 @@ public class LordOfBlood extends SwordItem implements GeoItem {
     @Override
     public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltip, TooltipFlag pFlag) {
 
-        pTooltip.add(Component.translatable("tooltip.dustandash.lord_of_blood"));
 
         super.appendHoverText(pStack, pLevel, pTooltip, pFlag);
     }

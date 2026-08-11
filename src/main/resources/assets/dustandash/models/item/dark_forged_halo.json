@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "dustandash:item/forever_dark_crystal"
+    "layer0": "dustandash:item/dark_forged_halo"
   }
 }

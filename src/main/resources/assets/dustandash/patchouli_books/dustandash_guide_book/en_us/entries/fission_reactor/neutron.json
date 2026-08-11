@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Some items can be placed in the slot of $(item)Fission Reactor Controller$(), and be affected by the neutrons. Once they are full-filled, they can be used to craft other things. "
+      "text": "Items accepted as neutron containers may be placed in the $(item)Fission Reactor Controller$(). While the reactor operates, neutron bombardment charges the inserted item.$(br2)Once filled, the charged container becomes an ingredient for further crafting."
     }
 
   ]

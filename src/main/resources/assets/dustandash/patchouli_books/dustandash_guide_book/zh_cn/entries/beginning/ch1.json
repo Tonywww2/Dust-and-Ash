@@ -1,11 +1,11 @@
 {
-  "name": "1. Doing Actual Works",
+  "name": "1. 重组物质",
   "icon": "minecraft:writable_book",
   "category": "dustandash:beginning",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Now you have a handful of Dust, what can you do with it?$(br2)For the unlucky guy with only Stones and Gravels, now you have an easier way to get Iron. $(br)For all the Dustologists, now you need to make an $(l:dust/integrated_block)Integrated Block$(/l). There is a chapter about how to use it. $(br) If you need a $(item)Lava Bucket$(), check out $(l:dust/lava)this entry$(/l)."
+      "text": "基础尘已经能转化成最初的实用材料，其中也包括铁。$(br2)这一阶段的核心装置是$(l:dust/integrated_block)聚合方块$(/l)，它会依照固定位置重新组合材料。$(br)若需要岩浆，可查阅$(l:dust/lava)制作岩浆$(/l)。"
     },
     {
       "type": "patchouli:crafting",
@@ -14,7 +14,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "Then you need to upgrade your $(l:dust/integrated_block)Integrated Block$(/l). Make four $(item)Integrated Frame Tier 1$().$(br2)Also make some $(l:ash/ash_collector)Ash Collector$(/l) to collect $(item)Ash$() from $(item)Furnace$().$(br2)Finally, you can make some $(item)Raw Ash Steel$(), and smelt them into $(item)Ash Steel Ingot$()."
+      "text": "四个$(item)一级聚合框架$()能够扩展聚合方块。$(br2)$(l:ash/ash_collector)余烬收集器$(/l)会从燃烧中的熔炉收集烬。烬可以进入烬钢粗料，再经熔炼成为烬钢锭。"
     },
     {
       "type": "patchouli:crafting",
@@ -23,7 +23,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "The next machine you need is $(l:dust/milling_machine)Milling & Assembly Machine$(/l).$(br)This machine allows you to upgrade your $(l:dust/integrated_block)Integrated Block$(/l) again, to make more advanced materials."
+      "text": "$(l:dust/milling_machine)铣床和装配台$(/l)负责研磨与装配配方。$(br)它也会提供制作下一层聚合框架与更复杂材料所需的部件。"
     },
     {
       "type": "patchouli:crafting",

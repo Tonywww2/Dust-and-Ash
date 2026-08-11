@@ -39,6 +39,7 @@ public final class ForgedHaloRenderer implements ICurioRenderer {
         ICurioRenderer.translateIfSneaking(poseStack, slotContext.entity());
         ICurioRenderer.rotateIfSneaking(poseStack, slotContext.entity());
         poseStack.translate(0d, 0.16d, 0.24d);
+        poseStack.scale(2f, 2f, 2f);
 
         Matrix4f matrix = poseStack.last().pose();
         if (this.light) {

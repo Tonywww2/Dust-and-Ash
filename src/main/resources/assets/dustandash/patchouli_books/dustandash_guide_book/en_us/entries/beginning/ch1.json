@@ -1,11 +1,11 @@
 {
-  "name": "1. Doing Actual Works",
+  "name": "1. Recombining Matter",
   "icon": "minecraft:writable_book",
   "category": "dustandash:beginning",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Now you have a handful of Dust, what can you do with it?$(br2)For the unlucky guy with only Stones and Gravels, now you have an easier way to get Iron. $(br)For all the Dustologists, now you need to make an $(l:dust/integrated_block)Integrated Block$(/l). There is a chapter about how to use it. $(br) If you need a $(item)Lava Bucket$(), check out $(l:dust/lava)this entry$(/l)."
+      "text": "Basic Dust can now be turned into the first useful materials, including iron.$(br2)The central device of this stage is the $(l:dust/integrated_block)Integrated Block$(/l), which recombines ingredients placed in fixed positions.$(br)For a route to lava, see $(l:dust/lava)Making Lava$(/l)."
     },
     {
       "type": "patchouli:crafting",
@@ -14,7 +14,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "Then you need to upgrade your $(l:dust/integrated_block)Integrated Block$(/l). Make four $(item)Integrated Frame Tier 1$().$(br2)Also make some $(l:ash/ash_collector)Ash Collector$(/l) to collect $(item)Ash$() from $(item)Furnace$().$(br2)Finally, you can make some $(item)Raw Ash Steel$(), and smelt them into $(item)Ash Steel Ingot$()."
+      "text": "Four $(item)Integrated Frame Tier 1$() blocks extend the Integrated Block.$(br2)An $(l:ash/ash_collector)Ash Collector$(/l) gathers Ash from a burning furnace. That Ash can enter Raw Ash Steel, which is then smelted into Ash Steel Ingots."
     },
     {
       "type": "patchouli:crafting",
@@ -23,7 +23,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "The next machine you need is $(l:dust/milling_machine)Milling & Assembly Machine$(/l).$(br)This machine allows you to upgrade your $(l:dust/integrated_block)Integrated Block$(/l) again, to make more advanced materials."
+      "text": "The $(l:dust/milling_machine)Milling and Assembly Machine$(/l) performs grinding and assembly recipes.$(br)It also provides the materials needed for the next Integrated Frame and more complex combinations."
     },
     {
       "type": "patchouli:crafting",

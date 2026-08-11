@@ -53,7 +53,6 @@ public final class LightForgedHalo extends Item implements ICurioItem {
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag flag) {
-        tooltip.add(Component.translatable("tooltip.dustandash.light_forged_halo"));
         super.appendHoverText(stack, level, tooltip, flag);
     }
 }

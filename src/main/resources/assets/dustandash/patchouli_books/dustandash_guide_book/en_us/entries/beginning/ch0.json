@@ -1,11 +1,11 @@
 {
-  "name": "0. Start from Almost Nothing",
+  "name": "0. From Almost Nothing",
   "icon": "minecraft:writable_book",
   "category": "dustandash:beginning",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "If you find yourself waking up in a place with only Gravels and Stones, this Chapter is exactly what you need.$(br)If you want to know how to gain certain materials, this Chapter is also useful.$(br2)The first thing that you need to do is to collect some $(item)Gravels$() and $(item)Flints$(), and craft some $(item)Sharpen Flint$(). Use it by right clicking."
+      "text": "When little remains beyond stone and gravel, begin with $(item)Flint$(). Shape it into $(item)Sharpen Flint$(), then use the edge to obtain Bloody Flint.$(br2)The following recipes turn that first sacrifice into a handle and a mining tool."
     },
     {
       "type": "patchouli:crafting",
@@ -18,7 +18,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "Now, get some $(item)Bone Meal$() from some where, and make some $(item)Moss Block$().$(br2)You might also want some $(item)Cobblestone With Moss$(), $(item)Moss Block$() and extend on it by $(item)Bone Meal$()."
+      "text": "The next step requires living matter. Use $(item)Bone Meal$() to spread $(item)Moss$(), then prepare Moss Blocks and Cobblestone with Moss.$(br2)These materials provide the path toward azaleas and wood."
     },
     {
       "type": "patchouli:crafting",
@@ -27,7 +27,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "Then you will be able to get $(item)Logs$() from $(item)Azalea$(). The next things you need to make are $(item)Hand Vacuum$() and $(item)Dust Source$()."
+      "text": "Azaleas provide the wood needed for two early devices: the $(item)Hand Vacuum$() and the $(l:dust/dust_source)Dust Source$(/l).$(br2)One produces Dust; the other separates what settles."
     },
     {
       "type": "patchouli:crafting",
@@ -36,7 +36,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "Now place the $(l:dust/dust_source)Dust Source$() a few blocks(~2) above the floor, and make sure the floor blocks are having the tag $(item)#dustandash:dust_able$().$(br)Then wait until $(item)Dust$() spawn.$(br2)After that, use$(item)Hand Vacuum$() to collect $(item)Dust$()s. You will be able to have three of the five $(l:dust/basic_dust)Basic Dust$(/l)."
+      "text": "Suspend the $(l:dust/dust_source)Dust Source$() above a floor that can receive Dust. The configured height determines how far below it will search.$(br)Wait for Dust to settle, then use the $(item)Hand Vacuum$() to collect it.$(br2)This first tool can recover three of the five $(l:dust/basic_dust)Basic Dusts$(/l)."
     }
   ]
 }

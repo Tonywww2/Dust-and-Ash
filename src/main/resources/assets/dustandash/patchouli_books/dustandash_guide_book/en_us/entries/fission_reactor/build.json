@@ -1,25 +1,25 @@
 {
-  "name": "Build a Dustology Fission Reactor",
+  "name": "Building a Fission Reactor",
   "icon": "dustandash:fission_reactor_controller",
   "category": "dustandash:fission_reactor",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "To build a Fission Reactor, you need: a $(item)Fission Reactor Controller$(), $(item)Fission Reactor Casing$()s, $(item)Fission Reactor Fuel Cell$(), $(item)Fission Reactor Interface$(), $(item)Fission Reactor Cooling Cell$()(optional, but you may want it) and some fission reactor wall blocks(with tag #dustandash:blocks/fission_reactor_wall, like Grey Stained Glass)"
+      "text": "A reactor requires one $(item)Fission Reactor Controller$(), a casing frame, at least one $(item)Fission Reactor Fuel Cell$(), one $(item)Fission Reactor Interface$(), valid wall blocks and, where needed, $(item)Fission Reactor Cooling Cells$().$(br2)Valid wall blocks belong to $(item)#dustandash:fission_reactor_wall$(); Gray Stained Glass is one example."
     },
     {
       "type": "patchouli:text",
-      "text": "You need to use $(item)Fission Reactor Casing$()s to make a frame, which length and width must be odd and equal (Height can be different). Then, design and place $(item)Fission Reactor Cooling Cell$() and $(item)Fission Reactor Fuel Cell$() in it and fill the wall with fission reactor wall block. Finally, Place the $(item)Fission Reactor Controller$() on the top middle of the structure, and place the $(item)Fission Reactor Interface$() on the middle of one of the side walls."
+      "text": "Build a square casing frame with equal odd length and width; height may differ. Place Fuel Cells and Cooling Cells inside, then close every wall with valid reactor wall blocks.$(br2)The Controller belongs at the center of the top face. Place the Interface at the center of any side wall."
     },
     {
       "type": "patchouli:text",
-      "text": "The fuel units and the cooling units can be inserted with the $(item)Fission Reactor Interface$(). You should try to let the heat of the reactor as close to the Ideal Heat of the fuel. You can decrease the heat-increase by placing $(item)Fission Reactor Cooling Cell$() beside $(item)Fission Reactor Fuel Cell$()."
+      "text": "Fuel and cooling units are inserted through the Interface. Reactor efficiency depends on keeping heat near the fuel's Ideal Heat.$(br2)A Cooling Cell reduces heat growth when placed beside a Fuel Cell. Arrange the interior before loading the reactor."
     },
     {
       "type": "patchouli:image",
-      "title" : "Example 1",
+      "title" : "Structure Example",
       "images": ["dustandash:patchouli_books/dustandash_guide_book/imgs/fr_example1.png"],
-      "text": "An example of a 2*5 Reactor"
+      "text": "One possible reactor cross-section. The exact height and internal arrangement may vary while the frame rules remain unchanged."
     }
   ]
 }

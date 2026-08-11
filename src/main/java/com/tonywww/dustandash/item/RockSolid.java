@@ -44,7 +44,6 @@ public class RockSolid extends Item {
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> pTooltip, TooltipFlag pFlag) {
 
-        pTooltip.add(Component.translatable("tooltip.dustandash.rock_solid"));
 
         super.appendHoverText(stack, level, pTooltip, pFlag);
     }

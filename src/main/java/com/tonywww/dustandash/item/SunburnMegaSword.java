@@ -71,7 +71,6 @@ public class SunburnMegaSword extends SwordItem {
     @Override
     public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltip, TooltipFlag pFlag) {
 
-        pTooltip.add(Component.translatable("tooltip.dustandash.sunburn_mega_sword"));
 
         super.appendHoverText(pStack, pLevel, pTooltip, pFlag);
     }

@@ -173,6 +173,7 @@ public final class DustAndAshConfig {
         public final ForgeConfigSpec.DoubleValue lightStaffRadius;
         public final ForgeConfigSpec.DoubleValue lightStaffFallHeight;
         public final ForgeConfigSpec.IntValue lightStaffFallTicks;
+        public final ForgeConfigSpec.IntValue lightStaffImpactLingerTicks;
         public final ForgeConfigSpec.IntValue lightHaloCooldownTicks;
         public final ForgeConfigSpec.DoubleValue darkHaloMaxHealthBonus;
         public final ForgeConfigSpec.DoubleValue darkHaloArmorBonus;
@@ -226,6 +227,9 @@ public final class DustAndAshConfig {
             this.lightStaffFallTicks = builder
                     .comment("\nLight Staff fall duration in ticks. Default: 10")
                     .defineInRange("lightStaffFallTicks", 10, 1, 1200);
+            this.lightStaffImpactLingerTicks = builder
+                    .comment("\nLight Staff visible duration after impact in ticks. Default: 30")
+                    .defineInRange("lightStaffImpactLingerTicks", 30, 0, 1200);
             this.lightHaloCooldownTicks = builder
                     .comment("\nLight Forged Halo effect cooldown in ticks. Default: 60")
                     .defineInRange("lightHaloCooldownTicks", 60, 0, 72000);

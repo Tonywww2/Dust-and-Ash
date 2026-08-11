@@ -1,11 +1,11 @@
 {
-  "name": "Making Lava",
+  "name": "Producing Lava",
   "icon": "minecraft:lava_bucket",
   "category": "dustandash:dust",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "If you need to get some Lava for whatever reason, here is a method invented by a Dustologist: $(br) 1. Make an $(item)Energized Cobblestone$(). $(br) 2. Use a $(item)Smithing Table$() to make an $(item)Energized Cobblestone Bucket$(). $(br) 3. Put it in a $(item)Furnace$() and smelt it."
+      "text": "Lava can be produced through a fixed three-step process:$(br)1. Create $(item)Energized Cobblestone$().$(br)2. Use a $(item)Smithing Table$() to place it into an $(item)Energized Cobblestone Bucket$().$(br)3. Smelt the filled bucket in a $(item)Furnace$()."
     },
     {
       "type": "patchouli:crafting",
