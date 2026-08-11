@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "dustandash:integrated_frame_1"
+    },
+    "A": {
+      "item": "minecraft:magma_block"
+    },
+    "B": {
+      "item": "minecraft:book"
+    },
+    "C": {
+      "item": "dustandash:basic_machine_frame"
+    },
+    "D": {
+      "item": "minecraft:soul_sand"
+    },
+    "E": {
+      "item": "dustandash:inherit_dust"
+    }
+  },
+  "pattern": [
+    "EBE",
+    "#C#",
+    "ADA"
+  ],
+  "result": {
+    "item": "dustandash:integrated_frame_2"
+  },
+  "show_notification": true
+}

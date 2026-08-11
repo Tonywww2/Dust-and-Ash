@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "dustandash:iron_scrap"
+    },
+    {
+      "item": "dustandash:iron_scrap"
+    },
+    {
+      "item": "dustandash:iron_scrap"
+    },
+    {
+      "item": "dustandash:iron_scrap"
+    },
+    {
+      "item": "dustandash:iron_scrap"
+    },
+    {
+      "item": "dustandash:iron_scrap"
+    },
+    {
+      "item": "dustandash:iron_scrap"
+    },
+    {
+      "item": "dustandash:iron_scrap"
+    }
+  ],
+  "result": {
+    "item": "minecraft:raw_iron"
+  }
+}

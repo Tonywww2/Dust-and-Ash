@@ -1,0 +1,25 @@
+{
+  "type": "dustandash:integrate",
+  "ingredients": [
+    {
+      "item": "dustandash:order_dust"
+    },
+    {
+      "item": "dustandash:order_dust"
+    },
+    {
+      "item": "dustandash:metal_dust"
+    },
+    {
+      "item": "dustandash:metal_dust"
+    },
+    {
+      "item": "dustandash:earth_dust"
+    }
+  ],
+  "level": 1,
+  "output": {
+    "count": 1,
+    "item": "dustandash:copper_ingot"
+  }
+}

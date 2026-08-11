@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "tag": "forge:cobblestone"
+    },
+    {
+      "tag": "forge:cobblestone"
+    },
+    {
+      "tag": "forge:cobblestone"
+    },
+    {
+      "item": "minecraft:moss_carpet"
+    }
+  ],
+  "result": {
+    "count": 3,
+    "item": "minecraft:gravel"
+  }
+}

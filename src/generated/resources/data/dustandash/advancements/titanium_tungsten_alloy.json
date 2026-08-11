@@ -1,0 +1,41 @@
+{
+  "parent": "dustandash:titanium_scrap",
+  "criteria": {
+    "requirement": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "dustandash:titanium_tungsten_alloy"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "dustandash.advancements.titanium_tungsten_alloy.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "dustandash:titanium_tungsten_alloy"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "dustandash.advancements.titanium_tungsten_alloy.title"
+    }
+  },
+  "requirements": [
+    [
+      "requirement"
+    ]
+  ],
+  "rewards": {
+    "experience": 10
+  },
+  "sends_telemetry_event": true
+}

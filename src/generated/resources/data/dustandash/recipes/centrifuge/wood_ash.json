@@ -1,0 +1,38 @@
+{
+  "type": "dustandash:centrifuge",
+  "ingredients": [
+    {
+      "tag": "forge:ash"
+    },
+    {
+      "item": "dustandash:glass_container"
+    }
+  ],
+  "outputs": [
+    {
+      "item": "dustandash:empty"
+    },
+    {
+      "item": "dustandash:empty"
+    },
+    {
+      "item": "minecraft:light_gray_dye"
+    },
+    {
+      "item": "dustandash:wood_ash"
+    },
+    {
+      "item": "dustandash:empty"
+    },
+    {
+      "item": "dustandash:empty"
+    },
+    {
+      "item": "dustandash:empty"
+    },
+    {
+      "item": "dustandash:empty"
+    }
+  ],
+  "tick": 100
+}

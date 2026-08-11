@@ -1,0 +1,36 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "dustandash:order_dust"
+    },
+    "C": {
+      "item": "dustandash:life_dust"
+    },
+    "D": {
+      "item": "dustandash:absorb_dust"
+    },
+    "P": {
+      "item": "minecraft:pink_dye"
+    },
+    "Q": {
+      "item": "dustandash:metamorphose_dust"
+    },
+    "T": {
+      "item": "dustandash:reproduce_dust"
+    },
+    "Y": {
+      "item": "dustandash:inherit_dust"
+    }
+  },
+  "pattern": [
+    "#D#",
+    "YPQ",
+    "#TC"
+  ],
+  "result": {
+    "item": "minecraft:brain_coral_block"
+  },
+  "show_notification": true
+}

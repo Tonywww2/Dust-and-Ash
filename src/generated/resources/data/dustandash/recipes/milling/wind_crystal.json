@@ -1,0 +1,50 @@
+{
+  "type": "dustandash:milling",
+  "key": {
+    "A": {
+      "item": "minecraft:white_carpet"
+    },
+    "B": {
+      "item": "minecraft:feather"
+    },
+    "C": {
+      "item": "dustandash:lacerate_dust"
+    },
+    "D": {
+      "item": "dustandash:order_dust"
+    },
+    "E": {
+      "item": "dustandash:fire_dust"
+    },
+    "F": {
+      "item": "dustandash:inherit_dust"
+    },
+    "G": {
+      "item": "dustandash:soul_of_light"
+    },
+    "H": {
+      "item": "dustandash:carbon_fiber"
+    },
+    "I": {
+      "item": "dustandash:graphite_electrode"
+    },
+    "J": {
+      "item": "dustandash:titanium_plate_scrap"
+    },
+    "catalyst": {
+      "item": "dustandash:crystallize_dust"
+    }
+  },
+  "output": {
+    "count": 1,
+    "item": "dustandash:wind_crystal"
+  },
+  "pattern": [
+    "ACBDA",
+    "EGHIF",
+    "BHJHB",
+    "FIHGE",
+    "ADBCA"
+  ],
+  "step1": false
+}

@@ -1,0 +1,39 @@
+{
+  "type": "dustandash:ionizer",
+  "cost": 3,
+  "costElectrodes": true,
+  "ingredients": [
+    {
+      "item": "dustandash:smelt_dust"
+    },
+    {
+      "item": "dustandash:hydrogen"
+    },
+    {
+      "item": "dustandash:metamorphose_dust"
+    },
+    {
+      "tag": "forge:ingots/aluminum"
+    },
+    {
+      "tag": "forge:ingots/titanium"
+    }
+  ],
+  "inputBlock": "minecraft:lava",
+  "outputBlock": "minecraft:air",
+  "outputs": [
+    {
+      "item": "dustandash:titanium_aluminum_alloy"
+    },
+    {
+      "item": "dustandash:ash"
+    },
+    {
+      "item": "minecraft:obsidian"
+    },
+    {
+      "item": "dustandash:empty"
+    }
+  ],
+  "tick": 400
+}

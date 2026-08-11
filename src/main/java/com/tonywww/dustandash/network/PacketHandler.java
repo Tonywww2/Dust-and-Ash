@@ -7,7 +7,7 @@ import net.minecraftforge.network.simple.SimpleChannel;
 
 public class PacketHandler {
 
-    private static final String PROTOCOL_VERSION = "1";
+    private static final String PROTOCOL_VERSION = "2";
 
     public static final SimpleChannel INSTANCE = NetworkRegistry.ChannelBuilder.named(
             new ResourceLocation(DustAndAsh.MOD_ID, "main"))
@@ -18,12 +18,18 @@ public class PacketHandler {
 
 
     public static void register() {
-        INSTANCE.messageBuilder(ItemSenderSavePacket.class, NetworkDirection.PLAY_TO_SERVER.ordinal())
+        int messageId = 0;
+        INSTANCE.messageBuilder(ItemSenderSavePacket.class, messageId++, NetworkDirection.PLAY_TO_SERVER)
                 .encoder(ItemSenderSavePacket::encode)
                 .decoder(ItemSenderSavePacket::new)
                 .consumerMainThread(ItemSenderSavePacket::handle)
                 .add();
 
+        INSTANCE.messageBuilder(CurioCooldownSyncPacket.class, messageId++, NetworkDirection.PLAY_TO_CLIENT)
+            .encoder(CurioCooldownSyncPacket::encode)
+            .decoder(CurioCooldownSyncPacket::new)
+            .consumerMainThread(CurioCooldownSyncPacket::handle)
+            .add();
 
     }
 

@@ -1,0 +1,39 @@
+{
+  "type": "dustandash:ionizer",
+  "cost": 1,
+  "costElectrodes": false,
+  "ingredients": [
+    {
+      "item": "dustandash:mantle_mixture"
+    },
+    {
+      "item": "dustandash:oxygen"
+    },
+    {
+      "item": "dustandash:earth_dust"
+    },
+    {
+      "tag": "forge:ingots/aluminum"
+    },
+    {
+      "item": "dustandash:graphite_electrode"
+    }
+  ],
+  "inputBlock": "minecraft:water",
+  "outputBlock": "minecraft:air",
+  "outputs": [
+    {
+      "item": "dustandash:aluminum_ingot"
+    },
+    {
+      "item": "dustandash:aluminum_ingot"
+    },
+    {
+      "item": "dustandash:empty"
+    },
+    {
+      "tag": "forge:ash"
+    }
+  ],
+  "tick": 100
+}

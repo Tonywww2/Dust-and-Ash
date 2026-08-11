@@ -1,0 +1,32 @@
+{
+  "type": "dustandash:milling",
+  "key": {
+    "#": {
+      "item": "dustandash:ash_steel_scrap"
+    },
+    "A": {
+      "item": "minecraft:string"
+    },
+    "B": {
+      "item": "dustandash:crystallize_dust"
+    },
+    "C": {
+      "item": "dustandash:blocking_dust"
+    },
+    "catalyst": {
+      "item": "dustandash:lacerate_dust"
+    }
+  },
+  "output": {
+    "count": 1,
+    "item": "dustandash:ash_steel_chestplate"
+  },
+  "pattern": [
+    "## ##",
+    "#####",
+    "#####",
+    "#####",
+    "C###B"
+  ],
+  "step1": false
+}

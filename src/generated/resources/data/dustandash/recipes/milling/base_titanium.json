@@ -1,0 +1,13 @@
+{
+  "type": "dustandash:milling",
+  "ingredients": [
+    {
+      "item": "dustandash:titanium_heavy_plate"
+    }
+  ],
+  "output": {
+    "count": 1,
+    "item": "dustandash:titanium_plate_scrap"
+  },
+  "step1": true
+}

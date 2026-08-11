@@ -23,6 +23,7 @@ val forgeVersion = property("vers.deps.fml").toString()
 val jeiVersion = property("deps.jei").toString()
 val geckolibVersion = property("deps.geckolib").toString()
 val patchouliVersion = property("deps.patchouli").toString()
+val curiosVersion = property("deps.curios").toString()
 
 group = modGroup
 version = "$modVersion+$minecraftVersion"
@@ -42,6 +43,17 @@ loom {
         runConfigs.all {
             ideConfigGenerated(true)
             runDir("../../run")
+        }
+        runConfigs.register("data") {
+            data()
+            ideConfigGenerated(true)
+            runDir("../../run")
+            programArgs.addAll(listOf(
+                "--mod", modId,
+                "--all",
+                "--output", rootProject.file("src/generated/resources").absolutePath,
+                "--existing", rootProject.file("src/main/resources").absolutePath
+            ))
         }
     }
 }
@@ -74,6 +86,10 @@ repositories {
             includeGroup("com.eliotlash.mclib")
         }
     }
+    maven {
+        name = "Curios"
+        url = uri("https://maven.theillusivec4.top/")
+    }
 }
 
 dependencies {
@@ -90,6 +106,8 @@ dependencies {
 
     "modCompileOnly"("vazkii.patchouli:Patchouli:$minecraftVersion-$patchouliVersion:api")
     "modRuntimeOnly"("vazkii.patchouli:Patchouli:$minecraftVersion-$patchouliVersion")
+
+    "modImplementation"("top.theillusivec4.curios:curios-forge:$curiosVersion")
 }
 
 tasks.configureEach {
@@ -113,6 +131,7 @@ tasks.named<ProcessResources>("processResources") {
         "forge_version" to forgeVersion,
         "forge_version_range" to project.property("vers.forgeRange"),
         "loader_version_range" to project.property("vers.loaderRange"),
+        "curios_version_range" to project.property("vers.curiosRange"),
         "mod_id" to modId,
         "mod_name" to modName,
         "mod_license" to modLicense,

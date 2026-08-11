@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "minecraft:iron_bars"
+    },
+    "A": {
+      "item": "minecraft:bricks"
+    },
+    "B": {
+      "item": "minecraft:water_bucket"
+    },
+    "C": {
+      "item": "minecraft:lava_bucket"
+    }
+  },
+  "pattern": [
+    "#B#",
+    "#C#",
+    "A#A"
+  ],
+  "result": {
+    "item": "dustandash:integrated_frame_1"
+  },
+  "show_notification": true
+}

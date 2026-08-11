@@ -1,0 +1,53 @@
+{
+  "type": "dustandash:milling",
+  "key": {
+    "A": {
+      "item": "minecraft:end_rod"
+    },
+    "B": {
+      "item": "minecraft:lightning_rod"
+    },
+    "C": {
+      "item": "dustandash:lacerate_dust"
+    },
+    "D": {
+      "item": "dustandash:inherit_dust"
+    },
+    "E": {
+      "tag": "forge:ingots/silver"
+    },
+    "F": {
+      "item": "dustandash:extinguish_dust"
+    },
+    "G": {
+      "item": "dustandash:soul_of_light"
+    },
+    "H": {
+      "item": "dustandash:carbon_fiber"
+    },
+    "I": {
+      "item": "dustandash:graphite_electrode"
+    },
+    "J": {
+      "item": "dustandash:titanium_plate_scrap"
+    },
+    "K": {
+      "item": "dustandash:pure_darkness"
+    },
+    "catalyst": {
+      "item": "dustandash:reproduce_dust"
+    }
+  },
+  "output": {
+    "count": 1,
+    "item": "dustandash:silver_crystal"
+  },
+  "pattern": [
+    "ACBDA",
+    "EGHIF",
+    "BHJHB",
+    "FIHKE",
+    "ADBCA"
+  ],
+  "step1": false
+}

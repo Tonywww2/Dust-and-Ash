@@ -1,0 +1,38 @@
+{
+  "type": "dustandash:milling",
+  "key": {
+    "#": {
+      "item": "dustandash:iron_scrap"
+    },
+    "A": {
+      "item": "dustandash:ash_steel_ingot"
+    },
+    "B": {
+      "item": "dustandash:ash_steel_lever"
+    },
+    "C": {
+      "item": "dustandash:redstone_vacuum_tube"
+    },
+    "D": {
+      "item": "minecraft:iron_bars"
+    },
+    "E": {
+      "item": "minecraft:glass_pane"
+    },
+    "catalyst": {
+      "item": "dustandash:iron_structural_components"
+    }
+  },
+  "output": {
+    "count": 1,
+    "item": "dustandash:basic_machine_frame"
+  },
+  "pattern": [
+    "#####",
+    "DAAAE",
+    "DB CE",
+    "DAAAE",
+    "#####"
+  ],
+  "step1": false
+}

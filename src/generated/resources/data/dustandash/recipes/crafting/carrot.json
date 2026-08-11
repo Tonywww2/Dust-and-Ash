@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "minecraft:beetroot"
+    },
+    {
+      "item": "dustandash:metamorphose_dust"
+    },
+    {
+      "item": "minecraft:orange_dye"
+    },
+    {
+      "item": "dustandash:reproduce_dust"
+    }
+  ],
+  "result": {
+    "item": "minecraft:carrot"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "values": [
+    "dustandash:water_miscible_solvents",
+    "dustandash:grind_solvents",
+    "dustandash:base_oil",
+    "dustandash:glass_container",
+    "dustandash:metal_gem",
+    "dustandash:life_gem",
+    "dustandash:order_gem",
+    "dustandash:fire_gem",
+    "dustandash:earth_gem",
+    "minecraft:potion"
+  ]
+}

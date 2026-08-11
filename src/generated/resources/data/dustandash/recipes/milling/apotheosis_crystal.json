@@ -1,0 +1,53 @@
+{
+  "type": "dustandash:milling",
+  "key": {
+    "A": {
+      "item": "minecraft:prismarine_shard"
+    },
+    "B": {
+      "item": "minecraft:experience_bottle"
+    },
+    "C": {
+      "item": "dustandash:extinguish_dust"
+    },
+    "D": {
+      "item": "dustandash:absorb_dust"
+    },
+    "E": {
+      "item": "dustandash:lacerate_dust"
+    },
+    "F": {
+      "item": "dustandash:blocking_dust"
+    },
+    "G": {
+      "item": "dustandash:soul_of_light"
+    },
+    "H": {
+      "item": "dustandash:titanium_plate_scrap"
+    },
+    "I": {
+      "item": "dustandash:graphite_electrode"
+    },
+    "J": {
+      "item": "minecraft:nether_star"
+    },
+    "K": {
+      "item": "dustandash:pure_darkness"
+    },
+    "catalyst": {
+      "item": "dustandash:seep_dust"
+    }
+  },
+  "output": {
+    "count": 1,
+    "item": "dustandash:apotheosis_crystal"
+  },
+  "pattern": [
+    "ACBDA",
+    "EKHIF",
+    "BHJHB",
+    "FIHGE",
+    "ADBCA"
+  ],
+  "step1": false
+}

@@ -7,6 +7,7 @@ public final class DustAndAshConfig {
     public static final ReactorSettings REACTOR;
     public static final ToolSettings TOOLS;
     public static final WeaponSettings WEAPONS;
+        public static final CurioSettings CURIOS;
     public static final ForgeConfigSpec COMMON_CONFIG;
 
     static {
@@ -21,6 +22,10 @@ public final class DustAndAshConfig {
         builder.comment("Tools & Weapons").push("Tools & Weapons");
         TOOLS = new ToolSettings(builder);
         WEAPONS = new WeaponSettings(builder);
+        builder.pop();
+
+        builder.comment("Curios accessories").push("Curios");
+        CURIOS = new CurioSettings(builder);
         builder.pop();
 
         COMMON_CONFIG = builder.build();
@@ -154,6 +159,136 @@ public final class DustAndAshConfig {
             this.rottenBladeCooldownCheck = builder
                     .comment("\nEnable attack cd check of Rotten Blade.")
                     .define("rottenBladeCDCheck", true);
+        }
+    }
+
+    public static final class CurioSettings {
+        public final ForgeConfigSpec.IntValue judgementInvulnerabilityTicks;
+        public final ForgeConfigSpec.IntValue judgementCooldownTicks;
+        public final ForgeConfigSpec.DoubleValue lightHaloAttackDamageBonus;
+        public final ForgeConfigSpec.DoubleValue lightHaloAttackSpeedBonus;
+        public final ForgeConfigSpec.IntValue lightHaloBrightnessThreshold;
+        public final ForgeConfigSpec.DoubleValue lightStaffDirectDamageMultiplier;
+        public final ForgeConfigSpec.DoubleValue lightStaffAreaDamageMultiplier;
+        public final ForgeConfigSpec.DoubleValue lightStaffRadius;
+        public final ForgeConfigSpec.DoubleValue lightStaffFallHeight;
+        public final ForgeConfigSpec.IntValue lightStaffFallTicks;
+        public final ForgeConfigSpec.IntValue lightHaloCooldownTicks;
+        public final ForgeConfigSpec.DoubleValue darkHaloMaxHealthBonus;
+        public final ForgeConfigSpec.DoubleValue darkHaloArmorBonus;
+        public final ForgeConfigSpec.IntValue darkHaloNightVisionIntervalTicks;
+        public final ForgeConfigSpec.IntValue darkHaloNightVisionDurationTicks;
+        public final ForgeConfigSpec.IntValue darkHaloBrightnessThreshold;
+        public final ForgeConfigSpec.IntValue darkHaloEffectCount;
+        public final ForgeConfigSpec.IntValue darkHaloEffectDurationTicks;
+        public final ForgeConfigSpec.IntValue darkHaloMinimumEffectLevel;
+        public final ForgeConfigSpec.IntValue darkHaloMaximumEffectLevel;
+        public final ForgeConfigSpec.IntValue darkHaloMarkDurationTicks;
+        public final ForgeConfigSpec.DoubleValue darkHaloLifeStealMultiplier;
+        public final ForgeConfigSpec.DoubleValue darkHaloSourcelessHealingMultiplier;
+        public final ForgeConfigSpec.DoubleValue darkHaloSmokeParticlesPerBlock;
+        public final ForgeConfigSpec.IntValue darkHaloMaximumSmokeParticles;
+        public final ForgeConfigSpec.DoubleValue voidRingHealthRestoreMultiplier;
+        public final ForgeConfigSpec.IntValue voidRingFoodLevel;
+        public final ForgeConfigSpec.DoubleValue voidRingSaturationLevel;
+        public final ForgeConfigSpec.IntValue voidRingSpectatorDurationTicks;
+        public final ForgeConfigSpec.IntValue voidRingCooldownTicks;
+        public final ForgeConfigSpec.BooleanValue voidRingBypassesHaloBrightness;
+
+        private CurioSettings(ForgeConfigSpec.Builder builder) {
+            this.judgementInvulnerabilityTicks = builder
+                    .comment("\nJudgement invulnerability duration in ticks. Default: 60")
+                    .defineInRange("judgementInvulnerabilityTicks", 60, 0, 72000);
+            this.judgementCooldownTicks = builder
+                    .comment("\nJudgement cooldown in ticks, starting when damage is blocked. Default: 240")
+                    .defineInRange("judgementCooldownTicks", 240, 0, 72000);
+            this.lightHaloAttackDamageBonus = builder
+                    .comment("\nLight Forged Halo attack damage bonus. Default: 0.25")
+                    .defineInRange("lightHaloAttackDamageBonus", 0.25d, 0d, 10d);
+            this.lightHaloAttackSpeedBonus = builder
+                    .comment("\nLight Forged Halo flat attack speed bonus. Default: 0.2")
+                    .defineInRange("lightHaloAttackSpeedBonus", 0.2d, 0d, 1024d);
+            this.lightHaloBrightnessThreshold = builder
+                    .comment("\nMinimum brightness required to summon a Light Staff. Default: 14")
+                    .defineInRange("lightHaloBrightnessThreshold", 14, 0, 15);
+            this.lightStaffDirectDamageMultiplier = builder
+                    .comment("\nLight Staff direct damage as a multiplier of attack damage. Default: 0.75")
+                    .defineInRange("lightStaffDirectDamageMultiplier", 0.75d, 0d, 100d);
+            this.lightStaffAreaDamageMultiplier = builder
+                    .comment("\nLight Staff area damage as a multiplier of attack damage. Default: 0.5")
+                    .defineInRange("lightStaffAreaDamageMultiplier", 0.5d, 0d, 100d);
+            this.lightStaffRadius = builder
+                    .comment("\nLight Staff area damage radius in blocks. Default: 4")
+                    .defineInRange("lightStaffRadius", 4d, 0d, 64d);
+            this.lightStaffFallHeight = builder
+                    .comment("\nLight Staff summon height in blocks. Default: 8")
+                    .defineInRange("lightStaffFallHeight", 8d, 0d, 128d);
+            this.lightStaffFallTicks = builder
+                    .comment("\nLight Staff fall duration in ticks. Default: 10")
+                    .defineInRange("lightStaffFallTicks", 10, 1, 1200);
+            this.lightHaloCooldownTicks = builder
+                    .comment("\nLight Forged Halo effect cooldown in ticks. Default: 60")
+                    .defineInRange("lightHaloCooldownTicks", 60, 0, 72000);
+            this.darkHaloMaxHealthBonus = builder
+                    .comment("\nDark Forged Halo maximum health bonus. Default: 0.25")
+                    .defineInRange("darkHaloMaxHealthBonus", 0.25d, 0d, 10d);
+            this.darkHaloArmorBonus = builder
+                    .comment("\nDark Forged Halo armor bonus. Default: 0.25")
+                    .defineInRange("darkHaloArmorBonus", 0.25d, 0d, 10d);
+            this.darkHaloNightVisionIntervalTicks = builder
+                    .comment("\nDark Forged Halo night vision refresh interval in ticks. Default: 10")
+                    .defineInRange("darkHaloNightVisionIntervalTicks", 10, 1, 1200);
+            this.darkHaloNightVisionDurationTicks = builder
+                    .comment("\nDark Forged Halo night vision duration in ticks. Default: 20")
+                    .defineInRange("darkHaloNightVisionDurationTicks", 20, 1, 1200);
+            this.darkHaloBrightnessThreshold = builder
+                    .comment("\nMaximum brightness required to trigger Dark Forged Halo. Default: 5")
+                    .defineInRange("darkHaloBrightnessThreshold", 5, 0, 15);
+            this.darkHaloEffectCount = builder
+                    .comment("\nNumber of random effects applied by Dark Forged Halo. Default: 3")
+                    .defineInRange("darkHaloEffectCount", 3, 0, 64);
+            this.darkHaloEffectDurationTicks = builder
+                    .comment("\nDark Forged Halo random effect duration in ticks. Default: 40")
+                    .defineInRange("darkHaloEffectDurationTicks", 40, 1, 72000);
+            this.darkHaloMinimumEffectLevel = builder
+                    .comment("\nMinimum displayed random effect level. Default: 1")
+                    .defineInRange("darkHaloMinimumEffectLevel", 1, 1, 255);
+            this.darkHaloMaximumEffectLevel = builder
+                    .comment("\nMaximum displayed random effect level. Default: 5")
+                    .defineInRange("darkHaloMaximumEffectLevel", 5, 1, 255);
+            this.darkHaloMarkDurationTicks = builder
+                    .comment("\nDark Forged Halo mark duration in ticks. Default: 100")
+                    .defineInRange("darkHaloMarkDurationTicks", 100, 0, 72000);
+            this.darkHaloLifeStealMultiplier = builder
+                    .comment("\nHealing from damage dealt to marked targets. Default: 0.5")
+                    .defineInRange("darkHaloLifeStealMultiplier", 0.5d, 0d, 100d);
+            this.darkHaloSourcelessHealingMultiplier = builder
+                    .comment("\nHealing from sourceless damage taken. Default: 0.5")
+                    .defineInRange("darkHaloSourcelessHealingMultiplier", 0.5d, 0d, 100d);
+            this.darkHaloSmokeParticlesPerBlock = builder
+                    .comment("\nDark smoke line particle density per block. Default: 4")
+                    .defineInRange("darkHaloSmokeParticlesPerBlock", 4d, 0.1d, 64d);
+            this.darkHaloMaximumSmokeParticles = builder
+                    .comment("\nMaximum particles in one Dark Forged Halo smoke line. Default: 128")
+                    .defineInRange("darkHaloMaximumSmokeParticles", 128, 1, 4096);
+            this.voidRingHealthRestoreMultiplier = builder
+                    .comment("\nVoid Ring restored maximum health multiplier. Default: 1")
+                    .defineInRange("voidRingHealthRestoreMultiplier", 1d, 0d, 10d);
+            this.voidRingFoodLevel = builder
+                    .comment("\nVoid Ring restored food level. Default: 20")
+                    .defineInRange("voidRingFoodLevel", 20, 0, 20);
+            this.voidRingSaturationLevel = builder
+                    .comment("\nVoid Ring restored saturation level. Default: 20")
+                    .defineInRange("voidRingSaturationLevel", 20d, 0d, 20d);
+            this.voidRingSpectatorDurationTicks = builder
+                    .comment("\nVoid Ring spectator duration in ticks. Default: 100")
+                    .defineInRange("voidRingSpectatorDurationTicks", 100, 0, 72000);
+            this.voidRingCooldownTicks = builder
+                    .comment("\nVoid Ring cooldown in ticks. Default: 6000")
+                    .defineInRange("voidRingCooldownTicks", 6000, 0, 720000);
+            this.voidRingBypassesHaloBrightness = builder
+                    .comment("\nAllow Void Ring to bypass both forged halo brightness conditions.")
+                    .define("voidRingBypassesHaloBrightness", true);
         }
     }
 }

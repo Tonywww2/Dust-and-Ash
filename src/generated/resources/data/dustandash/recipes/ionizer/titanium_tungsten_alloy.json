@@ -1,0 +1,39 @@
+{
+  "type": "dustandash:ionizer",
+  "cost": 4,
+  "costElectrodes": true,
+  "ingredients": [
+    {
+      "item": "dustandash:smelt_dust"
+    },
+    {
+      "item": "dustandash:hydrogen"
+    },
+    {
+      "item": "dustandash:metamorphose_dust"
+    },
+    {
+      "tag": "forge:ingots/tungsten"
+    },
+    {
+      "tag": "forge:ingots/titanium"
+    }
+  ],
+  "inputBlock": "minecraft:lava",
+  "outputBlock": "minecraft:air",
+  "outputs": [
+    {
+      "item": "dustandash:titanium_tungsten_alloy"
+    },
+    {
+      "item": "dustandash:ash"
+    },
+    {
+      "item": "minecraft:obsidian"
+    },
+    {
+      "item": "dustandash:ash"
+    }
+  ],
+  "tick": 800
+}

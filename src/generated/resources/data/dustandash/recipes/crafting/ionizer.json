@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "dustandash:ash_steel_cylinder"
+    },
+    "B": {
+      "item": "minecraft:chain"
+    },
+    "C": {
+      "item": "dustandash:redstone_vacuum_tube"
+    },
+    "D": {
+      "item": "dustandash:dark_energy_collapser"
+    },
+    "E": {
+      "item": "minecraft:smooth_stone_slab"
+    }
+  },
+  "pattern": [
+    " CA",
+    "ADA",
+    "BEB"
+  ],
+  "result": {
+    "item": "dustandash:ionizer"
+  },
+  "show_notification": true
+}

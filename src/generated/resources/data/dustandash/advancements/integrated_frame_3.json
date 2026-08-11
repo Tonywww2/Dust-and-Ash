@@ -1,0 +1,41 @@
+{
+  "parent": "dustandash:dark_energy_collapser",
+  "criteria": {
+    "requirement": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "dustandash:integrated_frame_3"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "dustandash.advancements.integrated_frame_3.description"
+    },
+    "frame": "challenge",
+    "hidden": false,
+    "icon": {
+      "item": "dustandash:integrated_frame_3"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "dustandash.advancements.integrated_frame_3.title"
+    }
+  },
+  "requirements": [
+    [
+      "requirement"
+    ]
+  ],
+  "rewards": {
+    "experience": 10
+  },
+  "sends_telemetry_event": true
+}

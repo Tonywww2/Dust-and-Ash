@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "dustandash:item/eternal_light_crystal"
+  }
+}

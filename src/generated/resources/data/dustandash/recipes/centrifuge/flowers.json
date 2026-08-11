@@ -1,0 +1,38 @@
+{
+  "type": "dustandash:centrifuge",
+  "ingredients": [
+    {
+      "tag": "minecraft:flowers"
+    },
+    {
+      "item": "dustandash:empty"
+    }
+  ],
+  "outputs": [
+    {
+      "item": "dustandash:empty"
+    },
+    {
+      "item": "dustandash:life_dust"
+    },
+    {
+      "item": "dustandash:empty"
+    },
+    {
+      "item": "dustandash:empty"
+    },
+    {
+      "item": "dustandash:life_dust"
+    },
+    {
+      "item": "dustandash:order_dust"
+    },
+    {
+      "item": "dustandash:empty"
+    },
+    {
+      "item": "dustandash:empty"
+    }
+  ],
+  "tick": 200
+}

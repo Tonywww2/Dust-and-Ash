@@ -1,0 +1,39 @@
+{
+  "type": "dustandash:ionizer",
+  "cost": 64,
+  "costElectrodes": true,
+  "ingredients": [
+    {
+      "item": "dustandash:eternal_light_crystal"
+    },
+    {
+      "item": "minecraft:beacon"
+    },
+    {
+      "item": "minecraft:enchanted_golden_apple"
+    },
+    {
+      "item": "minecraft:nether_star"
+    },
+    {
+      "item": "dustandash:graphite_electrode"
+    }
+  ],
+  "inputBlock": "minecraft:crying_obsidian",
+  "outputBlock": "minecraft:obsidian",
+  "outputs": [
+    {
+      "item": "dustandash:light_forged_halo"
+    },
+    {
+      "item": "dustandash:ash"
+    },
+    {
+      "item": "dustandash:empty"
+    },
+    {
+      "item": "dustandash:empty"
+    }
+  ],
+  "tick": 6400
+}

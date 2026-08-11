@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "dustandash:absorb_dust"
+    },
+    "D": {
+      "item": "dustandash:metamorphose_dust"
+    },
+    "I": {
+      "item": "dustandash:seep_dust"
+    },
+    "O": {
+      "item": "dustandash:reproduce_dust"
+    },
+    "V": {
+      "item": "minecraft:vine"
+    }
+  },
+  "pattern": [
+    " # ",
+    "DVD",
+    "OIO"
+  ],
+  "result": {
+    "item": "minecraft:weeping_vines"
+  },
+  "show_notification": true
+}

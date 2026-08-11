@@ -1,0 +1,23 @@
+{
+  "type": "dustandash:milling",
+  "key": {
+    "#": {
+      "item": "minecraft:glass_pane"
+    },
+    "catalyst": {
+      "item": "dustandash:smelt_dust"
+    }
+  },
+  "output": {
+    "count": 16,
+    "item": "dustandash:glass_container"
+  },
+  "pattern": [
+    "## ##",
+    " # # ",
+    " # # ",
+    " # # ",
+    " ### "
+  ],
+  "step1": false
+}

@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "dustandash:absorb_dust"
+    },
+    "B": {
+      "item": "minecraft:black_dye"
+    },
+    "D": {
+      "item": "dustandash:reproduce_dust"
+    },
+    "E": {
+      "item": "dustandash:metamorphose_dust"
+    },
+    "J": {
+      "item": "minecraft:jungle_leaves"
+    },
+    "S": {
+      "item": "minecraft:sugar"
+    }
+  },
+  "pattern": [
+    "#SD",
+    "JEB",
+    "#SD"
+  ],
+  "result": {
+    "item": "minecraft:cocoa_beans"
+  },
+  "show_notification": true
+}

@@ -1,0 +1,38 @@
+{
+  "type": "dustandash:centrifuge",
+  "ingredients": [
+    {
+      "item": "dustandash:dust"
+    },
+    {
+      "item": "dustandash:water_miscible_solvents"
+    }
+  ],
+  "outputs": [
+    {
+      "item": "dustandash:life_dust"
+    },
+    {
+      "item": "dustandash:life_dust"
+    },
+    {
+      "item": "dustandash:metal_dust"
+    },
+    {
+      "item": "dustandash:metal_dust"
+    },
+    {
+      "item": "dustandash:empty"
+    },
+    {
+      "item": "dustandash:order_dust"
+    },
+    {
+      "item": "dustandash:earth_dust"
+    },
+    {
+      "item": "dustandash:fire_dust"
+    }
+  ],
+  "tick": 200
+}

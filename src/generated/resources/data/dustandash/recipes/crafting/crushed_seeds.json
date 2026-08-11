@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "tag": "forge:seeds"
+    },
+    {
+      "tag": "forge:seeds"
+    },
+    {
+      "tag": "forge:seeds"
+    },
+    {
+      "item": "dustandash:sharpen_flint"
+    }
+  ],
+  "result": {
+    "item": "dustandash:crushed_seeds"
+  }
+}

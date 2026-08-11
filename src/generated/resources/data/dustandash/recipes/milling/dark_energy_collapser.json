@@ -1,0 +1,53 @@
+{
+  "type": "dustandash:milling",
+  "key": {
+    "#": {
+      "item": "dustandash:ash_steel_scrap"
+    },
+    "A": {
+      "item": "dustandash:redstone_vacuum_tube"
+    },
+    "B": {
+      "item": "minecraft:iron_bars"
+    },
+    "C": {
+      "item": "dustandash:ash_steel_lever"
+    },
+    "D": {
+      "item": "minecraft:lightning_rod"
+    },
+    "E": {
+      "item": "minecraft:observer"
+    },
+    "F": {
+      "item": "dustandash:power_converter"
+    },
+    "G": {
+      "item": "dustandash:electron"
+    },
+    "H": {
+      "item": "dustandash:redstone_gear"
+    },
+    "I": {
+      "item": "minecraft:ender_pearl"
+    },
+    "J": {
+      "item": "dustandash:ash_steel_gear"
+    },
+    "catalyst": {
+      "item": "dustandash:basic_machine_frame"
+    }
+  },
+  "output": {
+    "count": 1,
+    "item": "dustandash:dark_energy_collapser"
+  },
+  "pattern": [
+    "##B##",
+    "#ADA#",
+    "BEFCC",
+    "#JGH#",
+    "##I##"
+  ],
+  "step1": false
+}

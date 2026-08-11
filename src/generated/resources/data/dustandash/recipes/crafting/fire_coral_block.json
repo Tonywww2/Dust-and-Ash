@@ -1,0 +1,36 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "dustandash:order_dust"
+    },
+    "D": {
+      "item": "dustandash:absorb_dust"
+    },
+    "E": {
+      "item": "dustandash:life_dust"
+    },
+    "G": {
+      "item": "dustandash:metamorphose_dust"
+    },
+    "R": {
+      "item": "minecraft:red_dye"
+    },
+    "U": {
+      "item": "dustandash:inherit_dust"
+    },
+    "X": {
+      "item": "dustandash:reproduce_dust"
+    }
+  },
+  "pattern": [
+    "#D#",
+    "URG",
+    "#XE"
+  ],
+  "result": {
+    "item": "minecraft:fire_coral_block"
+  },
+  "show_notification": true
+}

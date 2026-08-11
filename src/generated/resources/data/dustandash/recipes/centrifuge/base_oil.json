@@ -1,0 +1,38 @@
+{
+  "type": "dustandash:centrifuge",
+  "ingredients": [
+    {
+      "item": "dustandash:crushed_seeds"
+    },
+    {
+      "item": "dustandash:glass_container"
+    }
+  ],
+  "outputs": [
+    {
+      "item": "dustandash:empty"
+    },
+    {
+      "item": "dustandash:empty"
+    },
+    {
+      "item": "dustandash:empty"
+    },
+    {
+      "item": "dustandash:empty"
+    },
+    {
+      "item": "dustandash:base_oil"
+    },
+    {
+      "item": "dustandash:empty"
+    },
+    {
+      "item": "dustandash:empty"
+    },
+    {
+      "item": "dustandash:empty"
+    }
+  ],
+  "tick": 200
+}

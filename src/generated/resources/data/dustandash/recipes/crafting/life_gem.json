@@ -1,0 +1,36 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "tag": "forge:gems"
+    },
+    {
+      "item": "dustandash:bowl_with_dust"
+    },
+    {
+      "item": "dustandash:life_dust"
+    },
+    {
+      "item": "dustandash:life_dust"
+    },
+    {
+      "item": "dustandash:life_dust"
+    },
+    {
+      "item": "dustandash:life_dust"
+    },
+    {
+      "item": "dustandash:life_dust"
+    },
+    {
+      "item": "dustandash:life_dust"
+    },
+    {
+      "item": "dustandash:life_dust"
+    }
+  ],
+  "result": {
+    "item": "dustandash:life_gem"
+  }
+}

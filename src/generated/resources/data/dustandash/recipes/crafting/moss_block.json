@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "tag": "forge:cobblestone"
+    },
+    {
+      "item": "dustandash:sharpen_flint"
+    },
+    {
+      "item": "minecraft:bone_meal"
+    },
+    {
+      "item": "dustandash:bloody_flint"
+    }
+  ],
+  "result": {
+    "count": 2,
+    "item": "minecraft:moss_block"
+  }
+}

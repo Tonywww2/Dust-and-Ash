@@ -60,8 +60,13 @@ public final class DAAEquipmentItems {
             () -> new RottenBlade(DAAItemTier.TITANIUM_ALLOY, 5, -2.0F,
                     new Item.Properties().fireResistant()));
     public static final RegistryObject<Item> JUDGEMENT = DAAItems.register("judgement",
-            () -> new Judgement(DAAItemTier.TITANIUM_ALLOY, 17, -3.2F,
-                    new Item.Properties().fireResistant()));
+            () -> new Judgement(new Item.Properties().stacksTo(1).fireResistant()));
+    public static final RegistryObject<Item> LIGHT_FORGED_HALO = DAAItems.register("light_forged_halo",
+            () -> new LightForgedHalo(new Item.Properties().stacksTo(1).fireResistant()));
+    public static final RegistryObject<Item> DARK_FORGED_HALO = DAAItems.register("dark_forged_halo",
+            () -> new DarkForgedHalo(new Item.Properties().stacksTo(1).fireResistant()));
+    public static final RegistryObject<Item> VOID_RING = DAAItems.register("void_ring",
+            () -> new VoidRing(new Item.Properties().stacksTo(1).fireResistant()));
 
     private DAAEquipmentItems() {
     }

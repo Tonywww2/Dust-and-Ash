@@ -1,0 +1,22 @@
+{
+  "type": "dustandash:integrate",
+  "ingredients": [
+    {
+      "item": "dustandash:earth_dust"
+    },
+    {
+      "item": "dustandash:earth_dust"
+    },
+    {
+      "item": "dustandash:earth_dust"
+    },
+    {
+      "item": "dustandash:order_dust"
+    }
+  ],
+  "level": 0,
+  "output": {
+    "count": 1,
+    "item": "minecraft:dirt"
+  }
+}

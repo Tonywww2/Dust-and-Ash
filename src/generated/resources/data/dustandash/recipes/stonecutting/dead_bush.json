@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "dustandash:extinguish_dust"
+    },
+    "D": {
+      "item": "dustandash:fire_dust"
+    },
+    "H": {
+      "item": "dustandash:earth_dust"
+    },
+    "O": {
+      "tag": "minecraft:saplings"
+    }
+  },
+  "pattern": [
+    " # ",
+    "DOD",
+    " H "
+  ],
+  "result": {
+    "item": "minecraft:dead_bush"
+  },
+  "show_notification": true
+}

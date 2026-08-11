@@ -1,0 +1,28 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "forge:mod_loaded",
+          "modid": "ars_nouveau"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:smithing_transform",
+        "addition": {
+          "item": "dustandash:pure_energy"
+        },
+        "base": {
+          "tag": "forge:gems/lapis"
+        },
+        "result": {
+          "item": "ars_nouveau:mana_gem"
+        },
+        "template": {
+          "item": "dustandash:order_dust"
+        }
+      }
+    }
+  ]
+}

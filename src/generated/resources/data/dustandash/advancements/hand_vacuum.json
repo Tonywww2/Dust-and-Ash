@@ -1,0 +1,42 @@
+{
+  "parent": "dustandash:bloody_flint",
+  "criteria": {
+    "requirement": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "dustandash:hand_vacuum"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "dustandash.advancements.hand_vacuum.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "dustandash:hand_vacuum",
+      "nbt": "{Damage:0}"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "dustandash.advancements.hand_vacuum.title"
+    }
+  },
+  "requirements": [
+    [
+      "requirement"
+    ]
+  ],
+  "rewards": {
+    "experience": 10
+  },
+  "sends_telemetry_event": true
+}

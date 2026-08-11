@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "dustandash:bloody_flint"
+    },
+    "/": {
+      "tag": "forge:rods/wooden"
+    }
+  },
+  "pattern": [
+    "##",
+    " /"
+  ],
+  "result": {
+    "item": "dustandash:flint_pickaxe"
+  },
+  "show_notification": true
+}

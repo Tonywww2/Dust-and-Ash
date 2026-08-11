@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "dustandash:glass_container"
+    },
+    "B": {
+      "item": "dustandash:ash_steel_lever"
+    },
+    "C": {
+      "item": "minecraft:hopper"
+    },
+    "D": {
+      "item": "dustandash:placeholder"
+    },
+    "E": {
+      "item": "dustandash:fission_reactor_casing"
+    }
+  },
+  "pattern": [
+    "AAB",
+    "CDE",
+    "AAB"
+  ],
+  "result": {
+    "item": "dustandash:fission_reactor_interface"
+  },
+  "show_notification": true
+}

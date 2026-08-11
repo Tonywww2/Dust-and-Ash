@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "minecraft:string"
+    },
+    {
+      "item": "dustandash:carbon_dust"
+    },
+    {
+      "item": "dustandash:carbon_dust"
+    },
+    {
+      "item": "minecraft:string"
+    }
+  ],
+  "result": {
+    "count": 2,
+    "item": "dustandash:raw_carbon_fiber"
+  }
+}

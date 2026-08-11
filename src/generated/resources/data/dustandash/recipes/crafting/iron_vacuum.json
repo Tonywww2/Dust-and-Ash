@@ -1,0 +1,36 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "minecraft:chain"
+    },
+    "B": {
+      "tag": "forge:rods"
+    },
+    "C": {
+      "item": "minecraft:iron_block"
+    },
+    "D": {
+      "item": "minecraft:gold_ingot"
+    },
+    "E": {
+      "item": "dustandash:dust_with_energy"
+    },
+    "F": {
+      "item": "minecraft:iron_trapdoor"
+    },
+    "G": {
+      "item": "minecraft:glass_bottle"
+    }
+  },
+  "pattern": [
+    "ABE",
+    "ACD",
+    "F G"
+  ],
+  "result": {
+    "item": "dustandash:iron_vacuum"
+  },
+  "show_notification": true
+}

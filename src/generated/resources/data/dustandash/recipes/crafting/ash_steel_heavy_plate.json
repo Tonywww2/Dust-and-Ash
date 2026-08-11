@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "dustandash:crystallize_dust"
+    },
+    "A": {
+      "item": "dustandash:ash_steel_ingot"
+    }
+  },
+  "pattern": [
+    "#A#",
+    "A#A",
+    "#A#"
+  ],
+  "result": {
+    "item": "dustandash:ash_steel_heavy_plate"
+  },
+  "show_notification": true
+}

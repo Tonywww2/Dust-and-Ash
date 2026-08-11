@@ -1,0 +1,13 @@
+{
+  "values": [
+    "#minecraft:logs",
+    "#minecraft:planks",
+    "#minecraft:slabs",
+    "#minecraft:wool",
+    "#minecraft:stone_bricks",
+    "#forge:cobblestone",
+    "#forge:gravel",
+    "minecraft:stone",
+    "dustandash:smooth_cobblestone"
+  ]
+}

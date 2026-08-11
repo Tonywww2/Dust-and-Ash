@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "dustandash:ash_steel_ingot"
+    },
+    "B": {
+      "item": "dustandash:strengthened_cement"
+    },
+    "C": {
+      "item": "dustandash:dust_with_energy"
+    }
+  },
+  "pattern": [
+    "ABA",
+    "BCB",
+    "ABA"
+  ],
+  "result": {
+    "count": 2,
+    "item": "dustandash:fission_reactor_casing"
+  },
+  "show_notification": true
+}

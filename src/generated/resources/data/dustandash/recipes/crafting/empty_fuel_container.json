@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "dustandash:ash_steel_cylinder"
+    },
+    "B": {
+      "item": "minecraft:iron_bars"
+    },
+    "C": {
+      "tag": "forge:glass"
+    }
+  },
+  "pattern": [
+    "ACA",
+    "BBB",
+    "ABA"
+  ],
+  "result": {
+    "item": "dustandash:empty_fuel_container"
+  },
+  "show_notification": true
+}

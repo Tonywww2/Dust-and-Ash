@@ -1,0 +1,22 @@
+{
+  "type": "dustandash:integrate",
+  "ingredients": [
+    {
+      "item": "dustandash:dust_with_energy"
+    },
+    {
+      "item": "dustandash:carbon_dust"
+    },
+    {
+      "item": "dustandash:electron"
+    },
+    {
+      "item": "dustandash:electron"
+    }
+  ],
+  "level": 3,
+  "output": {
+    "count": 1,
+    "item": "dustandash:pure_energy"
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "type": "dustandash:ionizer",
+  "cost": 1,
+  "costElectrodes": false,
+  "ingredients": [
+    {
+      "tag": "forge:ash"
+    },
+    {
+      "item": "dustandash:glass_container"
+    },
+    {
+      "item": "dustandash:glass_container"
+    },
+    {
+      "tag": "forge:ingots/lead"
+    },
+    {
+      "item": "dustandash:graphite_electrode"
+    }
+  ],
+  "inputBlock": "minecraft:water",
+  "outputBlock": "minecraft:air",
+  "outputs": [
+    {
+      "item": "dustandash:hydrogen"
+    },
+    {
+      "item": "dustandash:hydrogen"
+    },
+    {
+      "item": "dustandash:oxygen"
+    },
+    {
+      "item": "dustandash:ash"
+    }
+  ],
+  "tick": 100
+}

@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "dustandash:life_dust"
+    },
+    "D": {
+      "item": "dustandash:blocking_dust"
+    },
+    "G": {
+      "item": "minecraft:green_carpet"
+    },
+    "K": {
+      "item": "dustandash:absorb_dust"
+    },
+    "N": {
+      "item": "dustandash:reproduce_dust"
+    },
+    "W": {
+      "item": "dustandash:inherit_dust"
+    }
+  },
+  "pattern": [
+    "#D#",
+    "WGN",
+    "#K#"
+  ],
+  "result": {
+    "item": "minecraft:lily_pad"
+  },
+  "show_notification": true
+}

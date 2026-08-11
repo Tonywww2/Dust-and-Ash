@@ -1,0 +1,13 @@
+{
+  "type": "dustandash:milling",
+  "ingredients": [
+    {
+      "item": "dustandash:ash_steel_heavy_plate"
+    }
+  ],
+  "output": {
+    "count": 1,
+    "item": "dustandash:ash_steel_scrap"
+  },
+  "step1": true
+}

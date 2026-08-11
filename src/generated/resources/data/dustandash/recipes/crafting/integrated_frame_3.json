@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "dustandash:carbon_fiber"
+    },
+    "A": {
+      "item": "dustandash:integrated_frame_2"
+    },
+    "B": {
+      "item": "minecraft:netherite_ingot"
+    },
+    "C": {
+      "item": "dustandash:dark_energy_collapser"
+    }
+  },
+  "pattern": [
+    "#B#",
+    "ACA",
+    "#B#"
+  ],
+  "result": {
+    "count": 2,
+    "item": "dustandash:integrated_frame_3"
+  },
+  "show_notification": true
+}

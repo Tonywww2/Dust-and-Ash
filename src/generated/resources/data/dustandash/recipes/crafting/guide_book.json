@@ -1,0 +1,12 @@
+{
+  "type": "patchouli:shapeless_book_recipe",
+  "book": "dustandash:dustandash_guide_book",
+  "ingredients": [
+    {
+      "item": "minecraft:gravel"
+    },
+    {
+      "item": "minecraft:book"
+    }
+  ]
+}

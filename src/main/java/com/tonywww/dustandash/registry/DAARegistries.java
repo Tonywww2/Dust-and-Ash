@@ -16,6 +16,7 @@ public final class DAARegistries {
         DAABlocks.register(eventBus);
         DAABlockEntities.register(eventBus);
         DAAEntities.register(eventBus);
+        DAAParticles.register(eventBus);
         DAAContainerMenus.register(eventBus);
         DAARecipe.register(eventBus);
     }

@@ -1,0 +1,13 @@
+{
+  "type": "dustandash:milling",
+  "ingredients": [
+    {
+      "item": "dustandash:carbon_fiber_plate"
+    }
+  ],
+  "output": {
+    "count": 1,
+    "item": "dustandash:carbon_fiber_scrap"
+  },
+  "step1": true
+}

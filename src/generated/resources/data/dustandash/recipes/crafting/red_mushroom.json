@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "dustandash:metamorphose_dust"
+    },
+    "D": {
+      "item": "dustandash:reproduce_dust"
+    },
+    "G": {
+      "item": "minecraft:grass"
+    },
+    "I": {
+      "item": "dustandash:earth_dust"
+    },
+    "P": {
+      "item": "dustandash:absorb_dust"
+    },
+    "R": {
+      "item": "minecraft:red_dye"
+    }
+  },
+  "pattern": [
+    "#R#",
+    "DGD",
+    "IPI"
+  ],
+  "result": {
+    "item": "minecraft:red_mushroom"
+  },
+  "show_notification": true
+}

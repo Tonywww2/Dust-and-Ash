@@ -1,0 +1,39 @@
+{
+  "type": "dustandash:ionizer",
+  "cost": 16,
+  "costElectrodes": true,
+  "ingredients": [
+    {
+      "item": "minecraft:ender_eye"
+    },
+    {
+      "tag": "forge:obsidian"
+    },
+    {
+      "item": "dustandash:netherite_mud"
+    },
+    {
+      "item": "dustandash:titanium_tungsten_alloy"
+    },
+    {
+      "item": "dustandash:integrated_frame_2"
+    }
+  ],
+  "inputBlock": "minecraft:lava",
+  "outputBlock": "minecraft:water",
+  "outputs": [
+    {
+      "item": "minecraft:end_portal_frame"
+    },
+    {
+      "item": "dustandash:ash"
+    },
+    {
+      "item": "dustandash:ash"
+    },
+    {
+      "item": "dustandash:empty"
+    }
+  ],
+  "tick": 2000
+}

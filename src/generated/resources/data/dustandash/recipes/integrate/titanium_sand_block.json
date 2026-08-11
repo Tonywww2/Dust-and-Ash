@@ -1,0 +1,22 @@
+{
+  "type": "dustandash:integrate",
+  "ingredients": [
+    {
+      "item": "dustandash:mantle_mixture"
+    },
+    {
+      "item": "minecraft:sand"
+    },
+    {
+      "item": "minecraft:gunpowder"
+    },
+    {
+      "item": "minecraft:quartz"
+    }
+  ],
+  "level": 2,
+  "output": {
+    "count": 1,
+    "item": "dustandash:titanium_sand_block"
+  }
+}

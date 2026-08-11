@@ -1,0 +1,34 @@
+{
+  "type": "dustandash:integrate",
+  "ingredients": [
+    {
+      "item": "minecraft:iron_ingot"
+    },
+    {
+      "item": "minecraft:iron_ingot"
+    },
+    {
+      "item": "minecraft:iron_ingot"
+    },
+    {
+      "item": "minecraft:charcoal"
+    },
+    {
+      "item": "minecraft:iron_ingot"
+    },
+    {
+      "tag": "forge:ash"
+    },
+    {
+      "item": "minecraft:iron_ingot"
+    },
+    {
+      "tag": "forge:ash"
+    }
+  ],
+  "level": 1,
+  "output": {
+    "count": 3,
+    "item": "dustandash:raw_ash_steel"
+  }
+}

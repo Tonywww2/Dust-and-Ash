@@ -1,0 +1,36 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "dustandash:life_dust"
+    },
+    "D": {
+      "item": "dustandash:reproduce_dust"
+    },
+    "G": {
+      "item": "minecraft:orange_wool"
+    },
+    "K": {
+      "item": "dustandash:absorb_dust"
+    },
+    "O": {
+      "item": "dustandash:metamorphose_dust"
+    },
+    "S": {
+      "item": "minecraft:sugar"
+    },
+    "X": {
+      "item": "dustandash:earth_dust"
+    }
+  },
+  "pattern": [
+    " # ",
+    "DGO",
+    "SKX"
+  ],
+  "result": {
+    "item": "minecraft:pumpkin"
+  },
+  "show_notification": true
+}

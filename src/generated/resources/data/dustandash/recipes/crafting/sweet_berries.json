@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "dustandash:reproduce_dust"
+    },
+    "D": {
+      "item": "dustandash:metamorphose_dust"
+    },
+    "R": {
+      "item": "minecraft:red_dye"
+    },
+    "S": {
+      "item": "minecraft:sugar"
+    },
+    "U": {
+      "item": "dustandash:absorb_dust"
+    },
+    "W": {
+      "item": "minecraft:spruce_leaves"
+    }
+  },
+  "pattern": [
+    "#R#",
+    "SDS",
+    "UWU"
+  ],
+  "result": {
+    "item": "minecraft:sweet_berries"
+  },
+  "show_notification": true
+}

@@ -1,0 +1,41 @@
+{
+  "parent": "dustandash:ionizer",
+  "criteria": {
+    "requirement": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "dustandash:titanium_scrap"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "dustandash.advancements.titanium_scrap.description"
+    },
+    "frame": "challenge",
+    "hidden": false,
+    "icon": {
+      "item": "dustandash:titanium_scrap"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "dustandash.advancements.titanium_scrap.title"
+    }
+  },
+  "requirements": [
+    [
+      "requirement"
+    ]
+  ],
+  "rewards": {
+    "experience": 10
+  },
+  "sends_telemetry_event": true
+}

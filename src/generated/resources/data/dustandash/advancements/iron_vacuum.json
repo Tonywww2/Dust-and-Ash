@@ -1,0 +1,42 @@
+{
+  "parent": "dustandash:hand_vacuum",
+  "criteria": {
+    "requirement": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "dustandash:iron_vacuum"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "dustandash.advancements.iron_vacuum.description"
+    },
+    "frame": "challenge",
+    "hidden": false,
+    "icon": {
+      "item": "dustandash:iron_vacuum",
+      "nbt": "{Damage:0}"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "dustandash.advancements.iron_vacuum.title"
+    }
+  },
+  "requirements": [
+    [
+      "requirement"
+    ]
+  ],
+  "rewards": {
+    "experience": 10
+  },
+  "sends_telemetry_event": true
+}

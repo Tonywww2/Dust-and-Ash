@@ -1,0 +1,34 @@
+{
+  "type": "dustandash:integrate",
+  "ingredients": [
+    {
+      "item": "dustandash:order_dust"
+    },
+    {
+      "item": "dustandash:order_dust"
+    },
+    {
+      "item": "dustandash:metal_dust"
+    },
+    {
+      "item": "dustandash:metal_dust"
+    },
+    {
+      "item": "dustandash:metal_dust"
+    },
+    {
+      "item": "dustandash:crystallize_dust"
+    },
+    {
+      "item": "dustandash:extinguish_dust"
+    },
+    {
+      "item": "dustandash:blocking_dust"
+    }
+  ],
+  "level": 3,
+  "output": {
+    "count": 1,
+    "item": "dustandash:osmium_ingot"
+  }
+}

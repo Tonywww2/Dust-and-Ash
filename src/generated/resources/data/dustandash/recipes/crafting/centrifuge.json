@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "minecraft:piston"
+    },
+    "C": {
+      "item": "dustandash:ash_steel_cylinder"
+    },
+    "E": {
+      "item": "dustandash:reaction_chamber"
+    },
+    "G": {
+      "item": "minecraft:glass"
+    },
+    "T": {
+      "item": "dustandash:iron_structural_components"
+    }
+  },
+  "pattern": [
+    "CBC",
+    "GEG",
+    "CTC"
+  ],
+  "result": {
+    "item": "dustandash:centrifuge"
+  },
+  "show_notification": true
+}

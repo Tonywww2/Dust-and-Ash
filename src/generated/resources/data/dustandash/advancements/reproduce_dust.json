@@ -1,0 +1,41 @@
+{
+  "parent": "dustandash:integrated_frame_1",
+  "criteria": {
+    "requirement": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "dustandash:reproduce_dust"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "dustandash.advancements.reproduce_dust.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "dustandash:reproduce_dust"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "dustandash.advancements.reproduce_dust.title"
+    }
+  },
+  "requirements": [
+    [
+      "requirement"
+    ]
+  ],
+  "rewards": {
+    "experience": 10
+  },
+  "sends_telemetry_event": true
+}

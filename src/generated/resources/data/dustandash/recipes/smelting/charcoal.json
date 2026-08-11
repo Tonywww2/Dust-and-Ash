@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smelting",
+  "cookingtime": 1200,
+  "experience": 0.2,
+  "ingredient": {
+    "item": "dustandash:log_pile"
+  },
+  "result": {
+    "count": 6,
+    "item": "minecraft:charcoal"
+  }
+}

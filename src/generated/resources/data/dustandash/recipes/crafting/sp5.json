@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "dustandash:metamorphose_dust"
+    },
+    "A": {
+      "item": "minecraft:acacia_sapling"
+    }
+  },
+  "pattern": [
+    " # ",
+    "#A#",
+    " # "
+  ],
+  "result": {
+    "item": "minecraft:dark_oak_sapling"
+  },
+  "show_notification": true
+}

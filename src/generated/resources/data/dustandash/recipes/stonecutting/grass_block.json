@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "dustandash:life_dust"
+    },
+    "D": {
+      "item": "dustandash:reproduce_dust"
+    },
+    "L": {
+      "item": "minecraft:dirt"
+    },
+    "M": {
+      "item": "dustandash:blocking_dust"
+    },
+    "N": {
+      "item": "dustandash:seep_dust"
+    }
+  },
+  "pattern": [
+    "###",
+    "DLN",
+    " M "
+  ],
+  "result": {
+    "item": "minecraft:grass_block"
+  },
+  "show_notification": true
+}

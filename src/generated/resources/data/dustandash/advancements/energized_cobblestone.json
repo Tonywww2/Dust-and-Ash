@@ -1,0 +1,41 @@
+{
+  "parent": "dustandash:hand_vacuum",
+  "criteria": {
+    "requirement": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "dustandash:energized_cobblestone"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "dustandash.advancements.energized_cobblestone.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "dustandash:energized_cobblestone"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "dustandash.advancements.energized_cobblestone.title"
+    }
+  },
+  "requirements": [
+    [
+      "requirement"
+    ]
+  ],
+  "rewards": {
+    "experience": 10
+  },
+  "sends_telemetry_event": true
+}

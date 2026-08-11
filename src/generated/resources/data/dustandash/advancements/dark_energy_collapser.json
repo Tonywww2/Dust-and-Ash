@@ -1,0 +1,41 @@
+{
+  "parent": "dustandash:ash_steel_ingot",
+  "criteria": {
+    "requirement": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "dustandash:dark_energy_collapser"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "dustandash.advancements.dark_energy_collapser.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "dustandash:dark_energy_collapser"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "dustandash.advancements.dark_energy_collapser.title"
+    }
+  },
+  "requirements": [
+    [
+      "requirement"
+    ]
+  ],
+  "rewards": {
+    "experience": 10
+  },
+  "sends_telemetry_event": true
+}

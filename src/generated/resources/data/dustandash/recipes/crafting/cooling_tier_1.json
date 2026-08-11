@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "dustandash:basic_cooling"
+    },
+    {
+      "item": "minecraft:ice"
+    },
+    {
+      "item": "minecraft:ice"
+    }
+  ],
+  "result": {
+    "item": "dustandash:cooling_tier_1"
+  }
+}

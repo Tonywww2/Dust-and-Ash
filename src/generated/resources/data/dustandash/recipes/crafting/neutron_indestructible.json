@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "type": "forge:nbt",
+      "count": 1,
+      "item": "dustandash:rock_solid",
+      "nbt": "{display:{Lore:['{\"text\":\"Neutron: 1280/1280\"}']},neutron:1280}"
+    },
+    {
+      "item": "dustandash:electron"
+    }
+  ],
+  "result": {
+    "item": "dustandash:indestructible"
+  }
+}

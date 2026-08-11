@@ -1,0 +1,34 @@
+{
+  "type": "dustandash:integrate",
+  "ingredients": [
+    {
+      "item": "dustandash:carbon_dust"
+    },
+    {
+      "item": "dustandash:carbon_dust"
+    },
+    {
+      "item": "dustandash:carbon_dust"
+    },
+    {
+      "item": "dustandash:order_dust"
+    },
+    {
+      "item": "dustandash:carbon_dust"
+    },
+    {
+      "item": "dustandash:order_dust"
+    },
+    {
+      "item": "dustandash:carbon_dust"
+    },
+    {
+      "item": "dustandash:order_dust"
+    }
+  ],
+  "level": 2,
+  "output": {
+    "count": 1,
+    "item": "minecraft:diamond"
+  }
+}

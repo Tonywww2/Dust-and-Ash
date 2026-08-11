@@ -1,0 +1,35 @@
+{
+  "type": "dustandash:milling",
+  "key": {
+    "#": {
+      "item": "dustandash:ash_steel_scrap"
+    },
+    "A": {
+      "item": "minecraft:iron_bars"
+    },
+    "B": {
+      "item": "minecraft:chain"
+    },
+    "C": {
+      "item": "dustandash:dust_with_energy"
+    },
+    "D": {
+      "item": "dustandash:ash_steel_gear"
+    },
+    "catalyst": {
+      "item": "dustandash:inherit_dust"
+    }
+  },
+  "output": {
+    "count": 1,
+    "item": "dustandash:ash_steel_structural_components"
+  },
+  "pattern": [
+    "#####",
+    "#BCB#",
+    "ACDCA",
+    "#BCB#",
+    "##A##"
+  ],
+  "step1": false
+}

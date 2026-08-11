@@ -1,0 +1,36 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "dustandash:life_dust"
+    },
+    "A": {
+      "item": "dustandash:absorb_dust"
+    },
+    "D": {
+      "item": "dustandash:reproduce_dust"
+    },
+    "K": {
+      "item": "minecraft:kelp"
+    },
+    "M": {
+      "item": "dustandash:inherit_dust"
+    },
+    "S": {
+      "item": "minecraft:sugar_cane"
+    },
+    "T": {
+      "item": "minecraft:torch"
+    }
+  },
+  "pattern": [
+    "#T#",
+    "DSA",
+    "KMK"
+  ],
+  "result": {
+    "item": "minecraft:sea_pickle"
+  },
+  "show_notification": true
+}

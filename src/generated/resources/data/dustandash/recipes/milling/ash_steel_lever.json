@@ -1,0 +1,26 @@
+{
+  "type": "dustandash:milling",
+  "key": {
+    "#": {
+      "item": "dustandash:ash_steel_scrap"
+    },
+    "A": {
+      "item": "dustandash:absorb_dust"
+    },
+    "catalyst": {
+      "item": "dustandash:inherit_dust"
+    }
+  },
+  "output": {
+    "count": 4,
+    "item": "dustandash:ash_steel_lever"
+  },
+  "pattern": [
+    "     ",
+    "#####",
+    "A   A",
+    "#####",
+    "     "
+  ],
+  "step1": false
+}

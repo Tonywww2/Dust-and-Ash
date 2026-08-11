@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "dustandash:reproduce_dust"
+    },
+    "D": {
+      "item": "dustandash:smelt_dust"
+    },
+    "I": {
+      "item": "dustandash:metamorphose_dust"
+    },
+    "R": {
+      "item": "minecraft:red_mushroom"
+    },
+    "S": {
+      "item": "minecraft:soul_sand"
+    },
+    "X": {
+      "item": "dustandash:absorb_dust"
+    }
+  },
+  "pattern": [
+    "#D#",
+    "XRX",
+    "ISI"
+  ],
+  "result": {
+    "item": "minecraft:nether_wart"
+  },
+  "show_notification": true
+}

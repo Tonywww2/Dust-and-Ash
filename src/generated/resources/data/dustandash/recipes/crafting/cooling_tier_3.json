@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "dustandash:cooling_tier_2"
+    },
+    "B": {
+      "item": "dustandash:bowl_with_dust"
+    },
+    "C": {
+      "item": "minecraft:blue_ice"
+    },
+    "D": {
+      "item": "dustandash:electron"
+    }
+  },
+  "pattern": [
+    "CDC",
+    "BAB",
+    "C C"
+  ],
+  "result": {
+    "item": "dustandash:cooling_tier_3"
+  },
+  "show_notification": true
+}

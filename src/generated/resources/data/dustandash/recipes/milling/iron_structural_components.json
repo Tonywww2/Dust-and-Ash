@@ -1,0 +1,35 @@
+{
+  "type": "dustandash:milling",
+  "key": {
+    "#": {
+      "item": "dustandash:iron_scrap"
+    },
+    "A": {
+      "item": "minecraft:iron_bars"
+    },
+    "B": {
+      "item": "minecraft:chain"
+    },
+    "C": {
+      "item": "minecraft:glass_pane"
+    },
+    "D": {
+      "item": "dustandash:iron_gear"
+    },
+    "catalyst": {
+      "item": "dustandash:inherit_dust"
+    }
+  },
+  "output": {
+    "count": 1,
+    "item": "dustandash:iron_structural_components"
+  },
+  "pattern": [
+    "#####",
+    "#BCB#",
+    "ACDCA",
+    "#BCB#",
+    "##A##"
+  ],
+  "step1": false
+}

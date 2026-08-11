@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "tag": "minecraft:wooden_slabs"
+    },
+    "C": {
+      "tag": "forge:fences/wooden"
+    },
+    "D": {
+      "item": "minecraft:bowl"
+    },
+    "E": {
+      "item": "minecraft:stick"
+    },
+    "F": {
+      "item": "dustandash:bloody_flint"
+    }
+  },
+  "pattern": [
+    "AA ",
+    "FCD",
+    " FE"
+  ],
+  "result": {
+    "item": "dustandash:hand_vacuum"
+  },
+  "show_notification": true
+}

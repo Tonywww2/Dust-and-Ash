@@ -1,0 +1,65 @@
+{
+  "type": "dustandash:milling",
+  "key": {
+    "#": {
+      "item": "dustandash:ash_steel_scrap"
+    },
+    "A": {
+      "item": "dustandash:pure_darkness"
+    },
+    "B": {
+      "item": "minecraft:comparator"
+    },
+    "C": {
+      "item": "dustandash:carbon_fiber_plate"
+    },
+    "E": {
+      "item": "dustandash:ash_steel_lever"
+    },
+    "G": {
+      "item": "minecraft:glass_pane"
+    },
+    "H": {
+      "item": "dustandash:apotheosis_crystal"
+    },
+    "J": {
+      "item": "dustandash:dark_energy_collapser"
+    },
+    "K": {
+      "item": "dustandash:fission_reactor_casing"
+    },
+    "L": {
+      "item": "minecraft:lever"
+    },
+    "Q": {
+      "tag": "forge:ingots/lead"
+    },
+    "S": {
+      "item": "dustandash:soul_of_light"
+    },
+    "T": {
+      "item": "dustandash:titanium_heavy_plate"
+    },
+    "W": {
+      "item": "minecraft:pearlescent_froglight"
+    },
+    "Y": {
+      "item": "dustandash:silver_crystal"
+    },
+    "catalyst": {
+      "item": "dustandash:nano_machine"
+    }
+  },
+  "output": {
+    "count": 1,
+    "item": "dustandash:fission_reactor_controller"
+  },
+  "pattern": [
+    "#GAG#",
+    "CWKWC",
+    "BYJHL",
+    "CQTQC",
+    "#ESE#"
+  ],
+  "step1": false
+}

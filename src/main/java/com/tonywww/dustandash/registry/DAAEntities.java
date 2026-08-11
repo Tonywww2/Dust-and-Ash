@@ -1,6 +1,7 @@
 package com.tonywww.dustandash.registry;
 
 import com.tonywww.dustandash.DustAndAsh;
+import com.tonywww.dustandash.entity.LightStaffEntity;
 import com.tonywww.dustandash.entity.LightningProjectileEntity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
@@ -18,7 +19,15 @@ public class DAAEntities {
             ENTITY_TYPES.register("lightning_bullet", () -> EntityType.Builder.<LightningProjectileEntity>of(LightningProjectileEntity::new, MobCategory.MISC)
                     .sized(0.25f, 0.25f).build("lightning_bullet"));
 
-        public static void register(IEventBus eventBus) {
+    public static final RegistryObject<EntityType<LightStaffEntity>> LIGHT_STAFF =
+            ENTITY_TYPES.register("light_staff", () -> EntityType.Builder
+                    .<LightStaffEntity>of(LightStaffEntity::new, MobCategory.MISC)
+                    .sized(0.5f, 5f)
+                    .clientTrackingRange(8)
+                    .updateInterval(1)
+                    .build("light_staff"));
+
+    public static void register(IEventBus eventBus) {
         ENTITY_TYPES.register(eventBus);
     }
 }

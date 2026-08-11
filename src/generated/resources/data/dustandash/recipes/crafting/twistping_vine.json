@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "dustandash:reproduce_dust"
+    },
+    "C": {
+      "item": "dustandash:absorb_dust"
+    },
+    "D": {
+      "item": "dustandash:seep_dust"
+    },
+    "J": {
+      "item": "dustandash:metamorphose_dust"
+    },
+    "V": {
+      "item": "minecraft:vine"
+    }
+  },
+  "pattern": [
+    "#D#",
+    "JVJ",
+    " C "
+  ],
+  "result": {
+    "item": "minecraft:twisting_vines"
+  },
+  "show_notification": true
+}

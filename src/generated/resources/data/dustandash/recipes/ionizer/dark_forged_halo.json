@@ -1,0 +1,39 @@
+{
+  "type": "dustandash:ionizer",
+  "cost": 64,
+  "costElectrodes": true,
+  "ingredients": [
+    {
+      "item": "dustandash:forever_dark_crystal"
+    },
+    {
+      "item": "minecraft:netherite_block"
+    },
+    {
+      "item": "minecraft:wither_skeleton_skull"
+    },
+    {
+      "item": "minecraft:nether_star"
+    },
+    {
+      "item": "dustandash:graphite_electrode"
+    }
+  ],
+  "inputBlock": "minecraft:crying_obsidian",
+  "outputBlock": "minecraft:obsidian",
+  "outputs": [
+    {
+      "item": "dustandash:dark_forged_halo"
+    },
+    {
+      "item": "dustandash:ash"
+    },
+    {
+      "item": "dustandash:empty"
+    },
+    {
+      "item": "dustandash:empty"
+    }
+  ],
+  "tick": 6400
+}

@@ -1,0 +1,22 @@
+{
+  "type": "dustandash:integrate",
+  "ingredients": [
+    {
+      "item": "minecraft:bowl"
+    },
+    {
+      "item": "dustandash:earth_dust"
+    },
+    {
+      "item": "dustandash:earth_dust"
+    },
+    {
+      "item": "dustandash:metal_dust"
+    }
+  ],
+  "level": 1,
+  "output": {
+    "count": 1,
+    "item": "dustandash:crystallize_dust"
+  }
+}

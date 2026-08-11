@@ -1,0 +1,13 @@
+{
+  "type": "dustandash:milling",
+  "ingredients": [
+    {
+      "item": "minecraft:redstone_block"
+    }
+  ],
+  "output": {
+    "count": 1,
+    "item": "dustandash:redstone_scrap"
+  },
+  "step1": true
+}

@@ -1,0 +1,38 @@
+{
+  "type": "dustandash:centrifuge",
+  "ingredients": [
+    {
+      "item": "minecraft:magma_block"
+    },
+    {
+      "item": "dustandash:empty"
+    }
+  ],
+  "outputs": [
+    {
+      "item": "dustandash:empty"
+    },
+    {
+      "item": "dustandash:empty"
+    },
+    {
+      "item": "minecraft:magma_cream"
+    },
+    {
+      "item": "dustandash:empty"
+    },
+    {
+      "item": "dustandash:fire_dust"
+    },
+    {
+      "item": "minecraft:magma_cream"
+    },
+    {
+      "item": "dustandash:empty"
+    },
+    {
+      "item": "dustandash:empty"
+    }
+  ],
+  "tick": 200
+}

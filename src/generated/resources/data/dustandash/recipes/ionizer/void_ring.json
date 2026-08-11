@@ -1,0 +1,39 @@
+{
+  "type": "dustandash:ionizer",
+  "cost": 128,
+  "costElectrodes": true,
+  "ingredients": [
+    {
+      "item": "dustandash:void_crystal"
+    },
+    {
+      "item": "minecraft:totem_of_undying"
+    },
+    {
+      "item": "minecraft:end_crystal"
+    },
+    {
+      "item": "minecraft:nether_star"
+    },
+    {
+      "item": "dustandash:graphite_electrode"
+    }
+  ],
+  "inputBlock": "minecraft:crying_obsidian",
+  "outputBlock": "minecraft:obsidian",
+  "outputs": [
+    {
+      "item": "dustandash:void_ring"
+    },
+    {
+      "item": "dustandash:ash"
+    },
+    {
+      "item": "dustandash:empty"
+    },
+    {
+      "item": "dustandash:empty"
+    }
+  ],
+  "tick": 12800
+}

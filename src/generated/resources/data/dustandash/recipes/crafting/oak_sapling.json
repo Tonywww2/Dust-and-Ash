@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "dustandash:life_dust"
+    },
+    "/": {
+      "tag": "forge:rods/wooden"
+    },
+    "B": {
+      "item": "minecraft:bamboo"
+    },
+    "D": {
+      "item": "dustandash:reproduce_dust"
+    },
+    "J": {
+      "item": "dustandash:absorb_dust"
+    }
+  },
+  "pattern": [
+    "#D#",
+    "#/#",
+    "JBJ"
+  ],
+  "result": {
+    "item": "minecraft:oak_sapling"
+  },
+  "show_notification": true
+}

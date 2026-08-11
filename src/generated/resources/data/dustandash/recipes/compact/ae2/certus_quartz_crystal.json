@@ -1,0 +1,28 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "forge:mod_loaded",
+          "modid": "ae2"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:smithing_transform",
+        "addition": {
+          "item": "dustandash:electron"
+        },
+        "base": {
+          "tag": "forge:gems/quartz"
+        },
+        "result": {
+          "item": "ae2:certus_quartz_crystal"
+        },
+        "template": {
+          "item": "dustandash:order_dust"
+        }
+      }
+    }
+  ]
+}

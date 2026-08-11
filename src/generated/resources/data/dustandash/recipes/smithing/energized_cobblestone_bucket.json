@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": {
+    "item": "dustandash:energized_cobblestone"
+  },
+  "base": {
+    "item": "minecraft:bucket"
+  },
+  "result": {
+    "item": "dustandash:energized_cobblestone_bucket"
+  },
+  "template": {
+    "item": "dustandash:earth_dust"
+  }
+}

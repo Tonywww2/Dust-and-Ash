@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "minecraft:stone"
+    },
+    "B": {
+      "item": "minecraft:cobblestone"
+    }
+  },
+  "pattern": [
+    "AB",
+    "BA"
+  ],
+  "result": {
+    "count": 4,
+    "item": "dustandash:smooth_cobblestone"
+  },
+  "show_notification": true
+}

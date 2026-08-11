@@ -1,0 +1,38 @@
+{
+  "type": "minecraft:empty",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "dustandash:metal_dust",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "dustandash:order_dust",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "dustandash:earth_dust",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "dustandash:life_dust"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "dustandash:fire_dust"
+        },
+        {
+          "type": "minecraft:empty"
+        }
+      ],
+      "rolls": 5.0
+    }
+  ],
+  "random_sequence": "dustandash:gameplay/vacuum/iron"
+}

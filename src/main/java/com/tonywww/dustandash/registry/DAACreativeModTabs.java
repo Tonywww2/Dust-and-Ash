@@ -73,7 +73,10 @@ public final class DAACreativeModTabs {
             DAAItems.WHITE_LIGHTNING,
             DAAItems.LORD_OF_BLOOD,
             DAAItems.ROTTEN_BLADE,
-            DAAItems.JUDGEMENT
+            DAAItems.JUDGEMENT,
+            DAAItems.LIGHT_FORGED_HALO,
+            DAAItems.DARK_FORGED_HALO,
+            DAAItems.VOID_RING
     );
 
     private static final List<Supplier<? extends ItemLike>> ASH_TAB_ITEMS = List.of(

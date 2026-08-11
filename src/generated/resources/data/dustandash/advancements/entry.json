@@ -1,0 +1,30 @@
+{
+  "criteria": {
+    "requirement": {
+      "conditions": {},
+      "trigger": "minecraft:tick"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "background": "dustandash:textures/gui/advancements/backgrounds/dust_and_ash.png",
+    "description": {
+      "translate": "dustandash.advancements.entry.description"
+    },
+    "frame": "goal",
+    "hidden": false,
+    "icon": {
+      "item": "dustandash:ash"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "dustandash.advancements.entry.title"
+    }
+  },
+  "requirements": [
+    [
+      "requirement"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

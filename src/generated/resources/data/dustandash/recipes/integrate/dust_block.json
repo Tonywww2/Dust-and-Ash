@@ -1,0 +1,34 @@
+{
+  "type": "dustandash:integrate",
+  "ingredients": [
+    {
+      "item": "dustandash:bowl_with_dust"
+    },
+    {
+      "item": "dustandash:dust_with_energy"
+    },
+    {
+      "tag": "forge:ash"
+    },
+    {
+      "tag": "forge:ash"
+    },
+    {
+      "tag": "forge:ash"
+    },
+    {
+      "tag": "forge:ash"
+    },
+    {
+      "tag": "forge:ash"
+    },
+    {
+      "tag": "forge:ash"
+    }
+  ],
+  "level": 2,
+  "output": {
+    "count": 5,
+    "item": "dustandash:dust"
+  }
+}

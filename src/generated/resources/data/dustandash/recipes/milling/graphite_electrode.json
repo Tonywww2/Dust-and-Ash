@@ -1,0 +1,26 @@
+{
+  "type": "dustandash:milling",
+  "key": {
+    "#": {
+      "item": "dustandash:carbon_dust"
+    },
+    "A": {
+      "item": "dustandash:carbon_fiber_scrap"
+    },
+    "catalyst": {
+      "item": "dustandash:crystallize_dust"
+    }
+  },
+  "output": {
+    "count": 1,
+    "item": "dustandash:graphite_electrode"
+  },
+  "pattern": [
+    "A# #A",
+    "A# #A",
+    "A# #A",
+    "A# #A",
+    "A# #A"
+  ],
+  "step1": false
+}

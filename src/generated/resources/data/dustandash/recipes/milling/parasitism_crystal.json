@@ -1,0 +1,50 @@
+{
+  "type": "dustandash:milling",
+  "key": {
+    "A": {
+      "item": "minecraft:echo_shard"
+    },
+    "B": {
+      "item": "minecraft:ghast_tear"
+    },
+    "C": {
+      "item": "dustandash:lacerate_dust"
+    },
+    "D": {
+      "item": "dustandash:absorb_dust"
+    },
+    "E": {
+      "item": "dustandash:reproduce_dust"
+    },
+    "F": {
+      "item": "dustandash:extinguish_dust"
+    },
+    "G": {
+      "item": "dustandash:soul_of_light"
+    },
+    "H": {
+      "item": "dustandash:titanium_plate_scrap"
+    },
+    "I": {
+      "item": "dustandash:graphite_electrode"
+    },
+    "J": {
+      "item": "dustandash:wind_crystal"
+    },
+    "catalyst": {
+      "item": "dustandash:metamorphose_dust"
+    }
+  },
+  "output": {
+    "count": 1,
+    "item": "dustandash:parasitism_crystal"
+  },
+  "pattern": [
+    "ACBDA",
+    "EGHIF",
+    "BHJHB",
+    "FIHGE",
+    "ADBCA"
+  ],
+  "step1": false
+}

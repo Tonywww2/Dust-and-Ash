@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "tag": "forge:stone"
+    },
+    {
+      "item": "dustandash:metamorphose_dust"
+    },
+    {
+      "item": "dustandash:smelt_dust"
+    },
+    {
+      "tag": "forge:stone"
+    }
+  ],
+  "result": {
+    "count": 2,
+    "item": "minecraft:netherrack"
+  }
+}

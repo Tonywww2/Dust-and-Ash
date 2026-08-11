@@ -1,0 +1,36 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "minecraft:sugar"
+    },
+    "D": {
+      "item": "dustandash:life_dust"
+    },
+    "E": {
+      "item": "dustandash:absorb_dust"
+    },
+    "F": {
+      "item": "dustandash:reproduce_dust"
+    },
+    "G": {
+      "item": "minecraft:green_wool"
+    },
+    "T": {
+      "item": "dustandash:metamorphose_dust"
+    },
+    "W": {
+      "item": "minecraft:water_bucket"
+    }
+  },
+  "pattern": [
+    "#DW",
+    "FGT",
+    "#E#"
+  ],
+  "result": {
+    "item": "minecraft:melon"
+  },
+  "show_notification": true
+}

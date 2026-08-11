@@ -1,0 +1,34 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "minecraft:diorite"
+    },
+    "B": {
+      "item": "minecraft:andesite"
+    },
+    "C": {
+      "item": "minecraft:granite"
+    },
+    "D": {
+      "item": "dustandash:crystallize_dust"
+    },
+    "E": {
+      "item": "dustandash:bowl_with_dust"
+    },
+    "F": {
+      "item": "minecraft:lava_bucket"
+    }
+  },
+  "pattern": [
+    "ADC",
+    "BEB",
+    "CFA"
+  ],
+  "result": {
+    "count": 2,
+    "item": "dustandash:mantle_mixture"
+  },
+  "show_notification": true
+}

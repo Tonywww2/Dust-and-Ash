@@ -1,0 +1,31 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "forge:mod_loaded",
+          "modid": "umapyoi"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shapeless",
+        "ingredients": [
+          {
+            "tag": "forge:crops/carrot"
+          },
+          {
+            "item": "dustandash:dust_with_energy"
+          },
+          {
+            "item": "dustandash:crystallize_dust"
+          }
+        ],
+        "result": {
+          "count": 1,
+          "item": "umapyoi:jewel"
+        }
+      }
+    }
+  ]
+}

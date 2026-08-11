@@ -1,0 +1,38 @@
+{
+  "type": "dustandash:milling",
+  "key": {
+    "#": {
+      "item": "dustandash:ash_steel_scrap"
+    },
+    "A": {
+      "item": "dustandash:blocking_dust"
+    },
+    "B": {
+      "item": "minecraft:iron_bars"
+    },
+    "C": {
+      "item": "dustandash:ash_steel_cylinder"
+    },
+    "D": {
+      "item": "dustandash:seep_dust"
+    },
+    "E": {
+      "item": "dustandash:metamorphose_dust"
+    },
+    "catalyst": {
+      "item": "dustandash:ash_steel_structural_components"
+    }
+  },
+  "output": {
+    "count": 1,
+    "item": "dustandash:reaction_chamber"
+  },
+  "pattern": [
+    "#D#D#",
+    "##E##",
+    "#C#C#",
+    "#BCB#",
+    "A###A"
+  ],
+  "step1": false
+}

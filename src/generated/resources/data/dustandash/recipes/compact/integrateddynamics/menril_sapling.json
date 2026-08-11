@@ -1,0 +1,38 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "forge:mod_loaded",
+          "modid": "integrateddynamics"
+        }
+      ],
+      "recipe": {
+        "type": "dustandash:integrate",
+        "ingredients": [
+          {
+            "tag": "forge:sapling"
+          },
+          {
+            "item": "minecraft:spider_eye"
+          },
+          {
+            "item": "dustandash:order_dust"
+          },
+          {
+            "item": "dustandash:crystallize_dust"
+          },
+          {
+            "item": "dustandash:order_dust"
+          }
+        ],
+        "level": 1,
+        "output": {
+          "count": 1,
+          "item": "integrateddynamics:menril_sapling"
+        }
+      }
+    }
+  ]
+}

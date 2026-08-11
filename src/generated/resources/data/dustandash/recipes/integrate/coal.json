@@ -1,0 +1,25 @@
+{
+  "type": "dustandash:integrate",
+  "ingredients": [
+    {
+      "item": "dustandash:crystallize_dust"
+    },
+    {
+      "item": "dustandash:earth_dust"
+    },
+    {
+      "item": "minecraft:charcoal"
+    },
+    {
+      "item": "minecraft:charcoal"
+    },
+    {
+      "item": "minecraft:charcoal"
+    }
+  ],
+  "level": 1,
+  "output": {
+    "count": 2,
+    "item": "minecraft:coal"
+  }
+}

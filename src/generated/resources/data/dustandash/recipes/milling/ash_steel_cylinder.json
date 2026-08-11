@@ -1,0 +1,26 @@
+{
+  "type": "dustandash:milling",
+  "key": {
+    "#": {
+      "item": "dustandash:ash_steel_scrap"
+    },
+    "A": {
+      "item": "minecraft:tripwire_hook"
+    },
+    "catalyst": {
+      "item": "dustandash:blocking_dust"
+    }
+  },
+  "output": {
+    "count": 3,
+    "item": "dustandash:ash_steel_cylinder"
+  },
+  "pattern": [
+    "##A##",
+    "# # #",
+    "#   #",
+    "# # #",
+    "#####"
+  ],
+  "step1": false
+}

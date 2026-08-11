@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "dustandash:metamorphose_dust"
+    },
+    "D": {
+      "item": "dustandash:reproduce_dust"
+    },
+    "G": {
+      "item": "minecraft:grass"
+    },
+    "L": {
+      "item": "minecraft:light_gray_dye"
+    },
+    "T": {
+      "item": "dustandash:absorb_dust"
+    },
+    "Y": {
+      "item": "dustandash:earth_dust"
+    }
+  },
+  "pattern": [
+    "#L#",
+    "DGD",
+    "YTY"
+  ],
+  "result": {
+    "item": "minecraft:brown_mushroom"
+  },
+  "show_notification": true
+}

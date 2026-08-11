@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "dustandash:ash_steel_ingot"
+    },
+    "B": {
+      "item": "dustandash:carbon_fiber_plate"
+    },
+    "C": {
+      "item": "dustandash:reaction_chamber"
+    },
+    "D": {
+      "item": "dustandash:fission_reactor_casing"
+    }
+  },
+  "pattern": [
+    "ADA",
+    "BCB",
+    "ADA"
+  ],
+  "result": {
+    "count": 2,
+    "item": "dustandash:fission_reactor_cooling_cell"
+  },
+  "show_notification": true
+}

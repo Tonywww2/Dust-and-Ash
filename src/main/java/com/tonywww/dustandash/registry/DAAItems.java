@@ -36,6 +36,9 @@ public final class DAAItems {
     public static final RegistryObject<Item> LORD_OF_BLOOD = DAAEquipmentItems.LORD_OF_BLOOD;
     public static final RegistryObject<Item> ROTTEN_BLADE = DAAEquipmentItems.ROTTEN_BLADE;
     public static final RegistryObject<Item> JUDGEMENT = DAAEquipmentItems.JUDGEMENT;
+    public static final RegistryObject<Item> LIGHT_FORGED_HALO = DAAEquipmentItems.LIGHT_FORGED_HALO;
+    public static final RegistryObject<Item> DARK_FORGED_HALO = DAAEquipmentItems.DARK_FORGED_HALO;
+    public static final RegistryObject<Item> VOID_RING = DAAEquipmentItems.VOID_RING;
 
     // DAAElementItems
     public static final RegistryObject<Item> METAL_DUST = DAAElementItems.METAL_DUST;

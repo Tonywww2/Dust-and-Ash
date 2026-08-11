@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "minecraft:blue_dye"
+    },
+    {
+      "item": "dustandash:crystallize_dust"
+    },
+    {
+      "item": "dustandash:earth_dust"
+    }
+  ],
+  "result": {
+    "count": 2,
+    "item": "minecraft:lapis_lazuli"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "minecraft:bowl"
+    },
+    {
+      "tag": "minecraft:coals"
+    },
+    {
+      "item": "minecraft:flint"
+    },
+    {
+      "item": "dustandash:metal_dust"
+    },
+    {
+      "item": "dustandash:metal_dust"
+    },
+    {
+      "item": "dustandash:metal_dust"
+    },
+    {
+      "item": "dustandash:metal_dust"
+    },
+    {
+      "item": "dustandash:metal_dust"
+    },
+    {
+      "item": "dustandash:metal_dust"
+    }
+  ],
+  "result": {
+    "count": 7,
+    "item": "minecraft:iron_nugget"
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "type": "dustandash:integrate",
+  "ingredients": [
+    {
+      "item": "dustandash:empty"
+    },
+    {
+      "item": "dustandash:empty"
+    },
+    {
+      "item": "dustandash:metal_dust"
+    },
+    {
+      "item": "dustandash:metal_dust"
+    },
+    {
+      "item": "dustandash:metal_dust"
+    },
+    {
+      "item": "dustandash:fire_dust"
+    },
+    {
+      "item": "dustandash:fire_dust"
+    },
+    {
+      "item": "dustandash:fire_dust"
+    }
+  ],
+  "level": 3,
+  "output": {
+    "count": 12,
+    "item": "dustandash:dust_with_energy"
+  }
+}

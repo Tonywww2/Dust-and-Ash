@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:blasting",
+  "cookingtime": 400,
+  "experience": 0.2,
+  "ingredient": {
+    "item": "dustandash:cooled_magma_block"
+  },
+  "result": {
+    "count": 1,
+    "item": "minecraft:magma_block"
+  }
+}

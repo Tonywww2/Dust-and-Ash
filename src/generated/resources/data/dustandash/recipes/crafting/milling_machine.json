@@ -1,0 +1,36 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "minecraft:chain"
+    },
+    "A": {
+      "item": "minecraft:anvil"
+    },
+    "B": {
+      "item": "minecraft:blast_furnace"
+    },
+    "C": {
+      "item": "minecraft:crafting_table"
+    },
+    "P": {
+      "item": "minecraft:smithing_table"
+    },
+    "S": {
+      "item": "minecraft:stonecutter"
+    },
+    "i": {
+      "item": "minecraft:iron_ingot"
+    }
+  },
+  "pattern": [
+    " #S",
+    "BAP",
+    "iCi"
+  ],
+  "result": {
+    "item": "dustandash:milling_machine"
+  },
+  "show_notification": true
+}

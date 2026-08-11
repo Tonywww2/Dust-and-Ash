@@ -1,0 +1,23 @@
+{
+  "type": "dustandash:milling",
+  "key": {
+    "#": {
+      "item": "dustandash:ash_steel_scrap"
+    },
+    "catalyst": {
+      "item": "dustandash:lacerate_dust"
+    }
+  },
+  "output": {
+    "count": 1,
+    "item": "dustandash:ash_steel_gear"
+  },
+  "pattern": [
+    "# # #",
+    " ### ",
+    "## ##",
+    " ### ",
+    "# # #"
+  ],
+  "step1": false
+}

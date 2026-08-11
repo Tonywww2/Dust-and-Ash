@@ -1,0 +1,13 @@
+{
+  "values": [
+    "dustandash:ash",
+    {
+      "id": "embers:ash",
+      "required": false
+    },
+    {
+      "id": "forestry:ash",
+      "required": false
+    }
+  ]
+}

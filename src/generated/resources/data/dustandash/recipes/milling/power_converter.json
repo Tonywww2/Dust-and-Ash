@@ -1,0 +1,41 @@
+{
+  "type": "dustandash:milling",
+  "key": {
+    "#": {
+      "item": "dustandash:ash_steel_scrap"
+    },
+    "A": {
+      "item": "dustandash:ash_steel_lever"
+    },
+    "B": {
+      "item": "dustandash:redstone_vacuum_tube"
+    },
+    "C": {
+      "item": "dustandash:reaction_chamber"
+    },
+    "D": {
+      "item": "dustandash:redstone_gear"
+    },
+    "E": {
+      "item": "minecraft:comparator"
+    },
+    "F": {
+      "item": "minecraft:piston"
+    },
+    "catalyst": {
+      "item": "dustandash:pure_energy"
+    }
+  },
+  "output": {
+    "count": 1,
+    "item": "dustandash:power_converter"
+  },
+  "pattern": [
+    " ####",
+    "##AAA",
+    "#BCD#",
+    "#E#F#",
+    "## ##"
+  ],
+  "step1": false
+}

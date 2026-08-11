@@ -1,8 +1,0 @@
-{
-    "type": "minecraft:stonecutting",
-    "ingredient": {
-        "item": "minecraft:horn_coral_block"
-    },
-    "result": "minecraft:horn_coral_fan",
-    "count": 2
-}

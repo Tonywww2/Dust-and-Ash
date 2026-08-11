@@ -1,0 +1,39 @@
+{
+  "type": "dustandash:ionizer",
+  "cost": 1,
+  "costElectrodes": false,
+  "ingredients": [
+    {
+      "item": "dustandash:mantle_mixture"
+    },
+    {
+      "item": "dustandash:oxygen"
+    },
+    {
+      "item": "dustandash:earth_dust"
+    },
+    {
+      "item": "minecraft:iron_ingot"
+    },
+    {
+      "item": "dustandash:graphite_electrode"
+    }
+  ],
+  "inputBlock": "minecraft:water",
+  "outputBlock": "minecraft:air",
+  "outputs": [
+    {
+      "item": "minecraft:iron_ingot"
+    },
+    {
+      "item": "minecraft:iron_ingot"
+    },
+    {
+      "item": "minecraft:iron_ingot"
+    },
+    {
+      "item": "dustandash:ash"
+    }
+  ],
+  "tick": 100
+}

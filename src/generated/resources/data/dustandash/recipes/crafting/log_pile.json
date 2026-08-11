@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "tag": "forge:rods/wooden"
+    },
+    "B": {
+      "tag": "minecraft:logs_that_burn"
+    }
+  },
+  "pattern": [
+    "ABA",
+    "BAB",
+    "ABA"
+  ],
+  "result": {
+    "count": 2,
+    "item": "dustandash:log_pile"
+  },
+  "show_notification": true
+}

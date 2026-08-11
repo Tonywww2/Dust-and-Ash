@@ -1,0 +1,39 @@
+{
+  "type": "dustandash:ionizer",
+  "cost": 16,
+  "costElectrodes": true,
+  "ingredients": [
+    {
+      "item": "dustandash:titanium_alloy_sword"
+    },
+    {
+      "item": "dustandash:refined_uranium"
+    },
+    {
+      "item": "minecraft:rotten_flesh"
+    },
+    {
+      "item": "dustandash:depravity_crystal"
+    },
+    {
+      "item": "dustandash:graphite_electrode"
+    }
+  ],
+  "inputBlock": "minecraft:crying_obsidian",
+  "outputBlock": "minecraft:obsidian",
+  "outputs": [
+    {
+      "item": "dustandash:rotten_blade"
+    },
+    {
+      "item": "dustandash:ash"
+    },
+    {
+      "item": "dustandash:empty"
+    },
+    {
+      "item": "dustandash:empty"
+    }
+  ],
+  "tick": 1600
+}

@@ -1,0 +1,25 @@
+{
+  "type": "dustandash:integrate",
+  "ingredients": [
+    {
+      "item": "dustandash:smelt_dust"
+    },
+    {
+      "item": "dustandash:extinguish_dust"
+    },
+    {
+      "item": "minecraft:skeleton_skull"
+    },
+    {
+      "item": "minecraft:netherite_scrap"
+    },
+    {
+      "tag": "minecraft:coals"
+    }
+  ],
+  "level": 3,
+  "output": {
+    "count": 1,
+    "item": "minecraft:wither_skeleton_skull"
+  }
+}

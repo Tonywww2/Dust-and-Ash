@@ -1,0 +1,35 @@
+{
+  "type": "dustandash:milling",
+  "key": {
+    "#": {
+      "item": "dustandash:ash_steel_scrap"
+    },
+    "A": {
+      "item": "dustandash:lacerate_dust"
+    },
+    "B": {
+      "item": "dustandash:crystallize_dust"
+    },
+    "C": {
+      "item": "dustandash:smelt_dust"
+    },
+    "D": {
+      "item": "dustandash:absorb_dust"
+    },
+    "catalyst": {
+      "item": "dustandash:wooden_tool_handle"
+    }
+  },
+  "output": {
+    "count": 1,
+    "item": "dustandash:ash_steel_pickaxe"
+  },
+  "pattern": [
+    "###CC",
+    "####C",
+    "AB###",
+    " DB##",
+    "B A##"
+  ],
+  "step1": false
+}
