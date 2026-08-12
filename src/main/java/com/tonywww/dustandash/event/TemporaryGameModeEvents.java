@@ -3,6 +3,7 @@ package com.tonywww.dustandash.event;
 import com.tonywww.dustandash.DustAndAsh;
 import com.tonywww.dustandash.cooldown.CurioCooldownManager;
 import com.tonywww.dustandash.game.TemporaryGameModeController;
+import com.tonywww.dustandash.network.ImbaModeSyncPacket;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.GameType;
 import net.minecraftforge.event.TickEvent;
@@ -69,6 +70,7 @@ public final class TemporaryGameModeEvents {
     private static void syncCooldowns(PlayerEvent event) {
         if (event.getEntity() instanceof ServerPlayer player) {
             CurioCooldownManager.sync(player);
+            ImbaModeSyncPacket.send(player);
         }
     }
 }

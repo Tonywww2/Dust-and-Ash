@@ -1,5 +1,6 @@
 package com.tonywww.dustandash.client.tooltip;
 
+import com.tonywww.dustandash.client.config.ClientImbaMode;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
@@ -28,16 +29,59 @@ public final class DAATooltipApi {
             boolean exactSummary,
             int[] exactDetailLines,
             ArgumentProvider argumentProvider) {
+            register(
+                item,
+                translationBase,
+                null,
+                detailLines,
+                exactSummary,
+                exactDetailLines,
+                argumentProvider,
+                argumentProvider);
+            }
+
+            public static void registerImba(
+                Item item,
+                String translationBase,
+                String imbaTranslationBase,
+                int detailLines,
+                boolean exactSummary,
+                int[] exactDetailLines,
+                ArgumentProvider argumentProvider,
+                ArgumentProvider imbaArgumentProvider) {
+            register(
+                item,
+                translationBase,
+                imbaTranslationBase,
+                detailLines,
+                exactSummary,
+                exactDetailLines,
+                argumentProvider,
+                imbaArgumentProvider);
+            }
+
+            private static void register(
+                Item item,
+                String translationBase,
+                String imbaTranslationBase,
+                int detailLines,
+                boolean exactSummary,
+                int[] exactDetailLines,
+                ArgumentProvider argumentProvider,
+                ArgumentProvider imbaArgumentProvider) {
         Objects.requireNonNull(item, "item");
         Objects.requireNonNull(translationBase, "translationBase");
         Objects.requireNonNull(exactDetailLines, "exactDetailLines");
         Objects.requireNonNull(argumentProvider, "argumentProvider");
+            Objects.requireNonNull(imbaArgumentProvider, "imbaArgumentProvider");
         Definition definition = new Definition(
                 translationBase,
+                imbaTranslationBase,
                 detailLines,
                 exactSummary,
                 Arrays.stream(exactDetailLines).boxed().collect(Collectors.toUnmodifiableSet()),
-                argumentProvider);
+                argumentProvider,
+                imbaArgumentProvider);
         if (DEFINITIONS.putIfAbsent(item, definition) != null) {
             throw new IllegalArgumentException("Duplicate tooltip definition for " + item);
         }
@@ -50,15 +94,27 @@ public final class DAATooltipApi {
         }
 
         List<Component> lines = new ArrayList<>();
+        boolean imba = definition.imbaTranslationBase() != null && ClientImbaMode.enabled();
+        String translationBase = imba
+            ? definition.imbaTranslationBase()
+            : definition.translationBase();
         boolean detailed = Screen.hasAltDown();
         boolean exact = Screen.hasShiftDown() && definition.hasExactText();
-        Object[] arguments = exact ? definition.argumentProvider().get(stack) : new Object[0];
+        ArgumentProvider argumentProvider = imba
+            ? definition.imbaArgumentProvider()
+            : definition.argumentProvider();
+        Object[] arguments = exact ? argumentProvider.get(stack) : new Object[0];
+
+        if (imba) {
+            lines.add(Component.translatable("tooltip.dustandash.system.imba_active")
+                .withStyle(ChatFormatting.DARK_RED, ChatFormatting.BOLD));
+        }
 
         if (detailed) {
             for (int index = 1; index <= definition.detailLines(); index++) {
                 boolean exactLine = exact && definition.exactDetailLines().contains(index);
                 lines.add(Component.translatable(
-                                definition.translationBase() + ".detail." + index
+                        translationBase + ".detail." + index
                                         + (exactLine ? ".exact" : ""),
                                 exactLine ? arguments : new Object[0])
                         .withStyle(ChatFormatting.GRAY));
@@ -66,7 +122,7 @@ public final class DAATooltipApi {
         } else {
             boolean exactLine = exact && definition.exactSummary();
             lines.add(Component.translatable(
-                            definition.translationBase() + ".summary"
+                        translationBase + ".summary"
                                     + (exactLine ? ".exact" : ""),
                             exactLine ? arguments : new Object[0])
                     .withStyle(ChatFormatting.WHITE));
@@ -91,10 +147,12 @@ public final class DAATooltipApi {
 
     public record Definition(
             String translationBase,
+            String imbaTranslationBase,
             int detailLines,
             boolean exactSummary,
             Set<Integer> exactDetailLines,
-            ArgumentProvider argumentProvider) {
+            ArgumentProvider argumentProvider,
+            ArgumentProvider imbaArgumentProvider) {
         public Definition {
             if (detailLines < 1) {
                 throw new IllegalArgumentException("detailLines must be positive");

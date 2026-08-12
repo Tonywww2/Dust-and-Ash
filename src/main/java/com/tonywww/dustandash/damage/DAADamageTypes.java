@@ -14,6 +14,9 @@ public final class DAADamageTypes {
     public static final ResourceKey<DamageType> LIGHT = ResourceKey.create(
             Registries.DAMAGE_TYPE,
             new ResourceLocation(DustAndAsh.MOD_ID, "light"));
+        public static final ResourceKey<DamageType> JUDGEMENT_REFLECTION = ResourceKey.create(
+            Registries.DAMAGE_TYPE,
+            new ResourceLocation(DustAndAsh.MOD_ID, "judgement_reflection"));
 
     private DAADamageTypes() {
     }
@@ -22,6 +25,14 @@ public final class DAADamageTypes {
         return new DamageSource(
                 level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(LIGHT),
                 directEntity,
+                owner);
+    }
+
+    public static DamageSource judgementReflection(ServerLevel level, LivingEntity owner) {
+        return new DamageSource(
+                level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE)
+                        .getHolderOrThrow(JUDGEMENT_REFLECTION),
+                owner,
                 owner);
     }
 }

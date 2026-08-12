@@ -1,6 +1,7 @@
 package com.tonywww.dustandash.entity;
 
 import com.tonywww.dustandash.DustAndAshConfig;
+import com.tonywww.dustandash.config.ImbaRules;
 import com.tonywww.dustandash.registry.DAAItems;
 import com.tonywww.dustandash.item.WhiteLightning;
 import com.tonywww.dustandash.registry.DAAEntities;
@@ -55,16 +56,16 @@ public class LightningProjectileEntity extends ThrowableItemProjectile {
 
             boolean living = false;
 
-            float targetHealth = 0;
+            float targetHealthBasis = 0;
             if (entity instanceof LivingEntity livingEntity) {
-                targetHealth = livingEntity.getHealth();
+                targetHealthBasis = healthBasis(livingEntity);
 
                 living = true;
 
             } else if (entity instanceof PartEntity partEntity) {
                 entity = partEntity.getParent();
                 if (entity instanceof LivingEntity livingEntity) {
-                    targetHealth = livingEntity.getHealth();
+                    targetHealthBasis = healthBasis(livingEntity);
                     living = true;
 
                 }
@@ -94,7 +95,7 @@ public class LightningProjectileEntity extends ThrowableItemProjectile {
                         0
                 );
                 entity.hurt(owner.damageSources().indirectMagic(entity, owner),
-                    (float) (targetHealth * DustAndAshConfig.WEAPONS.whiteLightningExtraPercentage.get()));
+                    (float) (targetHealthBasis * DustAndAshConfig.WEAPONS.whiteLightningExtraPercentage.get()));
                 entity.invulnerableTime = 0;
 
             }
@@ -141,5 +142,11 @@ public class LightningProjectileEntity extends ThrowableItemProjectile {
     @Override
     protected Item getDefaultItem() {
         return DAAItems.EMPTY.get();
+    }
+
+    private static float healthBasis(LivingEntity entity) {
+        return ImbaRules.whiteLightningUsesMaximumHealth()
+                ? entity.getMaxHealth()
+                : entity.getHealth();
     }
 }

@@ -1,6 +1,7 @@
 package com.tonywww.dustandash.item;
 
 import com.tonywww.dustandash.DustAndAshConfig;
+import com.tonywww.dustandash.config.ImbaRules;
 import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
@@ -20,7 +21,9 @@ import org.joml.Vector3f;
 
 public class RottenBlade extends SwordItem {
 
-    private static String[] ENTITIES;
+    private static final String[] ENTITIES = {
+            "e0", "e1", "e2", "e3", "e4", "e5", "e6", "e7", "e8"
+    };
 
     public int entitiesSize = 6;
 
@@ -29,10 +32,6 @@ public class RottenBlade extends SwordItem {
 
     public RottenBlade(Tier pTier, int pAttackDamageModifier, float pAttackSpeedModifier, Properties pProperties) {
         super(pTier, pAttackDamageModifier, pAttackSpeedModifier, pProperties);
-        ENTITIES = new String[entitiesSize];
-        for (int i = 0; i < ENTITIES.length; i++) {
-            ENTITIES[i] = "e" + i;
-        }
     }
 
     @Override
@@ -46,7 +45,8 @@ public class RottenBlade extends SwordItem {
                 CompoundTag tag = stack.getOrCreateTag();
 
                 damageEntityByUUID(player, serverWorld, tag,
-                    DustAndAshConfig.WEAPONS.rottenBladeExtraDamage.get().floatValue());
+                    DustAndAshConfig.WEAPONS.rottenBladeExtraDamage.get().floatValue(),
+                    ImbaRules.rottenBladeRememberedTargets());
 
                 tag.putUUID(ENTITIES[0], entity.getUUID());
 
@@ -72,8 +72,10 @@ public class RottenBlade extends SwordItem {
 
                 for (LivingEntity i : serverWorld.getEntitiesOfClass(LivingEntity.class, region)) {
                     if (i == player) {
-                        i.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 40, 0));
-                        i.addEffect(new MobEffectInstance(MobEffects.POISON, 60, 1));
+                        if (ImbaRules.rottenBladeAffectsWielder()) {
+                            i.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 40, 0));
+                            i.addEffect(new MobEffectInstance(MobEffects.POISON, 60, 1));
+                        }
                         continue;
                     }
                     i.hurt(player.damageSources().indirectMagic(i, player), 8);
@@ -94,14 +96,24 @@ public class RottenBlade extends SwordItem {
 
                 }
 
-                player.getCooldowns().addCooldown(this, 200);
+                int cooldown = ImbaRules.rottenBladeAreaCooldownTicks();
+                if (cooldown > 0) {
+                    player.getCooldowns().addCooldown(this, cooldown);
+                }
 
             } else {
                 player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 60, 2));
                 damageEntityByUUID(player, serverWorld, stack.getOrCreateTag(),
-                    DustAndAshConfig.WEAPONS.rottenBladeExtraDamage.get().floatValue() / 2);
-                player.hurt(player.damageSources().indirectMagic(player, player), 3);
-                player.getCooldowns().addCooldown(this, 60);
+                    DustAndAshConfig.WEAPONS.rottenBladeExtraDamage.get().floatValue() / 2,
+                    ImbaRules.rottenBladeRememberedTargets());
+                float recoilDamage = ImbaRules.rottenBladeRecoilDamage();
+                if (recoilDamage > 0f) {
+                    player.hurt(player.damageSources().indirectMagic(player, player), recoilDamage);
+                }
+                int cooldown = ImbaRules.rottenBladeReleaseCooldownTicks();
+                if (cooldown > 0) {
+                    player.getCooldowns().addCooldown(this, cooldown);
+                }
 
             }
 
@@ -111,8 +123,14 @@ public class RottenBlade extends SwordItem {
         return super.use(level, player, hand);
     }
 
-    private void damageEntityByUUID(Player player, ServerLevel serverWorld, CompoundTag tag, float damage) {
-        for (String entityTag : ENTITIES) {
+    private void damageEntityByUUID(
+            Player player,
+            ServerLevel serverWorld,
+            CompoundTag tag,
+            float damage,
+            int rememberedTargets) {
+        for (int index = 0; index < rememberedTargets; index++) {
+            String entityTag = ENTITIES[index];
             if (tag.contains(entityTag)) {
                 Entity entity = serverWorld.getEntity(tag.getUUID(entityTag));
 
@@ -137,7 +155,7 @@ public class RottenBlade extends SwordItem {
 
         }
 
-        for (int i = ENTITIES.length - 1; i > 0; i--) {
+        for (int i = rememberedTargets - 1; i > 0; i--) {
             if (tag.contains(ENTITIES[i - 1])) {
                 tag.putUUID(ENTITIES[i], tag.getUUID(ENTITIES[i - 1]));
 

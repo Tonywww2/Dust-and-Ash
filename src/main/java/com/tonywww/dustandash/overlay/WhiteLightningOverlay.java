@@ -1,6 +1,8 @@
 package com.tonywww.dustandash.overlay;
 
 import com.tonywww.dustandash.DustAndAsh;
+import com.tonywww.dustandash.client.config.ClientImbaMode;
+import com.tonywww.dustandash.config.ImbaRules;
 import com.tonywww.dustandash.registry.DAAItems;
 import com.tonywww.dustandash.item.WhiteLightning;
 import net.minecraft.client.Minecraft;
@@ -26,7 +28,7 @@ public class WhiteLightningOverlay implements IGuiOverlay {
 
         Player player = minecraft.player;
 
-        if (player.isSpectator()) return;
+        if (player == null || player.isSpectator()) return;
 
         if (player.getItemInHand(InteractionHand.MAIN_HAND).is(DAAItems.WHITE_LIGHTNING.get())) {
             ItemStack stack = player.getItemInHand(InteractionHand.MAIN_HAND);
@@ -34,26 +36,25 @@ public class WhiteLightningOverlay implements IGuiOverlay {
             int stacks = WhiteLightning.getCharges(stack);
             int advStacks = WhiteLightning.getAdvCharges(stack);
 
-            int amountPerLine = 4;
+            int totalStacks = stacks + advStacks;
+            int normalCapacity = ImbaRules.whiteLightningMaxCharge(false)
+                    + ImbaRules.whiteLightningMaxAdvancedCharge(false);
+            int amountPerLine = ClientImbaMode.enabled() || totalStacks > normalCapacity ? 8 : 4;
             int unitSize = 5;
-            int xInit = screenWidth / 2 - (unitSize * 2);
+            int xInit = screenWidth / 2 - (unitSize * amountPerLine / 2);
             int yInit = screenHeight / 2 + 4;
 
-            int j = 0;
-            for (int i = 0; i < stacks + advStacks; i++) {
-                int x = xInit + unitSize * (i - j * amountPerLine);
-                int y = yInit + (j * unitSize);
+            for (int i = 0; i < totalStacks; i++) {
+                int column = i % amountPerLine;
+                int row = i / amountPerLine;
+                int x = xInit + unitSize * column;
+                int y = yInit + unitSize * row;
 
                 if (i < advStacks) {
                     guiGraphics.blit(HUD, x, y, 4, 0, 4, 4, 8, 4);
 
                 } else {
                     guiGraphics.blit(HUD, x, y, 0, 0, 4, 4, 8, 4);
-
-                }
-
-                if (i % amountPerLine == amountPerLine - 1) {
-                    j++;
 
                 }
             }

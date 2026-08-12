@@ -15,6 +15,7 @@ import top.theillusivec4.curios.api.client.ICurioRenderer;
 
 public final class ForgedHaloRenderer implements ICurioRenderer {
     private static final int SEGMENTS = 48;
+    private static final float SURFACE_HALF_DEPTH = 0.015f;
     private final boolean light;
 
     public ForgedHaloRenderer(boolean light) {
@@ -55,18 +56,27 @@ public final class ForgedHaloRenderer implements ICurioRenderer {
 
     private static void renderDarkHalo(
             Matrix4f matrix, Matrix3f normal, VertexConsumer consumer) {
-        renderLineRing(matrix, normal, consumer, 0.59f, 24, 20, 28);
-        renderLineRing(matrix, normal, consumer, 0.56f, 48, 38, 52);
-        renderLineRing(matrix, normal, consumer, 0.45f, 32, 26, 36);
-        renderLineRing(matrix, normal, consumer, 0.31f, 72, 54, 76);
+        renderDarkHaloLayer(matrix, normal, consumer, -SURFACE_HALF_DEPTH);
+        renderDarkHaloLayer(matrix, normal, consumer, SURFACE_HALF_DEPTH);
+    }
+
+    private static void renderDarkHaloLayer(
+            Matrix4f matrix,
+            Matrix3f normal,
+            VertexConsumer consumer,
+            float z) {
+        renderLineRing(matrix, normal, consumer, 0.59f, z, 24, 20, 28);
+        renderLineRing(matrix, normal, consumer, 0.56f, z, 48, 38, 52);
+        renderLineRing(matrix, normal, consumer, 0.45f, z, 32, 26, 36);
+        renderLineRing(matrix, normal, consumer, 0.31f, z, 72, 54, 76);
         for (int index = 0; index < 12; index++) {
             double angle = Math.PI * 2d * index / 12d;
             float directionX = (float) Math.cos(angle);
             float directionY = (float) Math.sin(angle);
-            lineVertex(matrix, normal, consumer,
-                    directionX * 0.31f, directionY * 0.31f, 0.001f, 42, 32, 46);
-            lineVertex(matrix, normal, consumer,
-                    directionX * 0.56f, directionY * 0.56f, 0.001f, 42, 32, 46);
+            renderLine(matrix, normal, consumer,
+                    directionX * 0.31f, directionY * 0.31f, z,
+                    directionX * 0.56f, directionY * 0.56f, z,
+                    42, 32, 46);
         }
     }
 
@@ -75,23 +85,57 @@ public final class ForgedHaloRenderer implements ICurioRenderer {
             Matrix3f normal,
             VertexConsumer consumer,
             float radius,
+            float z,
             int red,
             int green,
             int blue) {
         for (int index = 0; index < SEGMENTS; index++) {
             double first = Math.PI * 2d * index / SEGMENTS;
             double second = Math.PI * 2d * (index + 1) / SEGMENTS;
-            lineVertex(matrix, normal, consumer,
+            renderLine(matrix, normal, consumer,
                     (float) Math.cos(first) * radius,
                     (float) Math.sin(first) * radius,
-                    0f,
-                    red, green, blue);
-            lineVertex(matrix, normal, consumer,
+                    z,
                     (float) Math.cos(second) * radius,
                     (float) Math.sin(second) * radius,
-                    0f,
+                    z,
                     red, green, blue);
         }
+    }
+
+    private static void renderLine(
+            Matrix4f matrix,
+            Matrix3f normal,
+            VertexConsumer consumer,
+            float firstX,
+            float firstY,
+            float firstZ,
+            float secondX,
+            float secondY,
+            float secondZ,
+            int red,
+            int green,
+            int blue) {
+        float directionX = secondX - firstX;
+        float directionY = secondY - firstY;
+        float directionZ = secondZ - firstZ;
+        float directionLength = (float) Math.sqrt(
+                directionX * directionX
+                        + directionY * directionY
+                        + directionZ * directionZ);
+        if (directionLength > 0f) {
+            directionX /= directionLength;
+            directionY /= directionLength;
+            directionZ /= directionLength;
+        }
+        lineVertex(matrix, normal, consumer,
+                firstX, firstY, firstZ,
+                directionX, directionY, directionZ,
+                red, green, blue);
+        lineVertex(matrix, normal, consumer,
+                secondX, secondY, secondZ,
+                directionX, directionY, directionZ,
+                red, green, blue);
     }
 
     private static void lineVertex(
@@ -101,12 +145,15 @@ public final class ForgedHaloRenderer implements ICurioRenderer {
             float x,
             float y,
             float z,
+            float directionX,
+            float directionY,
+            float directionZ,
             int red,
             int green,
             int blue) {
         consumer.vertex(matrix, x, y, z)
                 .color(red, green, blue, 255)
-                .normal(normal, 0f, 0f, 1f)
+                .normal(normal, directionX, directionY, directionZ)
                 .endVertex();
     }
 
@@ -130,14 +177,31 @@ public final class ForgedHaloRenderer implements ICurioRenderer {
             int green,
             int blue,
             int alpha,
-            float z) {
+            float centerZ) {
+        float frontZ = centerZ + SURFACE_HALF_DEPTH;
+        float backZ = centerZ - SURFACE_HALF_DEPTH;
         for (int index = 0; index < SEGMENTS; index++) {
             double first = Math.PI * 2d * index / SEGMENTS;
             double second = Math.PI * 2d * (index + 1) / SEGMENTS;
-            vertex(matrix, consumer, first, outerRadius, z, red, green, blue, alpha);
-            vertex(matrix, consumer, second, outerRadius, z, red, green, blue, alpha);
-            vertex(matrix, consumer, second, innerRadius, z, red, green, blue, alpha);
-            vertex(matrix, consumer, first, innerRadius, z, red, green, blue, alpha);
+            vertex(matrix, consumer, first, outerRadius, frontZ, red, green, blue, alpha);
+            vertex(matrix, consumer, second, outerRadius, frontZ, red, green, blue, alpha);
+            vertex(matrix, consumer, second, innerRadius, frontZ, red, green, blue, alpha);
+            vertex(matrix, consumer, first, innerRadius, frontZ, red, green, blue, alpha);
+
+            vertex(matrix, consumer, first, innerRadius, backZ, red, green, blue, alpha);
+            vertex(matrix, consumer, second, innerRadius, backZ, red, green, blue, alpha);
+            vertex(matrix, consumer, second, outerRadius, backZ, red, green, blue, alpha);
+            vertex(matrix, consumer, first, outerRadius, backZ, red, green, blue, alpha);
+
+            vertex(matrix, consumer, first, outerRadius, backZ, red, green, blue, alpha);
+            vertex(matrix, consumer, second, outerRadius, backZ, red, green, blue, alpha);
+            vertex(matrix, consumer, second, outerRadius, frontZ, red, green, blue, alpha);
+            vertex(matrix, consumer, first, outerRadius, frontZ, red, green, blue, alpha);
+
+            vertex(matrix, consumer, first, innerRadius, frontZ, red, green, blue, alpha);
+            vertex(matrix, consumer, second, innerRadius, frontZ, red, green, blue, alpha);
+            vertex(matrix, consumer, second, innerRadius, backZ, red, green, blue, alpha);
+            vertex(matrix, consumer, first, innerRadius, backZ, red, green, blue, alpha);
         }
     }
 
@@ -152,31 +216,98 @@ public final class ForgedHaloRenderer implements ICurioRenderer {
             int green,
             int blue,
             int alpha,
-            float z) {
+            float centerZ) {
         float directionX = (float) Math.cos(angle);
         float directionY = (float) Math.sin(angle);
         float perpendicularX = -directionY * halfWidth;
         float perpendicularY = directionX * halfWidth;
-        consumer.vertex(matrix,
-                        directionX * innerRadius + perpendicularX,
-                        directionY * innerRadius + perpendicularY,
-                        z)
-                .color(red, green, blue, alpha).endVertex();
-        consumer.vertex(matrix,
-                        directionX * outerRadius + perpendicularX,
-                        directionY * outerRadius + perpendicularY,
-                        z)
-                .color(red, green, blue, alpha).endVertex();
-        consumer.vertex(matrix,
-                        directionX * outerRadius - perpendicularX,
-                        directionY * outerRadius - perpendicularY,
-                        z)
-                .color(red, green, blue, alpha).endVertex();
-        consumer.vertex(matrix,
-                        directionX * innerRadius - perpendicularX,
-                        directionY * innerRadius - perpendicularY,
-                        z)
-                .color(red, green, blue, alpha).endVertex();
+        float innerLeftX = directionX * innerRadius + perpendicularX;
+        float innerLeftY = directionY * innerRadius + perpendicularY;
+        float outerLeftX = directionX * outerRadius + perpendicularX;
+        float outerLeftY = directionY * outerRadius + perpendicularY;
+        float outerRightX = directionX * outerRadius - perpendicularX;
+        float outerRightY = directionY * outerRadius - perpendicularY;
+        float innerRightX = directionX * innerRadius - perpendicularX;
+        float innerRightY = directionY * innerRadius - perpendicularY;
+        float frontZ = centerZ + SURFACE_HALF_DEPTH;
+        float backZ = centerZ - SURFACE_HALF_DEPTH;
+
+        quad(matrix, consumer,
+                innerRightX, innerRightY, frontZ,
+                outerRightX, outerRightY, frontZ,
+                outerLeftX, outerLeftY, frontZ,
+                innerLeftX, innerLeftY, frontZ,
+                red, green, blue, alpha);
+        quad(matrix, consumer,
+                innerLeftX, innerLeftY, backZ,
+                outerLeftX, outerLeftY, backZ,
+                outerRightX, outerRightY, backZ,
+                innerRightX, innerRightY, backZ,
+                red, green, blue, alpha);
+        quad(matrix, consumer,
+                innerLeftX, innerLeftY, frontZ,
+                outerLeftX, outerLeftY, frontZ,
+                outerLeftX, outerLeftY, backZ,
+                innerLeftX, innerLeftY, backZ,
+                red, green, blue, alpha);
+        quad(matrix, consumer,
+                outerRightX, outerRightY, frontZ,
+                innerRightX, innerRightY, frontZ,
+                innerRightX, innerRightY, backZ,
+                outerRightX, outerRightY, backZ,
+                red, green, blue, alpha);
+        quad(matrix, consumer,
+                outerLeftX, outerLeftY, frontZ,
+                outerRightX, outerRightY, frontZ,
+                outerRightX, outerRightY, backZ,
+                outerLeftX, outerLeftY, backZ,
+                red, green, blue, alpha);
+        quad(matrix, consumer,
+                innerRightX, innerRightY, frontZ,
+                innerLeftX, innerLeftY, frontZ,
+                innerLeftX, innerLeftY, backZ,
+                innerRightX, innerRightY, backZ,
+                red, green, blue, alpha);
+    }
+
+    private static void quad(
+            Matrix4f matrix,
+            VertexConsumer consumer,
+            float firstX,
+            float firstY,
+            float firstZ,
+            float secondX,
+            float secondY,
+            float secondZ,
+            float thirdX,
+            float thirdY,
+            float thirdZ,
+            float fourthX,
+            float fourthY,
+            float fourthZ,
+            int red,
+            int green,
+            int blue,
+            int alpha) {
+        pointVertex(matrix, consumer, firstX, firstY, firstZ, red, green, blue, alpha);
+        pointVertex(matrix, consumer, secondX, secondY, secondZ, red, green, blue, alpha);
+        pointVertex(matrix, consumer, thirdX, thirdY, thirdZ, red, green, blue, alpha);
+        pointVertex(matrix, consumer, fourthX, fourthY, fourthZ, red, green, blue, alpha);
+    }
+
+    private static void pointVertex(
+            Matrix4f matrix,
+            VertexConsumer consumer,
+            float x,
+            float y,
+            float z,
+            int red,
+            int green,
+            int blue,
+            int alpha) {
+        consumer.vertex(matrix, x, y, z)
+                .color(red, green, blue, alpha)
+                .endVertex();
     }
 
     private static void vertex(

@@ -13,6 +13,7 @@ import org.joml.Matrix4f;
 
 public final class LightStaffRenderer extends EntityRenderer<LightStaffEntity> {
     private static final int RING_SEGMENTS = 48;
+    private static final float RING_HALF_DEPTH = 0.02f;
 
     public LightStaffRenderer(EntityRendererProvider.Context context) {
         super(context);
@@ -60,11 +61,66 @@ public final class LightStaffRenderer extends EntityRenderer<LightStaffEntity> {
             float firstZ = (float) Math.sin(first) * radius;
             float secondX = (float) Math.cos(second) * radius;
             float secondZ = (float) Math.sin(second) * radius;
-            consumer.vertex(matrix, firstX, bottom, firstZ).color(red, green, blue, alpha).endVertex();
-            consumer.vertex(matrix, firstX, top, firstZ).color(red, green, blue, alpha).endVertex();
-            consumer.vertex(matrix, secondX, top, secondZ).color(red, green, blue, alpha).endVertex();
-            consumer.vertex(matrix, secondX, bottom, secondZ).color(red, green, blue, alpha).endVertex();
+            pointVertex(matrix, consumer, firstX, bottom, firstZ, red, green, blue, alpha);
+            pointVertex(matrix, consumer, firstX, top, firstZ, red, green, blue, alpha);
+            pointVertex(matrix, consumer, secondX, top, secondZ, red, green, blue, alpha);
+            pointVertex(matrix, consumer, secondX, bottom, secondZ, red, green, blue, alpha);
         }
+        renderBeamCap(matrix, consumer, radius, bottom, false, red, green, blue, alpha);
+        renderBeamCap(matrix, consumer, radius, top, true, red, green, blue, alpha);
+    }
+
+    private static void renderBeamCap(
+            Matrix4f matrix,
+            VertexConsumer consumer,
+            float radius,
+            float y,
+            boolean facesUp,
+            int red,
+            int green,
+            int blue,
+            int alpha) {
+        int[][] capQuads = {
+                {0, 1, 2, 3},
+                {0, 3, 4, 7},
+                {4, 5, 6, 7}
+        };
+        for (int[] capQuad : capQuads) {
+            if (facesUp) {
+                for (int index = capQuad.length - 1; index >= 0; index--) {
+                    beamCapVertex(matrix, consumer, radius, y, capQuad[index],
+                            red, green, blue, alpha);
+                }
+            } else {
+                for (int vertexIndex : capQuad) {
+                    beamCapVertex(matrix, consumer, radius, y, vertexIndex,
+                            red, green, blue, alpha);
+                }
+            }
+        }
+    }
+
+    private static void beamCapVertex(
+            Matrix4f matrix,
+            VertexConsumer consumer,
+            float radius,
+            float y,
+            int vertexIndex,
+            int red,
+            int green,
+            int blue,
+            int alpha) {
+        double angle = Math.PI * 2d * vertexIndex / 8d;
+        pointVertex(
+                matrix,
+                consumer,
+                (float) Math.cos(angle) * radius,
+                y,
+                (float) Math.sin(angle) * radius,
+                red,
+                green,
+                blue,
+                alpha);
     }
 
     private static void renderVerticalRing(
@@ -80,16 +136,61 @@ public final class LightStaffRenderer extends EntityRenderer<LightStaffEntity> {
             int alpha) {
         float directionX = (float) Math.cos(planeAngle);
         float directionZ = (float) Math.sin(planeAngle);
+        float normalX = -directionZ;
+        float normalZ = directionX;
         for (int index = 0; index < RING_SEGMENTS; index++) {
             double first = Math.PI * 2d * index / RING_SEGMENTS;
             double second = Math.PI * 2d * (index + 1) / RING_SEGMENTS;
-            ringVertex(matrix, consumer, first, outerRadius, centerY, directionX, directionZ,
+            ringVertex(matrix, consumer, first, outerRadius, centerY,
+                    directionX, directionZ, normalX, normalZ, RING_HALF_DEPTH,
                     red, green, blue, alpha);
-            ringVertex(matrix, consumer, second, outerRadius, centerY, directionX, directionZ,
+            ringVertex(matrix, consumer, second, outerRadius, centerY,
+                    directionX, directionZ, normalX, normalZ, RING_HALF_DEPTH,
                     red, green, blue, alpha);
-            ringVertex(matrix, consumer, second, innerRadius, centerY, directionX, directionZ,
+            ringVertex(matrix, consumer, second, innerRadius, centerY,
+                    directionX, directionZ, normalX, normalZ, RING_HALF_DEPTH,
                     red, green, blue, alpha);
-            ringVertex(matrix, consumer, first, innerRadius, centerY, directionX, directionZ,
+            ringVertex(matrix, consumer, first, innerRadius, centerY,
+                    directionX, directionZ, normalX, normalZ, RING_HALF_DEPTH,
+                    red, green, blue, alpha);
+
+            ringVertex(matrix, consumer, first, innerRadius, centerY,
+                    directionX, directionZ, normalX, normalZ, -RING_HALF_DEPTH,
+                    red, green, blue, alpha);
+            ringVertex(matrix, consumer, second, innerRadius, centerY,
+                    directionX, directionZ, normalX, normalZ, -RING_HALF_DEPTH,
+                    red, green, blue, alpha);
+            ringVertex(matrix, consumer, second, outerRadius, centerY,
+                    directionX, directionZ, normalX, normalZ, -RING_HALF_DEPTH,
+                    red, green, blue, alpha);
+            ringVertex(matrix, consumer, first, outerRadius, centerY,
+                    directionX, directionZ, normalX, normalZ, -RING_HALF_DEPTH,
+                    red, green, blue, alpha);
+
+            ringVertex(matrix, consumer, first, outerRadius, centerY,
+                    directionX, directionZ, normalX, normalZ, -RING_HALF_DEPTH,
+                    red, green, blue, alpha);
+            ringVertex(matrix, consumer, second, outerRadius, centerY,
+                    directionX, directionZ, normalX, normalZ, -RING_HALF_DEPTH,
+                    red, green, blue, alpha);
+            ringVertex(matrix, consumer, second, outerRadius, centerY,
+                    directionX, directionZ, normalX, normalZ, RING_HALF_DEPTH,
+                    red, green, blue, alpha);
+            ringVertex(matrix, consumer, first, outerRadius, centerY,
+                    directionX, directionZ, normalX, normalZ, RING_HALF_DEPTH,
+                    red, green, blue, alpha);
+
+            ringVertex(matrix, consumer, first, innerRadius, centerY,
+                    directionX, directionZ, normalX, normalZ, RING_HALF_DEPTH,
+                    red, green, blue, alpha);
+            ringVertex(matrix, consumer, second, innerRadius, centerY,
+                    directionX, directionZ, normalX, normalZ, RING_HALF_DEPTH,
+                    red, green, blue, alpha);
+            ringVertex(matrix, consumer, second, innerRadius, centerY,
+                    directionX, directionZ, normalX, normalZ, -RING_HALF_DEPTH,
+                    red, green, blue, alpha);
+            ringVertex(matrix, consumer, first, innerRadius, centerY,
+                    directionX, directionZ, normalX, normalZ, -RING_HALF_DEPTH,
                     red, green, blue, alpha);
         }
     }
@@ -102,16 +203,37 @@ public final class LightStaffRenderer extends EntityRenderer<LightStaffEntity> {
             float centerY,
             float directionX,
             float directionZ,
+            float normalX,
+            float normalZ,
+            float depth,
             int red,
             int green,
             int blue,
             int alpha) {
         float horizontal = (float) Math.cos(angle) * radius;
-        consumer.vertex(
-                        matrix,
-                        directionX * horizontal,
-                        centerY + (float) Math.sin(angle) * radius,
-                        directionZ * horizontal)
+        pointVertex(
+                matrix,
+                consumer,
+                directionX * horizontal + normalX * depth,
+                centerY + (float) Math.sin(angle) * radius,
+                directionZ * horizontal + normalZ * depth,
+                red,
+                green,
+                blue,
+                alpha);
+    }
+
+    private static void pointVertex(
+            Matrix4f matrix,
+            VertexConsumer consumer,
+            float x,
+            float y,
+            float z,
+            int red,
+            int green,
+            int blue,
+            int alpha) {
+        consumer.vertex(matrix, x, y, z)
                 .color(red, green, blue, alpha)
                 .endVertex();
     }

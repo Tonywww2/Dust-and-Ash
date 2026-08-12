@@ -1,6 +1,7 @@
 package com.tonywww.dustandash.item;
 
 import com.tonywww.dustandash.DustAndAshConfig;
+import com.tonywww.dustandash.config.ImbaRules;
 import com.tonywww.dustandash.gecko.render.GaleOtaijutsuRenderer;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.core.particles.ParticleTypes;
@@ -61,8 +62,8 @@ public class GaleOtaijutsu extends SwordItem implements GeoItem {
 
             }
 
-                float extraDamage = (float) ((player.fallDistance + 1)
-                    * DustAndAshConfig.WEAPONS.galeOtaijutsuDamageRate.get());
+                float extraDamage = (float) ((player.fallDistance + ImbaRules.galeDamageOffset())
+                    * ImbaRules.galeDamageMultiplier());
             entity.hurt(player.damageSources().playerAttack(player), extraDamage);
             entity.invulnerableTime = 0;
             player.resetFallDistance();
@@ -98,7 +99,7 @@ public class GaleOtaijutsu extends SwordItem implements GeoItem {
                 );
 
                 world.playSound(null, playerEntity.blockPosition(), SoundEvents.PISTON_EXTEND, SoundSource.PLAYERS, 1f, 1f);
-                playerEntity.getCooldowns().addCooldown(this, 40);
+                playerEntity.getCooldowns().addCooldown(this, ImbaRules.galeCooldownTicks());
                 if (playerEntity instanceof ServerPlayer) {
                     playerEntity.setDeltaMovement(vec);
                     ((ServerPlayer) playerEntity).connection.send(new ClientboundSetEntityMotionPacket(playerEntity));

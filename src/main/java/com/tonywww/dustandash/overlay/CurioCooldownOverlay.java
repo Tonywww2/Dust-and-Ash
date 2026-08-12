@@ -1,5 +1,6 @@
 package com.tonywww.dustandash.overlay;
 
+import com.tonywww.dustandash.DustAndAshConfig;
 import com.tonywww.dustandash.client.cooldown.CurioCooldownOverlayApi;
 import com.tonywww.dustandash.client.cooldown.CurioCooldownOverlayApi.VisibleCooldown;
 import net.minecraft.client.Minecraft;
@@ -34,8 +35,8 @@ public final class CurioCooldownOverlay implements IGuiOverlay {
         }
 
         List<VisibleCooldown> cooldowns = CurioCooldownOverlayApi.visibleCooldowns();
-        int x = 8;
-        int y = 8;
+        int x = DustAndAshConfig.CLIENT.cooldownOverlayX.get();
+        int y = DustAndAshConfig.CLIENT.cooldownOverlayY.get();
         for (VisibleCooldown cooldown : cooldowns) {
             ItemStack icon = new ItemStack(cooldown.definition().item().get());
             graphics.renderItem(icon, x, y);

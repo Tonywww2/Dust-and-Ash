@@ -2,7 +2,9 @@ package com.tonywww.dustandash.event;
 
 import com.tonywww.dustandash.DustAndAsh;
 import com.tonywww.dustandash.DustAndAshConfig;
+import com.tonywww.dustandash.config.ImbaRules;
 import com.tonywww.dustandash.cooldown.CurioCooldownManager;
+import com.tonywww.dustandash.damage.DAADamageTypes;
 import com.tonywww.dustandash.entity.LightStaffEntity;
 import com.tonywww.dustandash.registry.DAAItems;
 import com.tonywww.dustandash.registry.DAAParticles;
@@ -11,6 +13,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -41,6 +44,14 @@ public final class CurioCombatEvents {
             return;
         }
 
+        if (ImbaRules.darkHaloBlocksSourcelessDamage()
+                && event.getSource().getEntity() == null
+                && !event.getSource().is(ModTags.DamageTypes.DARK_HALO_EXCLUDED)
+                && isEquipped(player, DAAItems.DARK_FORGED_HALO.get())) {
+            event.setCanceled(true);
+            return;
+        }
+
         long gameTime = player.level().getGameTime();
         CompoundTag data = player.getPersistentData();
         if (!isEquipped(player, DAAItems.JUDGEMENT.get())) {
@@ -48,6 +59,7 @@ public final class CurioCombatEvents {
         }
         if (gameTime < data.getLong(JUDGEMENT_INVULNERABLE_UNTIL)) {
             event.setCanceled(true);
+            reflectJudgementDamage(player, event);
             return;
         }
 
@@ -65,7 +77,9 @@ public final class CurioCombatEvents {
 
     @SubscribeEvent
     public static void onLivingDamage(LivingDamageEvent event) {
-        if (event.getEntity().level().isClientSide() || event.getAmount() <= 0f) {
+        if (event.getEntity().level().isClientSide()
+                || event.getAmount() <= 0f
+                || event.getSource().is(DAADamageTypes.JUDGEMENT_REFLECTION)) {
             return;
         }
 
@@ -89,7 +103,8 @@ public final class CurioCombatEvents {
             return;
         }
 
-        if (CurioCooldownManager.isOnCooldown(attacker, CurioCooldownManager.LIGHT_FORGED_HALO)) {
+        if (!ImbaRules.lightHaloIgnoresCooldown()
+            && CurioCooldownManager.isOnCooldown(attacker, CurioCooldownManager.LIGHT_FORGED_HALO)) {
             return;
         }
 
@@ -100,9 +115,11 @@ public final class CurioCombatEvents {
             return;
         }
 
-        int cooldown = DustAndAshConfig.CURIOS.lightHaloCooldownTicks.get();
-        CurioCooldownManager.start(attacker, CurioCooldownManager.LIGHT_FORGED_HALO, cooldown);
-        attacker.getCooldowns().addCooldown(DAAItems.LIGHT_FORGED_HALO.get(), cooldown);
+        if (!ImbaRules.lightHaloIgnoresCooldown()) {
+            int cooldown = DustAndAshConfig.CURIOS.lightHaloCooldownTicks.get();
+            CurioCooldownManager.start(attacker, CurioCooldownManager.LIGHT_FORGED_HALO, cooldown);
+            attacker.getCooldowns().addCooldown(DAAItems.LIGHT_FORGED_HALO.get(), cooldown);
+        }
         attacker.level().addFreshEntity(new LightStaffEntity(
                 (net.minecraft.server.level.ServerLevel) attacker.level(), attacker, target));
     }
@@ -115,6 +132,14 @@ public final class CurioCombatEvents {
         }
 
         LivingEntity livingSource = sourceEntity instanceof LivingEntity living ? living : null;
+        if (sourceEntity == null && ImbaRules.darkHaloBlocksSourcelessDamage()) {
+            event.setAmount(0f);
+            return;
+        }
+        if (livingSource != null && isMarkedBy(livingSource, wearer)) {
+            event.setAmount(event.getAmount() * ImbaRules.darkHaloMarkedAttackerDamageMultiplier());
+        }
+
         int threshold = DustAndAshConfig.CURIOS.darkHaloBrightnessThreshold.get();
         if (!VoidRingEvents.bypassesHaloBrightness(wearer)
             && brightness(wearer) > threshold
@@ -143,18 +168,41 @@ public final class CurioCombatEvents {
             return;
         }
 
-        CompoundTag marks = target.getPersistentData().getCompound(DARK_HALO_MARKS);
-        String attackerId = attacker.getStringUUID();
-        long expiresAt = marks.getLong(attackerId);
-        if (expiresAt <= attacker.level().getGameTime()) {
-            if (marks.contains(attackerId)) {
-                marks.remove(attackerId);
-                target.getPersistentData().put(DARK_HALO_MARKS, marks);
-            }
+        if (!isMarkedBy(target, attacker)) {
             return;
         }
 
         attacker.heal(damage * DustAndAshConfig.CURIOS.darkHaloLifeStealMultiplier.get().floatValue());
+    }
+
+    private static boolean isMarkedBy(LivingEntity target, Player marker) {
+        CompoundTag marks = target.getPersistentData().getCompound(DARK_HALO_MARKS);
+        String markerId = marker.getStringUUID();
+        long expiresAt = marks.getLong(markerId);
+        if (expiresAt > marker.level().getGameTime()) {
+            return true;
+        }
+        if (marks.contains(markerId)) {
+            marks.remove(markerId);
+            target.getPersistentData().put(DARK_HALO_MARKS, marks);
+        }
+        return false;
+    }
+
+    private static void reflectJudgementDamage(ServerPlayer wearer, LivingAttackEvent event) {
+        if (!ImbaRules.judgementReflectsDamage()
+                || event.getSource().is(DAADamageTypes.JUDGEMENT_REFLECTION)) {
+            return;
+        }
+
+        Entity sourceEntity = event.getSource().getEntity();
+        if (!(sourceEntity instanceof LivingEntity attacker) || attacker == wearer) {
+            return;
+        }
+
+        attacker.hurt(
+                DAADamageTypes.judgementReflection((ServerLevel) wearer.level(), wearer),
+                event.getAmount() * ImbaRules.judgementReflectionMultiplier());
     }
 
     private static void applyRandomEffects(Player wearer, LivingEntity target) {

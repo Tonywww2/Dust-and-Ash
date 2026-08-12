@@ -1,6 +1,7 @@
 package com.tonywww.dustandash.item;
 
 import com.tonywww.dustandash.DustAndAshConfig;
+import com.tonywww.dustandash.config.ImbaRules;
 import com.tonywww.dustandash.entity.LightningProjectileEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.DustParticleOptions;
@@ -33,9 +34,6 @@ public class WhiteLightning extends SwordItem {
     private static final String CHARGES_TAG = "charges";
     private static final String ADVANCED_CHARGES_TAG = "advanced_charges";
 
-    private static final int MAX_CHARGE = 16;
-    private static final int ADVANCED_MAX_CHARGE = 10;
-
     public static final DustParticleOptions PARTICLE_BLUE = new DustParticleOptions(new Vector3f(0, 1f, 1f), 2.0F);
 
     public WhiteLightning(Tier pTier, int pAttackDamageModifier, float pAttackSpeedModifier, Properties pProperties) {
@@ -50,21 +48,23 @@ public class WhiteLightning extends SwordItem {
         if (!level.isClientSide()) {
             boolean damageFlag = false;
             boolean lightningFlag = false;
-            float targetHealth = 0;
+            float targetHealthBasis = 0;
 
             // normal mode
             if (!DustAndAshConfig.WEAPONS.whiteLightningCooldownCheck.get()
                     || player.getAttackStrengthScale(0.2f) >= 1) {
-                if (getAttackCounts(stack) >= 2) {
-                    setAttackCounts(stack, getAttackCounts(stack) - 2);
-                    setCharges(stack, getCharges(stack) + 2);
+                int attackCounts = getAttackCounts(stack) + 1;
+                int hitsPerChargeGain = ImbaRules.whiteLightningHitsPerChargeGain();
+                if (attackCounts >= hitsPerChargeGain) {
+                    setAttackCounts(stack, attackCounts - hitsPerChargeGain);
+                    setCharges(stack, getCharges(stack) + ImbaRules.whiteLightningChargeGain());
 
                     player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 100, 0));
                     player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 160, 0));
                     lightningFlag = true;
 
                 } else {
-                    setAttackCounts(stack, getAttackCounts(stack) + 1);
+                    setAttackCounts(stack, attackCounts);
                     ((ServerLevel) level).sendParticles(
                             PARTICLE_BLUE,
                             entity.getX(),
@@ -82,12 +82,12 @@ public class WhiteLightning extends SwordItem {
                     // under release
                     damageFlag = true;
                     if (entity instanceof LivingEntity livingEntity) {
-                        targetHealth = livingEntity.getHealth();
+                        targetHealthBasis = healthBasis(livingEntity);
 
                     } else if (entity instanceof PartEntity partEntity) {
                         entity = partEntity.getParent();
                         if (entity instanceof LivingEntity livingEntity) {
-                            targetHealth = livingEntity.getHealth();
+                            targetHealthBasis = healthBasis(livingEntity);
 
                         }
 
@@ -116,7 +116,7 @@ public class WhiteLightning extends SwordItem {
             }
 
             if (damageFlag) {
-                double damage = (targetHealth * DustAndAshConfig.WEAPONS.whiteLightningExtraPercentage.get())
+                double damage = (targetHealthBasis * DustAndAshConfig.WEAPONS.whiteLightningExtraPercentage.get())
                     + (DustAndAshConfig.WEAPONS.whiteLightningExtraDamage.get() * 2);
                 entity.hurt(player.damageSources().indirectMagic(entity, player), (float) damage);
                 setAdvCharges(stack, getAdvCharges(stack) - 1);
@@ -200,9 +200,10 @@ public class WhiteLightning extends SwordItem {
 
                 } else {
                     // release
-                    if (getCharges(stack) >= 8) {
-                        setCharges(stack, getCharges(stack) - 8);
-                        setAdvCharges(stack, getAdvCharges(stack) + 10);
+                    int conversionCost = ImbaRules.whiteLightningConversionCost();
+                    if (getCharges(stack) >= conversionCost) {
+                        setCharges(stack, getCharges(stack) - conversionCost);
+                        setAdvCharges(stack, getAdvCharges(stack) + ImbaRules.whiteLightningConversionGain());
                         player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 400, 3));
 
                     } else {
@@ -240,7 +241,7 @@ public class WhiteLightning extends SwordItem {
 
     public static void setCharges(ItemStack stack, int val) {
         CompoundTag compoundtag = stack.getOrCreateTag();
-        compoundtag.putInt(CHARGES_TAG, Math.min(val, MAX_CHARGE));
+        compoundtag.putInt(CHARGES_TAG, Math.min(val, ImbaRules.whiteLightningMaxCharge()));
     }
 
     public static int getCharges(ItemStack stack) {
@@ -254,7 +255,9 @@ public class WhiteLightning extends SwordItem {
 
     public static void setAdvCharges(ItemStack stack, int val) {
         CompoundTag compoundtag = stack.getOrCreateTag();
-        compoundtag.putInt(ADVANCED_CHARGES_TAG, Math.min(val, ADVANCED_MAX_CHARGE));
+        compoundtag.putInt(
+            ADVANCED_CHARGES_TAG,
+            Math.min(val, ImbaRules.whiteLightningMaxAdvancedCharge()));
 
     }
 
@@ -280,6 +283,12 @@ public class WhiteLightning extends SwordItem {
 
         }
         return 0;
+    }
+
+    private static float healthBasis(LivingEntity entity) {
+        return ImbaRules.whiteLightningUsesMaximumHealth()
+                ? entity.getMaxHealth()
+                : entity.getHealth();
     }
 
     public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltip, TooltipFlag pFlag) {

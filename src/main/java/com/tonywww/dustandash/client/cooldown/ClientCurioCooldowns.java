@@ -32,6 +32,10 @@ public final class ClientCurioCooldowns {
         return Map.copyOf(ACTIVE);
     }
 
+    public static void clear() {
+        ACTIVE.clear();
+    }
+
     public record ActiveCooldown(long endsAtEpochMillis, int durationTicks) {
         public float progress(long now) {
             long durationMillis = (long) this.durationTicks * MILLIS_PER_TICK;

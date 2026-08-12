@@ -2,6 +2,7 @@ package com.tonywww.dustandash.event;
 
 import com.tonywww.dustandash.DustAndAsh;
 import com.tonywww.dustandash.DustAndAshConfig;
+import com.tonywww.dustandash.config.ImbaRules;
 import com.tonywww.dustandash.cooldown.CurioCooldownManager;
 import com.tonywww.dustandash.game.TemporaryGameModeController;
 import com.tonywww.dustandash.registry.DAAItems;
@@ -39,7 +40,8 @@ public final class VoidRingEvents {
         player.getCooldowns().addCooldown(DAAItems.VOID_RING.get(), cooldown);
         TemporaryGameModeController.enterSpectator(
                 player,
-                DustAndAshConfig.CURIOS.voidRingSpectatorDurationTicks.get());
+                DustAndAshConfig.CURIOS.voidRingSpectatorDurationTicks.get(),
+                ImbaRules.voidRingGrantsResistance());
     }
 
     public static boolean isVoidRingEquipped(ServerPlayer player) {

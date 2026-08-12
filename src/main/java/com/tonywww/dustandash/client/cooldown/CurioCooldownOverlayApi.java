@@ -1,5 +1,7 @@
 package com.tonywww.dustandash.client.cooldown;
 
+import com.tonywww.dustandash.client.config.ClientImbaMode;
+import com.tonywww.dustandash.cooldown.CurioCooldownManager;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 
@@ -35,6 +37,10 @@ public final class CurioCooldownOverlayApi {
         Map<ResourceLocation, ClientCurioCooldowns.ActiveCooldown> active = ClientCurioCooldowns.active();
         List<VisibleCooldown> visible = new ArrayList<>();
         for (Definition definition : DEFINITIONS.values()) {
+            if (ClientImbaMode.enabled()
+                    && definition.id().equals(CurioCooldownManager.LIGHT_FORGED_HALO)) {
+                continue;
+            }
             ClientCurioCooldowns.ActiveCooldown cooldown = active.get(definition.id());
             if (cooldown != null) {
                 visible.add(new VisibleCooldown(definition, cooldown.progress(now)));

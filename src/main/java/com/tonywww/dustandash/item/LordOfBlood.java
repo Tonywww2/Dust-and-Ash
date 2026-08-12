@@ -1,6 +1,7 @@
 package com.tonywww.dustandash.item;
 
 import com.tonywww.dustandash.DustAndAshConfig;
+import com.tonywww.dustandash.config.ImbaRules;
 import com.tonywww.dustandash.gecko.render.LordOfBloodRenderer;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.core.BlockPos;
@@ -163,8 +164,14 @@ public class LordOfBlood extends SwordItem implements GeoItem {
             List<LivingEntity> entities = level.getEntitiesOfClass(LivingEntity.class, getArea(entity.blockPosition(), radius), VALID_ENTITY);
             DamageSource damageSource = level.damageSources().thorns(entity);
 
-            setCharges(stack, getCharges(stack) + 1);
-            int curStacks = getCharges(stack);
+            int curStacks;
+            if (ImbaRules.lordOfBloodUsesThirdStage()) {
+                curStacks = 3;
+                setCharges(stack, curStacks);
+            } else {
+                setCharges(stack, getCharges(stack) + 1);
+                curStacks = getCharges(stack);
+            }
             switch (curStacks) {
                 case 1 -> {
                     if (!level.isClientSide()) {
@@ -314,7 +321,7 @@ public class LordOfBlood extends SwordItem implements GeoItem {
 
     @Override
     public int getUseDuration(ItemStack stack) {
-        return 30;
+        return ImbaRules.lordOfBloodUseDurationTicks();
     }
 
     @Override

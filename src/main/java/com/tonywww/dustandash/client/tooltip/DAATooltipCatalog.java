@@ -1,6 +1,7 @@
 package com.tonywww.dustandash.client.tooltip;
 
 import com.tonywww.dustandash.DustAndAshConfig;
+import com.tonywww.dustandash.config.ImbaRules;
 import com.tonywww.dustandash.item.WhiteLightning;
 import com.tonywww.dustandash.registry.DAAItems;
 import net.minecraft.ChatFormatting;
@@ -38,60 +39,25 @@ public final class DAATooltipCatalog {
                 stack -> args(seconds(100)));
         exact(DAAItems.TITANIUM_ALLOY_GREAT_SWORD.get(), "titanium_alloy_great_sword", 2, lines(1, 2),
                 stack -> args(seconds(100)));
-        exact(DAAItems.GALE_OTAIJUTSU.get(), "gale_otaijutsu", 3, lines(1, 2, 3), stack -> args(
-                number(DustAndAshConfig.WEAPONS.galeOtaijutsuDamageRate.get()),
-                seconds(90), seconds(300), seconds(100), seconds(40)));
-        exact(DAAItems.SUNBURN_MEGA_SWORD.get(), "sunburn_mega_sword", 3, lines(1, 2), stack -> args(
-                seconds(80), seconds(200), blocks(2.25d), seconds(35)));
-        exact(DAAItems.WHITE_LIGHTNING.get(), "white_lightning", 4, lines(1, 2, 3, 4), stack -> args(
-                number(WhiteLightning.getCharges(stack)), number(16),
-                number(WhiteLightning.getAdvCharges(stack)), number(10), number(8),
-                percent(DustAndAshConfig.WEAPONS.whiteLightningExtraPercentage.get()),
-                number(DustAndAshConfig.WEAPONS.whiteLightningExtraDamage.get() * 2d), number(5)));
-        exact(DAAItems.LORD_OF_BLOOD.get(), "lord_of_blood", 4, lines(1, 2, 3, 4), stack -> args(
-                blocks(DustAndAshConfig.WEAPONS.lordOfBloodRadius.get()), number(3), number(2),
-                literal("3 / 4 / 5"), seconds(15), seconds(30)));
-        exact(DAAItems.ROTTEN_BLADE.get(), "rotten_blade", 4, lines(1, 2, 3, 4), stack -> args(
-                number(6), number(DustAndAshConfig.WEAPONS.rottenBladeExtraDamage.get()),
-                number(DustAndAshConfig.WEAPONS.rottenBladeExtraDamage.get() / 2d), number(3),
-                blocks(DustAndAshConfig.WEAPONS.rottenBladeRadius.get()),
-                blocks(DustAndAshConfig.WEAPONS.rottenBladeHeight.get()),
-                number(8), seconds(200), seconds(60)));
+        imbaExact(DAAItems.GALE_OTAIJUTSU.get(), "gale_otaijutsu", 3, lines(1, 2, 3),
+                stack -> galeOtaijutsuArgs(false), stack -> galeOtaijutsuArgs(true));
+        imbaExact(DAAItems.SUNBURN_MEGA_SWORD.get(), "sunburn_mega_sword", 3, lines(1, 2),
+                stack -> sunburnMegaSwordArgs(false), stack -> sunburnMegaSwordArgs(true));
+        imbaExact(DAAItems.WHITE_LIGHTNING.get(), "white_lightning", 4, lines(1, 2, 3, 4),
+                stack -> whiteLightningArgs(stack, false), stack -> whiteLightningArgs(stack, true));
+        imbaExact(DAAItems.LORD_OF_BLOOD.get(), "lord_of_blood", 4, lines(1, 2, 3, 4),
+                stack -> lordOfBloodArgs(false), stack -> lordOfBloodArgs(true));
+        imbaExact(DAAItems.ROTTEN_BLADE.get(), "rotten_blade", 4, lines(1, 2, 3, 4),
+                stack -> rottenBladeArgs(false), stack -> rottenBladeArgs(true));
 
-        exact(DAAItems.JUDGEMENT.get(), "judgement", 2, lines(1, 2), stack -> args(
-                seconds(DustAndAshConfig.CURIOS.judgementInvulnerabilityTicks.get()),
-                seconds(DustAndAshConfig.CURIOS.judgementCooldownTicks.get())));
-        exact(DAAItems.LIGHT_FORGED_HALO.get(), "light_forged_halo", 4, lines(1, 2, 3, 4), stack -> args(
-                percent(DustAndAshConfig.CURIOS.lightHaloAttackDamageBonus.get()),
-                number(DustAndAshConfig.CURIOS.lightHaloAttackSpeedBonus.get()),
-                number(DustAndAshConfig.CURIOS.lightHaloBrightnessThreshold.get()),
-                percent(DustAndAshConfig.CURIOS.lightStaffDirectDamageMultiplier.get()),
-                percent(DustAndAshConfig.CURIOS.lightStaffAreaDamageMultiplier.get()),
-                blocks(DustAndAshConfig.CURIOS.lightStaffRadius.get()),
-                blocks(DustAndAshConfig.CURIOS.lightStaffFallHeight.get()),
-                seconds(DustAndAshConfig.CURIOS.lightStaffFallTicks.get()),
-                seconds(DustAndAshConfig.CURIOS.lightHaloCooldownTicks.get()),
-                seconds(DustAndAshConfig.CURIOS.lightStaffImpactLingerTicks.get())));
-        exact(DAAItems.DARK_FORGED_HALO.get(), "dark_forged_halo", 5, lines(1, 2, 3, 4, 5), stack -> args(
-                percent(DustAndAshConfig.CURIOS.darkHaloMaxHealthBonus.get()),
-                percent(DustAndAshConfig.CURIOS.darkHaloArmorBonus.get()),
-                seconds(DustAndAshConfig.CURIOS.darkHaloNightVisionIntervalTicks.get()),
-                seconds(DustAndAshConfig.CURIOS.darkHaloNightVisionDurationTicks.get()),
-                number(DustAndAshConfig.CURIOS.darkHaloBrightnessThreshold.get()),
-                number(DustAndAshConfig.CURIOS.darkHaloEffectCount.get()),
-                seconds(DustAndAshConfig.CURIOS.darkHaloEffectDurationTicks.get()),
-                range(DustAndAshConfig.CURIOS.darkHaloMinimumEffectLevel.get(),
-                        DustAndAshConfig.CURIOS.darkHaloMaximumEffectLevel.get()),
-                seconds(DustAndAshConfig.CURIOS.darkHaloMarkDurationTicks.get()),
-                percent(DustAndAshConfig.CURIOS.darkHaloLifeStealMultiplier.get()),
-                percent(DustAndAshConfig.CURIOS.darkHaloSourcelessHealingMultiplier.get())));
-        exact(DAAItems.VOID_RING.get(), "void_ring", 4, lines(1, 2, 3, 4), stack -> args(
-                percent(DustAndAshConfig.CURIOS.voidRingHealthRestoreMultiplier.get()),
-                number(DustAndAshConfig.CURIOS.voidRingFoodLevel.get()),
-                number(DustAndAshConfig.CURIOS.voidRingSaturationLevel.get()),
-                seconds(DustAndAshConfig.CURIOS.voidRingSpectatorDurationTicks.get()),
-                seconds(DustAndAshConfig.CURIOS.voidRingCooldownTicks.get()),
-                bool(DustAndAshConfig.CURIOS.voidRingBypassesHaloBrightness.get())));
+        imbaExact(DAAItems.JUDGEMENT.get(), "judgement", 2, lines(1, 2),
+                stack -> judgementArgs(false), stack -> judgementArgs(true));
+        imbaExact(DAAItems.LIGHT_FORGED_HALO.get(), "light_forged_halo", 4, lines(1, 2, 3, 4),
+                stack -> lightForgedHaloArgs(false), stack -> lightForgedHaloArgs(true));
+        imbaExact(DAAItems.DARK_FORGED_HALO.get(), "dark_forged_halo", 5, lines(1, 2, 3, 4, 5),
+                stack -> darkForgedHaloArgs(false), stack -> darkForgedHaloArgs(true));
+        imbaExact(DAAItems.VOID_RING.get(), "void_ring", 4, lines(1, 2, 3, 4),
+                stack -> voidRingArgs(false), stack -> voidRingArgs(true));
 
         exact(DAAItems.RAIN_CRYSTAL.get(), "rain_crystal", 2, lines(2),
                 stack -> args(number(1), seconds(200)));
@@ -124,6 +90,121 @@ public final class DAATooltipCatalog {
             DAATooltipApi.ArgumentProvider argumentProvider) {
         DAATooltipApi.register(item, BASE + key, detailLines, true, exactDetailLines, argumentProvider);
     }
+
+        private static void imbaExact(
+                        Item item,
+                        String key,
+                        int detailLines,
+                        int[] exactDetailLines,
+                        DAATooltipApi.ArgumentProvider argumentProvider,
+                        DAATooltipApi.ArgumentProvider imbaArgumentProvider) {
+                DAATooltipApi.registerImba(
+                                item,
+                                BASE + key,
+                                BASE + key + ".imba",
+                                detailLines,
+                                true,
+                                exactDetailLines,
+                                argumentProvider,
+                                imbaArgumentProvider);
+        }
+
+        private static Object[] galeOtaijutsuArgs(boolean imba) {
+                return args(
+                                number(ImbaRules.galeDamageMultiplier(imba)),
+                                seconds(90), seconds(300), seconds(100), seconds(ImbaRules.galeCooldownTicks(imba)));
+        }
+
+        private static Object[] sunburnMegaSwordArgs(boolean imba) {
+                return args(
+                                seconds(ImbaRules.sunburnFireSeconds(imba) * 20),
+                                seconds(ImbaRules.sunburnFireResistanceTicks(imba)),
+                                imba
+                                        ? number(ImbaRules.sunburnExplosionPower(true))
+                                        : blocks(ImbaRules.sunburnExplosionPower(false)),
+                                seconds(ImbaRules.sunburnCooldownTicks(imba)));
+        }
+
+        private static Object[] whiteLightningArgs(ItemStack stack, boolean imba) {
+                return args(
+                                number(WhiteLightning.getCharges(stack)), number(ImbaRules.whiteLightningMaxCharge(imba)),
+                                number(WhiteLightning.getAdvCharges(stack)),
+                                number(ImbaRules.whiteLightningMaxAdvancedCharge(imba)),
+                                number(ImbaRules.whiteLightningConversionCost(imba)),
+                                percent(DustAndAshConfig.WEAPONS.whiteLightningExtraPercentage.get()),
+                                number(DustAndAshConfig.WEAPONS.whiteLightningExtraDamage.get() * 2d), number(5),
+                                number(ImbaRules.whiteLightningHitsPerChargeGain(imba)),
+                                number(ImbaRules.whiteLightningConversionGain()));
+        }
+
+        private static Object[] lordOfBloodArgs(boolean imba) {
+                return args(
+                                blocks(DustAndAshConfig.WEAPONS.lordOfBloodRadius.get()), number(3), number(2),
+                                literal(imba ? "5" : "3 / 4 / 5"), seconds(15),
+                                seconds(ImbaRules.lordOfBloodUseDurationTicks(imba)));
+        }
+
+        private static Object[] rottenBladeArgs(boolean imba) {
+                return args(
+                                number(ImbaRules.rottenBladeRememberedTargets(imba)),
+                                number(DustAndAshConfig.WEAPONS.rottenBladeExtraDamage.get()),
+                                number(DustAndAshConfig.WEAPONS.rottenBladeExtraDamage.get() / 2d),
+                                number(ImbaRules.rottenBladeRecoilDamage(imba)),
+                                blocks(DustAndAshConfig.WEAPONS.rottenBladeRadius.get()),
+                                blocks(DustAndAshConfig.WEAPONS.rottenBladeHeight.get()),
+                                number(8),
+                                seconds(ImbaRules.rottenBladeAreaCooldownTicks(imba)),
+                                seconds(ImbaRules.rottenBladeReleaseCooldownTicks(imba)));
+        }
+
+        private static Object[] judgementArgs(boolean imba) {
+                return args(
+                                seconds(DustAndAshConfig.CURIOS.judgementInvulnerabilityTicks.get()),
+                                seconds(DustAndAshConfig.CURIOS.judgementCooldownTicks.get()),
+                                percent(imba ? ImbaRules.judgementReflectionMultiplier() : 0d));
+        }
+
+        private static Object[] lightForgedHaloArgs(boolean imba) {
+                return args(
+                                percent(DustAndAshConfig.CURIOS.lightHaloAttackDamageBonus.get()),
+                                number(DustAndAshConfig.CURIOS.lightHaloAttackSpeedBonus.get()),
+                                number(DustAndAshConfig.CURIOS.lightHaloBrightnessThreshold.get()),
+                                percent(DustAndAshConfig.CURIOS.lightStaffDirectDamageMultiplier.get()),
+                                percent(DustAndAshConfig.CURIOS.lightStaffAreaDamageMultiplier.get()),
+                                blocks(DustAndAshConfig.CURIOS.lightStaffRadius.get()),
+                                blocks(DustAndAshConfig.CURIOS.lightStaffFallHeight.get()),
+                                seconds(DustAndAshConfig.CURIOS.lightStaffFallTicks.get()),
+                                seconds(ImbaRules.lightHaloCooldownTicks(imba)),
+                                seconds(DustAndAshConfig.CURIOS.lightStaffImpactLingerTicks.get()));
+        }
+
+        private static Object[] darkForgedHaloArgs(boolean imba) {
+                return args(
+                                percent(DustAndAshConfig.CURIOS.darkHaloMaxHealthBonus.get()),
+                                percent(DustAndAshConfig.CURIOS.darkHaloArmorBonus.get()),
+                                seconds(DustAndAshConfig.CURIOS.darkHaloNightVisionIntervalTicks.get()),
+                                seconds(DustAndAshConfig.CURIOS.darkHaloNightVisionDurationTicks.get()),
+                                number(DustAndAshConfig.CURIOS.darkHaloBrightnessThreshold.get()),
+                                number(DustAndAshConfig.CURIOS.darkHaloEffectCount.get()),
+                                seconds(DustAndAshConfig.CURIOS.darkHaloEffectDurationTicks.get()),
+                                range(DustAndAshConfig.CURIOS.darkHaloMinimumEffectLevel.get(),
+                                                DustAndAshConfig.CURIOS.darkHaloMaximumEffectLevel.get()),
+                                seconds(DustAndAshConfig.CURIOS.darkHaloMarkDurationTicks.get()),
+                                percent(DustAndAshConfig.CURIOS.darkHaloLifeStealMultiplier.get()),
+                                percent(DustAndAshConfig.CURIOS.darkHaloSourcelessHealingMultiplier.get()),
+                                percent(1d - ImbaRules.darkHaloMarkedAttackerDamageMultiplier(imba)));
+        }
+
+        private static Object[] voidRingArgs(boolean imba) {
+                return args(
+                                percent(DustAndAshConfig.CURIOS.voidRingHealthRestoreMultiplier.get()),
+                                number(DustAndAshConfig.CURIOS.voidRingFoodLevel.get()),
+                                number(DustAndAshConfig.CURIOS.voidRingSaturationLevel.get()),
+                                seconds(DustAndAshConfig.CURIOS.voidRingSpectatorDurationTicks.get()),
+                                seconds(DustAndAshConfig.CURIOS.voidRingCooldownTicks.get()),
+                                bool(DustAndAshConfig.CURIOS.voidRingBypassesHaloBrightness.get()),
+                                effect(5, ImbaRules.voidRingResistanceDurationTicks()));
+        }
 
     private static int[] lines(int... lines) {
         return lines;

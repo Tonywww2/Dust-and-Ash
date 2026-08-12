@@ -1,5 +1,6 @@
 package com.tonywww.dustandash.item;
 
+import com.tonywww.dustandash.config.ImbaRules;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -34,12 +35,23 @@ public class SunburnMegaSword extends SwordItem {
 
         if (!world.isClientSide()) {
             if (entity instanceof LivingEntity) {
-                player.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 200, 0));
-                entity.setSecondsOnFire(4);
+                player.addEffect(new MobEffectInstance(
+                        MobEffects.FIRE_RESISTANCE,
+                        ImbaRules.sunburnFireResistanceTicks(),
+                        0));
+                entity.setSecondsOnFire(ImbaRules.sunburnFireSeconds());
 
             }
             if (!player.getCooldowns().isOnCooldown(this)) {
-                Explosion explosion = new Explosion(player.level(), player, player.getX(), player.getY() + 0.125d, player.getZ(), 2.25f, true, Explosion.BlockInteraction.KEEP);
+                Explosion explosion = new Explosion(
+                        player.level(),
+                        player,
+                        player.getX(),
+                        player.getY() + 0.125d,
+                        player.getZ(),
+                        ImbaRules.sunburnExplosionPower(),
+                        true,
+                        Explosion.BlockInteraction.KEEP);
                 player.level().playSound(null, player.blockPosition(), SoundEvents.GENERIC_EXPLODE, SoundSource.PLAYERS, 1f, 1f);
                 ((ServerLevel) player.level()).sendParticles(
                         ParticleTypes.EXPLOSION,
@@ -54,7 +66,7 @@ public class SunburnMegaSword extends SwordItem {
                 );
                 explosion.explode();
                 entity.invulnerableTime = 0;
-                player.getCooldowns().addCooldown(this, 35);
+                player.getCooldowns().addCooldown(this, ImbaRules.sunburnCooldownTicks());
 
             }
         }

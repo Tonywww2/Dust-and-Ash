@@ -8,7 +8,10 @@ public final class DustAndAshConfig {
     public static final ToolSettings TOOLS;
     public static final WeaponSettings WEAPONS;
         public static final CurioSettings CURIOS;
+        public static final ForgeConfigSpec.BooleanValue IMBA_MODE;
+        public static final ClientSettings CLIENT;
     public static final ForgeConfigSpec COMMON_CONFIG;
+        public static final ForgeConfigSpec CLIENT_CONFIG;
 
     static {
         ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
@@ -28,10 +31,34 @@ public final class DustAndAshConfig {
         CURIOS = new CurioSettings(builder);
         builder.pop();
 
+        IMBA_MODE = builder
+                .comment("Greatly enhance the special effects of combat equipment. Default: false")
+                .define("imbaMode", false);
+
         COMMON_CONFIG = builder.build();
+
+        ForgeConfigSpec.Builder clientBuilder = new ForgeConfigSpec.Builder();
+        clientBuilder.comment("Client display settings").push("Cooldown Overlay");
+        CLIENT = new ClientSettings(clientBuilder);
+        clientBuilder.pop();
+        CLIENT_CONFIG = clientBuilder.build();
     }
 
     private DustAndAshConfig() {
+    }
+
+    public static final class ClientSettings {
+        public final ForgeConfigSpec.IntValue cooldownOverlayX;
+        public final ForgeConfigSpec.IntValue cooldownOverlayY;
+
+        private ClientSettings(ForgeConfigSpec.Builder builder) {
+            this.cooldownOverlayX = builder
+                    .comment("\nCooldown overlay X position in GUI pixels from the left edge. Default: 8")
+                    .defineInRange("cooldownOverlayX", 8, 0, 10000);
+            this.cooldownOverlayY = builder
+                    .comment("\nCooldown overlay Y position in GUI pixels from the top edge. Default: 8")
+                    .defineInRange("cooldownOverlayY", 8, 0, 10000);
+        }
     }
 
     public static final class MachineSettings {
@@ -228,11 +255,11 @@ public final class DustAndAshConfig {
                     .comment("\nLight Staff fall duration in ticks. Default: 10")
                     .defineInRange("lightStaffFallTicks", 10, 1, 1200);
             this.lightStaffImpactLingerTicks = builder
-                    .comment("\nLight Staff visible duration after impact in ticks. Default: 30")
-                    .defineInRange("lightStaffImpactLingerTicks", 30, 0, 1200);
+                    .comment("\nLight Staff visible duration after impact in ticks. Default: 60")
+                    .defineInRange("lightStaffImpactLingerTicks", 60, 0, 1200);
             this.lightHaloCooldownTicks = builder
-                    .comment("\nLight Forged Halo effect cooldown in ticks. Default: 60")
-                    .defineInRange("lightHaloCooldownTicks", 60, 0, 72000);
+                    .comment("\nLight Forged Halo effect cooldown in ticks. Default: 30")
+                    .defineInRange("lightHaloCooldownTicks", 30, 0, 72000);
             this.darkHaloMaxHealthBonus = builder
                     .comment("\nDark Forged Halo maximum health bonus. Default: 0.25")
                     .defineInRange("darkHaloMaxHealthBonus", 0.25d, 0d, 10d);
@@ -243,8 +270,8 @@ public final class DustAndAshConfig {
                     .comment("\nDark Forged Halo night vision refresh interval in ticks. Default: 10")
                     .defineInRange("darkHaloNightVisionIntervalTicks", 10, 1, 1200);
             this.darkHaloNightVisionDurationTicks = builder
-                    .comment("\nDark Forged Halo night vision duration in ticks. Default: 20")
-                    .defineInRange("darkHaloNightVisionDurationTicks", 20, 1, 1200);
+                    .comment("\nDark Forged Halo night vision duration in ticks. Default: 100")
+                    .defineInRange("darkHaloNightVisionDurationTicks", 100, 1, 1200);
             this.darkHaloBrightnessThreshold = builder
                     .comment("\nMaximum brightness required to trigger Dark Forged Halo. Default: 5")
                     .defineInRange("darkHaloBrightnessThreshold", 5, 0, 15);
