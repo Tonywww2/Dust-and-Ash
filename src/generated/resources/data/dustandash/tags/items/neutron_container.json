@@ -1,5 +1,11 @@
 {
   "values": [
+    "minecraft:coal_block",
+    "minecraft:stone",
+    "minecraft:iron_ingot",
+    "minecraft:netherite_ingot",
+    "dustandash:uranium_ingot",
+    "dustandash:rock_solid",
     "dustandash:nano_machine",
     "dustandash:u235_fuel",
     "dustandash:u235_fuel_metal",

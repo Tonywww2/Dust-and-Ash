@@ -7,10 +7,8 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.registries.ForgeRegistries;
 
 /**
- * Reproduces the hand-written "forge:nbt" ingredient entries used by a handful of source recipes.
- * Built by hand-assembling the same json Forge's NBT ingredient serializer reads, then parsing it
- * through {@link Ingredient#fromJson(com.google.gson.JsonElement)} so the exact ingredient class
- * (which varies across Forge versions) never needs to be referenced directly.
+ * Builds Forge strict and partial NBT ingredients without depending on version-specific
+ * ingredient implementation classes.
  */
 public final class RecipeIngredients {
     private RecipeIngredients() {
@@ -34,5 +32,17 @@ public final class RecipeIngredients {
             throw new IllegalArgumentException("Unknown item " + itemId);
         }
         return nbt(item, nbt);
+    }
+
+    public static Ingredient partialNbt(Item item, String nbt) {
+        ResourceLocation itemId = ForgeRegistries.ITEMS.getKey(item);
+        if (itemId == null) {
+            throw new IllegalArgumentException("Unregistered item passed to RecipeIngredients.partialNbt");
+        }
+        JsonObject json = new JsonObject();
+        json.addProperty("type", "forge:partial_nbt");
+        json.addProperty("item", itemId.toString());
+        json.addProperty("nbt", nbt);
+        return Ingredient.fromJson(json);
     }
 }

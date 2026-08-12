@@ -11,6 +11,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
@@ -110,6 +111,12 @@ public class ModItemTagsProvider extends ItemTagsProvider {
                 .add(DAAItems.LACERATE_DUST.get());
 
         tag(ModTags.Items.NEUTRON_CONTAINER)
+                .add(Items.COAL_BLOCK)
+                .add(Items.STONE)
+                .add(Items.IRON_INGOT)
+                .add(Items.NETHERITE_INGOT)
+                .add(DAAItems.URANIUM_INGOT.get())
+                .add(DAAItems.ROCK_SOLID.get())
                 .add(DAAItems.NANO_MACHINE.get())
                 .add(DAAItems.U235_FUEL.get())
                 .add(DAAItems.U235_FUEL_METAL.get())

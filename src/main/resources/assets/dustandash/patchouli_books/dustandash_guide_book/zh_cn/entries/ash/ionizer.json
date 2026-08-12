@@ -4,6 +4,14 @@
   "category": "dustandash:ash",
   "pages": [
     {
+      "type": "patchouli:text",
+      "text": "万用电解机以$(item)电子$()供能。先在机器正下方放置配方要求的方块；若要求液体，必须使用液体源。随后依照 JEI 放入主材料、容器、尘与两侧电极，并准备足量电子。$(br2)下方方块或任一输入不符时，机器不会继续加工。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "加工完成后，电子与三份常规输入会被消耗；电极是否消耗由具体配方决定。机器会把正下方的方块替换为配方产物，并在下方释放最多四组物品。$(br2)JEI 会同时显示输入方块、输出方块、电子数量、处理时间以及电极是否消耗。"
+    },
+    {
       "type": "patchouli:crafting",
       "recipe": "dustandash:crafting/ionizer"
     }

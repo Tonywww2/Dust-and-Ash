@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "岩浆可以通过固定的三步流程制成：$(br)1. 制作$(item)注能圆石$()。$(br)2. 使用$(item)锻造台$()将它装入$(item)桶装注能圆石$()。$(br)3. 在$(item)熔炉$()中熔炼装满的桶。"
+      "text": "岩浆可以通过固定的三步流程制成：$(br)1. 制作$(item)注能圆石$()。$(br)2. 在锻造台中以$(item)大地之尘$()为模板，将注能圆石装入空桶。$(br)3. 在熔炉中熔炼$(item)桶装注能圆石$()。"
     },
     {
       "type": "patchouli:crafting",
@@ -15,7 +15,8 @@
       "type": "patchouli:spotlight",
       "item": {
         "item": "dustandash:energized_cobblestone_bucket"
-      }
+      },
+      "text": "锻造台需要大地之尘、空桶与注能圆石。完成后，桶装注能圆石仍需经过较长时间的熔炼才能成为岩浆桶。"
     },
     {
       "type": "patchouli:smelting",

@@ -1,6 +1,6 @@
 {
-    "name": "Dust and Ash",
-    "landing_text": "A record of gathering Dust, retaining Ash, and turning both into materials and machines.",
+    "name": "book.dustandash.guide.name",
+    "landing_text": "book.dustandash.guide.landing",
     "version": 1,
     "creative_tab": "minecraft:tools_and_utilities",
     "use_resource_pack": true,

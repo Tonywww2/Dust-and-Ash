@@ -4,6 +4,14 @@
   "category": "dustandash:ash",
   "pages": [
     {
+      "type": "patchouli:text",
+      "text": "离心机将一份主材料与一份催化材料分离成最多八组产物。上方输入格放置主材料，下方输入格只接受 $(thing)dustandash:centrifuge_catalyst$() 数据标签中的物品；每次加工都会消耗两者各一份。$(br2)具体组合、产物与处理时间可在 JEI 中查看。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "开始下一次加工前，八个输出格必须全部为空。材料在加工开始时即被取走，完成后产物才会写入输出格。$(br2)机器不需要外部供能；处理时间由配方与配置共同决定。自动化时可从上方输入，并从下方抽取产物。"
+    },
+    {
       "type": "patchouli:crafting",
       "recipe": "dustandash:crafting/centrifuge"
     }

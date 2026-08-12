@@ -6,6 +6,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,19 +23,37 @@ public final class ReactorStructureScanner {
 
     public static Optional<ReactorStructureSnapshot> scan(Level level, BlockPos controllerPos,
                                                            int maxRadius, int maxHeight) {
+        return diagnose(level, controllerPos, maxRadius, maxHeight).structureOptional();
+    }
+
+    public static ReactorStructureDiagnostic diagnose(Level level, BlockPos controllerPos,
+                                                       int maxRadius, int maxHeight) {
         Block casing = DAABlocks.FISSION_REACTOR_CASING.get();
         int radius = findRadius(level, controllerPos, casing, maxRadius);
         if (radius == 0) {
-            return Optional.empty();
+            return ReactorStructureDiagnostic.invalid(ReactorStructureIssue.RADIUS_ANCHOR_MISSING);
         }
 
         int height = findHeight(level, controllerPos, casing, radius, maxHeight);
-        if (height == 0 || !hasValidShell(level, controllerPos, casing, radius, height)) {
-            return Optional.empty();
+        if (height == 0) {
+            return ReactorStructureDiagnostic.invalid(ReactorStructureIssue.HEIGHT_ANCHOR_MISSING);
         }
 
-        return Optional.of(new ReactorStructureSnapshot(radius, height,
-                findInterface(level, controllerPos, radius, height)));
+        BlockPos invalidCasing = findInvalidCasing(level, controllerPos, casing, radius, height);
+        if (invalidCasing != null) {
+            return ReactorStructureDiagnostic.invalid(ReactorStructureIssue.INVALID_CASING, invalidCasing);
+        }
+
+        BlockPos invalidWall = findInvalidWall(level, controllerPos, radius, height);
+        if (invalidWall != null) {
+            return ReactorStructureDiagnostic.invalid(ReactorStructureIssue.INVALID_WALL, invalidWall);
+        }
+
+        return ReactorStructureDiagnostic.formed(new ReactorStructureSnapshot(
+                radius,
+                height,
+                findInterface(level, controllerPos, radius, height)
+        ));
     }
 
     public static ReactorCoreSnapshot scanCore(Level level, BlockPos controllerPos,
@@ -77,68 +96,58 @@ public final class ReactorStructureScanner {
     }
 
     private static int findHeight(Level level, BlockPos controllerPos, Block casing, int radius, int maxHeight) {
-        BlockPos.MutableBlockPos cursor = controllerPos.north(radius).below().mutable();
-        for (int height = 2; height <= maxHeight; height++) {
-            cursor.move(Direction.DOWN);
-            if (level.getBlockState(cursor).is(casing)) {
+        int minimumHeight = radius * 2 + 1;
+        for (int height = minimumHeight; height <= maxHeight; height++) {
+            BlockPos candidate = controllerPos.north(radius).below(height);
+            if (level.getBlockState(candidate).is(casing)) {
                 return height;
             }
         }
         return 0;
     }
 
-    private static boolean hasValidShell(Level level, BlockPos controllerPos, Block casing,
-                                         int radius, int height) {
-        BlockPos firstCorner = controllerPos.below().north(radius).east(radius);
-        BlockPos secondCorner = controllerPos.below(height).south(radius).west(radius);
-        if (!level.getBlockState(firstCorner).is(casing) || !level.getBlockState(secondCorner).is(casing)) {
-            return false;
-        }
-
-        BlockPos firstWest = firstCorner;
-        BlockPos firstSouth = firstCorner;
-        BlockPos firstDown = firstCorner;
-        BlockPos secondNorth = secondCorner;
-        BlockPos secondEast = secondCorner;
-        BlockPos secondUp = secondCorner;
-        for (int offset = 0; offset < radius * 2; offset++) {
-            firstWest = firstWest.west();
-            firstSouth = firstSouth.south();
-            firstDown = firstDown.below();
-            secondNorth = secondNorth.north();
-            secondEast = secondEast.east();
-            secondUp = secondUp.above();
-            if (!level.getBlockState(firstWest).is(casing)
-                    || !level.getBlockState(firstSouth).is(casing)
-                    || !level.getBlockState(firstDown).is(casing)
-                    || !level.getBlockState(secondNorth).is(casing)
-                    || !level.getBlockState(secondEast).is(casing)
-                    || !level.getBlockState(secondUp).is(casing)) {
-                return false;
-            }
-        }
-
-        for (int firstOffset = 0; firstOffset < radius * 2 - 1; firstOffset++) {
-            for (int secondOffset = 0; secondOffset < radius * 2 - 1; secondOffset++) {
-                if (!isWall(level, new BlockPos(controllerPos.getX() - radius + 1 + firstOffset,
-                                controllerPos.getY() - 1, controllerPos.getZ() - radius + 1 + secondOffset))
-                        || !isWall(level, new BlockPos(controllerPos.getX() - radius + 1 + firstOffset,
-                                controllerPos.getY() - height, controllerPos.getZ() - radius + 1 + secondOffset))
-                        || !isWall(level, new BlockPos(controllerPos.getX() - radius,
-                                controllerPos.getY() - height + 1 + secondOffset,
-                                controllerPos.getZ() - radius + 1 + firstOffset))
-                        || !isWall(level, new BlockPos(controllerPos.getX() + radius,
-                                controllerPos.getY() - height + 1 + secondOffset,
-                                controllerPos.getZ() - radius + 1 + firstOffset))
-                        || !isWall(level, new BlockPos(controllerPos.getX() - radius + 1 + firstOffset,
-                                controllerPos.getY() - height + 1 + secondOffset, controllerPos.getZ() - radius))
-                        || !isWall(level, new BlockPos(controllerPos.getX() - radius + 1 + firstOffset,
-                                controllerPos.getY() - height + 1 + secondOffset, controllerPos.getZ() + radius))) {
-                    return false;
+    @Nullable
+    private static BlockPos findInvalidCasing(Level level, BlockPos controllerPos, Block casing,
+                                              int radius, int height) {
+        for (int depth = 1; depth <= height; depth++) {
+            for (int xOffset = -radius; xOffset <= radius; xOffset++) {
+                for (int zOffset = -radius; zOffset <= radius; zOffset++) {
+                    if (boundaryAxisCount(xOffset, depth, zOffset, radius, height) < 2) {
+                        continue;
+                    }
+                    BlockPos edgePos = controllerPos.offset(xOffset, -depth, zOffset);
+                    if (!level.getBlockState(edgePos).is(casing)) {
+                        return edgePos;
+                    }
                 }
             }
         }
-        return true;
+        return null;
+    }
+
+    @Nullable
+    private static BlockPos findInvalidWall(Level level, BlockPos controllerPos, int radius, int height) {
+        for (int depth = 1; depth <= height; depth++) {
+            for (int xOffset = -radius; xOffset <= radius; xOffset++) {
+                for (int zOffset = -radius; zOffset <= radius; zOffset++) {
+                    if (boundaryAxisCount(xOffset, depth, zOffset, radius, height) != 1) {
+                        continue;
+                    }
+                    BlockPos wallPos = controllerPos.offset(xOffset, -depth, zOffset);
+                    if (!isWall(level, wallPos)) {
+                        return wallPos;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    private static int boundaryAxisCount(int xOffset, int depth, int zOffset, int radius, int height) {
+        int count = Math.abs(xOffset) == radius ? 1 : 0;
+        count += depth == 1 || depth == height ? 1 : 0;
+        count += Math.abs(zOffset) == radius ? 1 : 0;
+        return count;
     }
 
     private static boolean isWall(Level level, BlockPos pos) {
@@ -146,7 +155,7 @@ public final class ReactorStructureScanner {
     }
 
     private static BlockPos findInterface(Level level, BlockPos controllerPos, int radius, int height) {
-        BlockPos center = controllerPos.below((height / 2) + 1);
+        BlockPos center = getInterfaceCenter(controllerPos, height);
         for (Direction direction : HORIZONTAL_SCAN_ORDER) {
             BlockPos candidate = center.relative(direction, radius + 1);
             if (level.getBlockEntity(candidate) instanceof FissionReactorInterfaceEntity) {
@@ -154,6 +163,14 @@ public final class ReactorStructureScanner {
             }
         }
         return null;
+    }
+
+    public static BlockPos getSuggestedInterfacePos(BlockPos controllerPos, int radius, int height) {
+        return getInterfaceCenter(controllerPos, height).north(radius + 1);
+    }
+
+    private static BlockPos getInterfaceCenter(BlockPos controllerPos, int height) {
+        return controllerPos.below((height / 2) + 1);
     }
 
     private static ReactorCoreSnapshot.FuelCellEnvironment scanFuelCellEnvironment(

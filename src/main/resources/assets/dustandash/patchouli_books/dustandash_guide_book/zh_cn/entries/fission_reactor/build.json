@@ -5,21 +5,52 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "反应堆需要一个$(item)裂变反应堆控制器$()、外壳框架、至少一个$(item)裂变反应堆燃料单元$()、一个$(item)裂变反应堆接口$()、有效墙体方块，以及按需设置的$(item)裂变反应堆冷却单元$()。$(br2)有效墙体属于$(item)#dustandash:fission_reactor_wall$()；灰色染色玻璃便是其中一种。"
+      "text": "反应堆由封闭外壳与内部单元构成。外框的棱边和角必须使用$(item)裂变反应堆外壳$()；六个面的其余位置必须使用有效墙体。$(br2)控制器、接口、燃料单元与冷却单元各有不同的位置，不能替代外框或墙体。"
     },
     {
       "type": "patchouli:text",
-      "text": "使用外壳搭建水平边长相等且为奇数的方形框架；高度可以不同。在内部放置燃料单元与冷却单元，再用有效墙体封闭各面。$(br2)控制器必须位于顶面中央；接口则放在任一侧墙中央。"
+      "text": "有效墙体由 $(thing)dustandash:fission_reactor_wall$() 数据标签规定。当前标签继承 $(thing)forge:storage_blocks$()，因此应使用对应的金属或其他储存方块，而非玻璃。$(br2)整座反应堆的六个面都必须封闭。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "dustandash:crafting/fission_reactor_casing",
+      "recipe2": "dustandash:crafting/fission_reactor_fuel_cell"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "dustandash:crafting/fission_reactor_cooling_cell",
+      "recipe2": "dustandash:crafting/fission_reactor_interface"
     },
     {
       "type": "patchouli:text",
-      "text": "燃料与冷却剂从接口装入。反应堆效率取决于热量是否接近燃料的理想热值。$(br2)冷却单元与燃料单元相邻时，会降低热量增长。装填之前，应先安排好内部结构。"
+      "text": "外壳的水平边长必须相等，可用宽度为3、5或7格。结构高度不得低于水平边长，且不能超过7格。$(br2)内部至少放置一个$(item)燃料单元$()，$(item)冷却单元$()则按需要配置，其余空间可以留空。完成布置后，用有效墙体封闭六个面。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "将$(item)控制器$()放在顶面中心的正上方，并保留它下方的墙体。控制器需先在$(l:dust/milling_machine)铣床和装配台$(/l)中制成。$(br2)再把$(item)接口$()贴在任一侧墙中心的外侧一格，墙体本身仍须完整。偶数高度的结构使用中央两层中较低的一层。"
     },
     {
       "type": "patchouli:image",
       "title": "结构示例",
       "images": ["dustandash:patchouli_books/dustandash_guide_book/imgs/fr_example1.png"],
-      "text": "一种可用的反应堆剖面。高度与内部排列可以改变，但框架规则不会改变。"
+      "text": "一种可用的反应堆剖面。控制器位于顶面外侧，接口位于侧墙外侧；燃料单元与冷却单元留在封闭结构内部。$(br)若控制器面板中的结构半径与高度均为 0，应重新检查外框和六个面。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "接口上排左格放入裂变燃料，右格可放入冷却剂；下排两格接收两者耗尽后留下的$(item)空燃料容器$()。$(br2)结构完整且燃料有效时，反应堆会自动运行。移除燃料即可停止产生中子，现有热量会逐渐下降。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "dustandash:crafting/u235_fuel",
+      "recipe2": "dustandash:crafting/basic_cooling"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "每种燃料都会标明基础热量、中子产量、理想热值与耐久。热量越接近当前燃料的理想热值，效率越高；相邻燃料单元会增加热量，相邻冷却单元会压低热量增长，接口中的冷却剂还会进一步增强冷却。$(br2)燃料与冷却剂的消耗速度分别随两类内部单元的数量增加。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "控制器面板显示热量、中子、能量、效率、两类单元数量以及结构尺寸。中子数高于 2048 时，超出部分会按配置比例转化为能量。$(br2)控制器会把储存的能量主动送往四个水平方向上直接相邻的可接收设备。若要利用中子加工物品，请查阅$(l:fission_reactor/neutron)中子轰击$(/l)。"
     }
   ]
 }

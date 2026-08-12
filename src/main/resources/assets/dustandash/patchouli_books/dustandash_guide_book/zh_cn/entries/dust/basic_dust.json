@@ -5,28 +5,32 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "基础尘共有五种：$(item)金属之尘$()、$(item)生命之尘$()、$(item)秩序之尘$()、$(item)燃烧之尘$()与$(item)大地之尘$()。$(br2)$(item)手摇式吸尘器$()只能取得较重的一组：金属、秩序与大地。"
+      "text": "基础尘共有五种：$(item)金属之尘$()、$(item)生命之尘$()、$(item)秩序之尘$()、$(item)燃烧之尘$()与$(item)大地之尘$()。$(br2)对沉降的尘使用$(item)手摇式吸尘器$()，成功时会移除尘层并尝试取得金属、秩序或大地之尘；失败时尘层会保留。"
     },
     {
       "type": "patchouli:spotlight",
-      "title" : "较重的尘",
+      "title" : "手摇收集",
       "item": {
         "tag": "dustandash:lv1_dust"
       },
-      "text": "金属、秩序与大地之尘可以由两种吸尘器取得。"
+      "text": "金属、秩序与大地之尘可以由两种吸尘器取得。手摇式吸尘器每次成功使用都会损耗耐久。"
     },
     {
       "type": "patchouli:text",
-      "text": "生命与燃烧之尘属于较轻的一组。若要取得全部五种基础尘，需要以注能尘驱动的$(item)吸尘器$()。"
+      "text": "若要取得生命与燃烧之尘，需要使用以$(item)注能尘$()驱动的$(item)吸尘器$()。背包中必须至少留有一份注能尘；成功抽取一定会移除尘层并损耗工具，但只会按配置概率消耗燃料。$(br2)这种吸尘器一次可以带出多份残留物，结果来自全部五种基础尘。"
     },
     {
       "type": "patchouli:spotlight",
-      "title" : "较轻的尘",
+      "title" : "注能收集",
       "item": {
         "tag": "dustandash:lv2_dust"
       },
-      "text": "生命与燃烧之尘必须使用吸尘器取得。"
+      "text": "生命与燃烧之尘只会出现在注能吸尘器的产出中。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "dustandash:crafting/hand_vacuum",
+      "recipe2": "dustandash:crafting/iron_vacuum"
     }
-
   ]
 }

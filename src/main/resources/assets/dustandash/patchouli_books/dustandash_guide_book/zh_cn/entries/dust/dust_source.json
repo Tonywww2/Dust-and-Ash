@@ -4,6 +4,14 @@
   "category": "dustandash:dust",
   "pages": [
     {
+      "type": "patchouli:text",
+      "text": "将灰尘源悬在地面上方，并确保下方留有暴露于空气的承接面。它会在配置规定的深度与半径内检查方块，并尝试在合适表面铺下一层$(item)尘$()。$(br2)沉降范围与概率由配置决定。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "可承接尘的方块由 $(thing)dustandash:dust_able$() 数据标签规定；即使方块包含在其中，$(thing)dustandash:not_dust_able$() 仍可将其排除。$(br2)默认可用表面包括原木、木板、羊毛、石砖、圆石、沙砾与石头等。承接面上方必须为空气。"
+    },
+    {
       "type": "patchouli:crafting",
       "recipe": "dustandash:crafting/dust_source"
     }

@@ -5,7 +5,9 @@ import com.tonywww.dustandash.client.particle.DarkSmokeParticle;
 import com.tonywww.dustandash.client.render.ForgedHaloRenderer;
 import com.tonywww.dustandash.client.render.LightStaffRenderer;
 import com.tonywww.dustandash.client.cooldown.CurioCooldownOverlayApi;
+import com.tonywww.dustandash.client.tooltip.ClientNeutronTooltipComponent;
 import com.tonywww.dustandash.client.tooltip.DAATooltipCatalog;
+import com.tonywww.dustandash.client.tooltip.NeutronTooltipComponent;
 import com.tonywww.dustandash.cooldown.CurioCooldownManager;
 import com.tonywww.dustandash.overlay.CurioCooldownOverlay;
 import com.tonywww.dustandash.overlay.WhiteLightningOverlay;
@@ -19,6 +21,7 @@ import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
+import net.minecraftforge.client.event.RegisterClientTooltipComponentFactoriesEvent;
 import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -71,6 +74,11 @@ public final class ClientBootstrap {
     @SubscribeEvent
     public static void onRegisterParticleProviders(RegisterParticleProvidersEvent event) {
         event.registerSpriteSet(DAAParticles.DARK_SMOKE.get(), DarkSmokeParticle.Provider::new);
+    }
+
+    @SubscribeEvent
+    public static void onRegisterTooltipComponents(RegisterClientTooltipComponentFactoriesEvent event) {
+        event.register(NeutronTooltipComponent.class, ClientNeutronTooltipComponent::new);
     }
 
     @SubscribeEvent

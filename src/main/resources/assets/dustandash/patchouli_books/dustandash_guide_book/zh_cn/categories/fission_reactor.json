@@ -1,5 +1,5 @@
 {
     "name": "裂变反应堆",
-    "description": "控制热量、中子、燃料与能量的多方块结构。",
+    "description": "建造反应堆，并调节燃料、冷却、热量、中子与能量。",
     "icon": "dustandash:fission_reactor_controller"
 }

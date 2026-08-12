@@ -318,39 +318,39 @@ public final class CraftingRecipesB {
 
         // neutron_diamond_block.json
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, Items.DIAMOND_BLOCK)
-                .requires(RecipeIngredients.nbt(Items.COAL_BLOCK, "{neutron:1280, display:{Lore:['{\"text\":\"Neutron: 1280/1280\"}']}}"))
+                .requires(RecipeIngredients.partialNbt(Items.COAL_BLOCK, "{neutron:1280}"))
                 .requires(DAAItems.ELECTRON.get())
                 .unlockedBy("has_electron", has(DAAItems.ELECTRON.get()))
                 .save(writer, "dustandash:crafting/neutron_diamond_block");
 
         // neutron_electron.json
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, DAAItems.ELECTRON.get(), 42)
-                .requires(RecipeIngredients.nbt(DAAItems.URANIUM_INGOT.get(), "{neutron:1280, display:{Lore:['{\"text\":\"Neutron: 1280/1280\"}']}}"))
+                .requires(RecipeIngredients.partialNbt(DAAItems.URANIUM_INGOT.get(), "{neutron:1280}"))
                 .requires(DAAItems.ELECTRON.get())
                 .unlockedBy("has_electron", has(DAAItems.ELECTRON.get()))
                 .save(writer, "dustandash:crafting/neutron_electron");
 
         // neutron_gold_block.json
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, Items.GOLD_BLOCK)
-                .requires(RecipeIngredients.nbt(Items.STONE, "{neutron:1280, display:{Lore:['{\"text\":\"Neutron: 1280/1280\"}']}}"))
+                .requires(RecipeIngredients.partialNbt(Items.STONE, "{neutron:1280}"))
                 .requires(DAAItems.ELECTRON.get())
                 .unlockedBy("has_electron", has(DAAItems.ELECTRON.get()))
                 .save(writer, "dustandash:crafting/neutron_gold_block");
 
         // neutron_indestructible.json
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, DAAItems.INDESTRUCTIBLE.get())
-                .requires(RecipeIngredients.nbt(DAAItems.ROCK_SOLID.get(), "{neutron:1280, display:{Lore:['{\"text\":\"Neutron: 1280/1280\"}']}}"))
+                .requires(RecipeIngredients.partialNbt(DAAItems.ROCK_SOLID.get(), "{neutron:1280}"))
                 .requires(DAAItems.ELECTRON.get())
                 .unlockedBy("has_electron", has(DAAItems.ELECTRON.get()))
                 .save(writer, "dustandash:crafting/neutron_indestructible");
 
         // neutron_titanium.json
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, DAAItems.TITANIUM_INGOT.get(), 6)
-                .requires(RecipeIngredients.nbt(Items.IRON_INGOT, "{neutron:1280, display:{Lore:['{\"text\":\"Neutron: 1280/1280\"}']}}"))
-                .requires(RecipeIngredients.nbt(Items.IRON_INGOT, "{neutron:1280, display:{Lore:['{\"text\":\"Neutron: 1280/1280\"}']}}"))
-                .requires(RecipeIngredients.nbt(Items.IRON_INGOT, "{neutron:1280, display:{Lore:['{\"text\":\"Neutron: 1280/1280\"}']}}"))
-                .requires(RecipeIngredients.nbt(Items.IRON_INGOT, "{neutron:1280, display:{Lore:['{\"text\":\"Neutron: 1280/1280\"}']}}"))
-                .requires(RecipeIngredients.nbt(Items.IRON_INGOT, "{neutron:1280, display:{Lore:['{\"text\":\"Neutron: 1280/1280\"}']}}"))
+                .requires(RecipeIngredients.partialNbt(Items.IRON_INGOT, "{neutron:1280}"))
+                .requires(RecipeIngredients.partialNbt(Items.IRON_INGOT, "{neutron:1280}"))
+                .requires(RecipeIngredients.partialNbt(Items.IRON_INGOT, "{neutron:1280}"))
+                .requires(RecipeIngredients.partialNbt(Items.IRON_INGOT, "{neutron:1280}"))
+                .requires(RecipeIngredients.partialNbt(Items.IRON_INGOT, "{neutron:1280}"))
                 .requires(DAAItems.ELECTRON.get())
                 .requires(DAAItems.ELECTRON.get())
                 .requires(DAAItems.ELECTRON.get())
@@ -359,8 +359,8 @@ public final class CraftingRecipesB {
 
         // neutron_tungsten.json
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, DAAItems.TUNGSTEN_INGOT.get(), 4)
-                .requires(RecipeIngredients.nbt(Items.IRON_INGOT, "{neutron:1280, display:{Lore:['{\"text\":\"Neutron: 1280/1280\"}']}}"))
-                .requires(RecipeIngredients.nbt(Items.NETHERITE_INGOT, "{neutron:1280, display:{Lore:['{\"text\":\"Neutron: 1280/1280\"}']}}"))
+                .requires(RecipeIngredients.partialNbt(Items.IRON_INGOT, "{neutron:1280}"))
+                .requires(RecipeIngredients.partialNbt(Items.NETHERITE_INGOT, "{neutron:1280}"))
                 .requires(DAAItems.ELECTRON.get())
                 .requires(DAAItems.ELECTRON.get())
                 .unlockedBy("has_electron", has(DAAItems.ELECTRON.get()))

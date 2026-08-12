@@ -4,6 +4,10 @@
   "category": "dustandash:ash",
   "pages": [
     {
+      "type": "patchouli:text",
+      "text": "将余烬收集器放在熔炉、高炉或烟熏炉的正下方。它会自动取走上方炉子输出格中的烧炼产物；炉子处于燃烧状态时，还会按配置概率生成$(item)烬$()。$(br2)两个槽位分别保存烬与烧炼产物。产物种类不一致或对应槽位没有空间时，该项收集会等待。"
+    },
+    {
       "type": "patchouli:crafting",
       "recipe": "dustandash:crafting/ash_collector"
     }

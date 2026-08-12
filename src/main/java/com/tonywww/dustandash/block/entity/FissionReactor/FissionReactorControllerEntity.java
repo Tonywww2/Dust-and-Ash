@@ -48,18 +48,30 @@ public class FissionReactorControllerEntity extends BasicMachineEntity implement
     public static final int MAX_HEIGHT = 7;
     public static final int MAX_NEUTRON = 4096;
     public static final int MAX_TRANSFER = 400000000;
-    public static final String NEUTRON_TAG = "neutron";
-    public static final int MAX_NEUTRON_FOR_ITEM = 1280;
 
-    public static final int DATA_HEAT = 0;
-    public static final int DATA_EFFICIENCY = 1;
-    public static final int DATA_RADIUS = 2;
-    public static final int DATA_HEIGHT = 3;
-    public static final int DATA_NEUTRON = 4;
-    public static final int DATA_FUEL_CELL_COUNT = 5;
-    public static final int DATA_COOLING_CELL_COUNT = 6;
-    public static final int DATA_ENERGY = 7;
-    public static final int DATA_COUNT = 8;
+    public static final int DATA_HEAT_LOW = 0;
+    public static final int DATA_HEAT_HIGH = 1;
+    public static final int DATA_EFFICIENCY_LOW = 2;
+    public static final int DATA_EFFICIENCY_HIGH = 3;
+    public static final int DATA_RADIUS = 4;
+    public static final int DATA_HEIGHT = 5;
+    public static final int DATA_NEUTRON = 6;
+    public static final int DATA_FUEL_CELL_COUNT = 7;
+    public static final int DATA_COOLING_CELL_COUNT = 8;
+    public static final int DATA_ENERGY_LOW = 9;
+    public static final int DATA_ENERGY_HIGH = 10;
+    public static final int DATA_OPERATING_STATE = 11;
+    public static final int DATA_STRUCTURE_ISSUE = 12;
+    public static final int DATA_PROBLEM_X_LOW = 13;
+    public static final int DATA_PROBLEM_X_HIGH = 14;
+    public static final int DATA_PROBLEM_Y_LOW = 15;
+    public static final int DATA_PROBLEM_Y_HIGH = 16;
+    public static final int DATA_PROBLEM_Z_LOW = 17;
+    public static final int DATA_PROBLEM_Z_HIGH = 18;
+    public static final int DATA_NEUTRON_SLOT_STATE = 19;
+    public static final int DATA_ENERGY_RATE_LOW = 20;
+    public static final int DATA_ENERGY_RATE_HIGH = 21;
+    public static final int DATA_COUNT = 22;
 
     private double heat = 0;
     private int energy = 0;
@@ -70,6 +82,10 @@ public class FissionReactorControllerEntity extends BasicMachineEntity implement
     private int coolingCellCount = 0;
     private int efficiency = 0;
     private int energyGenerationPerWorkTick = 0;
+    private ReactorOperatingState operatingState = ReactorOperatingState.SCANNING;
+    private ReactorStructureIssue structureIssue = ReactorStructureIssue.NONE;
+    private BlockPos problemPos = BlockPos.ZERO;
+    private NeutronSlotState neutronSlotState = NeutronSlotState.EMPTY;
 
     public FissionReactorControllerEntity(BlockPos pos, BlockState state) {
         super(DAABlockEntities.FISSION_REACTOR_CONTROLLER_ENTITY.get(), pos, state);
@@ -83,11 +99,17 @@ public class FissionReactorControllerEntity extends BasicMachineEntity implement
             @Override
             public int get(int index) {
                 switch (index) {
-                    case DATA_HEAT -> {
-                        return (int) heat;
+                    case DATA_HEAT_LOW -> {
+                        return lowWord((int) heat);
                     }
-                    case DATA_EFFICIENCY -> {
-                        return efficiency;
+                    case DATA_HEAT_HIGH -> {
+                        return highWord((int) heat);
+                    }
+                    case DATA_EFFICIENCY_LOW -> {
+                        return lowWord(efficiency);
+                    }
+                    case DATA_EFFICIENCY_HIGH -> {
+                        return highWord(efficiency);
                     }
                     case DATA_RADIUS -> {
                         return radius;
@@ -104,8 +126,44 @@ public class FissionReactorControllerEntity extends BasicMachineEntity implement
                     case DATA_COOLING_CELL_COUNT -> {
                         return coolingCellCount;
                     }
-                    case DATA_ENERGY -> {
-                        return energy;
+                    case DATA_ENERGY_LOW -> {
+                        return lowWord(energy);
+                    }
+                    case DATA_ENERGY_HIGH -> {
+                        return highWord(energy);
+                    }
+                    case DATA_OPERATING_STATE -> {
+                        return operatingState.getId();
+                    }
+                    case DATA_STRUCTURE_ISSUE -> {
+                        return structureIssue.getId();
+                    }
+                    case DATA_PROBLEM_X_LOW -> {
+                        return lowWord(problemPos.getX());
+                    }
+                    case DATA_PROBLEM_X_HIGH -> {
+                        return highWord(problemPos.getX());
+                    }
+                    case DATA_PROBLEM_Y_LOW -> {
+                        return lowWord(problemPos.getY());
+                    }
+                    case DATA_PROBLEM_Y_HIGH -> {
+                        return highWord(problemPos.getY());
+                    }
+                    case DATA_PROBLEM_Z_LOW -> {
+                        return lowWord(problemPos.getZ());
+                    }
+                    case DATA_PROBLEM_Z_HIGH -> {
+                        return highWord(problemPos.getZ());
+                    }
+                    case DATA_NEUTRON_SLOT_STATE -> {
+                        return neutronSlotState.getId();
+                    }
+                    case DATA_ENERGY_RATE_LOW -> {
+                        return lowWord(energyGenerationPerWorkTick);
+                    }
+                    case DATA_ENERGY_RATE_HIGH -> {
+                        return highWord(energyGenerationPerWorkTick);
                     }
                 }
                 return Integer.MIN_VALUE;
@@ -114,12 +172,20 @@ public class FissionReactorControllerEntity extends BasicMachineEntity implement
             @Override
             public void set(int index, int val) {
                 switch (index) {
-                    case DATA_HEAT:
-                        heat = val;
+                    case DATA_HEAT_LOW:
+                        heat = withLowWord((int) heat, val);
                         break;
 
-                    case DATA_EFFICIENCY:
-                        efficiency = val;
+                    case DATA_HEAT_HIGH:
+                        heat = withHighWord((int) heat, val);
+                        break;
+
+                    case DATA_EFFICIENCY_LOW:
+                        efficiency = withLowWord(efficiency, val);
+                        break;
+
+                    case DATA_EFFICIENCY_HIGH:
+                        efficiency = withHighWord(efficiency, val);
                         break;
 
                     case DATA_RADIUS:
@@ -142,8 +208,62 @@ public class FissionReactorControllerEntity extends BasicMachineEntity implement
                         coolingCellCount = val;
                         break;
 
-                    case DATA_ENERGY:
-                        energy = val;
+                    case DATA_ENERGY_LOW:
+                        energy = withLowWord(energy, val);
+                        break;
+
+                    case DATA_ENERGY_HIGH:
+                        energy = withHighWord(energy, val);
+                        break;
+
+                    case DATA_OPERATING_STATE:
+                        operatingState = ReactorOperatingState.byId(val);
+                        break;
+
+                    case DATA_STRUCTURE_ISSUE:
+                        structureIssue = ReactorStructureIssue.byId(val);
+                        break;
+
+                    case DATA_PROBLEM_X_LOW:
+                        problemPos = new BlockPos(withLowWord(problemPos.getX(), val),
+                                problemPos.getY(), problemPos.getZ());
+                        break;
+
+                    case DATA_PROBLEM_X_HIGH:
+                        problemPos = new BlockPos(withHighWord(problemPos.getX(), val),
+                                problemPos.getY(), problemPos.getZ());
+                        break;
+
+                    case DATA_PROBLEM_Y_LOW:
+                        problemPos = new BlockPos(problemPos.getX(),
+                                withLowWord(problemPos.getY(), val), problemPos.getZ());
+                        break;
+
+                    case DATA_PROBLEM_Y_HIGH:
+                        problemPos = new BlockPos(problemPos.getX(),
+                                withHighWord(problemPos.getY(), val), problemPos.getZ());
+                        break;
+
+                    case DATA_PROBLEM_Z_LOW:
+                        problemPos = new BlockPos(problemPos.getX(), problemPos.getY(),
+                                withLowWord(problemPos.getZ(), val));
+                        break;
+
+                    case DATA_PROBLEM_Z_HIGH:
+                        problemPos = new BlockPos(problemPos.getX(), problemPos.getY(),
+                                withHighWord(problemPos.getZ(), val));
+                        break;
+
+                    case DATA_NEUTRON_SLOT_STATE:
+                        neutronSlotState = NeutronSlotState.byId(val);
+                        break;
+
+                    case DATA_ENERGY_RATE_LOW:
+                        energyGenerationPerWorkTick = withLowWord(energyGenerationPerWorkTick, val);
+                        break;
+
+                    case DATA_ENERGY_RATE_HIGH:
+                        energyGenerationPerWorkTick = withHighWord(energyGenerationPerWorkTick, val);
                         break;
 
                 }
@@ -156,6 +276,22 @@ public class FissionReactorControllerEntity extends BasicMachineEntity implement
             }
         };
 
+    }
+
+    private static int lowWord(int value) {
+        return value & 0xFFFF;
+    }
+
+    private static int highWord(int value) {
+        return value >>> 16;
+    }
+
+    private static int withLowWord(int current, int low) {
+        return (current & 0xFFFF0000) | (low & 0xFFFF);
+    }
+
+    private static int withHighWord(int current, int high) {
+        return (current & 0xFFFF) | (high << 16);
     }
 
     // 0 neutron
@@ -231,20 +367,8 @@ public class FissionReactorControllerEntity extends BasicMachineEntity implement
     public static void tick(Level level, BlockPos pos, BlockState state, FissionReactorControllerEntity be) {
         if (!level.isClientSide) {
             if (be.advanceWorkCycle(1)) {
-                var structure = ReactorStructureScanner.scan(level, pos, MAX_RADIUS, MAX_HEIGHT);
-                if (structure.isPresent()) {
-                    ReactorStructureSnapshot snapshot = structure.get();
-                    be.radius = snapshot.radius();
-                    be.height = snapshot.height();
-
-                    if (snapshot.interfacePos() != null
-                            && level.getBlockEntity(snapshot.interfacePos()) instanceof FissionReactorInterfaceEntity intFace) {
-                        be.runReactorCycle(level, pos, snapshot, intFace);
-                    }
-                } else {
-                    be.radius = 0;
-                    be.height = 0;
-                }
+                be.energyGenerationPerWorkTick = 0;
+                be.updateReactorState(level, pos);
                 be.resetWorkCycle();
 
             }
@@ -256,7 +380,62 @@ public class FissionReactorControllerEntity extends BasicMachineEntity implement
 
     }
 
-    private void runReactorCycle(Level level, BlockPos pos, ReactorStructureSnapshot structure,
+    private void updateReactorState(Level level, BlockPos pos) {
+        ReactorStructureDiagnostic diagnostic = ReactorStructureScanner.diagnose(
+                level,
+                pos,
+                MAX_RADIUS,
+                MAX_HEIGHT
+        );
+        this.structureIssue = diagnostic.issue();
+        this.problemPos = diagnostic.problemPos() == null ? BlockPos.ZERO : diagnostic.problemPos();
+
+        if (!diagnostic.isFormed()) {
+            this.radius = 0;
+            this.height = 0;
+            this.fuelCellCount = 0;
+            this.coolingCellCount = 0;
+            this.efficiency = 0;
+            this.operatingState = ReactorOperatingState.MALFORMED;
+            inventoryChanged();
+            return;
+        }
+
+        ReactorStructureSnapshot structure = diagnostic.structure();
+        this.radius = structure.radius();
+        this.height = structure.height();
+        ReactorCoreSnapshot core = ReactorStructureScanner.scanCore(level, pos, structure);
+        this.fuelCellCount = core.fuelCellCount();
+        this.coolingCellCount = core.coolingCellCount();
+
+        if (structure.interfacePos() == null
+                || !(level.getBlockEntity(structure.interfacePos()) instanceof FissionReactorInterfaceEntity intFace)) {
+            this.efficiency = 0;
+            this.problemPos = ReactorStructureScanner.getSuggestedInterfacePos(
+                pos,
+                structure.radius(),
+                structure.height()
+            );
+            this.operatingState = ReactorOperatingState.MISSING_INTERFACE;
+            inventoryChanged();
+            return;
+        }
+
+        ItemStack fuel = intFace.itemStackHandler.getStackInSlot(FissionReactorInterfaceEntity.FUEL_INPUT_SLOT);
+        if (this.fuelCellCount == 0) {
+            this.operatingState = ReactorOperatingState.MISSING_FUEL_CELL;
+        } else if (fuel.isEmpty() || !(fuel.getItem() instanceof FissionReactorFuelUnit)) {
+            this.operatingState = this.heat > 0
+                    ? ReactorOperatingState.COOLING_DOWN
+                    : ReactorOperatingState.WAITING_FOR_FUEL;
+        } else {
+            this.operatingState = ReactorOperatingState.RUNNING;
+        }
+
+        runReactorCycle(level, core, intFace);
+    }
+
+    private void runReactorCycle(Level level, ReactorCoreSnapshot core,
                                  FissionReactorInterfaceEntity intFace) {
         ItemStack fuel = intFace.itemStackHandler.getStackInSlot(FissionReactorInterfaceEntity.FUEL_INPUT_SLOT);
         ItemStack cooling = intFace.itemStackHandler.getStackInSlot(FissionReactorInterfaceEntity.COOLING_INPUT_SLOT);
@@ -265,7 +444,6 @@ public class FissionReactorControllerEntity extends BasicMachineEntity implement
             FissionReactorCoolingUnit coolingUnit = cooling.getItem() instanceof FissionReactorCoolingUnit unit
                     ? unit
                     : null;
-            ReactorCoreSnapshot core = ReactorStructureScanner.scanCore(level, pos, structure);
             ReactorPhysicsEngine.FueledStep step = ReactorPhysicsEngine.calculateFueledStep(
                     core,
                     fuelUnit,
@@ -338,9 +516,31 @@ public class FissionReactorControllerEntity extends BasicMachineEntity implement
 
     void neutronBombardment() {
         ItemStack stack = this.invItemStackHandler.getStackInSlot(0);
-        if (this.neutron > 0 && stack.is(ModTags.Items.NEUTRON_CONTAINER)
-                && NeutronContainerUpdater.absorbOne(stack, NEUTRON_TAG, MAX_NEUTRON_FOR_ITEM)) {
+        if (stack.isEmpty()) {
+            this.neutronSlotState = NeutronSlotState.EMPTY;
+            return;
+        }
+        if (!stack.is(ModTags.Items.NEUTRON_CONTAINER)) {
+            this.neutronSlotState = NeutronSlotState.INVALID_ITEM;
+            return;
+        }
+        if (NeutronContainerUpdater.getNeutron(stack) >= NeutronContainerUpdater.MAX_NEUTRON) {
+            this.neutronSlotState = NeutronSlotState.FULL;
+            return;
+        }
+        if (this.neutron <= 0) {
+            this.neutronSlotState = NeutronSlotState.WAITING_FOR_NEUTRONS;
+            return;
+        }
+
+        NeutronContainerUpdater.UpdateResult result = NeutronContainerUpdater.absorbOne(stack);
+        if (result.absorbed()) {
             this.neutron--;
+        }
+        this.neutronSlotState = NeutronContainerUpdater.getNeutron(stack) >= NeutronContainerUpdater.MAX_NEUTRON
+                ? NeutronSlotState.FULL
+                : NeutronSlotState.ABSORBING;
+        if (result.changed()) {
             inventoryChanged();
         }
     }

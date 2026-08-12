@@ -1,0 +1,727 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>裂变控制器 UI 概念</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --paper: #e7e8e3;
+      --ink: #171918;
+      --muted: #666b68;
+      --line: #b4b7b2;
+      --shadow: rgba(24, 28, 26, 0.18);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-width: 1080px;
+      color: var(--ink);
+      background:
+        linear-gradient(rgba(22, 28, 25, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(22, 28, 25, 0.035) 1px, transparent 1px),
+        var(--paper);
+      background-size: 24px 24px;
+      font-family: Bahnschrift, "Microsoft YaHei UI", sans-serif;
+      letter-spacing: 0;
+    }
+
+    header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      padding: 34px 44px 20px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(247, 248, 244, 0.92);
+    }
+
+    h1,
+    p {
+      margin: 0;
+    }
+
+    h1 {
+      font-family: "Microsoft YaHei UI", sans-serif;
+      font-size: 28px;
+      font-weight: 700;
+    }
+
+    header p {
+      max-width: 560px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.7;
+      text-align: right;
+    }
+
+    main {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 28px;
+      padding: 30px 44px 46px;
+    }
+
+    article {
+      min-width: 0;
+      padding: 22px;
+      border: 1px solid #c4c7c2;
+      border-radius: 6px;
+      background: rgba(250, 251, 247, 0.96);
+      box-shadow: 0 12px 28px var(--shadow);
+    }
+
+    .concept-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 17px;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .concept-code {
+      color: #757a77;
+      font-family: Consolas, monospace;
+      font-size: 11px;
+    }
+
+    .stage {
+      display: flex;
+      min-height: 420px;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      border: 1px solid #d3d5d1;
+      background:
+        linear-gradient(45deg, #d9dbd7 25%, transparent 25%) 0 0 / 12px 12px,
+        linear-gradient(45deg, transparent 75%, #d9dbd7 75%) 0 0 / 12px 12px,
+        #eceeea;
+      overflow: hidden;
+    }
+
+    .scale {
+      width: 394px;
+      height: 384px;
+    }
+
+    .screen {
+      position: relative;
+      width: 197px;
+      height: 192px;
+      overflow: hidden;
+      transform: scale(2);
+      transform-origin: top left;
+      image-rendering: pixelated;
+      font-family: "Microsoft YaHei UI", sans-serif;
+      font-size: 5px;
+      letter-spacing: 0;
+      user-select: none;
+    }
+
+    .screen::after {
+      position: absolute;
+      inset: 0;
+      z-index: 20;
+      border: 2px solid var(--frame-dark);
+      content: "";
+      pointer-events: none;
+    }
+
+    .screen-title {
+      position: absolute;
+      top: 5px;
+      left: 7px;
+      z-index: 3;
+      color: var(--title);
+      font-size: 7px;
+      font-weight: 700;
+    }
+
+    .state {
+      position: absolute;
+      top: 5px;
+      right: 7px;
+      z-index: 3;
+      color: var(--state-text);
+      font-family: Consolas, monospace;
+      font-size: 5px;
+      font-weight: 700;
+    }
+
+    .reactor-area {
+      position: absolute;
+      top: 16px;
+      left: 5px;
+      width: 187px;
+      height: 68px;
+      border: 1px solid var(--panel-line);
+      background: var(--panel);
+    }
+
+    .primary {
+      position: absolute;
+      top: 20px;
+      left: 9px;
+      width: 119px;
+    }
+
+    .meter {
+      margin-bottom: 4px;
+    }
+
+    .meter-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 1px;
+      color: var(--label);
+    }
+
+    .meter-row strong {
+      color: var(--value);
+      font-family: Consolas, monospace;
+      font-size: 5px;
+      font-weight: 700;
+    }
+
+    .track {
+      position: relative;
+      width: 119px;
+      height: 5px;
+      border: 1px solid var(--track-line);
+      background: var(--track);
+      overflow: hidden;
+    }
+
+    .track span {
+      display: block;
+      height: 100%;
+      background: var(--fill);
+    }
+
+    .track.heat span {
+      width: 37%;
+      background: var(--heat);
+    }
+
+    .track.neutron span {
+      width: 68%;
+      background: var(--neutron);
+    }
+
+    .track.energy span {
+      width: 68%;
+      background: var(--energy);
+    }
+
+    .stats {
+      position: absolute;
+      top: 20px;
+      right: 9px;
+      display: grid;
+      width: 53px;
+      grid-template-columns: 1fr 1fr;
+      gap: 3px;
+    }
+
+    .stat {
+      min-width: 0;
+      padding: 2px 2px 1px;
+      border: 1px solid var(--stat-line);
+      background: var(--stat-bg);
+      color: var(--label);
+    }
+
+    .stat b,
+    .stat span {
+      display: block;
+    }
+
+    .stat b {
+      margin-top: 1px;
+      color: var(--value);
+      font-family: Consolas, monospace;
+      font-size: 7px;
+      line-height: 1;
+    }
+
+    .operation {
+      position: absolute;
+      top: 87px;
+      left: 5px;
+      display: flex;
+      width: 187px;
+      height: 25px;
+      align-items: center;
+      border: 1px solid var(--panel-line);
+      background: var(--panel-alt);
+    }
+
+    .machine-slot {
+      position: relative;
+      width: 18px;
+      height: 18px;
+      margin-left: 3px;
+      border: 1px solid var(--slot-dark);
+      background: var(--slot);
+      box-shadow: inset 1px 1px var(--slot-light);
+    }
+
+    .machine-slot::before {
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 10px;
+      height: 10px;
+      border: 1px solid var(--neutron);
+      background:
+        radial-gradient(circle at 35% 35%, var(--energy) 0 1px, transparent 1px),
+        var(--item-bg);
+      content: "";
+    }
+
+    .slot-copy {
+      margin-left: 5px;
+      color: var(--label);
+      line-height: 1.4;
+    }
+
+    .slot-copy b {
+      display: block;
+      color: var(--value);
+      font-size: 6px;
+    }
+
+    .operation-signal {
+      margin-left: auto;
+      margin-right: 5px;
+      color: var(--signal);
+      font-family: Consolas, monospace;
+      font-size: 5px;
+    }
+
+    .inventory {
+      position: absolute;
+      top: 117px;
+      left: 17px;
+      display: grid;
+      width: 162px;
+      height: 68px;
+      grid-template-columns: repeat(9, 18px);
+      grid-template-rows: repeat(3, 18px) 4px 18px;
+    }
+
+    .inv-slot {
+      width: 18px;
+      height: 18px;
+      border-top: 1px solid var(--slot-dark);
+      border-left: 1px solid var(--slot-dark);
+      border-right: 1px solid var(--slot-light);
+      border-bottom: 1px solid var(--slot-light);
+      background: var(--slot);
+    }
+
+    .inv-slot.hotbar {
+      grid-row: 5;
+    }
+
+    .inventory-label {
+      position: absolute;
+      top: 112px;
+      left: 18px;
+      color: var(--inventory-label);
+      font-size: 4px;
+    }
+
+    .notes {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 8px 14px;
+      margin-top: 17px;
+      align-items: start;
+    }
+
+    .notes p {
+      color: #4f5551;
+      font-size: 12px;
+      line-height: 1.65;
+    }
+
+    .cost {
+      padding: 3px 7px;
+      border: 1px solid #b7bbb6;
+      border-radius: 3px;
+      color: #555b57;
+      font-family: Consolas, monospace;
+      font-size: 10px;
+      white-space: nowrap;
+    }
+
+    /* A: industrial safety panel */
+    .industrial {
+      --frame-dark: #252724;
+      --title: #20231f;
+      --state-text: #17543a;
+      --panel: #d1d2ca;
+      --panel-alt: #c2c4bd;
+      --panel-line: #565a55;
+      --label: #373b36;
+      --value: #101310;
+      --track: #4a4e48;
+      --track-line: #20231f;
+      --fill: #fff;
+      --heat: #d84a32;
+      --neutron: #e0ad28;
+      --energy: #34a8b6;
+      --stat-bg: #e1e2da;
+      --stat-line: #777b75;
+      --slot: #8f928c;
+      --slot-dark: #3b3e3a;
+      --slot-light: #dfe1da;
+      --item-bg: #383c37;
+      --signal: #245f3f;
+      --inventory-label: #363a35;
+      background:
+        repeating-linear-gradient(135deg, transparent 0 4px, rgba(255, 204, 35, 0.14) 4px 7px),
+        #b9bbb4;
+    }
+
+    .industrial .screen-title::before {
+      margin-right: 4px;
+      padding: 1px 2px;
+      color: #111;
+      background: #f0bf24;
+      content: "R-03";
+      font-family: Consolas, monospace;
+      font-size: 5px;
+    }
+
+    .industrial .reactor-area {
+      border-top: 4px solid #e2b426;
+    }
+
+    .industrial .operation {
+      border-left: 4px solid #e2b426;
+    }
+
+    /* B: laboratory diagnostic console */
+    .laboratory {
+      --frame-dark: #3b4a50;
+      --title: #20353d;
+      --state-text: #297d64;
+      --panel: #dbe6e8;
+      --panel-alt: #cbdadd;
+      --panel-line: #71878e;
+      --label: #50656c;
+      --value: #142d35;
+      --track: #aabbbf;
+      --track-line: #61757c;
+      --fill: #fff;
+      --heat: #cf5e49;
+      --neutron: #a18c34;
+      --energy: #3586a1;
+      --stat-bg: #ecf2f2;
+      --stat-line: #9aadb1;
+      --slot: #afbec1;
+      --slot-dark: #63757a;
+      --slot-light: #eff6f5;
+      --item-bg: #26424b;
+      --signal: #287a64;
+      --inventory-label: #445a61;
+      background: #c8d4d6;
+    }
+
+    .laboratory::before {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 197px;
+      height: 13px;
+      border-bottom: 1px solid #7c9298;
+      background: #e9f0f0;
+      content: "";
+    }
+
+    .laboratory .stats {
+      gap: 2px;
+    }
+
+    .laboratory .stat {
+      border-radius: 2px;
+    }
+
+    .laboratory .operation::after {
+      position: absolute;
+      right: 34px;
+      width: 12px;
+      height: 12px;
+      border: 1px solid #759198;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle, #4a9aac 0 2px, transparent 2px),
+        conic-gradient(from 0deg, #85abb3, transparent, #85abb3);
+      content: "";
+    }
+
+    /* C: phosphor terminal */
+    .terminal {
+      --frame-dark: #171c18;
+      --title: #a9dc83;
+      --state-text: #d4e870;
+      --panel: #17231c;
+      --panel-alt: #111a15;
+      --panel-line: #4e755b;
+      --label: #76a985;
+      --value: #c4e8b1;
+      --track: #0b100d;
+      --track-line: #3f624b;
+      --fill: #fff;
+      --heat: #d1765d;
+      --neutron: #c3b85c;
+      --energy: #65b79b;
+      --stat-bg: #132019;
+      --stat-line: #355744;
+      --slot: #25352a;
+      --slot-dark: #0a0f0c;
+      --slot-light: #54705c;
+      --item-bg: #101713;
+      --signal: #c7dc77;
+      --inventory-label: #71947b;
+      background: #0d130f;
+      font-family: Consolas, monospace;
+    }
+
+    .terminal::before {
+      position: absolute;
+      inset: 0;
+      z-index: 19;
+      background: repeating-linear-gradient(0deg, transparent 0 2px, rgba(120, 190, 142, 0.06) 2px 3px);
+      content: "";
+      pointer-events: none;
+    }
+
+    .terminal .screen-title::before {
+      margin-right: 3px;
+      color: #6f9f7d;
+      content: ">";
+    }
+
+    .terminal .reactor-area,
+    .terminal .operation {
+      box-shadow: inset 0 0 8px rgba(74, 145, 94, 0.12);
+    }
+
+    .terminal .stat {
+      border-style: dotted;
+    }
+
+    /* D: core monitor */
+    .core {
+      --frame-dark: #0f171a;
+      --title: #ecf0ed;
+      --state-text: #e8c45a;
+      --panel: #18252a;
+      --panel-alt: #111c20;
+      --panel-line: #40535a;
+      --label: #91a1a5;
+      --value: #f3f5f2;
+      --track: #0b1012;
+      --track-line: #52656b;
+      --fill: #fff;
+      --heat: #ed684b;
+      --neutron: #e3be48;
+      --energy: #43b6c2;
+      --stat-bg: #223138;
+      --stat-line: #43575e;
+      --slot: #33434a;
+      --slot-dark: #111a1d;
+      --slot-light: #6d7c80;
+      --item-bg: #0d171a;
+      --signal: #56c7ad;
+      --inventory-label: #8b9b9f;
+      background: #111a1e;
+    }
+
+    .core .reactor-area {
+      background:
+        radial-gradient(circle at 157px 34px, rgba(65, 181, 194, 0.13) 0 12px, transparent 12px),
+        #18252a;
+    }
+
+    .core .reactor-area::before,
+    .core .reactor-area::after {
+      position: absolute;
+      top: 7px;
+      right: 7px;
+      width: 48px;
+      height: 48px;
+      border: 1px solid #49636b;
+      border-radius: 50%;
+      content: "";
+    }
+
+    .core .reactor-area::after {
+      top: 14px;
+      right: 14px;
+      width: 34px;
+      height: 34px;
+      border-color: #d4b845;
+      box-shadow: inset 0 0 0 7px #152126;
+    }
+
+    .core .primary {
+      width: 114px;
+    }
+
+    .core .track {
+      width: 114px;
+    }
+
+    .core .stats {
+      top: 24px;
+      right: 11px;
+      z-index: 2;
+      width: 45px;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .core .stat {
+      padding: 1px;
+      border: 0;
+      background: rgba(17, 27, 31, 0.78);
+      text-align: center;
+    }
+
+    .core .stat b {
+      font-size: 6px;
+    }
+
+    .core .operation {
+      border-left: 3px solid #42aeb9;
+    }
+
+    @media (max-width: 1180px) {
+      body {
+        min-width: 560px;
+      }
+
+      main {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>裂变控制器 UI 概念</h1>
+    <p>统一以 197×192 游戏像素验证。所有版本都保留热量、中子、能量、效率、单元数量、结构尺寸、中子槽与完整玩家背包。</p>
+  </header>
+
+  <main>
+    <article>
+      <div class="concept-head">
+        <h2>A. 工业安全面板</h2>
+        <span class="concept-code">INDUSTRIAL / LOW RISK</span>
+      </div>
+      <div class="stage"><div class="scale"><div class="screen industrial" data-screen></div></div></div>
+      <div class="notes">
+        <p>灰钢、警戒黄与独立三色状态条。信息层级最接近现有机器，适合强调“可维护设备”而非魔法装置。</p>
+        <span class="cost">实现：低</span>
+      </div>
+    </article>
+
+    <article>
+      <div class="concept-head">
+        <h2>B. 科研诊断台</h2>
+        <span class="concept-code">LAB / HIGH CLARITY</span>
+      </div>
+      <div class="stage"><div class="scale"><div class="screen laboratory" data-screen></div></div></div>
+      <div class="notes">
+        <p>浅色陶瓷与冷灰蓝，强调测量和校准。数字最易扫读，也最适合补充悬停提示与状态告警。</p>
+        <span class="cost">实现：低</span>
+      </div>
+    </article>
+
+    <article>
+      <div class="concept-head">
+        <h2>C. 复古 CRT 终端</h2>
+        <span class="concept-code">PHOSPHOR / DISTINCT</span>
+      </div>
+      <div class="stage"><div class="scale"><div class="screen terminal" data-screen></div></div></div>
+      <div class="notes">
+        <p>深色磷光屏、点阵边框与扫描线。辨识度最高，但需要同步调整文字颜色，避免与其他机器 GUI 割裂。</p>
+        <span class="cost">实现：中</span>
+      </div>
+    </article>
+
+    <article>
+      <div class="concept-head">
+        <h2>D. 核心监视器</h2>
+        <span class="concept-code">CORE / HIGH IMPACT</span>
+      </div>
+      <div class="stage"><div class="scale"><div class="screen core" data-screen></div></div></div>
+      <div class="notes">
+        <p>用同心核心仪表作为第一视觉信号，状态条负责精确读数。最有“终局机器”感，需要新增环形仪表贴图。</p>
+        <span class="cost">实现：中高</span>
+      </div>
+    </article>
+  </main>
+
+  <template id="screen-content">
+    <div class="screen-title">裂变控制器</div>
+    <div class="state">ONLINE</div>
+    <div class="reactor-area"></div>
+    <div class="primary">
+      <div class="meter">
+        <div class="meter-row"><span>热量</span><strong>18,640 / 50,000</strong></div>
+        <div class="track heat"><span></span></div>
+      </div>
+      <div class="meter">
+        <div class="meter-row"><span>中子</span><strong>2,786 / 4,096</strong></div>
+        <div class="track neutron"><span></span></div>
+      </div>
+      <div class="meter">
+        <div class="meter-row"><span>能量</span><strong>1.36G / 2.00G</strong></div>
+        <div class="track energy"><span></span></div>
+      </div>
+    </div>
+    <div class="stats">
+      <div class="stat"><span>效率</span><b>118</b></div>
+      <div class="stat"><span>半径</span><b>3</b></div>
+      <div class="stat"><span>燃料</span><b>12</b></div>
+      <div class="stat"><span>高度</span><b>7</b></div>
+      <div class="stat"><span>冷却</span><b>20</b></div>
+      <div class="stat"><span>状态</span><b>稳</b></div>
+    </div>
+    <div class="operation">
+      <div class="machine-slot"></div>
+      <div class="slot-copy"><b>中子轰击槽</b><span>640 / 1280</span></div>
+      <div class="operation-signal">ABSORBING +1</div>
+    </div>
+    <div class="inventory-label">物品栏</div>
+    <div class="inventory"></div>
+  </template>
+
+  <script>
+    const template = document.querySelector("#screen-content");
+    document.querySelectorAll("[data-screen]").forEach(screen => {
+      screen.append(template.content.cloneNode(true));
+      const inventory = screen.querySelector(".inventory");
+      for (let index = 0; index < 36; index += 1) {
+        const slot = document.createElement("div");
+        slot.className = `inv-slot${index >= 27 ? " hotbar" : ""}`;
+        inventory.append(slot);
+      }
+    });
+  </script>
+</body>
+</html>

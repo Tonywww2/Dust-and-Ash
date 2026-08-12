@@ -5,8 +5,30 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Items accepted as neutron containers may be placed in the $(item)Fission Reactor Controller$(). While the reactor operates, neutron bombardment charges the inserted item.$(br2)Once filled, the charged container becomes an ingredient for further crafting."
+      "text": "The $(item)Fission Reactor Controller$() has one neutron bombardment slot. Items in the $(thing)dustandash:neutron_container$() data tag absorb neutrons while the reactor has any stored.$(br2)Each absorption adds 1 neutron to the item and removes 1 from the reactor."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "One item can hold up to 1280 neutrons. Its tooltip shows the exact amount together with a progress bar.$(br2)A full item stops absorbing and can be removed for neutron-based crafting."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Every current neutron recipe requires and consumes material containing 1280 neutrons. The data tag controls which items accept neutrons, while JEI shows each recipe's items, counts and additions.$(br2)The following pages list all six recipes."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "dustandash:crafting/neutron_diamond_block",
+      "recipe2": "dustandash:crafting/neutron_gold_block"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "dustandash:crafting/neutron_electron",
+      "recipe2": "dustandash:crafting/neutron_indestructible"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "dustandash:crafting/neutron_titanium",
+      "recipe2": "dustandash:crafting/neutron_tungsten"
     }
-
   ]
 }

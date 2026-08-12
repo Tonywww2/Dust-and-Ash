@@ -5,7 +5,30 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "能够容纳中子的物品可以放入$(item)裂变反应堆控制器$()。反应堆工作时，中子轰击会逐步为其中的物品充能。$(br2)充满后，容器可以作为后续合成的材料。"
+      "text": "$(item)裂变反应堆控制器$()只有一个中子轰击槽。放入属于 $(thing)dustandash:neutron_container$() 数据标签的物品后，只要反应堆仍有中子，物品便会逐步吸收中子。$(br2)每次吸收都会使物品中的中子增加 1，并使反应堆中的中子减少 1。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "单件物品最多容纳 1280 个中子。物品说明会以具体数值和进度条同时显示当前中子量。$(br2)达到上限后，物品不再继续吸收；将其从控制器取出，便可用于需要中子材料的合成。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "现有中子合成都要求材料达到 1280 个中子，并会消耗充满的材料。可接受中子的具体物品由数据标签规定；JEI 会显示每种配方所需的物品、数量与附加材料。$(br2)以下页面列出当前六种中子合成。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "dustandash:crafting/neutron_diamond_block",
+      "recipe2": "dustandash:crafting/neutron_gold_block"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "dustandash:crafting/neutron_electron",
+      "recipe2": "dustandash:crafting/neutron_indestructible"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "dustandash:crafting/neutron_titanium",
+      "recipe2": "dustandash:crafting/neutron_tungsten"
     }
   ]
 }

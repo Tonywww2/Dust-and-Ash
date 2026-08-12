@@ -4,6 +4,14 @@
   "category": "dustandash:dust",
   "pages": [
     {
+      "type": "patchouli:text",
+      "text": "铣床和装配台以两类配方共用同一片 5×5 工作区。$(br2)基础加工时，先清空工作区，再把基材放入上方输入格；机器会消耗一件基材，并用加工后的材料铺满工作区。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "装配时，按照 JEI 显示的 5×5 图案调整工作区：需要留白的位置必须清空。再把配方指定的催化材料放入下方输入格，并清空输出格。$(br2)图案匹配后，机器会消耗催化材料与工作区中的材料，并将成品放入输出格。"
+    },
+    {
       "type": "patchouli:crafting",
       "recipe": "dustandash:crafting/milling_machine"
     }

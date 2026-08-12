@@ -1,6 +1,6 @@
 {
   "type": "dustandash:ionizer",
-  "cost": 128,
+  "cost": 64,
   "costElectrodes": true,
   "ingredients": [
     {
