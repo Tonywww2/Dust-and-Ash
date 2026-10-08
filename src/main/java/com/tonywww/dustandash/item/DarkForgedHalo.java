@@ -1,28 +1,19 @@
 package com.tonywww.dustandash.item;
 
-import com.google.common.collect.HashMultimap;
-import com.google.common.collect.Multimap;
-import com.tonywww.dustandash.DustAndAshConfig;
+import com.tonywww.dustandash.platform.DustAndAshConfig;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.Attribute;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
-import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import top.theillusivec4.curios.api.SlotContext;
-import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
 import javax.annotation.Nullable;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
-import java.util.UUID;
 
-public final class DarkForgedHalo extends Item implements ICurioItem {
+public final class DarkForgedHalo extends com.tonywww.dustandash.platform.PlatformCurioItem {
     public DarkForgedHalo(Properties properties) {
         super(properties);
     }
@@ -46,30 +37,13 @@ public final class DarkForgedHalo extends Item implements ICurioItem {
         }
     }
 
-    @Override
-    public Multimap<Attribute, AttributeModifier> getAttributeModifiers(
-            SlotContext slotContext, UUID uuid, ItemStack stack) {
-        Multimap<Attribute, AttributeModifier> modifiers = HashMultimap.create();
-        modifiers.put(Attributes.MAX_HEALTH, new AttributeModifier(
-            modifierUuid(uuid, "maximum_health"),
-                "Dark forged halo maximum health",
-                DustAndAshConfig.CURIOS.darkHaloMaxHealthBonus.get(),
-                AttributeModifier.Operation.MULTIPLY_TOTAL));
-        modifiers.put(Attributes.ARMOR, new AttributeModifier(
-            modifierUuid(uuid, "armor"),
-                "Dark forged halo armor",
-                DustAndAshConfig.CURIOS.darkHaloArmorBonus.get(),
-                AttributeModifier.Operation.MULTIPLY_TOTAL));
-        return modifiers;
-    }
-
-    private static UUID modifierUuid(UUID slotUuid, String attributeName) {
-        return UUID.nameUUIDFromBytes(
-                (slotUuid + ":dark_forged_halo:" + attributeName).getBytes(StandardCharsets.UTF_8));
+    @Override protected void addModifiers(ModifierSink sink) {
+        sink.add("maximum_health", Stat.MAX_HEALTH, DustAndAshConfig.CURIOS.darkHaloMaxHealthBonus.get(), true);
+        sink.add("armor", Stat.ARMOR, DustAndAshConfig.CURIOS.darkHaloArmorBonus.get(), true);
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag flag) {
-        super.appendHoverText(stack, level, tooltip, flag);
+    public void appendTooltip(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag flag) {
+        super.appendTooltip(stack, level, tooltip, flag);
     }
 }

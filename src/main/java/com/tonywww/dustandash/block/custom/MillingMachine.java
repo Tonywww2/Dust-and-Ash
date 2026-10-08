@@ -19,7 +19,7 @@ public class MillingMachine extends AbstractHorizontalMachineBlock<MillingMachin
     private static final VoxelShape SHAPE = Block.box(1, 0, 1, 15, 27, 15);
 
     public MillingMachine(Properties properties) {
-        super(properties, MillingMachineEntity.class);
+        super(properties, MillingMachineEntity.class, MillingMachine::new);
     }
 
     @Override

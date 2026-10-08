@@ -6,7 +6,6 @@ import com.tonywww.dustandash.menu.IntegratedBlockContainerMenu;
 import com.tonywww.dustandash.data.recipes.IntegratedBlockRecipe;
 import com.tonywww.dustandash.tag.ModTags;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
@@ -19,17 +18,16 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BeaconBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.core.Direction;
 import net.minecraft.world.phys.AABB;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.items.ItemStackHandler;
+import com.tonywww.dustandash.platform.PlatformGeometry;
+import com.tonywww.dustandash.platform.PlatformCapability;
+import com.tonywww.dustandash.platform.PlatformCapabilities;
+import com.tonywww.dustandash.platform.PlatformOptional;
+import com.tonywww.dustandash.platform.ItemStackHandler;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -44,7 +42,7 @@ public class IntegratedBlockEntity extends BasicMachineEntity implements MenuPro
     public ItemStackHandler itemStackHandler;
     private final ManagedCapability<ItemStackHandler> handler;
     private final Container recipeInput;
-    private final RecipeManager.CachedCheck<Container, IntegratedBlockRecipe> recipeCheck;
+    private final com.tonywww.dustandash.platform.PlatformRecipes.CachedCheck<IntegratedBlockRecipe> recipeCheck;
     private int currentLevel;
     private boolean isBeaconOn = false;
 
@@ -55,7 +53,7 @@ public class IntegratedBlockEntity extends BasicMachineEntity implements MenuPro
         this.itemStackHandler = createHandler();
         this.handler = managedCapability(() -> itemStackHandler);
         this.recipeInput = new ItemHandlerContainerView(this.itemStackHandler);
-        this.recipeCheck = RecipeManager.createCheck(IntegratedBlockRecipe.IntegrateRecipeType.INSTANCE);
+        this.recipeCheck = com.tonywww.dustandash.platform.PlatformRecipes.createCheck(IntegratedBlockRecipe.IntegrateRecipeType.INSTANCE);
         this.currentLevel = 0;
 
         this.dataAccess = new ContainerData() {
@@ -133,8 +131,8 @@ public class IntegratedBlockEntity extends BasicMachineEntity implements MenuPro
 
     @Nonnull
     @Override
-    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-        if (!this.remove && cap == ForgeCapabilities.ITEM_HANDLER) {
+    public <T> PlatformOptional<T> getCapability(@Nonnull PlatformCapability<T> cap, @Nullable Direction side) {
+        if (!this.remove && cap == PlatformCapabilities.ITEM_HANDLER) {
             if (side == null || side == Direction.DOWN) {
                 return this.handler.get().cast();
 
@@ -254,7 +252,7 @@ public class IntegratedBlockEntity extends BasicMachineEntity implements MenuPro
     };
 
     public static AABB getArea(BlockPos blockPos) {
-        return new AABB(blockPos.offset(-radius, -1, -radius), blockPos.offset(1 + radius, 1 + radius, 1 + radius));
+        return PlatformGeometry.box(blockPos.offset(-radius, -1, -radius), blockPos.offset(1 + radius, 1 + radius, 1 + radius));
     }
 
     public static void craft(Level level, BlockPos pos, IntegratedBlockEntity be) {

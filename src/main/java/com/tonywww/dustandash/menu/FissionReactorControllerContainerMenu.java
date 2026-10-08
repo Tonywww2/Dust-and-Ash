@@ -12,8 +12,8 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.items.SlotItemHandler;
+import com.tonywww.dustandash.platform.PlatformCapabilities;
+import com.tonywww.dustandash.platform.SlotItemHandler;
 
 public class FissionReactorControllerContainerMenu extends AbstractMachineMenu<FissionReactorControllerEntity> {
     private final ContainerData data;
@@ -24,7 +24,7 @@ public class FissionReactorControllerContainerMenu extends AbstractMachineMenu<F
             DAABlocks.FISSION_REACTOR_CONTROLLER.get(), 1, 17, 117);
         this.data = data;
 
-        tileEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(handler ->
+        tileEntity.getCapability(PlatformCapabilities.ITEM_HANDLER).ifPresent(handler ->
                 addSlot(new SlotItemHandler(handler, 0, 7, 92)));
         addDataSlots(data);
     }

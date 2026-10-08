@@ -9,8 +9,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.items.SlotItemHandler;
+import com.tonywww.dustandash.platform.PlatformCapabilities;
 
 import java.util.Objects;
 
@@ -26,7 +25,7 @@ public class IntegratedBlockContainerMenu extends AbstractContainerMenu {
 
         this.data = data;
 
-        tileEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(h -> {
+        tileEntity.getCapability(PlatformCapabilities.ITEM_HANDLER).ifPresent(h -> {
             addSlot(new ISlotItemHandler(h, 0, 36, 42));
             addSlot(new ISlotItemHandler(h, 1, 124, 42));
 

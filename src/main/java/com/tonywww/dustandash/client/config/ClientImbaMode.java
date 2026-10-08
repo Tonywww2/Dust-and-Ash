@@ -1,6 +1,6 @@
 package com.tonywww.dustandash.client.config;
 
-import com.tonywww.dustandash.DustAndAshConfig;
+import com.tonywww.dustandash.platform.DustAndAshConfig;
 import net.minecraft.client.Minecraft;
 
 public final class ClientImbaMode {

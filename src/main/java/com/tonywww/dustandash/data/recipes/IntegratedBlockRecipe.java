@@ -1,5 +1,9 @@
 package com.tonywww.dustandash.data.recipes;
 
+import com.tonywww.dustandash.platform.PlatformRecipe;
+import com.tonywww.dustandash.platform.PlatformRecipeSerializer;
+import com.tonywww.dustandash.platform.PlatformRecipeIo;
+import com.tonywww.dustandash.platform.PlatformIdentifier;
 import com.google.gson.JsonObject;
 import com.tonywww.dustandash.DustAndAsh;
 import com.tonywww.dustandash.registry.DAABlocks;
@@ -17,7 +21,7 @@ import net.minecraft.world.level.Level;
 
 import javax.annotation.Nullable;
 
-public class IntegratedBlockRecipe implements Recipe<Container> {
+public class IntegratedBlockRecipe implements PlatformRecipe {
 
 
     private final ResourceLocation id;
@@ -67,7 +71,7 @@ public class IntegratedBlockRecipe implements Recipe<Container> {
 
     @Override
     public ResourceLocation getId() {
-        return id;
+        return com.tonywww.dustandash.platform.PlatformRecipes.id(this, id);
     }
 
     @Override
@@ -104,14 +108,14 @@ public class IntegratedBlockRecipe implements Recipe<Container> {
 
     }
 
-    public static class Serializer implements RecipeSerializer<IntegratedBlockRecipe> {
+    public static class Serializer extends PlatformRecipeSerializer<IntegratedBlockRecipe> {
 
         public static final Serializer INSTANCE = new Serializer();
-        public static final ResourceLocation ID = new ResourceLocation(DustAndAsh.MOD_ID, "integrate");
+        public static final ResourceLocation ID = PlatformIdentifier.id(DustAndAsh.MOD_ID, "integrate");
 
         @Override
         public IntegratedBlockRecipe fromJson(ResourceLocation pRecipeId, JsonObject json) {
-            ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "output"));
+            ItemStack output = PlatformRecipeIo.stack(GsonHelper.getAsJsonObject(json, "output"));
             NonNullList<Ingredient> inputs = RecipeIo.readIngredients(json, pRecipeId, "ingredients", MAX_SLOTS, false);
             int lv = GsonHelper.getAsInt(json, "level");
 
@@ -123,7 +127,7 @@ public class IntegratedBlockRecipe implements Recipe<Container> {
         public IntegratedBlockRecipe fromNetwork(ResourceLocation pRecipeId, FriendlyByteBuf pBuffer) {
             int lv = pBuffer.readInt();
             NonNullList<Ingredient> inputs = RecipeIo.readIngredients(pBuffer, pRecipeId, "ingredients", MAX_SLOTS);
-            ItemStack output = pBuffer.readItem();
+            ItemStack output = PlatformRecipeIo.item(pBuffer);
 
             return new IntegratedBlockRecipe(pRecipeId, inputs, output, lv);
         }
@@ -132,7 +136,7 @@ public class IntegratedBlockRecipe implements Recipe<Container> {
         public void toNetwork(FriendlyByteBuf pBuffer, IntegratedBlockRecipe pRecipe) {
             pBuffer.writeInt(pRecipe.getLevel());
             RecipeIo.writeIngredients(pBuffer, pRecipe.getIngredients());
-            pBuffer.writeItemStack(pRecipe.getResultItem(null), false);
+            PlatformRecipeIo.item(pBuffer, pRecipe.getResultItem(null));
         }
     }
 }

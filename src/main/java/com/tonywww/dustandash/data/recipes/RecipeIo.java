@@ -1,5 +1,6 @@
 package com.tonywww.dustandash.data.recipes;
 
+import com.tonywww.dustandash.platform.PlatformRecipeIo;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
@@ -11,7 +12,6 @@ import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.ShapedRecipe;
 
 public final class RecipeIo {
     private RecipeIo() {
@@ -24,10 +24,10 @@ public final class RecipeIo {
 
         NonNullList<Ingredient> ingredients = NonNullList.withSize(capacity, Ingredient.EMPTY);
         for (int index = 0; index < array.size(); index++) {
-            Ingredient ingredient = Ingredient.fromJson(array.get(index));
+            Ingredient ingredient = PlatformRecipeIo.ingredient(array.get(index));
             JsonObject ingredientJson = GsonHelper.convertToJsonObject(array.get(index), field + "[" + index + "]");
             if (ingredientJson.has("item")) {
-                Item item = ShapedRecipe.itemFromJson(ingredientJson);
+                Item item = PlatformRecipeIo.item(ingredientJson);
                 if (item == DAAItems.EMPTY.get()) {
                     continue;
                 }
@@ -46,7 +46,7 @@ public final class RecipeIo {
 
         NonNullList<ItemStack> outputs = NonNullList.withSize(capacity, ItemStack.EMPTY);
         for (int index = 0; index < array.size(); index++) {
-            ItemStack[] matchingStacks = Ingredient.fromJson(array.get(index)).getItems();
+            ItemStack[] matchingStacks = PlatformRecipeIo.ingredient(array.get(index)).getItems();
             if (matchingStacks.length == 0) {
                 throw new JsonSyntaxException("Recipe " + recipeId + " " + field + "[" + index
                         + "] has no matching items");
@@ -65,7 +65,7 @@ public final class RecipeIo {
 
         NonNullList<Ingredient> ingredients = NonNullList.withSize(expectedSize, Ingredient.EMPTY);
         for (int index = 0; index < size; index++) {
-            ingredients.set(index, Ingredient.fromNetwork(buffer));
+            ingredients.set(index, PlatformRecipeIo.ingredient(buffer));
         }
         return ingredients;
     }
@@ -77,19 +77,19 @@ public final class RecipeIo {
 
         NonNullList<ItemStack> outputs = NonNullList.withSize(expectedSize, ItemStack.EMPTY);
         for (int index = 0; index < size; index++) {
-            outputs.set(index, buffer.readItem());
+            outputs.set(index, PlatformRecipeIo.item(buffer));
         }
         return outputs;
     }
 
     public static void writeIngredients(FriendlyByteBuf buffer, NonNullList<Ingredient> ingredients) {
         buffer.writeVarInt(ingredients.size());
-        ingredients.forEach(ingredient -> ingredient.toNetwork(buffer));
+        ingredients.forEach(ingredient -> PlatformRecipeIo.ingredient(buffer, ingredient));
     }
 
     public static void writeOutputs(FriendlyByteBuf buffer, NonNullList<ItemStack> outputs) {
         buffer.writeVarInt(outputs.size());
-        outputs.forEach(output -> buffer.writeItemStack(output, false));
+        outputs.forEach(output -> PlatformRecipeIo.item(buffer, output));
     }
 
     private static void validateJsonSize(ResourceLocation recipeId, String field, int actual,

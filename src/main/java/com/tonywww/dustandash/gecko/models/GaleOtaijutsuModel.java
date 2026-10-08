@@ -1,5 +1,6 @@
 package com.tonywww.dustandash.gecko.models;
 
+import com.tonywww.dustandash.platform.PlatformIdentifier;
 import com.tonywww.dustandash.DustAndAsh;
 import com.tonywww.dustandash.item.GaleOtaijutsu;
 import net.minecraft.resources.ResourceLocation;
@@ -8,16 +9,16 @@ import software.bernie.geckolib.model.GeoModel;
 public class GaleOtaijutsuModel extends GeoModel<GaleOtaijutsu> {
     @Override
     public ResourceLocation getModelResource(GaleOtaijutsu animatable) {
-        return new ResourceLocation(DustAndAsh.MOD_ID, "geo/item/gale_otaijutsu.geo.json");
+        return PlatformIdentifier.id(DustAndAsh.MOD_ID, "geo/item/gale_otaijutsu.geo.json");
     }
 
     @Override
     public ResourceLocation getTextureResource(GaleOtaijutsu animatable) {
-        return new ResourceLocation(DustAndAsh.MOD_ID, "textures/item/gale_otaijutsu.png");
+        return PlatformIdentifier.id(DustAndAsh.MOD_ID, "textures/item/gale_otaijutsu.png");
     }
 
     @Override
     public ResourceLocation getAnimationResource(GaleOtaijutsu animatable) {
-        return new ResourceLocation(DustAndAsh.MOD_ID, "animations/item/gale_otaijutsu.animation.json");
+        return PlatformIdentifier.id(DustAndAsh.MOD_ID, "animations/item/gale_otaijutsu.animation.json");
     }
 }

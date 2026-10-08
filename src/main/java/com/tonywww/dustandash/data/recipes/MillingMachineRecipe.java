@@ -1,5 +1,9 @@
 package com.tonywww.dustandash.data.recipes;
 
+import com.tonywww.dustandash.platform.PlatformRecipe;
+import com.tonywww.dustandash.platform.PlatformRecipeSerializer;
+import com.tonywww.dustandash.platform.PlatformRecipeIo;
+import com.tonywww.dustandash.platform.PlatformIdentifier;
 import com.google.common.collect.Maps;
 import com.google.gson.*;
 import com.tonywww.dustandash.DustAndAsh;
@@ -19,7 +23,7 @@ import net.minecraft.world.level.Level;
 import javax.annotation.Nullable;
 import java.util.Map;
 
-public class MillingMachineRecipe implements Recipe<Container> {
+public class MillingMachineRecipe implements PlatformRecipe {
 
 
     private final ResourceLocation id;
@@ -99,7 +103,7 @@ public class MillingMachineRecipe implements Recipe<Container> {
 
     @Override
     public ResourceLocation getId() {
-        return id;
+        return com.tonywww.dustandash.platform.PlatformRecipes.id(this, id);
     }
 
     @Override
@@ -136,15 +140,15 @@ public class MillingMachineRecipe implements Recipe<Container> {
 
     }
 
-    //    public static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<MillingMachineRecipe> {
-    public static class Serializer implements RecipeSerializer<MillingMachineRecipe> {
+    //    public static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> extends PlatformRecipeSerializer<MillingMachineRecipe> {
+    public static class Serializer extends PlatformRecipeSerializer<MillingMachineRecipe> {
 
         public static final Serializer INSTANCE = new Serializer();
-        public static final ResourceLocation ID = new ResourceLocation(DustAndAsh.MOD_ID, "milling");
+        public static final ResourceLocation ID = PlatformIdentifier.id(DustAndAsh.MOD_ID, "milling");
 
         @Override
         public MillingMachineRecipe fromJson(ResourceLocation pRecipeId, JsonObject json) {
-            ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "output"));
+            ItemStack output = PlatformRecipeIo.stack(GsonHelper.getAsJsonObject(json, "output"));
 
             boolean step1 = GsonHelper.getAsBoolean(json, "step1");
             NonNullList<Ingredient> inputs = NonNullList.withSize(MAX_SLOTS, Ingredient.EMPTY);
@@ -155,7 +159,7 @@ public class MillingMachineRecipe implements Recipe<Container> {
                     throw new JsonSyntaxException("Milling recipe " + pRecipeId
                             + " step1 requires exactly one ingredient");
                 }
-                Ingredient temp = Ingredient.fromJson(ingredients.get(0));
+                Ingredient temp = PlatformRecipeIo.ingredient(ingredients.get(0));
                 inputs.set(0, temp);
 
             } else {
@@ -209,7 +213,7 @@ public class MillingMachineRecipe implements Recipe<Container> {
             Map<String, Ingredient> map = Maps.newHashMap();
 
             for (Map.Entry<String, JsonElement> entry : json.entrySet()) {
-                map.put(entry.getKey(), Ingredient.fromJson(entry.getValue()));
+                map.put(entry.getKey(), PlatformRecipeIo.ingredient(entry.getValue()));
 
             }
 
@@ -224,12 +228,12 @@ public class MillingMachineRecipe implements Recipe<Container> {
             NonNullList<Ingredient> inputs = NonNullList.withSize(MAX_SLOTS, Ingredient.of(DAAItems.EMPTY.get()));
             boolean step1 = pBuffer.readBoolean();
             if (step1) {
-                inputs.set(0, Ingredient.fromNetwork(pBuffer));
+                inputs.set(0, PlatformRecipeIo.ingredient(pBuffer));
             } else {
                 inputs = RecipeIo.readIngredients(pBuffer, pRecipeId, "ingredients", MAX_SLOTS);
             }
 
-            ItemStack output = pBuffer.readItem();
+            ItemStack output = PlatformRecipeIo.item(pBuffer);
 
             return new MillingMachineRecipe(pRecipeId, output, inputs, step1);
         }
@@ -239,12 +243,12 @@ public class MillingMachineRecipe implements Recipe<Container> {
             pBuffer.writeBoolean(pRecipe.isStep1());
 
             if (pRecipe.isStep1()) {
-                pRecipe.getIngredients().get(0).toNetwork(pBuffer);
+                com.tonywww.dustandash.platform.PlatformRecipeIo.ingredient(pBuffer, pRecipe.getIngredients().get(0));
             } else {
                 RecipeIo.writeIngredients(pBuffer, pRecipe.getIngredients());
             }
 
-            pBuffer.writeItemStack(pRecipe.getResultItem(null), false);
+            PlatformRecipeIo.item(pBuffer, pRecipe.getResultItem(null));
         }
     }
 

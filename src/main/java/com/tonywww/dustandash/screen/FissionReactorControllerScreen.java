@@ -4,11 +4,10 @@ import com.tonywww.dustandash.DustAndAsh;
 import com.tonywww.dustandash.block.entity.FissionReactor.FissionReactorControllerEntity;
 import com.tonywww.dustandash.block.entity.FissionReactor.NeutronContainerUpdater;
 import com.tonywww.dustandash.block.entity.FissionReactor.NeutronSlotState;
-import com.tonywww.dustandash.block.entity.FissionReactor.ReactorOperatingState;
 import com.tonywww.dustandash.block.entity.FissionReactor.ReactorStructureIssue;
 import com.tonywww.dustandash.menu.FissionReactorControllerContainerMenu;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import com.tonywww.dustandash.platform.PlatformContainerScreen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -19,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class FissionReactorControllerScreen extends AbstractContainerScreen<FissionReactorControllerContainerMenu> {
+public class FissionReactorControllerScreen extends PlatformContainerScreen<FissionReactorControllerContainerMenu> {
         private static final int GUI_WIDTH = 197;
     private static final int GUI_HEIGHT = 198;
         private static final int TEXT = 0xB9E6BC;
@@ -32,7 +31,7 @@ public class FissionReactorControllerScreen extends AbstractContainerScreen<Fiss
         private static final int ERROR = 0xDD6A59;
         private static final int TRACK = 0x0B100D;
 
-        private static final ResourceLocation GUI = new ResourceLocation(
+        private static final ResourceLocation GUI = com.tonywww.dustandash.platform.PlatformIdentifier.id(
                         DustAndAsh.MOD_ID,
                         "textures/gui/fission_reactor_controller_gui.png"
         );
@@ -49,7 +48,7 @@ public class FissionReactorControllerScreen extends AbstractContainerScreen<Fiss
 
     @Override
     public void render(GuiGraphics guiGraphics, int pMouseX, int pMouseY, float pPartialTicks) {
-        this.renderBackground(guiGraphics);
+        this.renderBackdrop(guiGraphics, pMouseX, pMouseY, pPartialTicks);
         super.render(guiGraphics, pMouseX, pMouseY, pPartialTicks);
         this.renderTooltip(guiGraphics, pMouseX, pMouseY);
                 renderDiagnosticTooltip(guiGraphics, pMouseX, pMouseY);

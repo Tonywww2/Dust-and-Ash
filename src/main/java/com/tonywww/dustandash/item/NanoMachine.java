@@ -1,28 +1,29 @@
 package com.tonywww.dustandash.item;
 
+import com.tonywww.dustandash.platform.PlatformItemData;
+import com.tonywww.dustandash.platform.PlatformItem;
+import com.tonywww.dustandash.platform.PlatformIdentifier;
 import com.tonywww.dustandash.tag.ModTags;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.registries.ForgeRegistries;
+import com.tonywww.dustandash.platform.PlatformRegistries;
 
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class NanoMachine extends Item {
+public class NanoMachine extends PlatformItem {
     public NanoMachine(Properties properties) {
         super(properties);
     }
@@ -33,12 +34,12 @@ public class NanoMachine extends Item {
             if (hand == InteractionHand.MAIN_HAND) {
                 ItemStack nano = player.getItemInHand(InteractionHand.MAIN_HAND);
                 ItemStack stack = player.getItemInHand(InteractionHand.OFF_HAND);
-                String name = ForgeRegistries.ITEMS.getKey(stack.getItem()).toString();
+                String name = PlatformRegistries.ITEMS.getKey(stack.getItem()).toString();
 
                 if (!stack.isEmpty() && stack.getCount() > 0 && nano.getCount() > 0) {
                     switch (name) {
                         case "umapyoi:uma_factor_item":
-                            CompoundTag compoundtag = stack.getOrCreateTag();
+                            CompoundTag compoundtag = PlatformItemData.getOrCreate(stack);
                             ListTag factors = compoundtag.getList("factors", Tag.TAG_COMPOUND);
                             int blueLV = factors.getCompound(0).getInt("level");
                             int redLV = factors.getCompound(1).getInt("level");
@@ -55,6 +56,7 @@ public class NanoMachine extends Item {
 
                             }
                             if (flag) {
+                                PlatformItemData.write(stack, compoundtag);
                                 nano.shrink(1);
                                 player.sendSystemMessage(Component.literal("Factors Upgraded"));
                             }
@@ -62,19 +64,18 @@ public class NanoMachine extends Item {
                             break;
 
                         case "create:brass_casing":
-                            exchange(player, stack, ForgeRegistries.ITEMS.getValue(new ResourceLocation("create:brass_block")).getDefaultInstance());
+                            exchange(player, stack, PlatformRegistries.ITEMS.getValue(PlatformIdentifier.parse("create:brass_block")).getDefaultInstance());
                             player.sendSystemMessage(Component.literal("Gears and Brass"));
                             break;
 
                         case "botania:mana_pool":
-                            exchange(player, stack, ForgeRegistries.ITEMS.getValue(new ResourceLocation("botania:fabulous_pool")).getDefaultInstance());
+                            exchange(player, stack, PlatformRegistries.ITEMS.getValue(PlatformIdentifier.parse("botania:fabulous_pool")).getDefaultInstance());
                             player.sendSystemMessage(Component.literal("Dancing Plants"));
                             break;
 
                         default:
                             if (!stack.is(ModTags.Items.NANO_BLACKLIST)) {
-                                CompoundTag tag = stack.getOrCreateTag();
-                                tag.putBoolean("Unbreakable", true);
+                                PlatformItemData.makeUnbreakable(stack);
                                 nano.shrink(1);
                                 player.sendSystemMessage(Component.literal("Immortal"));
 
@@ -85,7 +86,7 @@ public class NanoMachine extends Item {
 
             } else if (hand == InteractionHand.OFF_HAND) {
                 player.startUsingItem(hand);
-                
+
             }
 
         }
@@ -133,14 +134,14 @@ public class NanoMachine extends Item {
     }
 
     @Override
-    public int getUseDuration(ItemStack stack) {
+    public int useDuration(ItemStack stack) {
         return 60;
     }
 
     @Override
-    public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltip, TooltipFlag pFlag) {
+    public void appendTooltip(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltip, TooltipFlag pFlag) {
 
 
-        super.appendHoverText(pStack, pLevel, pTooltip, pFlag);
+        super.appendTooltip(pStack, pLevel, pTooltip, pFlag);
     }
 }

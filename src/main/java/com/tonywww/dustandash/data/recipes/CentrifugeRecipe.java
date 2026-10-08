@@ -1,5 +1,8 @@
 package com.tonywww.dustandash.data.recipes;
 
+import com.tonywww.dustandash.platform.PlatformRecipe;
+import com.tonywww.dustandash.platform.PlatformRecipeSerializer;
+import com.tonywww.dustandash.platform.PlatformIdentifier;
 import com.google.gson.JsonObject;
 import com.tonywww.dustandash.DustAndAsh;
 import com.tonywww.dustandash.registry.DAABlocks;
@@ -11,7 +14,6 @@ import net.minecraft.util.GsonHelper;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.network.FriendlyByteBuf;
@@ -19,7 +21,7 @@ import net.minecraft.world.level.Level;
 
 import javax.annotation.Nullable;
 
-public class CentrifugeRecipe implements Recipe<Container> {
+public class CentrifugeRecipe implements PlatformRecipe {
 
     private final ResourceLocation id;
     private final NonNullList<ItemStack> outputItemStacks;
@@ -74,7 +76,7 @@ public class CentrifugeRecipe implements Recipe<Container> {
 
     @Override
     public ResourceLocation getId() {
-        return id;
+        return com.tonywww.dustandash.platform.PlatformRecipes.id(this, id);
     }
 
     @Override
@@ -111,10 +113,10 @@ public class CentrifugeRecipe implements Recipe<Container> {
 
     }
 
-    public static class Serializer implements RecipeSerializer<CentrifugeRecipe> {
+    public static class Serializer extends PlatformRecipeSerializer<CentrifugeRecipe> {
 
         public static final Serializer INSTANCE = new Serializer();
-        public static final ResourceLocation ID = new ResourceLocation(DustAndAsh.MOD_ID, "centrifuge");
+        public static final ResourceLocation ID = PlatformIdentifier.id(DustAndAsh.MOD_ID, "centrifuge");
 
         @Override
         public CentrifugeRecipe fromJson(ResourceLocation pRecipeId, JsonObject json) {

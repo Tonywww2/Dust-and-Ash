@@ -1,10 +1,10 @@
 package com.tonywww.dustandash.item;
 
+import com.tonywww.dustandash.platform.PlatformItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.UseOnContext;
@@ -17,7 +17,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Objects;
 
-public class EchoActivator extends Item {
+public class EchoActivator extends PlatformItem {
     public EchoActivator(Properties properties) {
         super(properties);
     }
@@ -35,13 +35,13 @@ public class EchoActivator extends Item {
             if (blockState.getBlock() == Blocks.SCULK_SHRIEKER) {
                 if(!blockState.getValue(BlockStateProperties.CAN_SUMMON)) {
                     level.setBlock(blockPos, blockState.setValue(BlockStateProperties.CAN_SUMMON, Boolean.valueOf(true)), 3);
-                    stack.hurtAndBreak(1, playerEntity, player -> player.broadcastBreakEvent(player.getUsedItemHand()));
+                    com.tonywww.dustandash.platform.PlatformHooks.damageItem(stack, 1, playerEntity, playerEntity.getUsedItemHand());
 
                 }
 
             } else if (blockState.getBlock() == Blocks.CAKE) {
                 level.setBlock(blockPos, Blocks.SCULK_SHRIEKER.defaultBlockState().setValue(BlockStateProperties.CAN_SUMMON, Boolean.valueOf(true)), 3);
-                stack.hurtAndBreak(1, playerEntity, player -> player.broadcastBreakEvent(player.getUsedItemHand()));
+                com.tonywww.dustandash.platform.PlatformHooks.damageItem(stack, 1, playerEntity, playerEntity.getUsedItemHand());
 
             }
 
@@ -51,9 +51,9 @@ public class EchoActivator extends Item {
     }
 
     @Override
-    public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltip, TooltipFlag pFlag) {
+    public void appendTooltip(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltip, TooltipFlag pFlag) {
 
 
-        super.appendHoverText(pStack, pLevel, pTooltip, pFlag);
+        super.appendTooltip(pStack, pLevel, pTooltip, pFlag);
     }
 }

@@ -1,7 +1,8 @@
 package com.tonywww.dustandash.item;
 
+import com.tonywww.dustandash.platform.PlatformItem;
 import com.tonywww.dustandash.registry.DAABlocks;
-import com.tonywww.dustandash.DustAndAshConfig;
+import com.tonywww.dustandash.platform.DustAndAshConfig;
 import com.tonywww.dustandash.loottables.ModLootTables;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -9,7 +10,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
@@ -20,13 +20,14 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
+import com.tonywww.dustandash.platform.PlatformLoot;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Objects;
 
-public class HandVacuum extends Item {
+public class HandVacuum extends PlatformItem {
 
     public HandVacuum(Properties properties) {
         super(properties);
@@ -40,7 +41,7 @@ public class HandVacuum extends Item {
             Player playerEntity = Objects.requireNonNull(context.getPlayer());
 
             if (changeBlock(context, playerEntity, context.getLevel())) {
-                stack.hurtAndBreak(1, playerEntity, player -> player.broadcastBreakEvent(player.getUsedItemHand()));
+                com.tonywww.dustandash.platform.PlatformHooks.damageItem(stack, 1, playerEntity, playerEntity.getUsedItemHand());
 
             }
 
@@ -87,7 +88,7 @@ public class HandVacuum extends Item {
                 .withLuck(playerEntity.getLuck())
                 .create(LootContextParamSets.EMPTY);
 
-        LootTable lootTable = level.getServer().getLootData().getLootTable(ModLootTables.HAND_VACUUM);
+        LootTable lootTable = PlatformLoot.table((ServerLevel) level, ModLootTables.HAND_VACUUM);
         List<ItemStack> list = lootTable.getRandomItems(lootparams);
 
         for (ItemStack i : list) {
@@ -105,10 +106,10 @@ public class HandVacuum extends Item {
     }
 
     @Override
-    public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltip, TooltipFlag pFlag) {
+    public void appendTooltip(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltip, TooltipFlag pFlag) {
 
 
-        super.appendHoverText(pStack, pLevel, pTooltip, pFlag);
+        super.appendTooltip(pStack, pLevel, pTooltip, pFlag);
     }
 
 

@@ -1,10 +1,11 @@
 package com.tonywww.dustandash.item;
 
+import com.tonywww.dustandash.platform.PlatformSwordItem;
 import com.tonywww.dustandash.config.ImbaRules;
+import com.tonywww.dustandash.platform.PlatformEntities;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -13,7 +14,6 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.UseOnContext;
@@ -24,7 +24,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 
-public class SunburnMegaSword extends SwordItem {
+public class SunburnMegaSword extends PlatformSwordItem {
     public SunburnMegaSword(Tier pTier, int pAttackDamageModifier, float pAttackSpeedModifier, Properties pProperties) {
         super(pTier, pAttackDamageModifier, pAttackSpeedModifier, pProperties);
     }
@@ -39,7 +39,7 @@ public class SunburnMegaSword extends SwordItem {
                         MobEffects.FIRE_RESISTANCE,
                         ImbaRules.sunburnFireResistanceTicks(),
                         0));
-                entity.setSecondsOnFire(ImbaRules.sunburnFireSeconds());
+                PlatformEntities.ignite(entity, ImbaRules.sunburnFireSeconds());
 
             }
             if (!player.getCooldowns().isOnCooldown(this)) {
@@ -52,7 +52,7 @@ public class SunburnMegaSword extends SwordItem {
                         ImbaRules.sunburnExplosionPower(),
                         true,
                         Explosion.BlockInteraction.KEEP);
-                player.level().playSound(null, player.blockPosition(), SoundEvents.GENERIC_EXPLODE, SoundSource.PLAYERS, 1f, 1f);
+                player.level().playSound(null, player.blockPosition(), PlatformEntities.explosionSound(), SoundSource.PLAYERS, 1f, 1f);
                 ((ServerLevel) player.level()).sendParticles(
                         ParticleTypes.EXPLOSION,
                         player.getX(),
@@ -81,10 +81,10 @@ public class SunburnMegaSword extends SwordItem {
     }
 
     @Override
-    public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltip, TooltipFlag pFlag) {
+    public void appendTooltip(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltip, TooltipFlag pFlag) {
 
 
-        super.appendHoverText(pStack, pLevel, pTooltip, pFlag);
+        super.appendTooltip(pStack, pLevel, pTooltip, pFlag);
     }
 
 }

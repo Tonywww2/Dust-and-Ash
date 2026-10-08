@@ -3,7 +3,7 @@ package com.tonywww.dustandash.block.entity.FissionReactor;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.items.ItemStackHandler;
+import com.tonywww.dustandash.platform.ItemStackHandler;
 
 public final class ReactorConsumableService {
     private ReactorConsumableService() {
@@ -11,7 +11,7 @@ public final class ReactorConsumableService {
 
     public static void damageAndRecycle(ItemStack consumable, int damage, RandomSource random,
                                         ItemStackHandler inventory, int outputSlot, Item emptyContainer) {
-        if (consumable.isEmpty() || !consumable.hurt(damage, random, null)) {
+        if (consumable.isEmpty() || !com.tonywww.dustandash.platform.PlatformHooks.damageConsumable(consumable, damage, random)) {
             return;
         }
 

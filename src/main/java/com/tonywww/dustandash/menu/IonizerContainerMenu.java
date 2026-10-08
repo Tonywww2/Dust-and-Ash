@@ -5,16 +5,10 @@ import com.tonywww.dustandash.block.entity.IonizerEntity;
 import com.tonywww.dustandash.registry.DAAContainerMenus;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.SlotItemHandler;
-import net.minecraftforge.items.wrapper.InvWrapper;
+import com.tonywww.dustandash.platform.PlatformCapabilities;
+import com.tonywww.dustandash.platform.SlotItemHandler;
 
-import java.util.Objects;
 
 public class IonizerContainerMenu extends AbstractMachineMenu<IonizerEntity> {
 
@@ -24,7 +18,7 @@ public class IonizerContainerMenu extends AbstractMachineMenu<IonizerEntity> {
         super(DAAContainerMenus.IONIZER_CONTAINER.get(), id, playerInventory, tileEntity,
                 DAABlocks.IONIZER.get(), 6, 8, 92);
         this.data = data;
-        tileEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(handler -> {
+        tileEntity.getCapability(PlatformCapabilities.ITEM_HANDLER).ifPresent(handler -> {
             addSlot(new SlotItemHandler(handler, 0, 16, 30));
             addSlot(new SlotItemHandler(handler, 1, 16, 50));
             addSlot(new SlotItemHandler(handler, 2, 6, 70));

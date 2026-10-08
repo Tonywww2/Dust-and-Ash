@@ -19,7 +19,7 @@ public class AshCollector extends AbstractHorizontalMachineBlock<AshCollectorEnt
     private static final VoxelShape SHAPE = Block.box(0, 0, 0, 16, 16, 16);
 
     public AshCollector(Properties properties) {
-        super(properties, AshCollectorEntity.class);
+        super(properties, AshCollectorEntity.class, AshCollector::new);
     }
 
     @Override

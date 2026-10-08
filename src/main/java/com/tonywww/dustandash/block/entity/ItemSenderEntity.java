@@ -1,12 +1,12 @@
 package com.tonywww.dustandash.block.entity;
 
+import com.tonywww.dustandash.platform.PlatformItemData;
 import com.tonywww.dustandash.registry.DAAItems;
 import com.tonywww.dustandash.menu.ItemSenderContainerMenu;
 import com.tonywww.dustandash.menu.itemhandlers.RestrictedItemHandler;
 import com.tonywww.dustandash.registry.DAABlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.Container;
@@ -24,11 +24,11 @@ import net.minecraft.world.level.block.ChestBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.ItemStackHandler;
+import com.tonywww.dustandash.platform.PlatformCapability;
+import com.tonywww.dustandash.platform.PlatformCapabilities;
+import com.tonywww.dustandash.platform.PlatformOptional;
+import com.tonywww.dustandash.platform.IItemHandler;
+import com.tonywww.dustandash.platform.ItemStackHandler;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -154,8 +154,8 @@ public class ItemSenderEntity extends BasicMachineEntity implements MenuProvider
 
     @Nonnull
     @Override
-    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @javax.annotation.Nullable Direction side) {
-        if (!this.remove && cap == ForgeCapabilities.ITEM_HANDLER) {
+    public <T> PlatformOptional<T> getCapability(@Nonnull PlatformCapability<T> cap, @javax.annotation.Nullable Direction side) {
+        if (!this.remove && cap == PlatformCapabilities.ITEM_HANDLER) {
             if (side == null) {
                 return this.handler.get().cast();
             }
@@ -201,7 +201,7 @@ public class ItemSenderEntity extends BasicMachineEntity implements MenuProvider
                 // get target pos
                 ItemStack positionSelector = be.invItemStackHandler.getStackInSlot(0);
                 if (!positionSelector.isEmpty()) {
-                    CompoundTag compoundtag = positionSelector.getOrCreateTag();
+                    CompoundTag compoundtag = PlatformItemData.getOrCreate(positionSelector);
                     int[] itemPos = compoundtag.getIntArray("position");
                     be.targetPos = arrToBlockPos(itemPos);
 
@@ -286,7 +286,7 @@ public class ItemSenderEntity extends BasicMachineEntity implements MenuProvider
         if (targetStack.isEmpty()) {
             return Math.min(container.getMaxStackSize(), sourceStack.getMaxStackSize()) > 0;
         }
-        if (!ItemStack.isSameItemSameTags(targetStack, sourceStack)) {
+        if (!com.tonywww.dustandash.platform.PlatformHooks.sameStack(targetStack, sourceStack)) {
             return false;
         }
         int maxStackSize = Math.min(container.getMaxStackSize(), targetStack.getMaxStackSize());
@@ -299,7 +299,7 @@ public class ItemSenderEntity extends BasicMachineEntity implements MenuProvider
         if (state.hasBlockEntity()) {
             BlockEntity blockEntity = worldIn.getBlockEntity(blockpos);
             if (blockEntity != null) {
-                return blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER, null)
+                return PlatformCapabilities.items(blockEntity, null).resolve()
                         .map(capability -> ImmutablePair.<IItemHandler, Object>of(capability, blockEntity));
             }
         }

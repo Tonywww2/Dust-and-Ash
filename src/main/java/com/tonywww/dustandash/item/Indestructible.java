@@ -1,6 +1,7 @@
 package com.tonywww.dustandash.item;
 
-import com.tonywww.dustandash.DustAndAshConfig;
+import com.tonywww.dustandash.platform.PlatformItem;
+import com.tonywww.dustandash.platform.DustAndAshConfig;
 import com.tonywww.dustandash.registry.DAAItems;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
@@ -10,7 +11,6 @@ import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
@@ -18,7 +18,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class Indestructible extends Item {
+public class Indestructible extends PlatformItem {
     public Indestructible(Properties properties) {
         super(properties);
     }
@@ -41,9 +41,9 @@ public class Indestructible extends Item {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> pTooltip, TooltipFlag pFlag) {
+    public void appendTooltip(ItemStack stack, @Nullable Level level, List<Component> pTooltip, TooltipFlag pFlag) {
 
 
-        super.appendHoverText(stack, level, pTooltip, pFlag);
+        super.appendTooltip(stack, level, pTooltip, pFlag);
     }
 }

@@ -3,7 +3,7 @@ package com.tonywww.dustandash.registry;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.registries.RegistryObject;
+import com.tonywww.dustandash.platform.RegistryObject;
 
 import java.util.List;
 import java.util.function.Supplier;

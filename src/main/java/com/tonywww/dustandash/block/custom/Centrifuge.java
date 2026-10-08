@@ -19,7 +19,7 @@ public class Centrifuge extends AbstractHorizontalMachineBlock<CentrifugeEntity>
     private static final VoxelShape SHAPE = Block.box(0, 0, 0, 16, 16, 16);
 
     public Centrifuge(Properties properties) {
-        super(properties, CentrifugeEntity.class);
+        super(properties, CentrifugeEntity.class, Centrifuge::new);
     }
 
     @Override

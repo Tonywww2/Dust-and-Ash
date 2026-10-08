@@ -1,6 +1,6 @@
 package com.tonywww.dustandash.block.entity;
 
-import com.tonywww.dustandash.DustAndAshConfig;
+import com.tonywww.dustandash.platform.DustAndAshConfig;
 import com.tonywww.dustandash.menu.IonizerContainerMenu;
 import com.tonywww.dustandash.menu.itemhandlers.RestrictedItemHandler;
 import com.tonywww.dustandash.data.recipes.IonizerRecipe;
@@ -8,7 +8,6 @@ import com.tonywww.dustandash.registry.DAAItems;
 import com.tonywww.dustandash.registry.DAABlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
@@ -20,16 +19,15 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.items.ItemStackHandler;
+import com.tonywww.dustandash.platform.PlatformCapability;
+import com.tonywww.dustandash.platform.PlatformCapabilities;
+import com.tonywww.dustandash.platform.PlatformOptional;
+import com.tonywww.dustandash.platform.ItemStackHandler;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -43,7 +41,7 @@ public class IonizerEntity extends SyncedBlockEntity implements MenuProvider, Dr
     private final ManagedCapability<RestrictedItemHandler> electrodeHandler;
     private final ManagedCapability<RestrictedItemHandler> inputHandler;
     private final Container recipeInput;
-    private final RecipeManager.CachedCheck<Container, IonizerRecipe> recipeCheck;
+    private final com.tonywww.dustandash.platform.PlatformRecipes.CachedCheck<IonizerRecipe> recipeCheck;
 
     private float currentProgression;
     private int targetProgression;
@@ -66,7 +64,7 @@ public class IonizerEntity extends SyncedBlockEntity implements MenuProvider, Dr
         this.inputHandler = managedCapability(() -> new RestrictedItemHandler(invItemStackHandler,
             slot -> slot < 4, slot -> false));
         this.recipeInput = new ItemHandlerContainerView(this.invItemStackHandler);
-        this.recipeCheck = RecipeManager.createCheck(IonizerRecipe.IonizerRecipeType.INSTANCE);
+        this.recipeCheck = com.tonywww.dustandash.platform.PlatformRecipes.createCheck(IonizerRecipe.IonizerRecipeType.INSTANCE);
 
         currentProgression = -1f;
         targetProgression = 0;
@@ -157,8 +155,8 @@ public class IonizerEntity extends SyncedBlockEntity implements MenuProvider, Dr
 
     @Nonnull
     @Override
-    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-        if (!this.remove && cap == ForgeCapabilities.ITEM_HANDLER) {
+    public <T> PlatformOptional<T> getCapability(@Nonnull PlatformCapability<T> cap, @Nullable Direction side) {
+        if (!this.remove && cap == PlatformCapabilities.ITEM_HANDLER) {
             if (side == null) {
                 return this.handler.get().cast();
             }

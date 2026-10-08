@@ -2,7 +2,7 @@ package com.tonywww.dustandash.registry;
 
 import com.tonywww.dustandash.item.FissionReactor.*;
 import net.minecraft.world.item.Item;
-import net.minecraftforge.registries.RegistryObject;
+import com.tonywww.dustandash.platform.RegistryObject;
 
 public final class DAAReactorItems {
     public static final RegistryObject<Item> REFINED_URANIUM = DAAItems.simple("refined_uranium", 16);

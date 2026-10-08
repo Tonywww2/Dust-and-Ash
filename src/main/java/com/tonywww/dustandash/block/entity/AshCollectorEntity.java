@@ -1,11 +1,10 @@
 package com.tonywww.dustandash.block.entity;
 
-import com.tonywww.dustandash.DustAndAshConfig;
+import com.tonywww.dustandash.platform.DustAndAshConfig;
 import com.tonywww.dustandash.menu.AshCollectorContainerMenu;
 import com.tonywww.dustandash.registry.DAAItems;
 import com.tonywww.dustandash.registry.DAABlockEntities;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundSource;
@@ -21,10 +20,10 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.items.ItemStackHandler;
+import com.tonywww.dustandash.platform.PlatformCapability;
+import com.tonywww.dustandash.platform.PlatformCapabilities;
+import com.tonywww.dustandash.platform.PlatformOptional;
+import com.tonywww.dustandash.platform.ItemStackHandler;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -72,8 +71,8 @@ public class AshCollectorEntity extends BasicMachineEntity implements MenuProvid
 
     @Nonnull
     @Override
-    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-        if (cap == ForgeCapabilities.ITEM_HANDLER) {
+    public <T> PlatformOptional<T> getCapability(@Nonnull PlatformCapability<T> cap, @Nullable Direction side) {
+        if (cap == PlatformCapabilities.ITEM_HANDLER) {
             return this.handler.get().cast();
 
         }

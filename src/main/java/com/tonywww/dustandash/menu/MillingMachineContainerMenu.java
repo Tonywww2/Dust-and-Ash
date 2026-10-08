@@ -5,15 +5,15 @@ import com.tonywww.dustandash.block.entity.MillingMachineEntity;
 import com.tonywww.dustandash.registry.DAAContainerMenus;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.items.SlotItemHandler;
+import com.tonywww.dustandash.platform.PlatformCapabilities;
+import com.tonywww.dustandash.platform.SlotItemHandler;
 
 public class MillingMachineContainerMenu extends AbstractMachineMenu<MillingMachineEntity> {
 
     public MillingMachineContainerMenu(int id, Inventory playerInventory, MillingMachineEntity tileEntity) {
         super(DAAContainerMenus.MILLING_MACHINE_CONTAINER.get(), id, playerInventory, tileEntity,
                 DAABlocks.MILLING_MACHINE.get(), 28, 8, 93);
-        tileEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(handler -> {
+        tileEntity.getCapability(PlatformCapabilities.ITEM_HANDLER).ifPresent(handler -> {
             addSlot(new SlotItemHandler(handler, 0, 28, 10));
             addSlot(new SlotItemHandler(handler, 1, 28, 38));
             addSlot(new SlotItemHandler(handler, 2, 28, 66));

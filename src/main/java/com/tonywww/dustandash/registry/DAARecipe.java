@@ -7,16 +7,16 @@ import com.tonywww.dustandash.data.recipes.IonizerRecipe;
 import com.tonywww.dustandash.data.recipes.MillingMachineRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.registries.RegistryObject;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
+import com.tonywww.dustandash.platform.PlatformEventBus;
+import com.tonywww.dustandash.platform.RegistryObject;
+import com.tonywww.dustandash.platform.DeferredRegister;
+import com.tonywww.dustandash.platform.PlatformRegistries;
 
 public class DAARecipe {
-    public static final DeferredRegister<RecipeSerializer<?>> RECIPE_TYPE = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, DustAndAsh.MOD_ID);
-    public static final DeferredRegister<RecipeType<?>> RECIPE_TYPES = DeferredRegister.create(ForgeRegistries.RECIPE_TYPES, DustAndAsh.MOD_ID);
+    public static final DeferredRegister<RecipeSerializer<?>> RECIPE_TYPE = DeferredRegister.create(PlatformRegistries.RECIPE_SERIALIZERS, DustAndAsh.MOD_ID);
+    public static final DeferredRegister<RecipeType<?>> RECIPE_TYPES = DeferredRegister.create(PlatformRegistries.RECIPE_TYPES, DustAndAsh.MOD_ID);
 
-    public static void register(IEventBus eventBus) {
+    public static void register(PlatformEventBus eventBus) {
         RECIPE_TYPES.register(eventBus);
         RECIPE_TYPE.register(eventBus);
 

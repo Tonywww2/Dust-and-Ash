@@ -1,6 +1,6 @@
 package com.tonywww.dustandash.config;
 
-import com.tonywww.dustandash.DustAndAshConfig;
+import com.tonywww.dustandash.platform.DustAndAshConfig;
 
 public final class ImbaRules {
     private static final int NORMAL_WHITE_LIGHTNING_MAX_CHARGE = 16;

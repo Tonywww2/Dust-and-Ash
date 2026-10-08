@@ -1,5 +1,6 @@
 package com.tonywww.dustandash.gecko.models;
 
+import com.tonywww.dustandash.platform.PlatformIdentifier;
 import com.tonywww.dustandash.DustAndAsh;
 import com.tonywww.dustandash.item.LordOfBlood;
 import net.minecraft.resources.ResourceLocation;
@@ -8,16 +9,16 @@ import software.bernie.geckolib.model.GeoModel;
 public class LordOfBloodModel extends GeoModel<LordOfBlood> {
     @Override
     public ResourceLocation getModelResource(LordOfBlood animatable) {
-        return new ResourceLocation(DustAndAsh.MOD_ID, "geo/item/lord_of_blood.geo.json");
+        return PlatformIdentifier.id(DustAndAsh.MOD_ID, "geo/item/lord_of_blood.geo.json");
     }
 
     @Override
     public ResourceLocation getTextureResource(LordOfBlood animatable) {
-        return new ResourceLocation(DustAndAsh.MOD_ID, "textures/item/lord_of_blood.png");
+        return PlatformIdentifier.id(DustAndAsh.MOD_ID, "textures/item/lord_of_blood.png");
     }
 
     @Override
     public ResourceLocation getAnimationResource(LordOfBlood animatable) {
-        return new ResourceLocation(DustAndAsh.MOD_ID, "animations/item/lord_of_blood.animation.json");
+        return PlatformIdentifier.id(DustAndAsh.MOD_ID, "animations/item/lord_of_blood.animation.json");
     }
 }

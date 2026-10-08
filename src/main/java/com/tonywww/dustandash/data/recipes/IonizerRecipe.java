@@ -1,6 +1,8 @@
 package com.tonywww.dustandash.data.recipes;
 
-import com.google.gson.JsonArray;
+import com.tonywww.dustandash.platform.PlatformRecipe;
+import com.tonywww.dustandash.platform.PlatformRecipeSerializer;
+import com.tonywww.dustandash.platform.PlatformIdentifier;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import com.tonywww.dustandash.DustAndAsh;
@@ -13,19 +15,18 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.registries.ForgeRegistries;
+import com.tonywww.dustandash.platform.PlatformRegistries;
 
 import javax.annotation.Nullable;
 import java.util.Objects;
 
-public class IonizerRecipe implements Recipe<Container> {
+public class IonizerRecipe implements PlatformRecipe {
 
 
     private final ResourceLocation id;
@@ -115,7 +116,7 @@ public class IonizerRecipe implements Recipe<Container> {
 
     @Override
     public ResourceLocation getId() {
-        return id;
+        return com.tonywww.dustandash.platform.PlatformRecipes.id(this, id);
     }
 
     @Override
@@ -151,10 +152,10 @@ public class IonizerRecipe implements Recipe<Container> {
         public static final String ID = "ionizer";
     }
 
-    public static class Serializer implements RecipeSerializer<IonizerRecipe> {
+    public static class Serializer extends PlatformRecipeSerializer<IonizerRecipe> {
 
         public static final Serializer INSTANCE = new Serializer();
-        public static final ResourceLocation ID = new ResourceLocation(DustAndAsh.MOD_ID, "ionizer");
+        public static final ResourceLocation ID = PlatformIdentifier.id(DustAndAsh.MOD_ID, "ionizer");
 
         @Override
         public IonizerRecipe fromJson(ResourceLocation pRecipeId, JsonObject json) {
@@ -171,8 +172,8 @@ public class IonizerRecipe implements Recipe<Container> {
         }
 
         private static Block readRequiredBlock(ResourceLocation recipeId, JsonObject json, String field) {
-            ResourceLocation blockId = new ResourceLocation(GsonHelper.getAsString(json, field));
-            Block block = ForgeRegistries.BLOCKS.getValue(blockId);
+            ResourceLocation blockId = com.tonywww.dustandash.platform.PlatformIdentifier.parse(GsonHelper.getAsString(json, field));
+            Block block = PlatformRegistries.BLOCKS.getValue(blockId);
             if (block == null) {
                 throw new JsonSyntaxException("Ionizer recipe " + recipeId + " references unknown " + field
                         + " " + blockId);
@@ -212,7 +213,7 @@ public class IonizerRecipe implements Recipe<Container> {
         }
 
         private static Block readRequiredBlock(ResourceLocation recipeId, String field, ResourceLocation blockId) {
-            Block block = ForgeRegistries.BLOCKS.getValue(blockId);
+            Block block = PlatformRegistries.BLOCKS.getValue(blockId);
             if (block == null) {
                 throw new IllegalArgumentException("Ionizer recipe " + recipeId
                         + " network payload references unknown " + field + " " + blockId);
@@ -221,7 +222,7 @@ public class IonizerRecipe implements Recipe<Container> {
         }
 
         private static ResourceLocation getBlockId(ResourceLocation recipeId, String field, Block block) {
-            ResourceLocation blockId = ForgeRegistries.BLOCKS.getKey(block);
+            ResourceLocation blockId = PlatformRegistries.BLOCKS.getKey(block);
             if (blockId == null) {
                 throw new IllegalStateException("Ionizer recipe " + recipeId + " has unregistered " + field);
             }

@@ -23,7 +23,7 @@ public class ItemSender extends AbstractHorizontalMachineBlock<ItemSenderEntity>
     private static final VoxelShape SHAPE = Block.box(1, 0, 1, 15, 13, 15);
 
     public ItemSender(Properties properties) {
-        super(properties, ItemSenderEntity.class);
+        super(properties, ItemSenderEntity.class, ItemSender::new);
     }
 
     @Override
@@ -48,8 +48,8 @@ public class ItemSender extends AbstractHorizontalMachineBlock<ItemSenderEntity>
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable BlockGetter level, List<Component> tooltip, TooltipFlag flag) {
+    public void appendTooltip(ItemStack stack, @Nullable BlockGetter level, List<Component> tooltip, TooltipFlag flag) {
         tooltip.add(Component.translatable("tooltip.dustandash.item_sender"));
-        super.appendHoverText(stack, level, tooltip, flag);
+        super.appendTooltip(stack, level, tooltip, flag);
     }
 }

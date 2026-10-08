@@ -2,15 +2,15 @@ package com.tonywww.dustandash.registry;
 
 import com.tonywww.dustandash.DustAndAsh;
 import net.minecraft.world.item.Item;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import com.tonywww.dustandash.platform.PlatformEventBus;
+import com.tonywww.dustandash.platform.DeferredRegister;
+import com.tonywww.dustandash.platform.PlatformRegistries;
+import com.tonywww.dustandash.platform.RegistryObject;
 
 import java.util.function.Supplier;
 
 public final class DAAItems {
-    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, DustAndAsh.MOD_ID);
+    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(PlatformRegistries.ITEMS, DustAndAsh.MOD_ID);
     public static final RegistryObject<Item> EMPTY = simple("empty", 64);
 
     // DAAEquipmentItems
@@ -178,7 +178,7 @@ public final class DAAItems {
     static void bootstrap() {
     }
 
-    public static void register(IEventBus eventBus) {
+    public static void register(PlatformEventBus eventBus) {
         ITEMS.register(eventBus);
     }
 }

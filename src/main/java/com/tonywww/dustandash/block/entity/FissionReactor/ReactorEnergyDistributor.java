@@ -4,7 +4,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
+import com.tonywww.dustandash.platform.PlatformCapabilities;
 
 import java.util.Queue;
 
@@ -32,7 +32,7 @@ public final class ReactorEnergyDistributor {
 
             int offer = Math.min(maximumTransfer, remainingEnergy);
             int[] transferred = {0};
-            neighbor.getCapability(ForgeCapabilities.ENERGY, direction.getOpposite()).ifPresent(storage -> {
+            PlatformCapabilities.energy(neighbor, direction.getOpposite()).ifPresent(storage -> {
                 if (storage.canReceive()) {
                     transferred[0] = storage.receiveEnergy(offer, false);
                 }

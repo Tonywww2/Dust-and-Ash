@@ -1,7 +1,7 @@
 package com.tonywww.dustandash.menu.itemhandlers;
 
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.items.IItemHandler;
+import com.tonywww.dustandash.platform.IItemHandler;
 
 import javax.annotation.Nonnull;
 import java.util.Objects;

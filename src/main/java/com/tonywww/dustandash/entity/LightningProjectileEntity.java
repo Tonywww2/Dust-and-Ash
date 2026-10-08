@@ -1,9 +1,8 @@
 package com.tonywww.dustandash.entity;
 
-import com.tonywww.dustandash.DustAndAshConfig;
+import com.tonywww.dustandash.platform.DustAndAshConfig;
 import com.tonywww.dustandash.config.ImbaRules;
 import com.tonywww.dustandash.registry.DAAItems;
-import com.tonywww.dustandash.item.WhiteLightning;
 import com.tonywww.dustandash.registry.DAAEntities;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
@@ -16,12 +15,12 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
-import net.minecraftforge.entity.PartEntity;
+import com.tonywww.dustandash.platform.PlatformEntities;
+import com.tonywww.dustandash.platform.PlatformSwordItem;
 
 import static com.tonywww.dustandash.item.WhiteLightning.PARTICLE_BLUE;
 
@@ -62,8 +61,8 @@ public class LightningProjectileEntity extends ThrowableItemProjectile {
 
                 living = true;
 
-            } else if (entity instanceof PartEntity partEntity) {
-                entity = partEntity.getParent();
+            } else if (PlatformEntities.parent(entity) != entity) {
+                entity = PlatformEntities.parent(entity);
                 if (entity instanceof LivingEntity livingEntity) {
                     targetHealthBasis = healthBasis(livingEntity);
                     living = true;
@@ -103,7 +102,7 @@ public class LightningProjectileEntity extends ThrowableItemProjectile {
             if (owner instanceof Player player) {
                 entity.hurt(owner.damageSources().playerAttack(player),
                     (float) (DustAndAshConfig.WEAPONS.whiteLightningExtraDamage.get()
-                        + ((SwordItem) source.getItem()).getDamage()));
+                        + ((PlatformSwordItem) source.getItem()).getDamage()));
                 entity.invulnerableTime = 0;
 
             }

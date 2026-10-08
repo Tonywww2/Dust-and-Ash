@@ -1,7 +1,8 @@
 package com.tonywww.dustandash.cooldown;
 
+import com.tonywww.dustandash.platform.PlatformIdentifier;
 import com.tonywww.dustandash.DustAndAsh;
-import com.tonywww.dustandash.network.CurioCooldownSyncPacket;
+import com.tonywww.dustandash.platform.CurioCooldownSyncPacket;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceLocation;
@@ -115,7 +116,7 @@ public final class CurioCooldownManager {
     }
 
     private static ResourceLocation id(String path) {
-        return new ResourceLocation(DustAndAsh.MOD_ID, path);
+        return PlatformIdentifier.id(DustAndAsh.MOD_ID, path);
     }
 
     private static long saturatedAdd(long left, long right) {

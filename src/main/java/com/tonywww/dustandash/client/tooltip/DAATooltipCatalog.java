@@ -1,6 +1,6 @@
 package com.tonywww.dustandash.client.tooltip;
 
-import com.tonywww.dustandash.DustAndAshConfig;
+import com.tonywww.dustandash.platform.DustAndAshConfig;
 import com.tonywww.dustandash.config.ImbaRules;
 import com.tonywww.dustandash.item.WhiteLightning;
 import com.tonywww.dustandash.registry.DAAItems;

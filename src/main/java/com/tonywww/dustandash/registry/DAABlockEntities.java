@@ -5,14 +5,14 @@ import com.tonywww.dustandash.block.entity.*;
 import com.tonywww.dustandash.block.entity.FissionReactor.FissionReactorControllerEntity;
 import com.tonywww.dustandash.block.entity.FissionReactor.FissionReactorInterfaceEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.registries.RegistryObject;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
+import com.tonywww.dustandash.platform.PlatformEventBus;
+import com.tonywww.dustandash.platform.RegistryObject;
+import com.tonywww.dustandash.platform.DeferredRegister;
+import com.tonywww.dustandash.platform.PlatformRegistries;
 
 public class DAABlockEntities {
 
-    public static DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, DustAndAsh.MOD_ID);
+    public static DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(PlatformRegistries.BLOCK_ENTITY_TYPES, DustAndAsh.MOD_ID);
 
     public static RegistryObject<BlockEntityType<IntegratedBlockEntity>> INTEGRATED_BLOCK_ENTITY =
             BLOCK_ENTITIES.register("integrated_block",
@@ -46,7 +46,7 @@ public class DAABlockEntities {
             BLOCK_ENTITIES.register("fission_reactor_interface",
                     () -> BlockEntityType.Builder.of(FissionReactorInterfaceEntity::new, DAABlocks.FISSION_REACTOR_INTERFACE.get()).build(null));
 
-    public static void register(IEventBus eventBus) {
+    public static void register(PlatformEventBus eventBus) {
         BLOCK_ENTITIES.register(eventBus);
 
     }

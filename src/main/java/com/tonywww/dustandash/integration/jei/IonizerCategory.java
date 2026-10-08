@@ -1,5 +1,6 @@
 package com.tonywww.dustandash.integration.jei;
 
+import com.tonywww.dustandash.platform.PlatformIdentifier;
 import com.tonywww.dustandash.DustAndAsh;
 import com.tonywww.dustandash.integration.DustAndAshRecipeTypes;
 import com.tonywww.dustandash.registry.DAABlocks;
@@ -26,7 +27,7 @@ import net.minecraft.world.level.block.LiquidBlock;
 public class IonizerCategory implements IRecipeCategory<IonizerRecipe> {
 
     //    public static final RecipeType<IonizerRecipe> RECIPE_TYPE = RecipeType.create(DustAndAsh.MOD_ID, "ionizer", IonizerRecipe.class);
-    public final static ResourceLocation TEXTURE = new ResourceLocation(DustAndAsh.MOD_ID, "textures/gui/ionizer_gui.png");
+    public final static ResourceLocation TEXTURE = PlatformIdentifier.id(DustAndAsh.MOD_ID, "textures/gui/ionizer_gui.png");
 
     private final IDrawable bg;
     private final IDrawable icon;
@@ -72,7 +73,7 @@ public class IonizerCategory implements IRecipeCategory<IonizerRecipe> {
 
         // in block
         if (recipe.getInputBlock() instanceof LiquidBlock fluidBlock) {
-            builder.addSlot(RecipeIngredientRole.INPUT, 60, 44).addFluidStack(fluidBlock.getFluid(), 1000);
+            builder.addSlot(RecipeIngredientRole.INPUT, 60, 44).addFluidStack(fluidBlock.defaultBlockState().getFluidState().getType(), 1000);
 
         } else {
             ItemStack stack = recipe.getInputBlock().asItem().getDefaultInstance();
@@ -90,7 +91,7 @@ public class IonizerCategory implements IRecipeCategory<IonizerRecipe> {
 
         // out block
         if (recipe.getResultBlock() instanceof LiquidBlock fluidBlock) {
-            builder.addSlot(RecipeIngredientRole.OUTPUT, 101, 43).addFluidStack(fluidBlock.getFluid(), 1000);
+            builder.addSlot(RecipeIngredientRole.OUTPUT, 101, 43).addFluidStack(fluidBlock.defaultBlockState().getFluidState().getType(), 1000);
 
         } else {
             ItemStack stack = recipe.getResultBlock().asItem().getDefaultInstance();

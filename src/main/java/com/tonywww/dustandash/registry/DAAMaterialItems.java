@@ -1,7 +1,7 @@
 package com.tonywww.dustandash.registry;
 
 import net.minecraft.world.item.Item;
-import net.minecraftforge.registries.RegistryObject;
+import com.tonywww.dustandash.platform.RegistryObject;
 
 public final class DAAMaterialItems {
     public static final RegistryObject<Item> ASH_STEEL_INGOT = DAAItems.simple("ash_steel_ingot", 32);

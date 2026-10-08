@@ -17,7 +17,7 @@ public class FissionReactorInterface extends AbstractHorizontalMachineBlock<Fiss
     private static final VoxelShape SHAPE = Block.box(0, 0, 0, 16, 16, 16);
 
     public FissionReactorInterface(Properties properties) {
-        super(properties, FissionReactorInterfaceEntity.class);
+        super(properties, FissionReactorInterfaceEntity.class, FissionReactorInterface::new);
     }
 
     @Override

@@ -1,7 +1,7 @@
 package com.tonywww.dustandash.item.FissionReactor;
 
+import com.tonywww.dustandash.platform.PlatformItem;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
@@ -16,7 +16,7 @@ import java.util.List;
  * Fire: heat+, neutron+
  * Earth: heat+, neutron+, db+
  */
-public class FissionReactorFuelUnit extends Item {
+public class FissionReactorFuelUnit extends PlatformItem {
 
     public double baseHeatRate;
     public double baseNeutronRate;
@@ -27,7 +27,7 @@ public class FissionReactorFuelUnit extends Item {
     }
 
     @Override
-    public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltip, TooltipFlag pFlag) {
+    public void appendTooltip(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltip, TooltipFlag pFlag) {
 
         pTooltip.add(Component.translatable("tooltip.dustandash.maxDurability"));
         pTooltip.add(Component.literal(String.valueOf(pStack.getMaxDamage())));
@@ -41,7 +41,7 @@ public class FissionReactorFuelUnit extends Item {
         pTooltip.add(Component.translatable("tooltip.dustandash.idealHeat"));
         pTooltip.add(Component.literal(String.valueOf(idealHeat)));
 
-        super.appendHoverText(pStack, pLevel, pTooltip, pFlag);
+        super.appendTooltip(pStack, pLevel, pTooltip, pFlag);
     }
 
     public double getBaseHeatRate() {

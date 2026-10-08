@@ -1,6 +1,6 @@
 package com.tonywww.dustandash.block.custom;
 
-import com.tonywww.dustandash.DustAndAshConfig;
+import com.tonywww.dustandash.platform.DustAndAshConfig;
 import com.tonywww.dustandash.registry.DAABlocks;
 import com.tonywww.dustandash.tag.ModTags;
 import net.minecraft.core.BlockPos;

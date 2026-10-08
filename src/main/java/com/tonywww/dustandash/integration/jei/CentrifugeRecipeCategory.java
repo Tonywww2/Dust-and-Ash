@@ -1,5 +1,6 @@
 package com.tonywww.dustandash.integration.jei;
 
+import com.tonywww.dustandash.platform.PlatformIdentifier;
 import com.tonywww.dustandash.DustAndAsh;
 import com.tonywww.dustandash.integration.DustAndAshRecipeTypes;
 import com.tonywww.dustandash.registry.DAABlocks;
@@ -24,7 +25,7 @@ import net.minecraft.world.item.ItemStack;
 public class CentrifugeRecipeCategory implements IRecipeCategory<CentrifugeRecipe> {
 
 //    public static final RecipeType<CentrifugeRecipe> RECIPE_TYPE = RecipeType.create(DustAndAsh.MOD_ID, "centrifuge", CentrifugeRecipe.class);
-    public final static ResourceLocation TEXTURE = new ResourceLocation(DustAndAsh.MOD_ID, "textures/gui/centrifuge_gui.png");
+    public final static ResourceLocation TEXTURE = PlatformIdentifier.id(DustAndAsh.MOD_ID, "textures/gui/centrifuge_gui.png");
 
     private final IDrawable bg;
     private final IDrawable icon;

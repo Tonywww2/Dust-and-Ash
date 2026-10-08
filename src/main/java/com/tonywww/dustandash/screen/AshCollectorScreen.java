@@ -1,16 +1,17 @@
 package com.tonywww.dustandash.screen;
 
+import com.tonywww.dustandash.platform.PlatformIdentifier;
 import com.tonywww.dustandash.DustAndAsh;
 import com.tonywww.dustandash.menu.AshCollectorContainerMenu;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import com.tonywww.dustandash.platform.PlatformContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
-public class AshCollectorScreen extends AbstractContainerScreen<AshCollectorContainerMenu> {
+public class AshCollectorScreen extends PlatformContainerScreen<AshCollectorContainerMenu> {
 
-    private final ResourceLocation GUI = new ResourceLocation(DustAndAsh.MOD_ID, "textures/gui/ash_collector_gui.png");
+    private final ResourceLocation GUI = PlatformIdentifier.id(DustAndAsh.MOD_ID, "textures/gui/ash_collector_gui.png");
 
     public AshCollectorScreen(AshCollectorContainerMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
         super(pMenu, pPlayerInventory, pTitle);
@@ -18,7 +19,7 @@ public class AshCollectorScreen extends AbstractContainerScreen<AshCollectorCont
 
     @Override
     public void render(GuiGraphics guiGraphics, int pMouseX, int pMouseY, float pPartialTicks) {
-        this.renderBackground(guiGraphics);
+        this.renderBackdrop(guiGraphics, pMouseX, pMouseY, pPartialTicks);
         super.render(guiGraphics, pMouseX, pMouseY, pPartialTicks);
         this.renderTooltip(guiGraphics, pMouseX, pMouseY);
 

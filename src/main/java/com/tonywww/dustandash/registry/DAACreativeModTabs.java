@@ -6,9 +6,9 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.RegistryObject;
+import com.tonywww.dustandash.platform.PlatformEventBus;
+import com.tonywww.dustandash.platform.DeferredRegister;
+import com.tonywww.dustandash.platform.RegistryObject;
 
 import java.util.List;
 import java.util.function.Supplier;
@@ -217,7 +217,7 @@ public final class DAACreativeModTabs {
     private DAACreativeModTabs() {
     }
 
-    public static void register(IEventBus eventBus) {
+    public static void register(PlatformEventBus eventBus) {
         CREATIVE_MODE_TABS.register(eventBus);
     }
 

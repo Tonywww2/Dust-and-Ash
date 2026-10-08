@@ -7,7 +7,6 @@ import com.tonywww.dustandash.registry.DAABlockEntities;
 import com.tonywww.dustandash.tag.ModTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -16,15 +15,14 @@ import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.items.ItemStackHandler;
+import com.tonywww.dustandash.platform.PlatformCapability;
+import com.tonywww.dustandash.platform.PlatformCapabilities;
+import com.tonywww.dustandash.platform.PlatformOptional;
+import com.tonywww.dustandash.platform.ItemStackHandler;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -38,7 +36,7 @@ public class MillingMachineEntity extends BasicMachineEntity implements MenuProv
     private final ManagedCapability<RestrictedItemHandler> outputHandler;
     private final ManagedCapability<RestrictedItemHandler> workspaceHandler;
     private final Container recipeInput;
-    private final RecipeManager.CachedCheck<Container, MillingMachineRecipe> recipeCheck;
+    private final com.tonywww.dustandash.platform.PlatformRecipes.CachedCheck<MillingMachineRecipe> recipeCheck;
 
     public MillingMachineEntity(BlockPos pos, BlockState state) {
         super(DAABlockEntities.MILLING_MACHINE_ENTITY.get(), pos, state);
@@ -53,7 +51,7 @@ public class MillingMachineEntity extends BasicMachineEntity implements MenuProv
         this.workspaceHandler = managedCapability(() -> new RestrictedItemHandler(invItemStackHandler,
             slot -> slot > 2, slot -> slot > 2));
         this.recipeInput = new ItemHandlerContainerView(this.invItemStackHandler);
-        this.recipeCheck = RecipeManager.createCheck(MillingMachineRecipe.MillingRecipeType.INSTANCE);
+        this.recipeCheck = com.tonywww.dustandash.platform.PlatformRecipes.createCheck(MillingMachineRecipe.MillingRecipeType.INSTANCE);
 
     }
 
@@ -105,8 +103,8 @@ public class MillingMachineEntity extends BasicMachineEntity implements MenuProv
 
     @Nonnull
     @Override
-    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-        if (!this.remove && cap == ForgeCapabilities.ITEM_HANDLER) {
+    public <T> PlatformOptional<T> getCapability(@Nonnull PlatformCapability<T> cap, @Nullable Direction side) {
+        if (!this.remove && cap == PlatformCapabilities.ITEM_HANDLER) {
             if (side == null) {
                 return this.handler.get().cast();
             }

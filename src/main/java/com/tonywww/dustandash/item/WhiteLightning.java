@@ -1,6 +1,8 @@
 package com.tonywww.dustandash.item;
 
-import com.tonywww.dustandash.DustAndAshConfig;
+import com.tonywww.dustandash.platform.PlatformItemData;
+import com.tonywww.dustandash.platform.PlatformSwordItem;
+import com.tonywww.dustandash.platform.DustAndAshConfig;
 import com.tonywww.dustandash.config.ImbaRules;
 import com.tonywww.dustandash.entity.LightningProjectileEntity;
 import net.minecraft.core.BlockPos;
@@ -21,14 +23,16 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
-import net.minecraftforge.entity.PartEntity;
+import com.tonywww.dustandash.platform.PlatformGeometry;
+import com.tonywww.dustandash.platform.PlatformEntities;
+import com.tonywww.dustandash.platform.PlatformSwordItem;
 import org.joml.Vector3f;
 
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.function.Predicate;
 
-public class WhiteLightning extends SwordItem {
+public class WhiteLightning extends PlatformSwordItem {
 
     private static final String ATTACK_COUNTS = "attack_counts";
     private static final String CHARGES_TAG = "charges";
@@ -84,8 +88,8 @@ public class WhiteLightning extends SwordItem {
                     if (entity instanceof LivingEntity livingEntity) {
                         targetHealthBasis = healthBasis(livingEntity);
 
-                    } else if (entity instanceof PartEntity partEntity) {
-                        entity = partEntity.getParent();
+                    } else if (PlatformEntities.parent(entity) != entity) {
+                        entity = PlatformEntities.parent(entity);
                         if (entity instanceof LivingEntity livingEntity) {
                             targetHealthBasis = healthBasis(livingEntity);
 
@@ -222,7 +226,7 @@ public class WhiteLightning extends SwordItem {
     protected final Predicate<LivingEntity> VALID_ENTITY = LivingEntity::isAlive;
 
     private AABB getArea(BlockPos blockPos, int radius) {
-        return new AABB(
+        return PlatformGeometry.box(
                 blockPos.offset(-radius, -2, -radius),
                 blockPos.offset(1 + radius, 1 + radius, 1 + radius));
     }
@@ -240,12 +244,13 @@ public class WhiteLightning extends SwordItem {
     }
 
     public static void setCharges(ItemStack stack, int val) {
-        CompoundTag compoundtag = stack.getOrCreateTag();
+        CompoundTag compoundtag = PlatformItemData.getOrCreate(stack);
         compoundtag.putInt(CHARGES_TAG, Math.min(val, ImbaRules.whiteLightningMaxCharge()));
+        PlatformItemData.write(stack, compoundtag);
     }
 
     public static int getCharges(ItemStack stack) {
-        CompoundTag compoundtag = stack.getTag();
+        CompoundTag compoundtag = PlatformItemData.read(stack);
         if (compoundtag != null) {
             return compoundtag.getInt(CHARGES_TAG);
 
@@ -254,15 +259,16 @@ public class WhiteLightning extends SwordItem {
     }
 
     public static void setAdvCharges(ItemStack stack, int val) {
-        CompoundTag compoundtag = stack.getOrCreateTag();
+        CompoundTag compoundtag = PlatformItemData.getOrCreate(stack);
         compoundtag.putInt(
             ADVANCED_CHARGES_TAG,
             Math.min(val, ImbaRules.whiteLightningMaxAdvancedCharge()));
+        PlatformItemData.write(stack, compoundtag);
 
     }
 
     public static int getAdvCharges(ItemStack stack) {
-        CompoundTag compoundtag = stack.getOrCreateTag();
+        CompoundTag compoundtag = PlatformItemData.getOrCreate(stack);
         if (compoundtag.contains(ADVANCED_CHARGES_TAG)) {
             return compoundtag.getInt(ADVANCED_CHARGES_TAG);
 
@@ -271,13 +277,14 @@ public class WhiteLightning extends SwordItem {
     }
 
     public static void setAttackCounts(ItemStack stack, int val) {
-        CompoundTag compoundtag = stack.getOrCreateTag();
+        CompoundTag compoundtag = PlatformItemData.getOrCreate(stack);
         compoundtag.putInt(ATTACK_COUNTS, val);
+        PlatformItemData.write(stack, compoundtag);
 
     }
 
     public static int getAttackCounts(ItemStack stack) {
-        CompoundTag compoundtag = stack.getOrCreateTag();
+        CompoundTag compoundtag = PlatformItemData.getOrCreate(stack);
         if (compoundtag.contains(ATTACK_COUNTS)) {
             return compoundtag.getInt(ATTACK_COUNTS);
 
@@ -291,9 +298,9 @@ public class WhiteLightning extends SwordItem {
                 : entity.getHealth();
     }
 
-    public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltip, TooltipFlag pFlag) {
+    public void appendTooltip(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltip, TooltipFlag pFlag) {
 
 
-        super.appendHoverText(pStack, pLevel, pTooltip, pFlag);
+        super.appendTooltip(pStack, pLevel, pTooltip, pFlag);
     }
 }

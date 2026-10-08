@@ -1,8 +1,8 @@
 package com.tonywww.dustandash.tag;
 
+import com.tonywww.dustandash.platform.PlatformIdentifier;
 import com.tonywww.dustandash.DustAndAsh;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.tags.TagKey;
@@ -21,12 +21,12 @@ public class ModTags {
 
         private static TagKey<Block> createTag(String name) {
 
-            return BlockTags.create(new ResourceLocation(DustAndAsh.MOD_ID, name));
+            return BlockTags.create(PlatformIdentifier.id(DustAndAsh.MOD_ID, name));
         }
 
         private static TagKey<Block> createForgeTag(String name) {
 
-            return BlockTags.create(new ResourceLocation("forge", name));
+            return BlockTags.create(PlatformIdentifier.common(name));
         }
 
     }
@@ -43,12 +43,12 @@ public class ModTags {
 
         private static TagKey<Item> createTag(String name) {
 
-            return ItemTags.create(new ResourceLocation(DustAndAsh.MOD_ID, name));
+            return ItemTags.create(PlatformIdentifier.id(DustAndAsh.MOD_ID, name));
         }
 
         private static TagKey<Item> createForgeTag(String name) {
 
-            return ItemTags.create(new ResourceLocation("forge", name));
+            return ItemTags.create(PlatformIdentifier.common(name));
         }
 
     }
@@ -58,7 +58,7 @@ public class ModTags {
         public static final TagKey<DamageType> DARK_HALO_EXCLUDED = createTag("dark_halo_excluded");
 
         private static TagKey<DamageType> createTag(String name) {
-            return TagKey.create(Registries.DAMAGE_TYPE, new ResourceLocation(DustAndAsh.MOD_ID, name));
+            return TagKey.create(Registries.DAMAGE_TYPE, PlatformIdentifier.id(DustAndAsh.MOD_ID, name));
         }
     }
 
@@ -66,7 +66,7 @@ public class ModTags {
         public static final TagKey<MobEffect> DARK_HALO_EFFECTS = createTag("dark_halo_effects");
 
         private static TagKey<MobEffect> createTag(String name) {
-            return TagKey.create(Registries.MOB_EFFECT, new ResourceLocation(DustAndAsh.MOD_ID, name));
+            return TagKey.create(Registries.MOB_EFFECT, PlatformIdentifier.id(DustAndAsh.MOD_ID, name));
         }
     }
 

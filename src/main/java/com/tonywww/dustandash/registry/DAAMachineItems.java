@@ -2,7 +2,7 @@ package com.tonywww.dustandash.registry;
 
 import com.tonywww.dustandash.item.*;
 import net.minecraft.world.item.Item;
-import net.minecraftforge.registries.RegistryObject;
+import com.tonywww.dustandash.platform.RegistryObject;
 
 public final class DAAMachineItems {
     public static final RegistryObject<Item> RAIN_CRYSTAL = DAAItems.register("rain_crystal",

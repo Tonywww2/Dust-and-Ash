@@ -3,7 +3,7 @@ package com.tonywww.dustandash.block.entity;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.items.IItemHandler;
+import com.tonywww.dustandash.platform.IItemHandler;
 
 import java.util.Objects;
 

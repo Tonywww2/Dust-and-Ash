@@ -2,7 +2,7 @@ package com.tonywww.dustandash.block.entity;
 
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.items.IItemHandler;
+import com.tonywww.dustandash.platform.IItemHandler;
 
 public interface DroppableInventory {
     IItemHandler getInventory();

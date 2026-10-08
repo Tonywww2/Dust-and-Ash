@@ -20,7 +20,7 @@ public class FissionReactorController extends AbstractHorizontalMachineBlock<Fis
     private static final VoxelShape SHAPE = Block.box(0, 0, 0, 16, 16, 16);
 
     public FissionReactorController(Properties properties) {
-        super(properties, FissionReactorControllerEntity.class);
+        super(properties, FissionReactorControllerEntity.class, FissionReactorController::new);
     }
 
     @Override

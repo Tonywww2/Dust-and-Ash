@@ -3,10 +3,9 @@ package com.tonywww.dustandash.registry;
 import com.tonywww.dustandash.registry.DAAItems;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.util.LazyLoadedValue;
-import net.minecraft.world.item.Tier;
 import java.util.function.Supplier;
 
-public enum DAAItemTier implements Tier {
+public enum DAAItemTier implements com.tonywww.dustandash.platform.PlatformTier {
     FLINT(0, 48, 3.0F, 1.0F, 20, () -> {
         return Ingredient.of(DAAItems.BLOODY_FLINT.get());
     }),

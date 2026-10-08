@@ -5,15 +5,15 @@ import com.tonywww.dustandash.entity.LightStaffEntity;
 import com.tonywww.dustandash.entity.LightningProjectileEntity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import com.tonywww.dustandash.platform.PlatformEventBus;
+import com.tonywww.dustandash.platform.DeferredRegister;
+import com.tonywww.dustandash.platform.PlatformRegistries;
+import com.tonywww.dustandash.platform.RegistryObject;
 
 public class DAAEntities {
 
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPES =
-            DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, DustAndAsh.MOD_ID);
+            DeferredRegister.create(PlatformRegistries.ENTITY_TYPES, DustAndAsh.MOD_ID);
 
     public static final RegistryObject<EntityType<LightningProjectileEntity>> LIGHTNING_BULLET =
             ENTITY_TYPES.register("lightning_bullet", () -> EntityType.Builder.<LightningProjectileEntity>of(LightningProjectileEntity::new, MobCategory.MISC)
@@ -27,7 +27,7 @@ public class DAAEntities {
                     .updateInterval(1)
                     .build("light_staff"));
 
-    public static void register(IEventBus eventBus) {
+    public static void register(PlatformEventBus eventBus) {
         ENTITY_TYPES.register(eventBus);
     }
 }

@@ -2,6 +2,7 @@ package com.tonywww.dustandash.client.render;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.tonywww.dustandash.platform.PlatformRendering;
 import com.tonywww.dustandash.entity.LightStaffEntity;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -233,7 +234,7 @@ public final class LightStaffRenderer extends EntityRenderer<LightStaffEntity> {
             int green,
             int blue,
             int alpha) {
-        consumer.vertex(matrix, x, y, z)
+        PlatformRendering.vertex(consumer, matrix, x, y, z)
                 .color(red, green, blue, alpha)
                 .endVertex();
     }

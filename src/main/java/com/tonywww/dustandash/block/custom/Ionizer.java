@@ -19,7 +19,7 @@ public class Ionizer extends AbstractHorizontalMachineBlock<IonizerEntity> {
     private static final VoxelShape SHAPE = Block.box(0, 0, 0, 16, 14, 16);
 
     public Ionizer(Properties properties) {
-        super(properties, IonizerEntity.class);
+        super(properties, IonizerEntity.class, Ionizer::new);
     }
 
     @Override

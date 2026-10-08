@@ -1,6 +1,6 @@
 package com.tonywww.dustandash.block.entity;
 
-import com.tonywww.dustandash.DustAndAshConfig;
+import com.tonywww.dustandash.platform.DustAndAshConfig;
 import com.tonywww.dustandash.menu.CentrifugeContainerMenu;
 import com.tonywww.dustandash.menu.itemhandlers.RestrictedItemHandler;
 import com.tonywww.dustandash.data.recipes.CentrifugeRecipe;
@@ -19,14 +19,13 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.entity.player.Player;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.items.ItemStackHandler;
+import com.tonywww.dustandash.platform.PlatformCapability;
+import com.tonywww.dustandash.platform.PlatformCapabilities;
+import com.tonywww.dustandash.platform.PlatformOptional;
+import com.tonywww.dustandash.platform.ItemStackHandler;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -39,7 +38,7 @@ public class CentrifugeEntity extends BasicMachineEntity implements MenuProvider
     private final ManagedCapability<RestrictedItemHandler> inputHandler;
     private final ManagedCapability<RestrictedItemHandler> outputHandler;
     private final Container recipeInput;
-    private final RecipeManager.CachedCheck<Container, CentrifugeRecipe> recipeCheck;
+    private final com.tonywww.dustandash.platform.PlatformRecipes.CachedCheck<CentrifugeRecipe> recipeCheck;
 
     private float currentProgression;
     private int targetProgression;
@@ -60,7 +59,7 @@ public class CentrifugeEntity extends BasicMachineEntity implements MenuProvider
         this.outputHandler = managedCapability(() -> new RestrictedItemHandler(invItemStackHandler,
             slot -> false, slot -> slot >= 2));
         this.recipeInput = new ItemHandlerContainerView(this.invItemStackHandler);
-        this.recipeCheck = RecipeManager.createCheck(CentrifugeRecipe.CentrifugeRecipeType.INSTANCE);
+        this.recipeCheck = com.tonywww.dustandash.platform.PlatformRecipes.createCheck(CentrifugeRecipe.CentrifugeRecipeType.INSTANCE);
 
         this.currentProgression = -1f;
         this.targetProgression = 0;
@@ -142,8 +141,8 @@ public class CentrifugeEntity extends BasicMachineEntity implements MenuProvider
 
     @Nonnull
     @Override
-    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-        if (!this.remove && cap == ForgeCapabilities.ITEM_HANDLER) {
+    public <T> PlatformOptional<T> getCapability(@Nonnull PlatformCapability<T> cap, @Nullable Direction side) {
+        if (!this.remove && cap == PlatformCapabilities.ITEM_HANDLER) {
             if (side == null) {
                 return this.handler.get().cast();
             }

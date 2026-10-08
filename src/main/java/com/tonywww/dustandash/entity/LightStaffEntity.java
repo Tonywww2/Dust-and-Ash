@@ -1,11 +1,9 @@
 package com.tonywww.dustandash.entity;
 
-import com.tonywww.dustandash.DustAndAshConfig;
+import com.tonywww.dustandash.platform.DustAndAshConfig;
 import com.tonywww.dustandash.damage.DAADamageTypes;
 import com.tonywww.dustandash.registry.DAAEntities;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -19,11 +17,12 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
-import net.minecraftforge.network.NetworkHooks;
+import com.tonywww.dustandash.platform.PlatformEntity;
+import com.tonywww.dustandash.platform.PlatformEntityData;
 
 import java.util.UUID;
 
-public final class LightStaffEntity extends Entity {
+public final class LightStaffEntity extends PlatformEntity {
     private static final EntityDataAccessor<Float> START_Y = SynchedEntityData.defineId(
             LightStaffEntity.class, EntityDataSerializers.FLOAT);
     private static final EntityDataAccessor<Float> IMPACT_Y = SynchedEntityData.defineId(
@@ -58,11 +57,11 @@ public final class LightStaffEntity extends Entity {
     }
 
     @Override
-    protected void defineSynchedData() {
-        this.entityData.define(START_Y, 0f);
-        this.entityData.define(IMPACT_Y, 0f);
-        this.entityData.define(FALL_TICKS, 1);
-        this.entityData.define(IMPACTED, false);
+    protected void defineData(PlatformEntityData data) {
+        data.define(START_Y, 0f);
+        data.define(IMPACT_Y, 0f);
+        data.define(FALL_TICKS, 1);
+        data.define(IMPACTED, false);
     }
 
     @Override
@@ -175,10 +174,5 @@ public final class LightStaffEntity extends Entity {
         tag.putBoolean("Impacted", this.entityData.get(IMPACTED));
         tag.putFloat("AttackDamage", this.attackDamage);
         tag.putInt("ImpactTicks", this.impactTicks);
-    }
-
-    @Override
-    public Packet<ClientGamePacketListener> getAddEntityPacket() {
-        return NetworkHooks.getEntitySpawningPacket(this);
     }
 }

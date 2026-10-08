@@ -2,6 +2,7 @@ package com.tonywww.dustandash.client.render;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.tonywww.dustandash.platform.PlatformRendering;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -151,7 +152,7 @@ public final class ForgedHaloRenderer implements ICurioRenderer {
             int red,
             int green,
             int blue) {
-        consumer.vertex(matrix, x, y, z)
+        PlatformRendering.vertex(consumer, matrix, x, y, z)
                 .color(red, green, blue, 255)
                 .normal(normal, directionX, directionY, directionZ)
                 .endVertex();
@@ -305,7 +306,7 @@ public final class ForgedHaloRenderer implements ICurioRenderer {
             int green,
             int blue,
             int alpha) {
-        consumer.vertex(matrix, x, y, z)
+        PlatformRendering.vertex(consumer, matrix, x, y, z)
                 .color(red, green, blue, alpha)
                 .endVertex();
     }
@@ -320,7 +321,7 @@ public final class ForgedHaloRenderer implements ICurioRenderer {
             int green,
             int blue,
             int alpha) {
-        consumer.vertex(
+        PlatformRendering.vertex(consumer,
                         matrix,
                         (float) Math.cos(angle) * radius,
                         (float) Math.sin(angle) * radius,

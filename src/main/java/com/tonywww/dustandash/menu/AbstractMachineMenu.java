@@ -11,9 +11,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.SlotItemHandler;
-import net.minecraftforge.items.wrapper.InvWrapper;
+import com.tonywww.dustandash.platform.IItemHandler;
+import com.tonywww.dustandash.platform.SlotItemHandler;
+import com.tonywww.dustandash.platform.InvWrapper;
 
 import java.util.Objects;
 

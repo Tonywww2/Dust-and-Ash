@@ -39,15 +39,16 @@ java {
 
 loom {
     silentMojangMappingsLicense()
+    runConfigs.named("server") { programArgs("--nogui") }
     if (stonecutter.current.isActive) {
         runConfigs.all {
             ideConfigGenerated(true)
-            runDir("../../run")
+            runDir(project.relativePath(rootProject.file(providers.gradleProperty("dustandash.runDir").getOrElse("run"))))
         }
         runConfigs.register("data") {
             data()
             ideConfigGenerated(true)
-            runDir("../../run")
+            runDir(project.relativePath(rootProject.file(providers.gradleProperty("dustandash.runDir").getOrElse("run"))))
             programArgs.addAll(listOf(
                 "--mod", modId,
                 "--all",
@@ -61,6 +62,7 @@ loom {
 sourceSets {
     main {
         resources.srcDir(rootProject.file("src/generated/resources"))
+        if (!providers.gradleProperty("dustandash.smokeChecks").isPresent) java.exclude("**/PortSmokeChecks.java")
     }
 }
 
@@ -122,6 +124,8 @@ tasks.withType<JavaCompile>().configureEach {
     options.release.set(17)
 }
 
+tasks.withType<JavaExec>().configureEach { standardInput = System.`in` }
+
 tasks.named<ProcessResources>("processResources") {
     dependsOn("stonecutterGenerate")
 
@@ -144,6 +148,7 @@ tasks.named<ProcessResources>("processResources") {
     filesMatching(listOf("META-INF/mods.toml", "pack.mcmeta")) {
         expand(replaceProperties + mapOf("project" to project))
     }
+    exclude("META-INF/neoforge.mods.toml")
 }
 
 tasks.withType<Jar>().configureEach {

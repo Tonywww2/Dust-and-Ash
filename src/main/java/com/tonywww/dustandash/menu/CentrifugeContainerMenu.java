@@ -7,8 +7,8 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.SimpleContainerData;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.items.SlotItemHandler;
+import com.tonywww.dustandash.platform.PlatformCapabilities;
+import com.tonywww.dustandash.platform.SlotItemHandler;
 
 public class CentrifugeContainerMenu extends AbstractMachineMenu<CentrifugeEntity> {
 
@@ -19,7 +19,7 @@ public class CentrifugeContainerMenu extends AbstractMachineMenu<CentrifugeEntit
                 DAABlocks.CENTRIFUGE.get(), 10, 8, 92);
         this.data = data;
 
-        tileEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(handler -> {
+        tileEntity.getCapability(PlatformCapabilities.ITEM_HANDLER).ifPresent(handler -> {
             addSlot(new SlotItemHandler(handler, 0, 80, 6));
             addSlot(new SlotItemHandler(handler, 1, 80, 27));
 

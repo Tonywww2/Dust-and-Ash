@@ -1,5 +1,6 @@
 package com.tonywww.dustandash.integration;
 
+import com.tonywww.dustandash.platform.PlatformIdentifier;
 import com.tonywww.dustandash.DustAndAsh;
 import com.tonywww.dustandash.registry.DAABlocks;
 import com.tonywww.dustandash.menu.IntegratedBlockContainerMenu;
@@ -32,7 +33,7 @@ import java.util.Objects;
 @SuppressWarnings("unused")
 public class DustAndAshJei implements IModPlugin {
 
-    private static final ResourceLocation PID = new ResourceLocation(DustAndAsh.MOD_ID, "jei_plugin");
+    private static final ResourceLocation PID = PlatformIdentifier.id(DustAndAsh.MOD_ID, "jei_plugin");
     private static final Minecraft MC = Minecraft.getInstance();
 
     @Override
@@ -61,16 +62,16 @@ public class DustAndAshJei implements IModPlugin {
         RecipeManager rm = Objects.requireNonNull(Minecraft.getInstance().level).getRecipeManager();
 
         registration.addRecipes(DustAndAshRecipeTypes.INTEGRATE,
-                rm.getAllRecipesFor(IntegratedBlockRecipe.IntegrateRecipeType.INSTANCE).stream().toList());
+                com.tonywww.dustandash.platform.PlatformRecipes.all(rm, IntegratedBlockRecipe.IntegrateRecipeType.INSTANCE));
 
         registration.addRecipes(DustAndAshRecipeTypes.MILLING,
-                rm.getAllRecipesFor(MillingMachineRecipe.MillingRecipeType.INSTANCE).stream().toList());
+                com.tonywww.dustandash.platform.PlatformRecipes.all(rm, MillingMachineRecipe.MillingRecipeType.INSTANCE));
 
         registration.addRecipes(DustAndAshRecipeTypes.CENTRIFUGE,
-                rm.getAllRecipesFor(CentrifugeRecipe.CentrifugeRecipeType.INSTANCE).stream().toList());
+                com.tonywww.dustandash.platform.PlatformRecipes.all(rm, CentrifugeRecipe.CentrifugeRecipeType.INSTANCE));
 
         registration.addRecipes(DustAndAshRecipeTypes.IONIZER,
-                rm.getAllRecipesFor(IonizerRecipe.IonizerRecipeType.INSTANCE).stream().toList());
+                com.tonywww.dustandash.platform.PlatformRecipes.all(rm, IonizerRecipe.IonizerRecipeType.INSTANCE));
     }
 
     @Override

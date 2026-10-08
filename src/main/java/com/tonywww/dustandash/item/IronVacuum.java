@@ -1,7 +1,8 @@
 package com.tonywww.dustandash.item;
 
+import com.tonywww.dustandash.platform.PlatformItem;
 import com.tonywww.dustandash.registry.DAABlocks;
-import com.tonywww.dustandash.DustAndAshConfig;
+import com.tonywww.dustandash.platform.DustAndAshConfig;
 import com.tonywww.dustandash.registry.DAAItems;
 import com.tonywww.dustandash.loottables.ModLootTables;
 import net.minecraft.core.BlockPos;
@@ -21,6 +22,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Tiers;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
+import com.tonywww.dustandash.platform.PlatformLoot;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 
@@ -29,7 +31,7 @@ import java.util.List;
 import java.util.Objects;
 
 
-public class IronVacuum extends Item {
+public class IronVacuum extends PlatformItem {
 
     public IronVacuum(Properties properties) {
         super(properties);
@@ -44,7 +46,7 @@ public class IronVacuum extends Item {
 
             if (!playerEntity.getCooldowns().isOnCooldown(this)) {
                 if (changeBlock(context, playerEntity, context.getLevel())) {
-                    stack.hurtAndBreak(1, playerEntity, player -> player.broadcastBreakEvent(player.getUsedItemHand()));
+                    com.tonywww.dustandash.platform.PlatformHooks.damageItem(stack, 1, playerEntity, playerEntity.getUsedItemHand());
                     world.playSound(null, context.getClickedPos(), SoundEvents.ZOMBIE_VILLAGER_HURT, SoundSource.BLOCKS, 1f, 1f);
 
                 } else {
@@ -94,7 +96,7 @@ public class IronVacuum extends Item {
                 .withLuck(playerEntity.getLuck())
                 .create(LootContextParamSets.EMPTY);
         //Different
-        LootTable lootTable = level.getServer().getLootData().getLootTable(ModLootTables.IRON_VACUUM);
+        LootTable lootTable = PlatformLoot.table((ServerLevel) level, ModLootTables.IRON_VACUUM);
         List<ItemStack> list = lootTable.getRandomItems(lootparams);
 
         for (ItemStack i : list) {
@@ -117,10 +119,10 @@ public class IronVacuum extends Item {
     }
 
     @Override
-    public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltip, TooltipFlag pFlag) {
+    public void appendTooltip(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltip, TooltipFlag pFlag) {
 
 
-        super.appendHoverText(pStack, pLevel, pTooltip, pFlag);
+        super.appendTooltip(pStack, pLevel, pTooltip, pFlag);
     }
 
 

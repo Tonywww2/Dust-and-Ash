@@ -1,13 +1,14 @@
 package com.tonywww.dustandash.screen;
 
+import com.tonywww.dustandash.platform.PlatformIdentifier;
 import com.tonywww.dustandash.DustAndAsh;
-import com.tonywww.dustandash.network.ItemSenderSavePacket;
-import com.tonywww.dustandash.network.PacketHandler;
+import com.tonywww.dustandash.platform.ItemSenderSavePacket;
+import com.tonywww.dustandash.platform.PacketHandler;
 import com.tonywww.dustandash.menu.ItemSenderContainerMenu;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
-import net.minecraft.client.gui.components.EditBox;
-import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import com.tonywww.dustandash.platform.PlatformEditBox;
+import com.tonywww.dustandash.platform.PlatformContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
@@ -17,9 +18,9 @@ import java.util.function.Predicate;
 
 import static java.lang.Integer.parseInt;
 
-public class ItemSenderScreen extends AbstractContainerScreen<ItemSenderContainerMenu> {
+public class ItemSenderScreen extends PlatformContainerScreen<ItemSenderContainerMenu> {
 
-    private final ResourceLocation GUI = new ResourceLocation(DustAndAsh.MOD_ID, "textures/gui/item_sender_gui.png");
+    private final ResourceLocation GUI = PlatformIdentifier.id(DustAndAsh.MOD_ID, "textures/gui/item_sender_gui.png");
 
     private final Component SLOT_ID = Component.translatable("screen.dustandash.item_sender_slot_id");
     private final Component SAVE_TEXT = Component.translatable("screen.dustandash.item_sender_save");
@@ -27,11 +28,11 @@ public class ItemSenderScreen extends AbstractContainerScreen<ItemSenderContaine
     private static final String ANY_SLOT_VALUE = "-1";
 
     private Button save;
-    private EditBox targetSlot1;
-    private EditBox targetSlot2;
-    private EditBox targetSlot3;
-    private EditBox targetSlot4;
-    private EditBox[] targetSlots;
+    private PlatformEditBox targetSlot1;
+    private PlatformEditBox targetSlot2;
+    private PlatformEditBox targetSlot3;
+    private PlatformEditBox targetSlot4;
+    private PlatformEditBox[] targetSlots;
 
     public ItemSenderScreen(ItemSenderContainerMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
         super(pMenu, pPlayerInventory, pTitle);
@@ -68,22 +69,22 @@ public class ItemSenderScreen extends AbstractContainerScreen<ItemSenderContaine
         int i = (this.width - this.imageWidth) / 2;
         int j = (this.height - this.imageHeight) / 2;
 
-        this.targetSlot1 = new EditBox(this.font, i + 30, j + 26, 32, 8, Component.translatable("container.item_sender"));
-        this.targetSlot2 = new EditBox(this.font, i + 100, j + 26, 32, 8, Component.translatable("container.item_sender"));
-        this.targetSlot3 = new EditBox(this.font, i + 30, j + 55, 32, 8, Component.translatable("container.item_sender"));
-        this.targetSlot4 = new EditBox(this.font, i + 100, j + 55, 32, 8, Component.translatable("container.item_sender"));
+        this.targetSlot1 = new PlatformEditBox(this.font, i + 30, j + 26, 32, 8, Component.translatable("container.item_sender"));
+        this.targetSlot2 = new PlatformEditBox(this.font, i + 100, j + 26, 32, 8, Component.translatable("container.item_sender"));
+        this.targetSlot3 = new PlatformEditBox(this.font, i + 30, j + 55, 32, 8, Component.translatable("container.item_sender"));
+        this.targetSlot4 = new PlatformEditBox(this.font, i + 100, j + 55, 32, 8, Component.translatable("container.item_sender"));
 
-        this.targetSlots = new EditBox[]{
+        this.targetSlots = new PlatformEditBox[]{
                 this.targetSlot1,
                 this.targetSlot2,
                 this.targetSlot3,
                 this.targetSlot4
         };
 
-        setUpEditBox(targetSlot1, 0);
-        setUpEditBox(targetSlot2, 1);
-        setUpEditBox(targetSlot3, 2);
-        setUpEditBox(targetSlot4, 3);
+        setUpPlatformEditBox(targetSlot1, 0);
+        setUpPlatformEditBox(targetSlot2, 1);
+        setUpPlatformEditBox(targetSlot3, 2);
+        setUpPlatformEditBox(targetSlot4, 3);
 
         this.addWidget(this.targetSlot1);
         this.addWidget(this.targetSlot2);
@@ -120,7 +121,7 @@ public class ItemSenderScreen extends AbstractContainerScreen<ItemSenderContaine
 
     }
 
-    private void setUpEditBox(EditBox editBox, int index) {
+    private void setUpPlatformEditBox(PlatformEditBox editBox, int index) {
         editBox.setCanLoseFocus(false);
         editBox.setMaxLength(4);
         editBox.setValue(Integer.toString(this.menu.getTileEntity().getTargetSlots()[index]));
@@ -132,7 +133,7 @@ public class ItemSenderScreen extends AbstractContainerScreen<ItemSenderContaine
 
     @Override
     public void render(GuiGraphics guiGraphics, int pMouseX, int pMouseY, float pPartialTicks) {
-        this.renderBackground(guiGraphics);
+        this.renderBackdrop(guiGraphics, pMouseX, pMouseY, pPartialTicks);
         super.render(guiGraphics, pMouseX, pMouseY, pPartialTicks);
         this.renderTooltip(guiGraphics, pMouseX, pMouseY);
         this.renderFg(guiGraphics, pMouseX, pMouseY, pPartialTicks);

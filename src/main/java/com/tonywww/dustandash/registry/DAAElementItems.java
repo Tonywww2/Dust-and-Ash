@@ -1,7 +1,7 @@
 package com.tonywww.dustandash.registry;
 
 import net.minecraft.world.item.Item;
-import net.minecraftforge.registries.RegistryObject;
+import com.tonywww.dustandash.platform.RegistryObject;
 
 public final class DAAElementItems {
     public static final RegistryObject<Item> METAL_DUST = DAAItems.simple("metal_dust", 48);

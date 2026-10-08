@@ -19,7 +19,7 @@ public class IntegratedBlock extends AbstractHorizontalMachineBlock<IntegratedBl
     private static final VoxelShape SHAPE = Block.box(0, 0, 0, 16, 16, 16);
 
     public IntegratedBlock(Properties properties) {
-        super(properties, IntegratedBlockEntity.class);
+        super(properties, IntegratedBlockEntity.class, IntegratedBlock::new);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.tonywww.dustandash.block.entity.FissionReactor;
 
+import com.tonywww.dustandash.platform.PlatformItemData;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.StringTag;
@@ -19,12 +20,12 @@ public final class NeutronContainerUpdater {
     }
 
     public static int getNeutron(ItemStack stack) {
-        CompoundTag tag = stack.getTag();
+        CompoundTag tag = PlatformItemData.read(stack);
         return tag == null ? 0 : Math.max(0, Math.min(MAX_NEUTRON, tag.getInt(NEUTRON_TAG)));
     }
 
     public static boolean hasNeutronData(ItemStack stack) {
-        CompoundTag tag = stack.getTag();
+        CompoundTag tag = PlatformItemData.read(stack);
         return tag != null && tag.contains(NEUTRON_TAG, Tag.TAG_INT);
     }
 
@@ -33,7 +34,7 @@ public final class NeutronContainerUpdater {
     }
 
     public static int getLegacyLoreCount(ItemStack stack) {
-        CompoundTag tag = stack.getTag();
+        CompoundTag tag = PlatformItemData.read(stack);
         if (tag == null || !tag.contains("display", Tag.TAG_COMPOUND)) {
             return 0;
         }
@@ -53,7 +54,7 @@ public final class NeutronContainerUpdater {
     }
 
     public static UpdateResult absorbOne(ItemStack stack) {
-        CompoundTag tag = stack.getOrCreateTag();
+        CompoundTag tag = PlatformItemData.getOrCreate(stack);
         boolean changed = removeLegacyLore(tag);
         int stored = tag.getInt(NEUTRON_TAG);
         int current = getNeutron(stack);
@@ -62,10 +63,12 @@ public final class NeutronContainerUpdater {
             changed = true;
         }
         if (current >= MAX_NEUTRON) {
+            if (changed) PlatformItemData.write(stack, tag);
             return changed ? UpdateResult.MIGRATED : UpdateResult.NONE;
         }
 
         tag.putInt(NEUTRON_TAG, current + 1);
+        PlatformItemData.write(stack, tag);
         return UpdateResult.ABSORBED;
     }
 

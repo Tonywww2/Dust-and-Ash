@@ -5,24 +5,20 @@ import com.tonywww.dustandash.registry.DAAItems;
 import net.minecraft.Util;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.LazyLoadedValue;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.ArmorMaterial;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraft.world.item.crafting.Ingredient;
 
 import java.util.EnumMap;
 import java.util.function.Supplier;
 
-public enum DAAArmorMaterial implements ArmorMaterial {
+public enum DAAArmorMaterial implements com.tonywww.dustandash.platform.PlatformArmorMaterial {
 
     ASH_STEEL("ash_steel", 30, Util.make(new EnumMap<>(ArmorItem.Type.class), (arr) -> {
         arr.put(ArmorItem.Type.BOOTS, 4);
         arr.put(ArmorItem.Type.CHESTPLATE, 9);
         arr.put(ArmorItem.Type.LEGGINGS, 7);
         arr.put(ArmorItem.Type.HELMET, 4);
-    }), 18, SoundEvents.ARMOR_EQUIP_IRON, 2.0F, 0.15F, () -> {
+    }), 18, com.tonywww.dustandash.platform.PlatformEquipment.ironArmorSound(), 2.0F, 0.15F, () -> {
         return Ingredient.of(DAAItems.ASH_STEEL_INGOT.get());
     }),
     TITANIUM("titanium", 37, Util.make(new EnumMap<>(ArmorItem.Type.class), (arr) -> {
@@ -30,7 +26,7 @@ public enum DAAArmorMaterial implements ArmorMaterial {
         arr.put(ArmorItem.Type.LEGGINGS, 7);
         arr.put(ArmorItem.Type.CHESTPLATE, 7);
         arr.put(ArmorItem.Type.HELMET, 4);
-    }), 22, SoundEvents.ARMOR_EQUIP_NETHERITE, 4.25F, 0.25F, () -> {
+    }), 22, com.tonywww.dustandash.platform.PlatformEquipment.netheriteArmorSound(), 4.25F, 0.25F, () -> {
         return Ingredient.of(DAAItems.TITANIUM_INGOT.get());
     })
     ;
@@ -63,12 +59,12 @@ public enum DAAArmorMaterial implements ArmorMaterial {
 
     @Override
     public int getDurabilityForType(ArmorItem.Type p_266807_) {
-        return HEALTH_FUNCTION_FOR_TYPE.get(p_266807_) * this.durabilityMultiplier;
+        return HEALTH_FUNCTION_FOR_TYPE.getOrDefault(p_266807_, 0) * this.durabilityMultiplier;
     }
 
     @Override
     public int getDefenseForType(ArmorItem.Type type) {
-        return this.protectionFunctionForType.get(type);
+        return this.protectionFunctionForType.getOrDefault(type, 0);
     }
 
     public int getEnchantmentValue() {
@@ -83,7 +79,7 @@ public enum DAAArmorMaterial implements ArmorMaterial {
         return this.repairIngredient.get();
     }
 
-    @OnlyIn(Dist.CLIENT)
+
     public String getName() {
         return DustAndAsh.MOD_ID + ":" + this.name;
     }

@@ -1,9 +1,9 @@
 package com.tonywww.dustandash.item;
 
+import com.tonywww.dustandash.platform.PlatformItem;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.LevelData;
@@ -11,7 +11,7 @@ import net.minecraft.world.level.storage.ServerLevelData;
 
 import net.minecraft.world.item.Item.Properties;
 
-public class SunCrystal extends Item {
+public class SunCrystal extends PlatformItem {
     public SunCrystal(Properties pProperties) {
         super(pProperties);
     }
