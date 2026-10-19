@@ -1,0 +1,25 @@
+{
+  "name": "离心加速器",
+  "icon": "dustandash:centrifuge_accelerator_1",
+  "category": "dustandash:ash",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "将加速器放在离心机的任一相邻面，包括上方或下方。无需供能，一台加速器可作用于与其紧邻的多台离心机。$(br2)四个等级分别将配方加工时长缩减至原本的 $(thing)65%、35%、15%、10%$()，再受离心机配置的处理速度影响。不足一次处理间隔的时长向上取整。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "多台加速器相邻时，只采用最高等级，不叠加。加速效果在每次加工开始时确定，中途放置或移除装置会影响下一次加工。$(br2)四档依次使用烬钢、烬钢结构零件、钨与铀、钛制作；高档配方需要上一档装置。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "dustandash:crafting/centrifuge_accelerator_1",
+      "recipe2": "dustandash:crafting/centrifuge_accelerator_2"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "dustandash:crafting/centrifuge_accelerator_3",
+      "recipe2": "dustandash:crafting/centrifuge_accelerator_4"
+    }
+  ]
+}

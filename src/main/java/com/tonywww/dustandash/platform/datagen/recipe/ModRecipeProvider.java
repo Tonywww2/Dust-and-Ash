@@ -34,6 +34,7 @@ public class ModRecipeProvider extends RecipeProvider {
         CraftingRecipesA.buildRecipes(recipesOnly);
         CraftingRecipesB.buildRecipes(recipesOnly);
         CraftingRecipesC.buildRecipes(recipesOnly);
+        MachineAttachmentRecipes.buildRecipes(recipesOnly);
     }
 
     private record RecipeWithoutAdvancement(FinishedRecipe delegate) implements FinishedRecipe {

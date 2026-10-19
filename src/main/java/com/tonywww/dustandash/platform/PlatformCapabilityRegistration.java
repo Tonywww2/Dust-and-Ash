@@ -12,6 +12,7 @@ public final class PlatformCapabilityRegistration {
         items(event, DAABlockEntities.INTEGRATED_BLOCK_ENTITY.get());
         items(event, DAABlockEntities.ASH_COLLECTOR_ENTITY.get());
         items(event, DAABlockEntities.MILLING_MACHINE_ENTITY.get());
+        items(event, DAABlockEntities.AUTOMATIC_MILLING_RECYCLER_ENTITY.get());
         items(event, DAABlockEntities.CENTRIFUGE_ENTITY.get());
         items(event, DAABlockEntities.IONIZER_ENTITY.get());
         items(event, DAABlockEntities.ITEM_SENDER_ENTITY.get());

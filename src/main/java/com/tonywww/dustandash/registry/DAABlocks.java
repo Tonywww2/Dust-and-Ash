@@ -67,6 +67,26 @@ public class DAABlocks {
                     .noOcclusion()
             ));
 
+        public static final RegistryObject<Block> CENTRIFUGE_ACCELERATOR_1 = registerBlock("centrifuge_accelerator_1",
+            () -> new CentrifugeAccelerator(com.tonywww.dustandash.platform.PlatformBlocks.copy(Blocks.IRON_BLOCK)
+                    .strength(2f, 8f).noOcclusion(), 1, 65));
+
+        public static final RegistryObject<Block> CENTRIFUGE_ACCELERATOR_2 = registerBlock("centrifuge_accelerator_2",
+            () -> new CentrifugeAccelerator(com.tonywww.dustandash.platform.PlatformBlocks.copy(Blocks.IRON_BLOCK)
+                    .strength(2f, 8f).noOcclusion(), 2, 35));
+
+        public static final RegistryObject<Block> CENTRIFUGE_ACCELERATOR_3 = registerBlock("centrifuge_accelerator_3",
+            () -> new CentrifugeAccelerator(com.tonywww.dustandash.platform.PlatformBlocks.copy(Blocks.IRON_BLOCK)
+                    .strength(2f, 8f).noOcclusion(), 3, 15));
+
+        public static final RegistryObject<Block> CENTRIFUGE_ACCELERATOR_4 = registerBlock("centrifuge_accelerator_4",
+            () -> new CentrifugeAccelerator(com.tonywww.dustandash.platform.PlatformBlocks.copy(Blocks.IRON_BLOCK)
+                    .strength(2f, 8f).noOcclusion(), 4, 10));
+
+        public static final RegistryObject<Block> AUTOMATIC_MILLING_RECYCLER = registerBlock("automatic_milling_recycler",
+            () -> new AutomaticMillingRecycler(com.tonywww.dustandash.platform.PlatformBlocks.copy(Blocks.STONE)
+                    .strength(2f, 8f).noOcclusion()));
+
         public static final RegistryObject<Block> IONIZER = registerBlock("ionizer",
             () -> new Ionizer(com.tonywww.dustandash.platform.PlatformBlocks.copy(Blocks.STONE)
                     .strength(2f, 8f)

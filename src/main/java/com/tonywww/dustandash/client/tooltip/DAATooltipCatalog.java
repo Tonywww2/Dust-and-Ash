@@ -4,6 +4,8 @@ import com.tonywww.dustandash.platform.DustAndAshConfig;
 import com.tonywww.dustandash.config.ImbaRules;
 import com.tonywww.dustandash.item.WhiteLightning;
 import com.tonywww.dustandash.registry.DAAItems;
+import com.tonywww.dustandash.registry.DAABlocks;
+import com.tonywww.dustandash.block.custom.CentrifugeAccelerator;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -21,6 +23,14 @@ public final class DAATooltipCatalog {
     }
 
     public static void registerAll() {
+        for (var block : java.util.List.of(DAABlocks.CENTRIFUGE_ACCELERATOR_1, DAABlocks.CENTRIFUGE_ACCELERATOR_2,
+                DAABlocks.CENTRIFUGE_ACCELERATOR_3, DAABlocks.CENTRIFUGE_ACCELERATOR_4)) {
+            CentrifugeAccelerator accelerator = (CentrifugeAccelerator) block.get();
+            exact(accelerator.asItem(), "centrifuge_accelerator", 3, lines(1),
+                    stack -> args(percent(accelerator.getDurationPercent() / 100d)));
+        }
+        plain(DAABlocks.AUTOMATIC_MILLING_RECYCLER.get().asItem(), "automatic_milling_recycler", 4);
+
         exact(DAAItems.HAND_VACUUM.get(), "hand_vacuum", 2, lines(1, 2), stack -> args(
                 percent(DustAndAshConfig.TOOLS.handVacuumSuccessRate.get()), seconds(15), seconds(10)));
         exact(DAAItems.IRON_VACUUM.get(), "iron_vacuum", 2, lines(1, 2), stack -> args(

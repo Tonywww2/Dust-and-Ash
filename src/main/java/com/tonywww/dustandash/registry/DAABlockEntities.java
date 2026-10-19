@@ -26,6 +26,10 @@ public class DAABlockEntities {
             BLOCK_ENTITIES.register("milling_machine",
                     () -> BlockEntityType.Builder.of(MillingMachineEntity::new, DAABlocks.MILLING_MACHINE.get()).build(null));
 
+    public static final RegistryObject<BlockEntityType<AutomaticMillingRecyclerEntity>> AUTOMATIC_MILLING_RECYCLER_ENTITY =
+            BLOCK_ENTITIES.register("automatic_milling_recycler",
+                    () -> BlockEntityType.Builder.of(AutomaticMillingRecyclerEntity::new, DAABlocks.AUTOMATIC_MILLING_RECYCLER.get()).build(null));
+
     public static RegistryObject<BlockEntityType<CentrifugeEntity>> CENTRIFUGE_ENTITY =
             BLOCK_ENTITIES.register("centrifuge",
                     () -> BlockEntityType.Builder.of(CentrifugeEntity::new, DAABlocks.CENTRIFUGE.get()).build(null));

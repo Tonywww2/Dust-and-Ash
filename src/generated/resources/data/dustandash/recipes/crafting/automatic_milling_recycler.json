@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "minecraft:chest"
+    },
+    "F": {
+      "item": "dustandash:basic_machine_frame"
+    },
+    "H": {
+      "item": "minecraft:hopper"
+    },
+    "R": {
+      "item": "minecraft:comparator"
+    },
+    "S": {
+      "item": "dustandash:ash_steel_ingot"
+    }
+  },
+  "pattern": [
+    "SRS",
+    "HFH",
+    "SCS"
+  ],
+  "result": {
+    "item": "dustandash:automatic_milling_recycler"
+  },
+  "show_notification": true
+}

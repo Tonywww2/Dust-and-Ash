@@ -17,6 +17,11 @@ public final class DAABlockItems {
             register("ash_collector", DAABlocks.ASH_COLLECTOR),
             register("milling_machine", DAABlocks.MILLING_MACHINE),
             register("centrifuge", DAABlocks.CENTRIFUGE),
+            register("centrifuge_accelerator_1", DAABlocks.CENTRIFUGE_ACCELERATOR_1),
+            register("centrifuge_accelerator_2", DAABlocks.CENTRIFUGE_ACCELERATOR_2),
+            register("centrifuge_accelerator_3", DAABlocks.CENTRIFUGE_ACCELERATOR_3),
+            register("centrifuge_accelerator_4", DAABlocks.CENTRIFUGE_ACCELERATOR_4),
+            register("automatic_milling_recycler", DAABlocks.AUTOMATIC_MILLING_RECYCLER),
             register("ionizer", DAABlocks.IONIZER),
             register("item_sender", DAABlocks.ITEM_SENDER),
             register("log_pile", DAABlocks.LOG_PILE),
@@ -42,7 +47,7 @@ public final class DAABlockItems {
     }
 
     static void bootstrap() {
-        if (BLOCK_ITEMS.size() != 26) {
+        if (BLOCK_ITEMS.size() != 31) {
             throw new IllegalStateException("Unexpected block item count: " + BLOCK_ITEMS.size());
         }
     }

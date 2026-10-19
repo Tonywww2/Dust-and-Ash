@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "dustandash:centrifuge_accelerator_1"
+    },
+    "G": {
+      "item": "dustandash:ash_steel_gear"
+    },
+    "R": {
+      "item": "dustandash:redstone_gear"
+    },
+    "S": {
+      "item": "dustandash:ash_steel_structural_components"
+    }
+  },
+  "pattern": [
+    " S ",
+    "GAG",
+    "R R"
+  ],
+  "result": {
+    "item": "dustandash:centrifuge_accelerator_2"
+  },
+  "show_notification": true
+}

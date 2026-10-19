@@ -1,0 +1,25 @@
+{
+  "name": "Centrifuge Accelerators",
+  "icon": "dustandash:centrifuge_accelerator_1",
+  "category": "dustandash:ash",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Place an accelerator directly beside, above or below a centrifuge. No power is required, and one accelerator may serve several adjacent centrifuges.$(br2)The four tiers reduce recipe processing time to $(thing)65%, 35%, 15% and 10%$() of normal. The centrifuge speed configuration still applies; fractional processing intervals round up."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Only the highest adjacent tier applies; accelerators do not stack. The effect is determined when each operation begins. Placing or removing one during processing affects the next operation.$(br2)The tiers use Ash Steel, Ash Steel Structural Components, Tungsten with Uranium, and Titanium. Higher tiers consume the previous tier."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "dustandash:crafting/centrifuge_accelerator_1",
+      "recipe2": "dustandash:crafting/centrifuge_accelerator_2"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "dustandash:crafting/centrifuge_accelerator_3",
+      "recipe2": "dustandash:crafting/centrifuge_accelerator_4"
+    }
+  ]
+}

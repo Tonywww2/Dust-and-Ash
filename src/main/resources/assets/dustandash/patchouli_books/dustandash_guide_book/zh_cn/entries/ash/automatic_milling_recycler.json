@@ -1,0 +1,23 @@
+{
+  "name": "自动铣床回收器",
+  "icon": "dustandash:automatic_milling_recycler",
+  "category": "dustandash:ash",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "将回收器正面朝向自己放置，使背后的方形接口紧邻铣床。仅背后的铣床会被连接，左右、前方、上下的铣床均不会生效。没有连接时无法打开界面；移走铣床也会关闭已打开的界面。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "界面左侧的 $(thing)5×5$() 按钮与铣床工作区逐格对应，均按从左到右、从上到下排列，与方块朝向无关。$(br2)按钮默认全部开启。$(thing)+ 开启$()保留物品，$(thing)− 关闭$()才抽取该位置中的碎屑；其他材料、铣床输入格与成品格不会被抽取。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "回收物存入 $(thing)9×2$() 物品栏；库存满时，碎屑留在铣床内。所有面均支持物品输入与输出，也可以存入其他物品。拆除回收器会掉落全部库存。$(br2)碎屑范围由 $(thing)dustandash:scraps$() 数据标签规定，默认包含铁、红石、烬钢、碳纤维与钛板碎屑。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "dustandash:crafting/automatic_milling_recycler"
+    }
+  ]
+}

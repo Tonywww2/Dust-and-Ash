@@ -21,6 +21,8 @@ Gradle 守护进程使用 Java 25，配置位于 `gradle/gradle-daemon-jvm.prope
 
 发行包位于各自的 `versions/<目标>/build/libs/`。Forge 保持原有 `run/` 目录，NeoForge 默认使用 `run/neoforge/`。可通过 `'-Pdustandash.runDir=相对项目根目录的路径'` 指定独立运行目录。
 
+CurseForge 项目 `972493` 的双版本发布入口为 `scripts/publish.ps1`，演练入口为 `scripts/dryrun.ps1`；配置与命令见 [发布说明](PUBLISHING.md)。
+
 NeoForge 对应依赖版本为 GeckoLib 4.9.2、Curios 9.5.1+1.21.1、JEI 19.25.0.322、Patchouli 1.21.1-92-NEOFORGE，集中配置在目标的 `gradle.properties`。
 
 ## 源码结构
@@ -54,7 +56,9 @@ Forge 数据生成结果 `src/generated/resources` 是统一来源，仍可用 `
 
 ## 自动服务器检查
 
-`platform/PortSmokeChecks.java` 默认从编译和发行包排除。添加 `'-Pdustandash.smokeChecks'` 后，它在服务器启动时检查四类共 123 条机器配方及网络往返、物品数据与大整数计数、中子条件、不可损坏组件、8 类机器能力和库存存档恢复、反应堆能量能力，然后自动保存并停止服务器。
+`platform/PortSmokeChecks.java` 默认从编译和发行包排除。添加 `'-Pdustandash.smokeChecks'` 后，它在服务器启动时检查四类共 123 条机器配方及网络往返、物品数据与大整数计数、中子条件、不可损坏组件、9 类机器能力和库存存档恢复、反应堆能量能力，然后自动保存并停止服务器。
+
+机器附件检查覆盖四档离心加速器的六面邻接、最高档生效、实际加工时长和最短时长；回收器的四向背面连接、全部碎屑类型、默认开启、非碎屑与输入输出保护、满库存、六面存取、开关及库存存档、菜单按钮数据同步与范围校验、原版按钮网络包往返、距离与断开校验、拆除后的完整库存掉落。掉落实体断言在出生区域的已跟踪区块中执行。
 
 在独立目录准备 `eula.txt` 与 `server.properties` 后执行：
 

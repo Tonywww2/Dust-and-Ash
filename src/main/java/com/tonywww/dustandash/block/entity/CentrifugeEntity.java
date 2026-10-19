@@ -1,6 +1,7 @@
 package com.tonywww.dustandash.block.entity;
 
 import com.tonywww.dustandash.platform.DustAndAshConfig;
+import com.tonywww.dustandash.block.custom.CentrifugeAccelerator;
 import com.tonywww.dustandash.menu.CentrifugeContainerMenu;
 import com.tonywww.dustandash.menu.itemhandlers.RestrictedItemHandler;
 import com.tonywww.dustandash.data.recipes.CentrifugeRecipe;
@@ -239,7 +240,7 @@ public class CentrifugeEntity extends BasicMachineEntity implements MenuProvider
             be.nextOutput = iRecipe.getResultItemStacks();
 
             be.currentProgression = 1;
-            be.targetProgression = iRecipe.getTick();
+            be.targetProgression = be.getAcceleratedDuration(iRecipe.getTick());
 
             be.inventoryChanged();
         });
@@ -258,6 +259,22 @@ public class CentrifugeEntity extends BasicMachineEntity implements MenuProvider
         level.playSound(null, pos, SoundEvents.BRUSH_SAND, SoundSource.BLOCKS, 0.5f, 1f);
         be.inventoryChanged();
 
+    }
+
+    /** Sample the six loaded neighbours when starting a recipe. Accelerators never stack. */
+    public int getAcceleratedDuration(int recipeTicks) {
+        int durationPercent = 100;
+        if (level != null) {
+            for (Direction direction : Direction.values()) {
+                BlockPos neighbour = worldPosition.relative(direction);
+                if (level.hasChunkAt(neighbour)
+                        && level.getBlockState(neighbour).getBlock() instanceof CentrifugeAccelerator accelerator) {
+                    durationPercent = Math.min(durationPercent, accelerator.getDurationPercent());
+                }
+            }
+        }
+        // Integer ceiling avoids floating-point boundary errors and guarantees at least one tick.
+        return (int) Math.max(1L, ((long) recipeTicks * durationPercent + 99L) / 100L);
     }
 
 }

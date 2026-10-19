@@ -80,6 +80,7 @@ public final class ClientBootstrap {
             MenuScreens.register(DAAContainerMenus.INTEGRATED_BLOCK_CONTAINER.get(), IntegratedBlockScreen::new);
             MenuScreens.register(DAAContainerMenus.ASH_COLLECTOR_CONTAINER.get(), AshCollectorScreen::new);
             MenuScreens.register(DAAContainerMenus.MILLING_MACHINE_CONTAINER.get(), MillingMachineScreen::new);
+            MenuScreens.register(DAAContainerMenus.AUTOMATIC_MILLING_RECYCLER_CONTAINER.get(), AutomaticMillingRecyclerScreen::new);
             MenuScreens.register(DAAContainerMenus.CENTRIFUGE_CONTAINER.get(), CentrifugeScreen::new);
             MenuScreens.register(DAAContainerMenus.IONIZER_CONTAINER.get(), IonizerScreen::new);
             MenuScreens.register(DAAContainerMenus.ITEM_SENDER_CONTAINER.get(), ItemSenderScreen::new);
@@ -140,6 +141,7 @@ public final class ClientBootstrap {
             event.register(DAAContainerMenus.INTEGRATED_BLOCK_CONTAINER.get(), IntegratedBlockScreen::new);
             event.register(DAAContainerMenus.ASH_COLLECTOR_CONTAINER.get(), AshCollectorScreen::new);
             event.register(DAAContainerMenus.MILLING_MACHINE_CONTAINER.get(), MillingMachineScreen::new);
+            event.register(DAAContainerMenus.AUTOMATIC_MILLING_RECYCLER_CONTAINER.get(), AutomaticMillingRecyclerScreen::new);
             event.register(DAAContainerMenus.CENTRIFUGE_CONTAINER.get(), CentrifugeScreen::new);
             event.register(DAAContainerMenus.IONIZER_CONTAINER.get(), IonizerScreen::new);
             event.register(DAAContainerMenus.ITEM_SENDER_CONTAINER.get(), ItemSenderScreen::new);

@@ -616,6 +616,29 @@
   "dustandash.advancements.titanium_tungsten_alloy.description": "Refine Titanium Tungsten Alloy, a base material for advanced equipment.",
 
   "dustandash.advancements.titanium_aluminum_alloy.title": "Find the Aether",
-  "dustandash.advancements.titanium_aluminum_alloy.description": "Refine Titanium Aluminum Alloy, lending new structural strength to a light metal."
-
+  "dustandash.advancements.titanium_aluminum_alloy.description": "Refine Titanium Aluminum Alloy, lending new structural strength to a light metal.",
+  "block.dustandash.automatic_milling_recycler": "Automatic Milling Recycler",
+  "container.automatic_milling_recycler": "Automatic Milling Recycler",
+  "screen.dustandash.automatic_milling_recycler": "Automatic Milling Recycler",
+  "message.dustandash.recycler.no_mill": "A milling machine must be directly behind the recycler.",
+  "screen.dustandash.recycler.keep": "On: keep",
+  "screen.dustandash.recycler.collect": "Off: collect scraps",
+  "screen.dustandash.recycler.cell": "Row %1$s, column %2$s — %3$s",
+  "screen.dustandash.recycler.legend": "+ On: keep\n− Off: collect\n\nMatches the milling grid",
+  "tag.item.dustandash.scraps": "Scraps",
+  "tooltip.dustandash.gear.centrifuge_accelerator.summary": "An attachment that shortens processing in adjacent centrifuges.",
+  "tooltip.dustandash.gear.centrifuge_accelerator.summary.exact": "Reduces processing time in adjacent centrifuges to %1$s of normal.",
+  "tooltip.dustandash.gear.centrifuge_accelerator.detail.1": "Place beside, above or below a centrifuge to shorten processing.",
+  "tooltip.dustandash.gear.centrifuge_accelerator.detail.1.exact": "Place beside, above or below a centrifuge to reduce processing time to %1$s of normal.",
+  "tooltip.dustandash.gear.centrifuge_accelerator.detail.2": "Only the highest adjacent tier applies. Effects do not stack.",
+  "tooltip.dustandash.gear.centrifuge_accelerator.detail.3": "The effect is determined when processing starts. No power is required.",
+  "tooltip.dustandash.gear.automatic_milling_recycler.summary": "Collects scraps from selected positions in the milling machine behind it.",
+  "tooltip.dustandash.gear.automatic_milling_recycler.detail.1": "The rear connector must touch a milling machine to operate or open the interface.",
+  "tooltip.dustandash.gear.automatic_milling_recycler.detail.2": "Buttons match the milling grid: on keeps material, off collects scraps.",
+  "tooltip.dustandash.gear.automatic_milling_recycler.detail.3": "Only items in the scraps data tag are collected. Full storage leaves material in place.",
+  "tooltip.dustandash.gear.automatic_milling_recycler.detail.4": "Every face accepts input and output. Breaking the block drops all stored items.",
+  "block.dustandash.centrifuge_accelerator_1": "Centrifuge Accelerator Ⅰ",
+  "block.dustandash.centrifuge_accelerator_2": "Centrifuge Accelerator Ⅱ",
+  "block.dustandash.centrifuge_accelerator_3": "Centrifuge Accelerator Ⅲ",
+  "block.dustandash.centrifuge_accelerator_4": "Centrifuge Accelerator Ⅳ"
 }

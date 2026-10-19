@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "F": {
+      "item": "dustandash:basic_machine_frame"
+    },
+    "G": {
+      "item": "dustandash:iron_gear"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    },
+    "S": {
+      "item": "dustandash:ash_steel_ingot"
+    }
+  },
+  "pattern": [
+    "SRS",
+    "GFG",
+    "SRS"
+  ],
+  "result": {
+    "item": "dustandash:centrifuge_accelerator_1"
+  },
+  "show_notification": true
+}

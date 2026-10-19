@@ -2,10 +2,12 @@ import org.gradle.api.tasks.compile.JavaCompile
 import org.gradle.jvm.tasks.Jar
 import groovy.json.JsonOutput
 import groovy.json.JsonSlurper
+import java.util.zip.ZipFile
 
 plugins {
     id("dev.isxander.modstitch.base") version "0.8.5"
     id("maven-publish")
+    id("me.modmuss50.mod-publish-plugin") version "2.1.1"
 }
 
 val modId = property("mod.id").toString()
@@ -181,3 +183,46 @@ tasks.withType<Jar>().configureEach { archiveVersion.set(artifactVersion) }
 java { withSourcesJar(); toolchain.languageVersion.set(JavaLanguageVersion.of(21)) }
 
 tasks.withType<JavaExec>().configureEach { standardInput = System.`in` }
+
+val publicationDryRun = providers.gradleProperty("publish.dryRun").map { it.toBooleanStrict() }.orElse(false)
+val releaseJar = tasks.named<Jar>("jar").flatMap { it.archiveFile }
+publishMods {
+    file = releaseJar
+    version = project.version.toString()
+    displayName = "${property("mod.name")} ${property("mod.version")} - MC $mcVersion (neoforge)"
+    modLoaders.add("neoforge")
+    type = providers.gradleProperty("curseforge.releaseType").orElse("release").map {
+        when (it) {
+            "release" -> STABLE
+            "beta" -> BETA
+            "alpha" -> ALPHA
+            else -> error("curseforge.releaseType must be release, beta or alpha")
+        }
+    }
+    dryRun = publicationDryRun
+    changelog = providers.environmentVariable("CHANGELOG").filter { it.isNotBlank() }
+        .orElse(providers.fileContents(rootProject.layout.projectDirectory.file("CHANGELOG.md")).asText)
+    curseforge {
+        projectId = providers.gradleProperty("curseforge.projectId")
+        accessToken = if (publicationDryRun.get()) providers.provider { "dry-run" }
+            else providers.environmentVariable("CURSEFORGE_TOKEN").filter { it.isNotBlank() }
+                .orElse(providers.gradleProperty("curseforge.token").filter { it.isNotBlank() })
+        minecraftVersions.add(mcVersion)
+        javaVersions.add(JavaVersion.VERSION_21)
+        client = true
+        server = true
+        requires("geckolib", "curios")
+        optional("jei", "patchouli")
+    }
+}
+tasks.matching { it.name == "publishCurseforge" }.configureEach {
+    dependsOn("build", rootProject.tasks.named("validateCurseForgePublish"))
+    doFirst {
+        ZipFile(releaseJar.get().asFile).use { jar ->
+            check(jar.getEntry("META-INF/neoforge.mods.toml") != null) { "Missing NeoForge mod metadata." }
+            check(jar.entries().asSequence().none { it.name.contains("PortSmokeChecks") }) {
+                "Smoke-check classes cannot be published. Rebuild without -Pdustandash.smokeChecks."
+            }
+        }
+    }
+}

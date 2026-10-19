@@ -37,6 +37,13 @@ public class ModItemTagsProvider extends ItemTagsProvider {
         tag(ModTags.Items.CRAFT_MATERIAL)
                 .addTag(forgeTag("storage_blocks"));
 
+        tag(ModTags.Items.SCRAPS)
+                .add(DAAItems.IRON_SCRAP.get())
+                .add(DAAItems.REDSTONE_SCRAP.get())
+                .add(DAAItems.ASH_STEEL_SCRAP.get())
+                .add(DAAItems.CARBON_FIBER_SCRAP.get())
+                .add(DAAItems.TITANIUM_PLATE_SCRAP.get());
+
         tag(ModTags.Items.MILLING_BLACKLIST)
                 .add(DAAItems.IRON_SCRAP.get())
                 .add(DAAItems.REDSTONE_SCRAP.get())

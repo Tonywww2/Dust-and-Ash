@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "dustandash:centrifuge_accelerator_3"
+    },
+    "C": {
+      "item": "dustandash:carbon_fiber"
+    },
+    "G": {
+      "item": "dustandash:redstone_gear"
+    },
+    "T": {
+      "item": "dustandash:titanium_ingot"
+    }
+  },
+  "pattern": [
+    "TCT",
+    "GAG",
+    "TCT"
+  ],
+  "result": {
+    "item": "dustandash:centrifuge_accelerator_4"
+  },
+  "show_notification": true
+}

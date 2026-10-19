@@ -22,6 +22,9 @@ public class DAAContainerMenus {
     public static final RegistryObject<MenuType<MillingMachineContainerMenu>> MILLING_MACHINE_CONTAINER = CONTAINERS.register("milling_machine_container",
             () -> PlatformMenuType.create(MillingMachineContainerMenu::new));
 
+    public static final RegistryObject<MenuType<AutomaticMillingRecyclerMenu>> AUTOMATIC_MILLING_RECYCLER_CONTAINER = CONTAINERS.register("automatic_milling_recycler_container",
+            () -> PlatformMenuType.create(AutomaticMillingRecyclerMenu::new));
+
     public static final RegistryObject<MenuType<CentrifugeContainerMenu>> CENTRIFUGE_CONTAINER = CONTAINERS.register("centrifuge_container",
             () -> PlatformMenuType.create(CentrifugeContainerMenu::new));
 

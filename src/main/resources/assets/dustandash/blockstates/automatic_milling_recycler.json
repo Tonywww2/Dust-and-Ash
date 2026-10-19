@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "dustandash:block/automatic_milling_recycler"
+    },
+    "facing=east": {
+      "model": "dustandash:block/automatic_milling_recycler",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "dustandash:block/automatic_milling_recycler",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "dustandash:block/automatic_milling_recycler",
+      "y": 270
+    }
+  }
+}

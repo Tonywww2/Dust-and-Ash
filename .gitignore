@@ -1,4 +1,5 @@
 # eclipse
+.eclipse
 bin
 *.launch
 .settings
@@ -24,3 +25,10 @@ run
 # Files from Forge MDK
 forge*changelog.txt
 src/generated/resources/.cache/**
+
+# Local credentials and editor scratch files
+.env
+.env.*
+*.tmp
+*.bak
+*~

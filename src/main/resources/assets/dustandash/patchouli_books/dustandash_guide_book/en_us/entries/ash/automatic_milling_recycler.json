@@ -1,0 +1,23 @@
+{
+  "name": "Automatic Milling Recycler",
+  "icon": "dustandash:automatic_milling_recycler",
+  "category": "dustandash:ash",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Place the control panel facing you, with the rear square connector directly against a milling machine. Only the machine behind it is connected. The front, sides, top and bottom are ignored.$(br2)A connection is required to open the interface. Removing the milling machine also closes any open recycler menus."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The $(thing)5×5$() buttons match the milling workspace from left to right and top to bottom, regardless of block orientation.$(br2)All buttons start on. $(thing)+ On$() keeps material; $(thing)− Off$() collects scraps from that position. Other materials and the milling input and output slots are left in place."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Collected items enter the $(thing)9×2$() inventory. Full storage leaves scraps in the mill. Every face supports input and output, including other stored items. Breaking the recycler drops all inventory contents.$(br2)The $(thing)dustandash:scraps$() data tag defines eligible scraps. It includes Iron, Redstone, Ash Steel, Carbon Fiber and Titanium Plate Scraps."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "dustandash:crafting/automatic_milling_recycler"
+    }
+  ]
+}
